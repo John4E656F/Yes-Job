@@ -20,6 +20,7 @@ module.exports = {
       colors: {
         'brand-black-100': '#333333',
         'brand-bg': '#f4f4f4',
+        'brand-lightbg': '#F5FAFF',
         'brand-primary': '#2E90FA',
         'brand-secondary': '#40E0D0',
         'brand-accent': '#ff7f50',
