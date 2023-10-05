@@ -4,17 +4,19 @@ import { BiUpload } from 'react-icons/bi';
 import type { FormData } from '@/types';
 import { Image } from '@/components';
 import { supabase } from '@/supabase/supabase';
+import { v4 as uuidv4 } from 'uuid';
 
 const page: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
-    logo: null,
+    logo: '',
     title: '',
     jobFunction: '',
     cdd: false,
     cdi: false,
     fullTime: false,
     partTime: false,
+    experience: false,
     description: '',
     location: '',
     salaryMin: null,
@@ -47,18 +49,35 @@ const page: React.FC = () => {
       const checkboxInput = e.target as HTMLInputElement;
       setFormData({ ...formData, [name]: checkboxInput.checked });
     } else if (type === 'radio') {
-      setFormData({ ...formData, [name]: value });
-    } else {
-      setFormData({ ...formData, [name]: value });
-
-      if (name === 'externalFormURL') {
-        const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
-        setIsExternalFormURLValid(urlPattern.test(value));
+      if (name === 'noExperienceRequired') {
+        // For "Pas d'expérience requise" radio button
+        setFormData({ ...formData, experience: false });
+      } else if (name === 'experienceRequired') {
+        // For "Expérience requise" radio button
+        setFormData({ ...formData, experience: true });
+      } else {
+        setFormData({ ...formData, [name]: value });
       }
+    } else {
+      if (name === 'salaryMin' || name === 'salaryMax') {
+        const newValue = parseInt(value, 10);
+        if (!isNaN(newValue) && newValue >= 0) {
+          setFormData({ ...formData, [name]: newValue });
+        } else {
+          // Handle invalid input (e.g., show an error message)
+        }
+      } else {
+        setFormData({ ...formData, [name]: value });
 
-      if (name === 'contactEmail') {
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        setIsEmailValid(emailPattern.test(value));
+        if (name === 'externalFormURL') {
+          const urlPattern = /^((https?:\/\/)?(www\.)?)?[^\/]+[a-z]{2,}(\.[a-z]{2,})?(\/.*)?$/i;
+          setIsExternalFormURLValid(urlPattern.test(value));
+        }
+
+        if (name === 'contactEmail') {
+          const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          setIsEmailValid(emailPattern.test(value));
+        }
       }
     }
   };
@@ -66,6 +85,66 @@ const page: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     console.log('Form data:', formData);
+    if (formData.logo instanceof File) {
+      const fileExtension = formData.logo.name.split('.').pop();
+      const filename = `${uuidv4()}.${fileExtension}`;
+
+      try {
+        // Upload the logo to Supabase storage
+        const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, formData.logo, {
+          cacheControl: '3600',
+          upsert: false,
+        });
+
+        if (uploadError) {
+          console.error('Error uploading logo:', uploadError.message);
+          return;
+        }
+
+        const { data: publicUrlData } = await supabase.storage.from('logo').getPublicUrl(uploadData.path, { transform: { width: 50, height: 50 } });
+
+        console.log(uploadData);
+
+        const publicUrl = publicUrlData.publicUrl;
+
+        // Update the form data with the uploaded logo path
+        formData.logo = publicUrl;
+      } catch (uploadError: any) {
+        console.error('An error occurred while uploading the logo:', uploadError.message);
+        return;
+      }
+    }
+
+    try {
+      // Insert job posting data into the database
+      const { data: insertData, error: insertError } = await supabase.from('job_posting').insert({
+        companyName: formData.companyName,
+        logo: formData.logo,
+        title: formData.title,
+        jobFunction: formData.jobFunction,
+        cdd: formData.cdd,
+        cdi: formData.cdi,
+        fullTime: formData.fullTime,
+        partTime: formData.partTime,
+        description: formData.description,
+        location: formData.location,
+        salaryMin: formData.salaryMin,
+        salaryMax: formData.salaryMax,
+        applicationMethod: formData.applicationMethod,
+        externalFormURL: formData.externalFormURL,
+        contactName: formData.contactName,
+        contactEmail: formData.contactEmail,
+      });
+
+      if (insertError) {
+        console.error('Error inserting job posting:', insertError.message);
+        return;
+      }
+
+      console.log('Form data submitted successfully:', insertData);
+    } catch (error: any) {
+      console.error('An error occurred:', error.message);
+    }
 
     setFormData({
       companyName: '',
@@ -76,6 +155,7 @@ const page: React.FC = () => {
       cdi: false,
       fullTime: false,
       partTime: false,
+      experience: false,
       description: '',
       location: '',
       salaryMin: null,
@@ -164,6 +244,7 @@ const page: React.FC = () => {
               <option value='chefCook'>Cuisinier</option>
               <option value='bartender'>Barman/barmaid</option>
               <option value='dishwasher'>Plongeur(se)</option>
+              <option value='shiftLeader'>Shift Leader</option>
               <option value='cleaningStaff'>Personnel de nettoyage</option>
               <option value='Restaurant Manager'>Gérant de restaurant</option>
               <option value='hotelReceptionist'>Réceptionniste d'hôtel</option>
@@ -237,6 +318,65 @@ const page: React.FC = () => {
                     Temp Partial
                   </label>
                 </div>
+              </div>
+            </div>
+            <div className='flex flex-col gap-3'>
+              <label className='text-lg font-medium'>Expérience</label>
+              <div className='flex flex-row gap-8 justify-evenly '>
+                <div className='flex mb-4 '>
+                  <input
+                    className='w-4 h-4 mt-0.5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+                    name='noExperienceRequired'
+                    checked={!formData.experience}
+                    onChange={handleInputChange}
+                    type='radio'
+                    placeholder="Pas d'expérience requise"
+                  />
+                  <label htmlFor='default-checkbox' className='ml-2 text-sm text-gray-900 '>
+                    <p className='font-medium'>Pas d'expérience requise</p>
+                  </label>
+                </div>
+                <div className='flex mb-4'>
+                  <input
+                    className='w-4 h-4 mt-0.5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+                    name='experienceRequired'
+                    checked={formData.experience}
+                    onChange={handleInputChange}
+                    type='radio'
+                    placeholder='Expérience requise'
+                  />
+                  <label htmlFor='default-checkbox' className='ml-2 text-sm text-gray-900 '>
+                    <p className='font-medium'>Expérience requise</p>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='flex flex-col gap-3 w-full'>
+            <label className='text-lg font-medium'>Salaire</label>
+            <div className='flex flex-row gap-3 justify-between'>
+              <div className='flex items-center gap-2 w-full'>
+                <h6 className='text-sm'>De</h6>
+                <input
+                  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                  name='salaryMin'
+                  value={formData.salaryMin !== null ? formData.salaryMin : 0}
+                  onChange={handleInputChange}
+                  type='number'
+                  placeholder='Salaire Gross Minimun'
+                  required
+                />
+              </div>
+              <div className='flex items-center gap-2 w-full'>
+                <h6 className='text-sm'>À</h6>
+                <input
+                  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                  name='salaryMax'
+                  value={formData.salaryMax !== null ? formData.salaryMax : 0}
+                  onChange={handleInputChange}
+                  type='number'
+                  placeholder='Salaire Gross Maximum'
+                />
               </div>
             </div>
           </div>
