@@ -1,6 +1,8 @@
 # Yes Job - Horeca Job Listing Web Application
 
-![Yes Job - Horeca Job Board](https://github.com/John4E656F/Yes-Job/blob/main/public/images/png/yesjobpreview.png 'Yes Job - Horeca Job Board')
+[![Yes Job - Horeca Job Board](https://github.com/John4E656F/Yes-Job/blob/main/public/images/png/yesjobpreview.png 'Yes Job - Horeca Job Board')](https://yesjob.be/)
+
+[Check Out the project](https://yesjob.be/)
 
 A web application for browsing and applying to job listings. Built with Next.js, React, Tailwind CSS, and Supabase.
 
