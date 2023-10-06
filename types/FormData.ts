@@ -1,4 +1,5 @@
 export interface FormData {
+  id?: number;
   companyName: string;
   logo: string | File | null;
   title: string;
@@ -16,4 +17,6 @@ export interface FormData {
   externalFormURL: string;
   contactName: string;
   contactEmail: string;
+  createdAt?: string;
+  cvFile?: File | null;
 }

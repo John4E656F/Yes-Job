@@ -16,7 +16,7 @@ export function Listing() {
         const { data, error } = await supabase
           .from('job_posting')
           .select()
-          .order('created_at', { ascending: false }) // Order by most recent
+          .order('createdAt', { ascending: false }) // Order by most recent
           .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
 
         if (error) {
@@ -52,7 +52,7 @@ export function Listing() {
           </div>
           <SearchBar />
         </div>
-        <div>
+        <div className='flex flex-col gap-4'>
           {jobPosts.map((jobPost) => (
             <ListingCard key={jobPost.id} jobPost={jobPost} />
           ))}

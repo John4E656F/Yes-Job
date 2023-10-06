@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "@supabase/auth-helpers-nextjs": "latest",
     "@supabase/supabase-js": "latest",
     "@types/uuid": "^9.0.4",
