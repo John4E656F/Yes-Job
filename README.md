@@ -1,115 +1,130 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js 13 and app template Router-ready Supabase starter kit." src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Supabase starter kit</h1>
-</a>
+# Job Listing Web Application
 
-<p align="center">
- This starter configures Supabase Auth to use cookies, making the user's session available throughout the entire Next.js app - Client Components, Server Components, Route Handlers, Server Actions and Middleware.
-</p>
+A web application for browsing and applying to job listings. Built with Next.js, React, Tailwind CSS, and Supabase.
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#how-to-use"><strong>How to use</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-</p>
-<br/>
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Introduction
+
+The Job Listing Web Application is a platform that allows users to explore and apply for job listings. It provides a user-friendly interface for browsing job offers, applying through an external form, and viewing detailed job descriptions.
 
 ## Features
 
-- [Next.js App router ready](https://nextjs.org) App Router
-  - Client Components examples
-  - React Server Components (RSCs) examples
-  - Route Handlers examples
-  - Server Actions examples
-- [supabase-js](https://supabase.com/docs/reference/javascript). Supabase's
-  isomorphic JavaScript library.
-- [Supabase Auth](https://supabase.com/auth) using cookies, making the user's session available throughout the entire Next.js app, for both client and server.
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Enviroment variables automatically assigned to Vercel project
+- Browse and search for job listings.
+- View detailed information about each job offer.
+- Apply to job listings using an external application form.
+- Pagination for easy navigation through job listings.
 
-## Demo
+## To Do
 
-You can view a fully working demo at [demo-nextjs-with-supabase.com](https://demo-nextjs-with-supabase.com).
+- Search functionality
+- Footer and Contact Page
+- Recruter Page to update, edit or delete. Auth Magic Link
 
-## Deploy to Vercel
+## Technologies Used
 
-Vercel deployment will guide you through creating a Supabase account and project.
+The following technologies, libraries, and frameworks were used to build this project:
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+- [Next.js](https://nextjs.org/): A React framework for building web applications.
+- [React](https://reactjs.org/): A JavaScript library for building user interfaces.
+- [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework for designing web applications.
+- [Supabase](https://supabase.io/): An open-source alternative to Firebase, used for data storage and management.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This%20starter%20configures%20Supabase%20Auth%20to%20use%20cookies%2C%20making%20the%20user's%20session%20available%20throughout%20the%20entire%20Next.js%20app%20-%20Client%20Components%2C%20Server%20Components%2C%20Route%20Handlers%2C%20Server%20Actions%20and%20Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png&integration-ids=oac_VqOgBHqhEoFTPzGkPd7L0iH6)
+## Getting Started
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+Follow these instructions to set up and run the project on your local machine.
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#how-to-use).
+### Prerequisites
 
-## Clone and run locally
+Before you begin, ensure you have the following software and tools installed:
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+- npm or yarn or pnpm
+- Git
 
-2. Create a Next.js app using the Supabase Starter template npx command
+### Installation
 
-   ```bash
-   npx create-next-app -e with-supabase
-   ```
-
-3. Use `cd` to change into the app's directory
+1. Clone the repository:
 
    ```bash
-   cd name-of-new-app
+   git clone https://github.com/your-username/job-listing-app.git
    ```
 
-4. Rename `.env.local.example` to `.env.local` and update the following:
+2. Navigate to the project directory:
 
    ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
+   cd job-listing-app
    ```
 
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
+3. Install dependencies:
 
-5. You can now run the Next.js local development server:
-
-   ```bash
-   npm run dev
+   ```
+     npm install || yarn install || pnpm install
    ```
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+4. Set up environment variables:
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+   Create a .env.local file in the project root and add the following environment variables:
 
-## How to use
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anonymous-key
+   NEXT_PRIVATE_SENDGRID_API_KEY=your-sendgrid-api-key
+   ```
 
-There are a variety of example files for you to copy and build your app with in the starter kit.
+   Replace <i>your-supabase-url</i> <i>your-supabase-anonymous-key</i> and <i>your-sendgrid-api-key</i> with your Supabase project URL and anonymous key.
 
-### Create a Supabase client
+5. Start the development server:
 
-Check out the [`/app/_examples`](./app/_examples/) folder for an example of creating a Supabase client in:
+   ```
+   npm run dev || yarn run dev || pnpm run dev
+   ```
 
-- [Client Components](./app/_examples/client-component/page.tsx)
-- [Server Components](./app/_examples/server-component/page.tsx)
-- [Route Handlers](./app/_examples/route-handler/route.ts)
-- [Server Actions](./app/_examples/server-action/page.tsx)
+6. Open your browser and visit http://localhost:3000 to view the application.
 
-### Create `todo` table and seed with data (optional)
+## Usage
 
-Navigate to [your project's SQL Editor](https://app.supabase.com/project/_/sql), click `New query`, paste the contents of the [init.sql](./supabase/migrations/20230618024722_init.sql) file and click `RUN`.
+- Browse job listings by scrolling through the homepage.
+- Use the search bar to find specific job listings.
+- Click on a job listing card to view detailed information.
+- Apply to a job listing by clicking the "Postulez sur le site web de recruteurs" button, which redirects you to an external application form.
+- Navigate through job listings using the "Previous" and "Next" buttons at the bottom of the page.
 
-This will create a basic `todos` table, enable Row Level Security (RLS), and write RLS policies enabling `select` and `insert` actions for `authenticated` users.
+## Contributing
 
-To seed your `todos` table with some dummy data, run the contents of the [seed.sql](./supabase/seed.sql) file.
+We welcome contributions from the community. If you would like to contribute to this project, please follow these steps:
 
-## Feedback and issues
+1. Fork the repository.
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+2. Create a new branch for your feature or bug fix:
 
-## More Supabase examples
+   ```
+   git checkout -b feature/my-feature
+   ```
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
-- [Next.js Auth Helpers Docs](https://supabase.com/docs/guides/auth/auth-helpers/nextjs)
+3. Make your changes and commit them:
+
+   ```
+   git commit -m "Add new feature"
+   ```
+
+4. Push your changes to your fork:
+
+   ```
+   git push origin feature/my-feature
+   ```
+
+5. Create a pull request to the main repository.
+
+## License
+
+This project is licensed under the MIT License.
