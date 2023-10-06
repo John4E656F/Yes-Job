@@ -6,6 +6,7 @@ import { supabase } from '@/supabase/supabase';
 
 export function Listing() {
   const [jobPosts, setJobPosts] = useState<FormData[]>([]);
+  const [totalJobOffers, setTotalJobOffers] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(1);
 
   const postsPerPage = 10; // Number of job posts to display per page
@@ -29,7 +30,21 @@ export function Listing() {
       }
     };
 
+    const fetchTotalJobOffers = async () => {
+      try {
+        const { count, error } = await supabase.from('job_posting').select('id', { count: 'exact' });
+        if (error) {
+          console.error('Error fetching total job offers:', error.message);
+        } else {
+          setTotalJobOffers(count || 0);
+        }
+      } catch (error: any) {
+        console.error('An error occurred:', error.message);
+      }
+    };
+
     fetchJobPosts();
+    fetchTotalJobOffers();
   }, [currentPage]);
 
   const handleNextPage = () => {
@@ -47,10 +62,10 @@ export function Listing() {
       <div className='flex flex-col container py-4 md:py-16 gap-16'>
         <div className='flex flex-col gap-8'>
           <div className='flex flex-col gap-5'>
-            <h5 className='text-base font-medium'>575 job offers</h5>
+            <h5 className='text-base font-medium'>{totalJobOffers} job offers</h5>
             <h2 className='text-4xl font-semibold'>Explorer des milliers d'offres d'emploi</h2>
           </div>
-          <SearchBar />
+          {/* <SearchBar /> */}
         </div>
         <div className='flex flex-col gap-4'>
           {jobPosts.map((jobPost) => (
