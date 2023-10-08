@@ -144,7 +144,7 @@ export default function annoncePage({ params }: { params: { id: number } }) {
               <Label text="Pas d'expérience requise" type='noExp' className='block md:hidden lg:block' />
             )}
           </div>
-          <div className='flex flex-wrap gap-2.5 py-4 md:py-1 justify-center md:justify-start'>
+          <div className='flex flex-col gap-2.5 py-4 md:py-1 justify-center md:justify-start'>
             <h2 className='text-2xl font-semibold'>Description du poste</h2>
             {formatDescription(jobPost.description)}
           </div>
