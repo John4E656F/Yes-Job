@@ -48,7 +48,20 @@ export const Footer = () => {
             Cookies
           </Link>
         </div>
-        <p>© 2023 Yes Job. Tous droits réservés.</p>
+        <div>
+          <div className='flex justify-center'>
+            <p>
+              Designed and developed by{' '}
+              <a href='https://www.linkedin.com/in/john4e656f/' target='_blank' className='text-red-500'>
+                John Andres
+              </a>
+            </p>
+          </div>
+          <p>
+            Based in <span className='text-red-400'>Brussels, Belgium</span>
+          </p>
+          <p>© 2023 Yes Job. Tous droits réservés.</p>
+        </div>
       </div>
     </footer>
   );
