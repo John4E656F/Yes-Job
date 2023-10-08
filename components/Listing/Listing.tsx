@@ -15,9 +15,14 @@ export function Listing() {
     const fetchJobPosts = async () => {
       try {
         const { data, error } = await supabase
-          .from('job_posting')
-          .select()
-          .order('createdAt', { ascending: false }) // Order by most recent
+          .from('jobPosting')
+          .select(
+            `
+          *,
+          companyId:company ( companyName, companyEmail, companyLogo, companyTotalRequestCount ) 
+        `,
+          )
+          .order('created_at', { ascending: false }) // Order by most recent
           .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
 
         if (error) {
@@ -32,7 +37,7 @@ export function Listing() {
 
     const fetchTotalJobOffers = async () => {
       try {
-        const { count, error } = await supabase.from('job_posting').select('id', { count: 'exact' });
+        const { count, error } = await supabase.from('jobPosting').select('id', { count: 'exact' });
         if (error) {
           console.error('Error fetching total job offers:', error.message);
         } else {
@@ -56,6 +61,7 @@ export function Listing() {
       setCurrentPage(currentPage - 1);
     }
   };
+  console.log(jobPosts);
 
   return (
     <section className='w-full flex justify-center bg-brand-lightbg'>

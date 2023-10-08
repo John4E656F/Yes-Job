@@ -5,6 +5,7 @@ import type { FormData } from '@/types';
 import { Image } from '@/components';
 import { supabase } from '@/supabase/supabase';
 import { v4 as uuidv4 } from 'uuid';
+import { getOrCreateCompanyId } from '@/utils/getOrCreateCompanyId';
 
 const page: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -116,10 +117,10 @@ const page: React.FC = () => {
     }
 
     try {
-      // Insert job posting data into the database
-      const { data: insertData, error: insertError } = await supabase.from('job_posting').insert({
-        companyName: formData.companyName,
-        logo: formData.logo,
+      const companyId = await getOrCreateCompanyId(formData.companyName, formData.contactEmail, formData.logo, formData.contactName);
+
+      const { data: insertData, error: insertError } = await supabase.from('jobPosting').insert({
+        companyId: companyId,
         title: formData.title,
         jobFunction: formData.jobFunction,
         cdd: formData.cdd,
@@ -127,13 +128,12 @@ const page: React.FC = () => {
         fullTime: formData.fullTime,
         partTime: formData.partTime,
         description: formData.description,
+        experience: formData.experience,
         location: formData.location,
         salaryMin: formData.salaryMin,
         salaryMax: formData.salaryMax,
         applicationMethod: formData.applicationMethod,
         externalFormURL: formData.externalFormURL,
-        contactName: formData.contactName,
-        contactEmail: formData.contactEmail,
       });
 
       if (insertError) {

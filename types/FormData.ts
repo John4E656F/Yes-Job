@@ -1,5 +1,10 @@
 export interface FormData {
   id?: number;
+  companyId?: {
+    companyName: string;
+    companyEmail: string;
+    companyLogo: string;
+  };
   companyName: string;
   logo: string | File | null;
   title: string;
@@ -17,6 +22,8 @@ export interface FormData {
   externalFormURL: string;
   contactName: string;
   contactEmail: string;
-  createdAt?: string;
+  created_at?: string;
+  requestCount?: number;
+  pageViewCount?: number;
   cvFile?: File | null;
 }

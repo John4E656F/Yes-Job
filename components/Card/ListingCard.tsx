@@ -13,7 +13,7 @@ export function ListingCard({ jobPost }: ListingCardProps) {
     <Link href={`/annonce/${jobPost.id}`}>
       <Card className='flex flex-col items-center px-1 md:flex-row md:p-2'>
         <Image
-          src={jobPost.logo as string}
+          src={jobPost.companyId?.companyLogo as string}
           alt='Yes Job'
           className='w-20 m-5 h-20 md:w-24 md:h-24 object-contain bg-blue-200 rounded-2xl'
           unoptimized

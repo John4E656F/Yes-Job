@@ -14,7 +14,16 @@ export default function annoncePage({ params }: { params: { id: number } }) {
   useEffect(() => {
     const fetchJobPostById = async () => {
       try {
-        const { data, error } = await supabase.from('job_posting').select().eq('id', params.id).single();
+        const { data, error } = await supabase
+          .from('jobPosting')
+          .select(
+            `
+        *,
+        companyId:company ( companyName, companyEmail, companyLogo, companyTotalRequestCount ) 
+      `,
+          )
+          .eq('id', params.id)
+          .single();
 
         if (error) {
           console.error('Error fetching job post:', error.message);
@@ -24,7 +33,30 @@ export default function annoncePage({ params }: { params: { id: number } }) {
           if (!data) {
             // If jobPost is not found, navigate to the 404 page
             router.push('/404'); // Adjust the path to your 404 page
+          } else {
+            updatePageViewCount(data); // Call updatePageViewCount with data
           }
+        }
+      } catch (error: any) {
+        console.error('An error occurred:', error.message);
+      }
+    };
+
+    const updatePageViewCount = async (jobData: FormData) => {
+      try {
+        if (jobData && jobData.pageViewCount !== undefined) {
+          const { error } = await supabase
+            .from('jobPosting')
+            .update({ pageViewCount: jobData.pageViewCount + 1 })
+            .eq('id', jobData.id);
+
+          if (error) {
+            console.log('Error incrementing page view count:', error);
+          } else {
+            setJobPost({ ...jobData, pageViewCount: jobData.pageViewCount + 1 });
+          }
+        } else {
+          console.log('jobPost or jobPost.pageViewCount is undefined');
         }
       } catch (error: any) {
         console.error('An error occurred:', error.message);
@@ -85,14 +117,14 @@ export default function annoncePage({ params }: { params: { id: number } }) {
         <section className='container flex flex-col gap-4'>
           <div className='flex flex-row items-center px-1 md:flex-row md:p-2'>
             <Image
-              src={jobPost.logo as string}
+              src={jobPost.companyId?.companyLogo as string}
               alt='Yes Job'
               className='w-20 m-5 h-20 md:w-24 md:h-24 object-contain bg-blue-200 rounded-2xl'
               unoptimized
             />
             <div className=''>
               <h6 className='text-base font-semibold md:text-lg'>{jobPost.title}</h6>
-              <p className='text-base md:text-lg'>{jobPost.companyName}</p>
+              <p className='text-base md:text-lg'>{jobPost.companyId?.companyName}</p>
             </div>
           </div>
           <div className='flex flex-wrap gap-2.5 py-4 md:py-1 justify-center md:justify-start'>
@@ -114,7 +146,7 @@ export default function annoncePage({ params }: { params: { id: number } }) {
           </div>
           <div className='flex flex-wrap gap-2.5 py-4 md:py-1 justify-center md:justify-start'>
             <h2 className='text-2xl font-semibold'>Description du poste</h2>
-            <p>{formatDescription(jobPost.description)}</p>
+            {formatDescription(jobPost.description)}
           </div>
           <div className='w-full h-px bg-slate-300 rounded' />
           <div className='flex flex-col gap-2.5 py-4 md:py-1 justify-center md:justify-start'>
@@ -253,7 +285,10 @@ export default function annoncePage({ params }: { params: { id: number } }) {
                 </div>
               </form>
             ) : null}
-            <p>Publier le {jobPost?.createdAt ? formatDate(jobPost.createdAt) : 'N/A'}</p>
+            <div className='flex gap-5'>
+              <p>Vu {jobPost.pageViewCount}</p>
+              <p>Publier le {jobPost?.created_at ? formatDate(jobPost.created_at) : 'N/A'}</p>
+            </div>
           </div>
         </section>
       ) : (
