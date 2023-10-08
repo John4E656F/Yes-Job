@@ -32,7 +32,7 @@ The Job Listing Web Application is a platform that allows users to explore and a
 ## To Do
 
 - Search functionality
-- Footer and Contact Page
+- Contact Page
 - Recruter Page to update, edit or delete. Auth Magic Link
 
 ## Technologies Used
