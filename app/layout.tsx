@@ -1,5 +1,5 @@
 import './globals.css';
-import { Navbar } from '@/components';
+import { Navbar, Footer } from '@/components';
 
 export const metadata = {
   title: 'Yes Job',
@@ -13,6 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className='min-h-screen flex flex-col items-center'>
           <Navbar />
           {children}
+          <Footer />
         </main>
       </body>
     </html>

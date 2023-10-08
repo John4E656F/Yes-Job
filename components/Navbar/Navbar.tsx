@@ -12,7 +12,7 @@ export function Navbar() {
   };
 
   return (
-    <nav className='w-full flex justify-center h-auto '>
+    <nav className='w-full flex justify-center h-auto'>
       <div className='container flex justify-between items-center py-3 text-sm '>
         <Link href='/' className='flex items-center'>
           <Logo width={80} height={80} />

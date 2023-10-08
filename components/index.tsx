@@ -1,6 +1,7 @@
 export { Logo } from './Logo/Logo';
 export { Image } from './Image/Image';
 export { Navbar } from './Navbar/Navbar';
+export { Footer } from './Footer/Footer';
 export { Hero } from './Hero/Hero';
 export { Listing } from './Listing/Listing';
 export { SearchBar } from './SearchBar/SearchBar';
