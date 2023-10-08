@@ -25,7 +25,7 @@ export const Footer = () => {
               Offres d'emploi
             </Link>
           </div>
-          <div className='flex flex-col flex-1 items-start'>
+          <div className='flex flex-col flex-1 items-start whitespace-nowrap	'>
             <h6 className='text-lg'>Employeurs</h6>
             <Link href='/annonce' className='font-semibold text-blue-600'>
               Publier une annonce
