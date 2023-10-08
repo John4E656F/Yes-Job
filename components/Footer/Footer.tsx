@@ -19,7 +19,7 @@ export const Footer = () => {
               Contact
             </Link>
           </div>
-          <div className='flex flex-col flex-1 items-start'>
+          <div className='flex flex-col flex-1 items-start whitespace-nowrap'>
             <h6 className='text-lg'>Candidats</h6>
             <Link href='/' className='font-semibold text-blue-600'>
               Offres d'emploi
