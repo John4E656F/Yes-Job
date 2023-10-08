@@ -25,7 +25,7 @@ export const Hero = () => {
               </button>
             </Link>
           </div>
-          <Image src='/images/svg/hero.svg' alt='Yes Job' className='w-auto lg:max-w-sm max-h-lg object-fill bg-blue-200 rounded-2xl' />
+          <Image src='/images/svg/hero.svg' alt='Yes Job' className='w-auto max-w-sm max-h-lg object-fill bg-blue-200 rounded-2xl' />
         </div>
       </div>
     </header>
