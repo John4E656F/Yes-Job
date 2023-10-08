@@ -61,7 +61,6 @@ export function Listing() {
       setCurrentPage(currentPage - 1);
     }
   };
-  console.log(jobPosts);
 
   return (
     <section className='w-full flex justify-center bg-brand-lightbg'>

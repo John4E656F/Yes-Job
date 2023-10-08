@@ -167,10 +167,6 @@ const page: React.FC = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   return (
     <header className='w-full flex justify-center bg-brand-lightbg'>
       <form className='flex flex-col container py-4 md:py-16 gap-16' onSubmit={handleSubmit}>
@@ -241,7 +237,8 @@ const page: React.FC = () => {
               </option>
               <option value='waiter'>Serveur(se)</option>
               <option value='cook'>Cuisinier</option>
-              <option value='chefCook'>Cuisinier</option>
+              <option value='chefDePartie'>Chef de partie</option>
+              <option value='chefCook'>Chef de cuisine</option>
               <option value='bartender'>Barman/barmaid</option>
               <option value='dishwasher'>Plongeur(se)</option>
               <option value='shiftLeader'>Shift Leader</option>

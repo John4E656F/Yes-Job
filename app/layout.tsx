@@ -1,3 +1,4 @@
+import { Console } from 'console';
 import './globals.css';
 import { Navbar, Footer } from '@/components';
 
