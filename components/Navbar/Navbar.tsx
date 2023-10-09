@@ -22,16 +22,13 @@ export function Navbar() {
           type='button'
           onClick={toggleMenu}
           className='inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600'
-          aria-controls='navbar-default'
+          aria-label='hamburger button'
           aria-expanded={isMenuOpen}
         >
           <HiBars3 size={40} />
         </button>
         {isMenuOpen && (
-          <div
-            className='absolute top-20 justify-self-center w-11/12 border border-gray-300 rounded-md bg-brand-lightbg md:hidden'
-            id='navbar-default'
-          >
+          <div className='absolute top-20 justify-self-center w-11/12 border border-gray-300 rounded-md bg-brand-lightbg md:hidden' id='navbar-menu'>
             <ul className='font-medium flex flex-col p-4 md:p-0 rounded-lg'>
               <li>
                 <Link href='/' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200' aria-current='page'>
