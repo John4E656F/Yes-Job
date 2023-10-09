@@ -31,6 +31,7 @@ The Job Listing Web Application is a platform that allows users to explore and a
 
 ## To Do
 
+- SEO, sitemap.xml, robot.txt
 - Refactor
 - Unit test
 - Internationalization aka i18n English, French and Dutch
