@@ -31,9 +31,18 @@ The Job Listing Web Application is a platform that allows users to explore and a
 
 ## To Do
 
+- Refactor
+- Unit test
+- Internationalization aka i18n English, French and Dutch
 - Search functionality
 - Contact Page
-- Recruter Page to update, edit or delete. Auth Magic Link
+- Recruter Page to update, edit or delete aka Recruter Dashboard. Auth ?Magic Link
+
+## Nice to have / Future Features
+
+- Create CV Page
+- Candidate Page, Login, Register, Dashboard
+- Candidate Listing
 
 ## Technologies Used
 
