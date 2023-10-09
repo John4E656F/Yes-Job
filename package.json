@@ -10,6 +10,7 @@
     "@supabase/auth-helpers-nextjs": "latest",
     "@supabase/supabase-js": "latest",
     "@types/uuid": "^9.0.4",
+    "@vercel/analytics": "^1.1.0",
     "autoprefixer": "10.4.15",
     "next": "latest",
     "postcss": "8.4.29",
