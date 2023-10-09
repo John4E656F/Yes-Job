@@ -7,7 +7,7 @@ export const Footer = () => {
     <footer className='w-full flex flex-col items-center'>
       <div className='container flex flex-col md:flex-row items-center justify-between text-sm gap-4 pt-16 pb-12'>
         <div className='flex flex-col items-center md:items-start max-w-xs'>
-          <Link href='/' className=''>
+          <Link href='/' className='' aria-label='YesJob Footer Logo'>
             <Logo width={80} height={80} />
           </Link>
           <p className='text-sm'>Connectez-vous aux professionnels Horeca passionnés pour des carrières florissantes</p>
@@ -52,13 +52,13 @@ export const Footer = () => {
           <div className='flex justify-center'>
             <p>
               Designed and developed by{' '}
-              <a href='https://www.linkedin.com/in/john4e656f/' target='_blank' className='text-red-800'>
+              <a href='https://www.linkedin.com/in/john4e656f/' target='_blank' className='text-red-700'>
                 John Andres
               </a>
             </p>
           </div>
           <p>
-            Based in <span className='text-red-800'>Brussels, Belgium</span>
+            Based in <span className='text-red-700'>Brussels, Belgium</span>
           </p>
           <p>© 2023 Yes Job. Tous droits réservés.</p>
         </div>
