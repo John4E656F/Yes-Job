@@ -20,7 +20,7 @@ export function ListingCard({ jobPost }: ListingCardProps) {
         />
         <div>
           <div className='text-center md:text-left'>
-            <h6 className='text-base font-semibold md:text-lg'>{jobPost.title}</h6>
+            <h5 className='text-base font-semibold md:text-lg'>{jobPost.title}</h5>
             <p className='text-base md:text-lg'>{jobPost.companyName}</p>
           </div>
           <div className='flex flex-wrap gap-2.5 py-4 md:py-1 justify-center md:justify-start'>

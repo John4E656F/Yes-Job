@@ -67,8 +67,8 @@ export function Listing() {
       <div className='flex flex-col container py-4 md:py-16 gap-16'>
         <div className='flex flex-col gap-8'>
           <div className='flex flex-col gap-5'>
-            <h5 className='text-base font-medium'>{totalJobOffers} job offers</h5>
-            <h2 className='text-4xl font-semibold'>Explorer des milliers d'offres d'emploi</h2>
+            <h3 className='text-base font-medium'>{totalJobOffers} job offers</h3>
+            <h4 className='text-4xl font-semibold'>Explorer des milliers d'offres d'emploi</h4>
           </div>
           {/* <SearchBar /> */}
         </div>

@@ -9,10 +9,10 @@ export const Hero = () => {
         <div className='flex flex-col lg:flex-row gap-16 justify-between items-center '>
           <div className=' w-auto flex flex-col gap-4'>
             <h1 className='text-4xl font-semibold'>Trouver les meilleures offres d’emploi dans horeca</h1>
-            <h3 className='text-sm'>
+            <h2 className='text-sm'>
               Que vous soyez à la recherche d'un emploi à temps plein, que vous souhaitiez gagner un peu plus d'argent en étudiant ou que vous ayez
               besoin d'argent supplémentaire pour vos vacances - vous trouverez chez nous une offre adaptée à vos besoins !
-            </h3>
+            </h2>
             <Link href='/annonce'>
               <button
                 data-collapse-toggle='navbar-default'
