@@ -14,7 +14,7 @@ export function Navbar() {
   return (
     <nav className='w-full flex justify-center h-auto'>
       <div className='container flex justify-between items-center py-3 text-sm '>
-        <Link href='/' className='flex items-center'>
+        <Link href='/' className='flex items-center' aria-label='YesJob Navbar Logo'>
           <Logo width={80} height={80} />
         </Link>
 
@@ -40,6 +40,11 @@ export function Navbar() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link href='/login' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200'>
+                  Login
+                </Link>
+              </li>
             </ul>
           </div>
         )}
@@ -54,6 +59,11 @@ export function Navbar() {
             <li>
               <Link href='/contact' className='block py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0'>
                 Contact
+              </Link>
+            </li>
+            <li>
+              <Link href='/login' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200'>
+                Login
               </Link>
             </li>
           </ul>

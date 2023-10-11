@@ -1,10 +1,16 @@
 import { supabase } from '@/supabase/supabase';
+import { generatePassword } from './generatePassword';
 
 interface Company {
   id: string;
   name: string;
   email: string;
   logo: string;
+}
+
+interface User {
+  id: string;
+  // other properties if they exist...
 }
 
 export const getOrCreateCompanyId = async (companyName: string, companyEmail: string, companyLogo: string | null, contactName: string) => {
@@ -22,6 +28,18 @@ export const getOrCreateCompanyId = async (companyName: string, companyEmail: st
   }
 
   // If the company does not exist, create a new one
+  const { data: userData, error: userError } = await supabase.auth.signUp({
+    email: companyEmail,
+    password: generatePassword(12),
+  });
+
+  if (userError || !userData?.user) {
+    console.error('Error creating new user:', userError?.message);
+    throw userError || new Error('User data is null');
+  }
+
+  const userId = userData.user.id; // Access the id here
+
   const { data: newCompanyData, error: newCompanyError } = await supabase
     .from('companies')
     .insert({
@@ -29,6 +47,7 @@ export const getOrCreateCompanyId = async (companyName: string, companyEmail: st
       companyEmail: companyEmail,
       companyLogo: companyLogo,
       contactName: contactName,
+      ownerId: userId,
     })
     .single();
 
