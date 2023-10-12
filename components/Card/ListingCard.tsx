@@ -1,14 +1,14 @@
 'use client';
 import React from 'react';
 import { Card, Image, Label } from '..';
-import type { FormData } from '@/types';
+import type { FormData, TranslationProps } from '@/types';
 import Link from 'next/link';
 
-interface ListingCardProps {
+interface ListingCardProps extends TranslationProps {
   jobPost: FormData;
 }
 
-export function ListingCard({ jobPost }: ListingCardProps) {
+export function ListingCard({ jobPost, t }: ListingCardProps) {
   return (
     <Link href={`/annonce/${jobPost.id}`}>
       <Card className='flex flex-col items-center px-1 md:flex-row md:p-2'>
@@ -38,14 +38,17 @@ export function ListingCard({ jobPost }: ListingCardProps) {
               <Label text='CDI' type='WorkDuration' />
             ) : null}
             {jobPost.fullTime && jobPost.partTime ? (
-              <Label text='Temps Plein +2' type='WorkDuration' />
+              <Label text={`${t('listing.fulltime')} +2`} type='WorkDuration' />
             ) : jobPost.fullTime && !jobPost.partTime ? (
-              <Label text='Temps Plein' type='WorkDuration' />
+              <Label text={t('listing.fulltime')} type='WorkDuration' />
             ) : !jobPost.fullTime && jobPost.partTime ? (
-              <Label text='Temps Partiel' type='WorkDuration' />
+              <Label text={t('listing.partTime')} type='WorkDuration' />
             ) : null}
-            {/* <Label text={jobPost.contractDuration} type='ContractDuration' />
-          {jobPost.noExperienceRequired && <Label text="Pas d'expérience requise" type='noExp' className='block md:hidden lg:block' />} */}
+            {jobPost.experience ? (
+              <Label text={t('listing.experience')} type='noExp' className='block md:hidden lg:block' />
+            ) : (
+              <Label text={t('listing.noExperience')} type='noExp' className='block md:hidden lg:block' />
+            )}
           </div>
         </div>
       </Card>
