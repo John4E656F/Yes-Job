@@ -1,0 +1,19 @@
+{
+  "app": {
+    "nav": {
+      "home": "Home",
+      "contact": "Contact"
+    },
+    "localeSwitcher": {
+      "title": "Languages",
+      "subTitle": "This website is available in the following languages:"
+    },
+    "cta": {
+      "publish": "Publish an ad"
+    },
+    "hero": {
+      "title": "Find the best job offers in horeca",
+      "sub": "Whether you're looking for a full-time job, want to earn extra money while studying or need extra money for your vacations - we've got something to suit your needs!"
+    }
+  }
+}

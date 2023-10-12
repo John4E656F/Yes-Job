@@ -1,7 +1,7 @@
 // pages/api/submitForm.ts
 
 import { NextApiRequest, NextApiResponse } from 'next';
-import { sendEmailToRecruiter } from '../../services/emailService';
+import { sendEmailToRecruiter } from '../../../services/emailService';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {

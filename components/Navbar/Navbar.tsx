@@ -1,15 +1,32 @@
 'use client';
 import React, { useState } from 'react';
-import Link from 'next/link';
-import { Logo } from '..';
-import { HiBars3 } from 'react-icons/hi2';
+import { usePathname, useRouter } from 'next/navigation';
+import { Button, Logo, Link, LocaleSwitcher } from '..';
+import { HiBars3, HiMiniLanguage } from 'react-icons/hi2';
+import { useTranslations } from 'next-intl';
 
-export function Navbar() {
+interface NavbarProps {
+  currentLocale: string;
+}
+
+export function Navbar({ currentLocale }: NavbarProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const isLoginPage = pathname === '/auth/login';
+  const isRegisterPage = pathname === '/auth/register';
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleLangSwitcher = () => {
+    setIsModalOpen((prevState) => !prevState);
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const t = useTranslations('app');
 
   return (
     <nav className='w-full flex justify-center h-auto'>
@@ -49,16 +66,16 @@ export function Navbar() {
           </div>
         )}
 
-        <div className='hidden w-full md:flex md:w-auto gap-10' id='navbar-default'>
+        <div className='hidden w-full items-center md:flex md:w-auto gap-10' id='navbar-default'>
           <ul className='font-medium flex flex-row p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 '>
             <li>
               <Link href='/' className='block py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 ' aria-current='page'>
-                Home
+                {t('nav.home')}
               </Link>
             </li>
             <li>
               <Link href='/contact' className='block py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0'>
-                Contact
+                {t('nav.contact')}
               </Link>
             </li>
             <li>
@@ -75,11 +92,21 @@ export function Navbar() {
               aria-controls='navbar-default'
               aria-expanded='false'
             >
-              Publier une annonce
+              {t('cta.publish')}
             </button>
+          </Link>
+          <Link
+            href='#'
+            onClick={(e) => {
+              e.preventDefault();
+              setIsModalOpen(true);
+            }}
+          >
+            <HiMiniLanguage className='text-2xl' />
           </Link>
         </div>
       </div>
+      <LocaleSwitcher isOpen={isModalOpen} closeModal={toggleLangSwitcher} onClose={() => setIsModalOpen(false)} currentLocale={currentLocale} />
     </nav>
   );
 }

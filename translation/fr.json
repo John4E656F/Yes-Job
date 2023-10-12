@@ -1,0 +1,19 @@
+{
+  "app": {
+    "nav": {
+      "home": "Accueil",
+      "contact": "Contact"
+    },
+    "localeSwitcher": {
+      "title": "Langues",
+      "subTitle": "Ce site est disponible dans les langues suivantes :"
+    },
+    "cta": {
+      "publish": "Publier une annonce"
+    },
+    "hero": {
+      "title": "Trouver les meilleures offres d’emploi dans horeca",
+      "sub": "Que vous soyez à la recherche d'un emploi à temps plein, que vous souhaitiez gagner un peu plus d'argent en étudiant ou que vous ayez besoin d'argent supplémentaire pour vos vacances - vous trouverez chez nous une offre adaptée à vos besoins !"
+    }
+  }
+}
