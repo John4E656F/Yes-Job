@@ -1,15 +1,32 @@
 'use client';
 import React, { useState } from 'react';
-import Link from 'next/link';
-import { Logo } from '..';
-import { HiBars3 } from 'react-icons/hi2';
+import { usePathname, useRouter } from 'next/navigation';
+import { Button, Logo, Link, LocaleSwitcher } from '..';
+import { HiBars3, HiMiniLanguage } from 'react-icons/hi2';
+import { useTranslations } from 'next-intl';
 
-export function Navbar() {
+interface NavbarProps {
+  currentLocale: string;
+}
+
+export function Navbar({ currentLocale }: NavbarProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const isLoginPage = pathname === '/auth/login';
+  const isRegisterPage = pathname === '/auth/register';
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleLangSwitcher = () => {
+    setIsModalOpen((prevState) => !prevState);
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const t = useTranslations('app');
 
   return (
     <nav className='w-full flex justify-center h-auto'>
@@ -17,27 +34,37 @@ export function Navbar() {
         <Link href='/' className='flex items-center' aria-label='YesJob Navbar Logo'>
           <Logo width={80} height={80} />
         </Link>
-
-        <button
-          type='button'
-          onClick={toggleMenu}
-          className='inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600'
-          aria-label='hamburger button'
-          aria-expanded={isMenuOpen}
-        >
-          <HiBars3 size={40} />
-        </button>
+        <div className='flex items-center'>
+          <button
+            type='button'
+            onClick={toggleMenu}
+            className='inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200'
+            aria-label='hamburger button'
+            aria-expanded={isMenuOpen}
+          >
+            <HiBars3 size={40} />
+          </button>
+          <Link
+            href='#'
+            onClick={(e) => {
+              e.preventDefault();
+              setIsModalOpen(true);
+            }}
+          >
+            <HiMiniLanguage className='text-xl text-gray-400 md:hidden' />
+          </Link>
+        </div>
         {isMenuOpen && (
           <div className='absolute top-20 justify-self-center w-11/12 border border-gray-300 rounded-md bg-brand-lightbg md:hidden' id='navbar-menu'>
             <ul className='font-medium flex flex-col p-4 md:p-0 rounded-lg'>
               <li>
                 <Link href='/' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200' aria-current='page'>
-                  Home
+                  {t('nav.home')}
                 </Link>
               </li>
               <li>
                 <Link href='/contact' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200'>
-                  Contact
+                  {t('nav.contact')}
                 </Link>
               </li>
               <li>
@@ -49,16 +76,16 @@ export function Navbar() {
           </div>
         )}
 
-        <div className='hidden w-full md:flex md:w-auto gap-10' id='navbar-default'>
+        <div className='hidden w-full items-center md:flex md:w-auto gap-10' id='navbar-default'>
           <ul className='font-medium flex flex-row p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 '>
             <li>
               <Link href='/' className='block py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 ' aria-current='page'>
-                Home
+                {t('nav.home')}
               </Link>
             </li>
             <li>
               <Link href='/contact' className='block py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0'>
-                Contact
+                {t('nav.contact')}
               </Link>
             </li>
             <li>
@@ -75,11 +102,21 @@ export function Navbar() {
               aria-controls='navbar-default'
               aria-expanded='false'
             >
-              Publier une annonce
+              {t('cta.publish')}
             </button>
+          </Link>
+          <Link
+            href='#'
+            onClick={(e) => {
+              e.preventDefault();
+              setIsModalOpen(true);
+            }}
+          >
+            <HiMiniLanguage className='text-xl text-gray-400 ' />
           </Link>
         </div>
       </div>
+      <LocaleSwitcher isOpen={isModalOpen} closeModal={toggleLangSwitcher} onClose={() => setIsModalOpen(false)} currentLocale={currentLocale} />
     </nav>
   );
 }

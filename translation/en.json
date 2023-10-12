@@ -1,0 +1,123 @@
+{
+  "app": {
+    "nav": {
+      "home": "Home",
+      "contact": "Contact"
+    },
+    "footer": {
+      "text": "Connect with passionate Horeca professionals for thriving careers",
+      "applicants": "Applicants",
+      "jobOffers": "Job opportunities",
+      "employers": "Employers",
+      "consult": "Consult your advert",
+      "terms": "Terms and conditions of use",
+      "policy": "Privacy policy",
+      "developedBy": "Designed and developed by ",
+      "based": "Based in ",
+      "brussels": "Brussels, Belgium",
+      "right": "All rights reserved."
+    },
+    "localeSwitcher": {
+      "title": "Languages",
+      "subTitle": "This website is available in the following languages:"
+    },
+    "cta": {
+      "publish": "Publish an ad",
+      "add": "Add your ad for free",
+      "publishFree": "Publish your ad for free"
+    },
+    "hero": {
+      "title": "Find the best job offers in horeca",
+      "sub": "Whether you're looking for a full-time job, want to earn extra money while studying or need extra money for your vacations - we've got something to suit your needs!"
+    },
+    "listing": {
+      "jobOffers": "job offers",
+      "title": "Explore thousands of job offers",
+      "fulltime": "Full Time",
+      "partTime": "Part Time",
+      "experience": "Experience required",
+      "noExperience": "No experience required"
+    },
+    "ads": {
+      "title": "We're glad you'd like to advertise with us!",
+      "subTitle": "YES Job is the best place to find and advertise jobs in the hospitality industry",
+      "li": "30-day home page promotion",
+      "li1": "Offer optimization",
+      "li2": "Facebook campaign",
+      "li3": "Google campaign",
+      "li4": "Distribution in the Google for Jobs recruitment network"
+    },
+    "publishAds": {
+      "title": "Create an ad",
+      "infoCompany": "Company information",
+      "companyName": "Company name *",
+      "companyLogo": "Company logo",
+      "upload": "Click to upload",
+      "dnd": "or drag and drop",
+      "uploadDetails": "SVG, PNG, JPG or GIF",
+      "infoAds": "Ad details",
+      "adsTitle": "Ad title *",
+      "adsTitlePlaceholder": "Versatile restaurant employee M/F",
+      "adsPosition": "Position *",
+      "contractDuration": "Contract duration",
+      "CDD": "Fixed-term contract",
+      "CDI": "Indefinite-term contract",
+      "workDuration": "Work duration",
+      "experience": "Experience",
+      "salary": "Salary",
+      "from": "From",
+      "to": "To",
+      "description": "Job description *",
+      "descPlaceholder": "As a cashier at [Company name], you will be in charge of handling customer transactions accurately and efficiently ...",
+      "placeOfWork": "Workplace *",
+      "placeOfWorkPlaceholder": "Address search",
+      "application": "Application",
+      "howTo": "How should the candidate apply for the offer?",
+      "viaYesJob": "Application via Yes Job",
+      "viaYesJobSub": "You will receive a notification of new applications by email",
+      "viaExterne": "Redirect to an external form",
+      "viaExterneSub": "The candidate will be redirected to the outside that you specify",
+      "viaExternePlaceholder": "External Form url",
+      "viaExterneValidation": "Please enter a valid URL.",
+      "viaBoth": "Application via Yes Job and an external form",
+      "viaBothSub": "The candidate can submit their application via Yes Job or you can redirect them to an external form.",
+      "contactDetails": "Contact details",
+      "contactDetailsSub": "These data are only for contacting you in case of ad questions. They will not be displayed anywhere.",
+      "contactDetailsName": "First and Last name *",
+      "contactDetailsEmail": "Email address *",
+      "contactDetailsEmailValidation": "Please enter a valid e-mail address."
+    },
+    "jobFonction": {
+      "default": "Select a function",
+      "waiter": "Waiter/Waitress",
+      "cook": "Cook",
+      "chefDePartie": "Section Chef",
+      "chefCook": "Head Chef",
+      "bartender": "Bartender",
+      "dishwasher": "Dishwasher",
+      "shiftLeader": "Shift Leader",
+      "cleaningStaff": "Cleaning Staff",
+      "restaurantManager": "Restaurant Manager",
+      "hotelReceptionist": "Hotel Receptionist",
+      "hotelManager": "Hotel Manager",
+      "hotelMaster": "Maître d'Hotel",
+      "pastryChef": "Pastry Chef",
+      "deliveryDriver": "Delivery Driver",
+      "other": "Other"
+    },
+    "adPage": {
+      "description": "Job Description",
+      "apply": "Apply",
+      "name": "Full name",
+      "resume": "Resume",
+      "browse": "Browse...",
+      "noFile": "No file selected.",
+      "phoneNumber": "Phone number",
+      "email": "Email address",
+      "submit": "Submit application",
+      "redirect": "Apply on the recruters website",
+      "viewed": "Seen",
+      "publishAt": "Publish on"
+    }
+  }
+}
