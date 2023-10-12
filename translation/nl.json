@@ -1,0 +1,19 @@
+{
+  "app": {
+    "nav": {
+      "home": "Thuis",
+      "contact": "Contact"
+    },
+    "localeSwitcher": {
+      "title": "Talen",
+      "subTitle": "Deze website is beschikbaar in de volgende talen:"
+    },
+    "cta": {
+      "publish": "Publiceer een advertentie"
+    },
+    "hero": {
+      "title": "Vind de leukste jobs in horeca",
+      "sub": "Of je nu op zoek bent naar een fulltime baan, extra geld wilt verdienen tijdens je studie of extra geld nodig hebt voor je vakantie - we hebben iets dat bij je past!"
+    }
+  }
+}

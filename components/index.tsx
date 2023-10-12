@@ -8,3 +8,6 @@ export { SearchBar } from './SearchBar/SearchBar';
 export { Card } from './Card/Card';
 export { ListingCard } from './Card/ListingCard';
 export { Label } from './Label/Label';
+export { LocaleSwitcher } from './LocaleSwitcher/LocaleSwitcher';
+export { Link } from './Link/Link';
+export { Button } from './Button/Button';
