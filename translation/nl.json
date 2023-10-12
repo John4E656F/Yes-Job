@@ -4,16 +4,120 @@
       "home": "Thuis",
       "contact": "Contact"
     },
+    "footer": {
+      "text": "Maak contact met gepassioneerde horecaprofessionals voor een bloeiende carrière",
+      "applicants": "Kandidaten",
+      "jobOffers": "Vacatures",
+      "employers": "Werkgevers",
+      "consult": "Raadpleeg uw advertentie",
+      "terms": "Gebruiksvoorwaarden",
+      "policy": "Privacybeleid",
+      "developedBy": "Ontworpen en ontwikkeld  ",
+      "based": "Gevestigd in ",
+      "brussels": "Brussel, België",
+      "right": "Alle rechten gereserveerd."
+    },
     "localeSwitcher": {
       "title": "Talen",
       "subTitle": "Deze website is beschikbaar in de volgende talen:"
     },
     "cta": {
-      "publish": "Publiceer een advertentie"
+      "publish": "Publiceer een advertentie",
+      "add": "Gratis je advertentie toevoegen",
+      "publishFree": "Publiceer je advertentie gratis"
     },
     "hero": {
       "title": "Vind de leukste jobs in horeca",
       "sub": "Of je nu op zoek bent naar een fulltime baan, extra geld wilt verdienen tijdens je studie of extra geld nodig hebt voor je vakantie - we hebben iets dat bij je past!"
+    },
+    "listing": {
+      "jobOffers": "vacatures",
+      "title": "Ontdek duizenden vacatures",
+      "fulltime": "Fulltime",
+      "partTime": "Parttime",
+      "experience": "Ervaring vereist",
+      "noExperience": "Geen ervaring vereist"
+    },
+    "ads": {
+      "title": "We zijn blij dat u bij ons wilt adverteren!",
+      "subTitle": "YES Job is de beste plek om vacatures in de horeca te vinden en te publiceren",
+      "li": "30-dagen promotie op de startpagina",
+      "li1": "Het aanbod optimaliseren",
+      "li2": "Facebook-campagne",
+      "li3": "Google-campagne",
+      "li4": "Distributie op het wervingsnetwerk van Google voor Jobs"
+    },
+    "publishAds": {
+      "title": "Een advertentie aanmaken",
+      "infoCompany": "Informatie over het bedrijf",
+      "companyName": "Naam van het bedrijf *",
+      "companyLogo": "Logo van het bedrijf",
+      "upload": "Klik om te uploaden",
+      "dnd": "of slepen en neerzetten",
+      "uploadDetails": "SVG, PNG, JPG of GIF",
+      "infoAds": "Details van de advertentie",
+      "adsTitle": "Titel van de advertentie *",
+      "adsTitlePlaceholder": "Veelzijdige horecamedewerker M/V",
+      "adsPosition": "Functie *",
+      "contractDuration": "Duur van het contract",
+      "CDD": "Bepaalde tijd contract",
+      "CDI": "Onbepaalde tijd contract",
+      "workDuration": "Werkduur",
+      "experience": "Ervaring",
+      "salary": "Salaris",
+      "from": "Van",
+      "to": "Tot",
+      "description": "Functiebeschrijving *",
+      "descPlaceholder": "Als kassamedewerker bij [naam van het bedrijf] bent u verantwoordelijk voor het nauwkeurig en efficiënt afhandelen van klanttransacties ...",
+      "placeOfWork": "Werkplek *",
+      "placeOfWorkPlaceholder": "Adres zoeken",
+      "application": "Toepassing",
+      "howTo": "Hoe moet de kandidaat solliciteren voor het aanbod?",
+      "viaYesJob": "Sollicitatie via Yes Job",
+      "viaYesJobSub": "U ontvangt een melding van nieuwe sollicitaties per e-mail",
+      "viaExterne": "Doorsturen naar een extern formulier",
+      "viaExterneSub": "De kandidaat wordt doorgestuurd naar het door u opgegeven externe adres",
+      "viaExternePlaceholder": "Extern formulier url",
+      "viaExterneValidation": "Voer een geldige URL in.",
+      "viaBoth": "Sollicitatie via Yes Job en een extern formulier",
+      "viaBothSub": "De kandidaat kan een sollicitatie indienen via Yes Job of u kunt hem doorsturen naar een extern formulier.",
+      "contactDetails": "Contactgegevens",
+      "contactDetailsSub": "Deze gegevens zijn alleen bedoeld om contact met u op te nemen in geval van vragen over de advertentie. Ze worden nergens weergegeven.",
+      "contactDetailsName": "Voor- en achternaam *",
+      "contactDetailsEmail": "E-mailadres *",
+      "contactDetailsEmailValidation": "Voer een geldig e-mailadres in."
+    },
+    "jobFonction": {
+      "default": "Selecteer een functie",
+      "waiter": "Ober / Serveerster",
+      "cook": "Kok",
+      "chefDePartie": "Partijchef",
+      "chefCook": "Chef-kok",
+      "bartender": "Barman / Barvrouw",
+      "dishwasher": "Afwasser",
+      "shiftLeader": "Shiftleider",
+      "cleaningStaff": "Schoonmaakpersoneel",
+      "restaurantManager": "Restaurantmanager",
+      "hotelReceptionist": "Hotelreceptionist",
+      "hotelManager": "Hotelmanager",
+      "hotelMaster": "Maître d'hôtel",
+      "pastryChef": "Banketbakker",
+      "deliveryDriver": "Bezorger",
+      "other": "Anders"
+    },
+    "adPage": {
+      "description": "Functiebeschrijving",
+      "apply": "Solliciteren",
+      "name": "Volledige naam",
+      "resume": "CV",
+      "browse": "Bladeren...",
+      "noFile": "Geen bestand geselecteerd.",
+      "phoneNumber": "Telefoonnummer",
+      "email": "E-mailadres",
+      "submit": "Sollicitatie indienen",
+      "redirect": "Solliciteer op de website van recruters",
+      "viewed": "Gezien",
+      "publishAt": "Publiceren op"
     }
   }
 }
