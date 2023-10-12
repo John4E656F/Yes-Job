@@ -10,7 +10,7 @@ export default async function Index() {
   return (
     <div className='w-full items-center justify-center'>
       <Hero t={t} />
-      <Listing />
+      <Listing t={t} />
     </div>
   );
 }

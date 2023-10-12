@@ -6,8 +6,10 @@ import { Image } from '@/components';
 import { supabase } from '@/supabase/supabase';
 import { v4 as uuidv4 } from 'uuid';
 import { getOrCreateCompanyId } from '@/utils/getOrCreateCompanyId';
+import { useTranslations } from 'next-intl';
 
 const page: React.FC = () => {
+  const t = useTranslations('app');
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
     logo: '',
@@ -170,11 +172,11 @@ const page: React.FC = () => {
   return (
     <header className='w-full flex justify-center bg-brand-lightbg'>
       <form className='flex flex-col container py-4 md:py-16 gap-16' onSubmit={handleSubmit}>
-        <h2 className='text-4xl font-semibold'>Créer une annonce</h2>
+        <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>
         <div className='flex flex-col bg-white p-4 lg:p-8 gap-6'>
-          <h3 className='text-2xl font-semibold'>Informations sur l'entreprise</h3>
+          <h3 className='text-2xl font-semibold'>{t('publishAds.infoCompany')}</h3>
           <div className='flex flex-col gap-3'>
-            <label className='text-lg font-medium'>Nom de l'entreprise *</label>
+            <label className='text-lg font-medium'>{t('publishAds.companyName')}</label>
             <input
               className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
               name='companyName'
@@ -186,7 +188,7 @@ const page: React.FC = () => {
             />
           </div>
           <div className='flex flex-col gap-3'>
-            <label className='text-lg font-medium'>Logo de l'entreprise</label>
+            <label className='text-lg font-medium'>{t('publishAds.companyLogo')}</label>
             <div className='flex flex-col items-center justify-center w-full gap-4'>
               {logoPreviewUrl ? (
                 <Image src={logoPreviewUrl} alt='Logo Preview' className='w-24 h-24 p-1 object-contain bg-blue-200 rounded-xl' />
@@ -200,61 +202,60 @@ const page: React.FC = () => {
                 <div className='flex flex-col items-center justify-center pt-5 pb-6'>
                   <BiUpload />
                   <p className='mb-2 text-sm  text-gray-500'>
-                    <span className='font-semibold'>Click to upload</span> or drag and drop
+                    <span className='font-semibold'>{t('publishAds.upload')}</span> {t('publishAds.dnd')}
                   </p>
-                  <p className='text-xs text-gray-500'>SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                  <p className='text-xs text-gray-500'>{t('publishAds.uploadDetails')}</p>
                 </div>
                 <input id='logo' name='logo' onChange={handleInputChange} type='file' className='hidden' />
               </label>
             </div>
           </div>
           <div className='w-full h-px bg-slate-300 rounded' />
-          <h2 className='text-2xl font-semibold'>Créer une annonce</h2>
+          <h2 className='text-2xl font-semibold'>{t('publishAds.infoAds')}</h2>
           <div className='flex flex-col gap-3'>
-            <label className='text-lg font-medium'>Titre de l'annonce *</label>
+            <label className='text-lg font-medium'>{t('publishAds.adsTitle')}</label>
             <input
               className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
               name='title'
               value={formData.title}
               onChange={handleInputChange}
               type='text'
-              placeholder='Employé polyvalent en restauration H/F'
+              placeholder={t('publishAds.adsTitlePlaceholder')}
               required
             />
           </div>
           <div className='flex flex-col gap-3'>
-            <label className='text-lg font-medium'>Fonction *</label>
+            <label className='text-lg font-medium'>{t('publishAds.adsPosition')}</label>
             <select
               className='shadow appearance-none border rounded w-full py-2 px-3 bg-white text-gray-500  focus:outline-none focus:shadow-outline'
               name='jobFunction'
               value={formData.jobFunction}
               onChange={handleInputChange}
-              placeholder='Employé polyvalent en restauration H/F'
               required
             >
               <option value='' disabled>
-                Sélectionner une fonction
+                {t('jobFonction.default')}
               </option>
-              <option value='waiter'>Serveur(se)</option>
-              <option value='cook'>Cuisinier</option>
-              <option value='chefDePartie'>Chef de partie</option>
-              <option value='chefCook'>Chef de cuisine</option>
-              <option value='bartender'>Barman/barmaid</option>
-              <option value='dishwasher'>Plongeur(se)</option>
-              <option value='shiftLeader'>Shift Leader</option>
-              <option value='cleaningStaff'>Personnel de nettoyage</option>
-              <option value='Restaurant Manager'>Gérant de restaurant</option>
-              <option value='hotelReceptionist'>Réceptionniste d'hôtel</option>
-              <option value='hotelManager'>Gérant d'hôtel</option>
-              <option value='maitredHotel'>Maître d'hôtel</option>
-              <option value='pastryChef'>Chef pâtissier</option>
-              <option value='deliveryDriver'>Livreur</option>
-              <option value='other'>Autre</option>
+              <option value='waiter'>{t('jobFonction.waiter')}</option>
+              <option value='cook'>{t('jobFonction.cook')}</option>
+              <option value='chefDePartie'>{t('jobFonction.chefDePartie')}</option>
+              <option value='chefCook'>{t('jobFonction.chefCook')}</option>
+              <option value='bartender'>{t('jobFonction.bartender')}</option>
+              <option value='dishwasher'>{t('jobFonction.dishwasher')}</option>
+              <option value='shiftLeader'>{t('jobFonction.shiftLeader')}</option>
+              <option value='cleaningStaff'>{t('jobFonction.cleaningStaff')}</option>
+              <option value='restaurantManager'>{t('jobFonction.restaurantManager')}</option>
+              <option value='hotelReceptionist'>{t('jobFonction.hotelReceptionist')}</option>
+              <option value='hotelManager'>{t('jobFonction.hotelManager')}</option>
+              <option value='hotelMaster'>{t('jobFonction.hotelMaster')}</option>
+              <option value='pastryChef'>{t('jobFonction.pastryChef')}</option>
+              <option value='deliveryDriver'>{t('jobFonction.deliveryDriver')}</option>
+              <option value='other'>{t('jobFonction.other')}</option>
             </select>
           </div>
           <div className='flex flex-col md:flex-row justify-between'>
             <div className='flex flex-col gap-3'>
-              <label className='text-lg font-medium'>Durée du contrat</label>
+              <label className='text-lg font-medium'>{t('publishAds.contractDuration')}</label>
               <div className='flex flex-row gap-8 justify-evenly '>
                 <div className='flex mb-4 '>
                   <input
@@ -263,11 +264,10 @@ const page: React.FC = () => {
                     checked={formData.cdd}
                     onChange={handleInputChange}
                     type='checkbox'
-                    placeholder='Employé polyvalent en restauration H/F'
                   />
                   <label htmlFor='default-checkbox' className='ml-2 text-sm text-gray-900 '>
                     <p className='font-medium'>CDD</p>
-                    <p className='text-gray-600'>Contrat du Déterminée</p>
+                    <p className='text-gray-600'>{t('publishAds.CDD')}</p>
                   </label>
                 </div>
                 <div className='flex mb-4'>
@@ -277,17 +277,16 @@ const page: React.FC = () => {
                     checked={formData.cdi}
                     onChange={handleInputChange}
                     type='checkbox'
-                    placeholder='Employé polyvalent en restauration H/F'
                   />
                   <label htmlFor='default-checkbox' className='ml-2 text-sm text-gray-900 '>
                     <p className='font-medium'>CDI</p>
-                    <p className='text-gray-600'>Contrat du Indéterminée</p>
+                    <p className='text-gray-600'>{t('publishAds.CDI')}</p>
                   </label>
                 </div>
               </div>
             </div>
             <div className='flex flex-col gap-3'>
-              <label className='text-lg font-medium'>Durée du travail</label>
+              <label className='text-lg font-medium'>{t('publishAds.workDuration')}</label>
               <div className='flex flex-row gap-8 justify-evenly'>
                 <div className='flex  mb-4'>
                   <input
@@ -296,10 +295,9 @@ const page: React.FC = () => {
                     checked={formData.fullTime}
                     onChange={handleInputChange}
                     type='checkbox'
-                    placeholder='Employé polyvalent en restauration H/F'
                   />
                   <label htmlFor='default-checkbox' className='ml-2 text-sm font-medium text-gray-900 '>
-                    Temp Plein
+                    {t('listing.fulltime')}
                   </label>
                 </div>
                 <div className='flex  mb-4'>
@@ -309,16 +307,15 @@ const page: React.FC = () => {
                     checked={formData.partTime}
                     onChange={handleInputChange}
                     type='checkbox'
-                    placeholder='Employé polyvalent en restauration H/F'
                   />
                   <label htmlFor='default-checkbox' className='ml-2 text-sm font-medium text-gray-900 '>
-                    Temp Partial
+                    {t('listing.partTime')}
                   </label>
                 </div>
               </div>
             </div>
             <div className='flex flex-col gap-3'>
-              <label className='text-lg font-medium'>Expérience</label>
+              <label className='text-lg font-medium'>{t('publishAds.experience')}</label>
               <div className='flex flex-row gap-8 justify-evenly '>
                 <div className='flex mb-4 '>
                   <input
@@ -327,10 +324,9 @@ const page: React.FC = () => {
                     checked={!formData.experience}
                     onChange={handleInputChange}
                     type='radio'
-                    placeholder="Pas d'expérience requise"
                   />
                   <label htmlFor='default-checkbox' className='ml-2 text-sm text-gray-900 '>
-                    <p className='font-medium'>Pas d'expérience requise</p>
+                    <p className='font-medium'>{t('listing.noExperience')}</p>
                   </label>
                 </div>
                 <div className='flex mb-4'>
@@ -340,68 +336,65 @@ const page: React.FC = () => {
                     checked={formData.experience}
                     onChange={handleInputChange}
                     type='radio'
-                    placeholder='Expérience requise'
                   />
                   <label htmlFor='default-checkbox' className='ml-2 text-sm text-gray-900 '>
-                    <p className='font-medium'>Expérience requise</p>
+                    <p className='font-medium'>{t('listing.experience')}</p>
                   </label>
                 </div>
               </div>
             </div>
           </div>
           <div className='flex flex-col gap-3 w-full'>
-            <label className='text-lg font-medium'>Salaire</label>
+            <label className='text-lg font-medium'>{t('publishAds.salary')}</label>
             <div className='flex flex-row gap-3 justify-between'>
               <div className='flex items-center gap-2 w-full'>
-                <h6 className='text-sm'>De</h6>
+                <h6 className='text-sm'>{t('publishAds.from')}</h6>
                 <input
                   className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   name='salaryMin'
                   value={formData.salaryMin !== null ? formData.salaryMin : 0}
                   onChange={handleInputChange}
                   type='number'
-                  placeholder='Salaire Gross Minimun'
                   required
                 />
               </div>
               <div className='flex items-center gap-2 w-full'>
-                <h6 className='text-sm'>À</h6>
+                <h6 className='text-sm'>{t('publishAds.to')}</h6>
                 <input
                   className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   name='salaryMax'
                   value={formData.salaryMax !== null ? formData.salaryMax : 0}
                   onChange={handleInputChange}
                   type='number'
-                  placeholder='Salaire Gross Maximum'
                 />
               </div>
             </div>
           </div>
           <div className='flex flex-col gap-3'>
-            <label className='text-lg font-medium'>Description de l'emploi *</label>
+            <label className='text-lg font-medium'>{t('publishAds.description')}</label>
             <textarea
               className='shadow appearance-none border rounded w-full h-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
               name='description'
               value={formData.description}
               onChange={handleInputChange}
-              placeholder="En tant que caissier(ère) chez [Nom de l'entreprise], vous serez chargé(e) de traiter les transactions des clients de manière précise et efficace ..."
+              placeholder={t('publishAds.descPlaceholder')}
             />
           </div>
           <div className='flex flex-col gap-3'>
-            <label className='text-lg font-medium'>Lieu de travail *</label>
+            <label className='text-lg font-medium'>{t('publishAds.placeOfWork')}</label>
             <input
               className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
               name='location'
               value={formData.location}
               onChange={handleInputChange}
               type='text'
-              placeholder="Recherche d'adresse"
+              placeholder={t('publishAds.placeOfWorkPlaceholder')}
               required
             />
           </div>
           <div className='w-full h-px bg-slate-300 rounded' />
-          <h2 className='text-2xl font-semibold'>Application</h2>
-          <h3 className='text-md'>Comment le candidat doit-il postuler pour l'offre?</h3>
+          <h2 className='text-2xl font-semibold'>{t('publishAds.application')}</h2>
+          <h3 className='text-md'>{t('publishAds.howTo')}</h3>
           <div className='flex mb-4'>
             <input
               className='w-4 h-4 mt-0.5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
@@ -410,13 +403,12 @@ const page: React.FC = () => {
               checked={formData.applicationMethod === 'yesJob'}
               onChange={handleInputChange}
               type='radio'
-              placeholder='Employé polyvalent en restauration H/F'
             />
             <div className='flex flex-col'>
               <label htmlFor='default-checkbox' className='ml-2 text-sm font-medium text-gray-900 '>
-                Application par Yes Job
+                {t('publishAds.viaYesJob')}
               </label>
-              <h5 className='text-xs pl-2'>Vous recevrez une notification des nouvelles applications par e-mail</h5>
+              <h5 className='text-xs pl-2'>{t('publishAds.viaYesJobSub')}</h5>
             </div>
           </div>
           <div className='flex flex-col mb-4'>
@@ -431,9 +423,9 @@ const page: React.FC = () => {
               />
               <div className='flex flex-col'>
                 <label htmlFor='default-checkbox' className='ml-2 text-sm font-medium text-gray-900 '>
-                  Rediriger vers un formulaire externe
+                  {t('publishAds.viaExterne')}
                 </label>
-                <h5 className='text-xs pl-2'>Le candidat sera redirigé vers l'extérieur que vous spécifiez</h5>
+                <h5 className='text-xs pl-2'>{t('publishAds.viaExterneSub')}</h5>
               </div>
             </div>
             {formData.applicationMethod === 'externalForm' && (
@@ -444,10 +436,10 @@ const page: React.FC = () => {
                   value={formData.externalFormURL}
                   onChange={handleInputChange}
                   type='text'
-                  placeholder='External Form url'
+                  placeholder={t('publishAds.viaExternePlaceholder')}
                   required
                 />
-                {!isExternalFormURLValid && <p className='text-red-500 text-sm'>Veuillez entrer une URL valide.</p>}
+                {!isExternalFormURLValid && <p className='text-red-500 text-sm'>{t('publishAds.viaExterneValidation')}</p>}
               </>
             )}
           </div>
@@ -460,15 +452,12 @@ const page: React.FC = () => {
                 checked={formData.applicationMethod === 'both'}
                 onChange={handleInputChange}
                 type='radio'
-                placeholder='Employé polyvalent en restauration H/F'
               />
               <div className='flex flex-col'>
                 <label htmlFor='default-checkbox' className='ml-2 text-sm font-medium text-gray-900 '>
-                  Application par Yes Job et un formulaire externe
+                  {t('publishAds.viaBoth')}
                 </label>
-                <h5 className='text-xs pl-2'>
-                  Le candidat peut envoyer sa candidature via Yes Job ou vous pouvez le rediriger vers un formulaire externe.
-                </h5>
+                <h5 className='text-xs pl-2'>{t('publishAds.viaBothSub')}</h5>
               </div>
             </div>
             {formData.applicationMethod === 'both' && (
@@ -479,7 +468,7 @@ const page: React.FC = () => {
                   value={formData.externalFormURL}
                   onChange={handleInputChange}
                   type='text'
-                  placeholder='External Form url'
+                  placeholder={t('publishAds.viaExternePlaceholder')}
                   required
                 />
                 {!isExternalFormURLValid && <p className='text-red-500 text-sm'>Veuillez entrer une URL valide.</p>}
@@ -487,10 +476,10 @@ const page: React.FC = () => {
             )}
           </div>
           <div className='w-full h-px bg-slate-300 rounded' />
-          <h2 className='text-2xl font-semibold'>Coordonnées</h2>
-          <h3 className='text-md '>Ces données sont uniquement à vous contacter en cas d'annonce de questions. Ils ne seront affichés nulle part.</h3>
+          <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>
+          <h3 className='text-md '>{t('publishAds.contactDetailsSub')}</h3>
           <div className='flex flex-col gap-3'>
-            <label className='text-lg font-medium'>Nom et prénom *</label>
+            <label className='text-lg font-medium'>{t('publishAds.contactDetailsName')}</label>
             <input
               className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
               name='contactName'
@@ -501,7 +490,7 @@ const page: React.FC = () => {
             />
           </div>
           <div className='flex flex-col gap-3'>
-            <label className='text-lg font-medium'>Adres e-mail *</label>
+            <label className='text-lg font-medium'>{t('publishAds.contactDetailsEmail')}</label>
             <input
               className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
               name='contactEmail'
@@ -510,14 +499,14 @@ const page: React.FC = () => {
               type='text'
               placeholder='recrument@mcdonalds.be'
             />
-            {!isEmailValid && <p className='text-red-500 text-sm'>Veuillez entrer une adresse e-mail valide.</p>}
+            {!isEmailValid && <p className='text-red-500 text-sm'>{t('publishAds.contactDetailsEmailValidation')}</p>}
           </div>
         </div>
         <button
           type='submit'
           className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-gray-200  '
         >
-          Publier votre annonce gratuitement
+          {t('cta.publishFree')}
         </button>
       </form>
     </header>
