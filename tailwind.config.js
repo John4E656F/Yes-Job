@@ -13,9 +13,6 @@ module.exports = {
       },
     },
     extend: {
-      fontFamily: {
-        robotoCondensed: ['Roboto Condensed', 'sans-serif'],
-        roboto: ['Roboto', 'sans-serif'],
       },
       colors: {
         'brand-black-100': '#333333',
