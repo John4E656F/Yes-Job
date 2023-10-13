@@ -1,8 +1,11 @@
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { Analytics } from '@vercel/analytics/react';
 import '../globals.css';
 import { Navbar, Footer } from '@/components';
+import { useStore } from '@/lib/store';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -13,6 +16,15 @@ export const metadata = {
   title: 'Yes Job',
   description: 'Trouver les meilleures offres d’emploi dans horeca',
 };
+
+async function getUserData() {
+  const supabase = createServerComponentClient({ cookies });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  return user;
+}
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {
   const validLocales = ['en', 'fr', 'nl'];
@@ -28,6 +40,18 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
     translation = (await import(`../../translation/${locale}.json`)).default;
   } catch (error) {
     notFound();
+  }
+
+  const setUser = useStore((state) => state.setUser);
+
+  const user = useStore((state) => ({
+    id: state.id,
+    email: state.email,
+    phone: state.phone,
+  }));
+
+  if (user.id == '') {
+    const userData = await getUserData();
   }
 
   return (
