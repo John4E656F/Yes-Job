@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Button, Logo, Link, LocaleSwitcher } from '..';
 import { HiBars3, HiMiniLanguage } from 'react-icons/hi2';
 import { useTranslations } from 'next-intl';
@@ -11,9 +11,6 @@ interface NavbarProps {
 
 export function Navbar({ currentLocale }: NavbarProps) {
   const router = useRouter();
-  const pathname = usePathname();
-  const isLoginPage = pathname === '/auth/login';
-  const isRegisterPage = pathname === '/auth/register';
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,25 +31,21 @@ export function Navbar({ currentLocale }: NavbarProps) {
         <Link href='/' className='flex items-center' aria-label='YesJob Navbar Logo'>
           <Logo width={80} height={80} />
         </Link>
-        <div className='flex items-center'>
-          <button
-            type='button'
+        <div className='flex items- gap-2'>
+          <Button
+            text={<HiBars3 size={40} />}
+            btnType='button'
             onClick={toggleMenu}
             className='inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200'
-            aria-label='hamburger button'
-            aria-expanded={isMenuOpen}
-          >
-            <HiBars3 size={40} />
-          </button>
-          <Link
-            href='#'
+          />
+          <Button
+            text={<HiMiniLanguage className='text-xl text-gray-400 md:hidden' />}
+            btnType='button'
             onClick={(e) => {
               e.preventDefault();
               setIsModalOpen(true);
             }}
-          >
-            <HiMiniLanguage className='text-xl text-gray-400 md:hidden' />
-          </Link>
+          />
         </div>
         {isMenuOpen && (
           <div className='absolute top-20 justify-self-center w-11/12 border border-gray-300 rounded-md bg-brand-lightbg md:hidden' id='navbar-menu'>
@@ -94,26 +87,20 @@ export function Navbar({ currentLocale }: NavbarProps) {
               </Link>
             </li>
           </ul>
-          <Link href='/annonce'>
-            <button
-              data-collapse-toggle='navbar-default'
-              type='button'
-              className='hidden md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-gray-200  '
-              aria-controls='navbar-default'
-              aria-expanded='false'
-            >
-              {t('cta.publish')}
-            </button>
-          </Link>
-          <Link
-            href='#'
+          <Button
+            text={t('cta.publish')}
+            btnType='button'
+            onClick={() => router.push('/annonce')}
+            className='hidden md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-gray-200'
+          />
+          <Button
+            text={<HiMiniLanguage className='text-xl text-gray-400 ' />}
+            btnType='button'
             onClick={(e) => {
               e.preventDefault();
               setIsModalOpen(true);
             }}
-          >
-            <HiMiniLanguage className='text-xl text-gray-400 ' />
-          </Link>
+          />
         </div>
       </div>
       <LocaleSwitcher isOpen={isModalOpen} closeModal={toggleLangSwitcher} onClose={() => setIsModalOpen(false)} currentLocale={currentLocale} />
