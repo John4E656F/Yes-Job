@@ -35,7 +35,8 @@ export const LocaleSwitcher: React.FC<LangSelectionProps> = ({ isOpen, onClose, 
           isOpen ? 'translate-y-0' : 'translate-y-full'
         }`}
         role='dialog'
-        aria-modal='true'
+        id='language-select'
+        title='Language Select'
       >
         <h2>{t('localeSwitcher.title')}</h2>
         <p className=''>{t('localeSwitcher.subTitle')}</p>
