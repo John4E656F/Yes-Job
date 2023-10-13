@@ -12,12 +12,7 @@ type ButtonProps = {
 
 export const Button = ({ text, className, disabled, onClick, btnType }: ButtonProps) => {
   return (
-    <button
-      disabled={disabled}
-      type={btnType}
-      className={`btn shadow-brand-neo-btn ${className}`}
-      onClick={onClick}
-    >
+    <button disabled={disabled} type={btnType} className={`${className}`} onClick={onClick}>
       {text}
     </button>
   );
