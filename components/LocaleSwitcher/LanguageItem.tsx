@@ -14,7 +14,7 @@ export function LanguageItem({ country, isSelected, name, onClick }: LanguageIte
       } border-2  px-3 py-3 visited:bg-brand-bg hover:bg-brand-bg focus:bg-brand-bg`}
       onClick={onClick}
     >
-      <h4>{name}</h4>
+      <h3>{name}</h3>
       <p>{country}</p>
     </li>
   );
