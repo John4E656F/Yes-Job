@@ -1,17 +1,23 @@
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
-import { NextResponse } from 'next/server'
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
+import { NextRequest } from 'next/server';
+import createIntlMiddleware from 'next-intl/middleware';
 
-import type { NextRequest } from 'next/server'
+export default async function middleware(req: NextRequest) {
+  const handleI18nRouting = createIntlMiddleware({
+    locales: ['en', 'fr', 'nl'],
+    defaultLocale: 'en',
+  });
 
-export async function middleware(req: NextRequest) {
-  const res = NextResponse.next()
+  // Here we use 'req' instead of 'request', which is not defined
+  const res = handleI18nRouting(req);
 
-  // Create a Supabase client configured to use cookies
-  const supabase = createMiddlewareClient({ req, res })
+  const supabase = createMiddlewareClient({ req, res });
+  await supabase.auth.getSession();
 
-  // Refresh session if expired - required for Server Components
-  // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
-  await supabase.auth.getSession()
-
-  return res
+  // Here we use 'res' instead of 'response', which is not defined
+  return res;
 }
+
+export const config = {
+  matcher: ['/((?!_next|.*\\..*).*)'],
+};

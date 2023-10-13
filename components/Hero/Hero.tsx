@@ -1,18 +1,16 @@
 import React from 'react';
 import { Image } from '..';
 import Link from 'next/link';
+import type { TranslationProps } from '@/types';
 
-export const Hero = () => {
+export const Hero = ({ t }: TranslationProps) => {
   return (
     <header className='w-full flex justify-center'>
       <div className='flex flex-col container justify-center py-4 md:py-16 '>
         <div className='flex flex-col lg:flex-row gap-16 justify-between items-center '>
           <div className=' w-auto flex flex-col gap-4'>
-            <h1 className='text-4xl font-semibold'>Trouver les meilleures offres d’emploi dans horeca</h1>
-            <h2 className='text-sm'>
-              Que vous soyez à la recherche d'un emploi à temps plein, que vous souhaitiez gagner un peu plus d'argent en étudiant ou que vous ayez
-              besoin d'argent supplémentaire pour vos vacances - vous trouverez chez nous une offre adaptée à vos besoins !
-            </h2>
+            <h1 className='text-4xl font-semibold'>{t('hero.title')}</h1>
+            <h2 className='text-sm'>{t('hero.sub')}</h2>
             <Link href='/annonce'>
               <button
                 data-collapse-toggle='navbar-default'
@@ -21,7 +19,7 @@ export const Hero = () => {
                 aria-controls='navbar-default'
                 aria-expanded='false'
               >
-                Publier une annonce
+                {t('cta.publish')}
               </button>
             </Link>
           </div>
