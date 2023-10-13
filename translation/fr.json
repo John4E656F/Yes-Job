@@ -1,0 +1,123 @@
+{
+  "app": {
+    "nav": {
+      "home": "Accueil",
+      "contact": "Contact"
+    },
+    "footer": {
+      "text": "Connectez-vous aux professionnels Horeca passionnés pour des carrières florissantes",
+      "applicants": "Candidates",
+      "jobOffers": "Offres d'emploi",
+      "employers": "Employeurs",
+      "consult": "Consultez votre annonce",
+      "terms": "Conditions d'utilisation",
+      "policy": "Protection de la vie privée",
+      "developedBy": "Conçu et développé par ",
+      "based": "Basé à ",
+      "brussels": "Bruxelles, Belgique",
+      "right": "Tous droits réservés."
+    },
+    "localeSwitcher": {
+      "title": "Langues",
+      "subTitle": "Ce site est disponible dans les langues suivantes :"
+    },
+    "cta": {
+      "publish": "Publier une annonce",
+      "add": "Ajoutez votre annonce gratuitement",
+      "publishFree": "Publier votre annonce gratuitement"
+    },
+    "hero": {
+      "title": "Trouver les meilleures offres d’emploi dans horeca",
+      "sub": "Que vous soyez à la recherche d'un emploi à temps plein, que vous souhaitiez gagner un peu plus d'argent en étudiant ou que vous ayez besoin d'argent supplémentaire pour vos vacances - vous trouverez chez nous une offre adaptée à vos besoins !"
+    },
+    "listing": {
+      "jobOffers": "offres d'emploi",
+      "title": "Explorer des milliers d'offres d'emploi",
+      "fulltime": "Temps Plein",
+      "partTime": "Temps Partiel",
+      "experience": "Expérience requise",
+      "noExperience": "Pas d'expérience requise"
+    },
+    "ads": {
+      "title": "Nous sommes heureux que vous souhaitiez ajouter une annonce chez nous!",
+      "subTitle": "YES Job est le meilleur endroit pour trouver et publier des offres d'emploi dans l'horeca",
+      "li": "30 jours de promotion sur la page d'accueil",
+      "li1": "Optimisation de l'offre",
+      "li2": "Campagne Facebook",
+      "li3": "Campagne Google",
+      "li4": "Distribution dans le réseau de recrutement Google for Jobs"
+    },
+    "publishAds": {
+      "title": "Créer une annonce",
+      "infoCompany": "Informations sur l'entreprise",
+      "companyName": "Nom de l'entreprise *",
+      "companyLogo": "Logo de l'entreprise",
+      "upload": "Cliquez pour télécharger",
+      "dnd": "ou glisser-déposer",
+      "uploadDetails": "SVG, PNG, JPG ou GIF",
+      "infoAds": "Détails de l'annonce",
+      "adsTitle": "Titre de l'annonce *",
+      "adsTitlePlaceholder": "Employé polyvalent en restauration H/F",
+      "adsPosition": "Fonction *",
+      "contractDuration": "Durée du contrat",
+      "CDD": "Contrat du Déterminée",
+      "CDI": "Contrat du Indéterminée",
+      "workDuration": "Durée du travail",
+      "experience": "Expérience",
+      "salary": "Salaire",
+      "from": "De",
+      "to": "À",
+      "description": "Description de l'emploi *",
+      "descPlaceholder": "En tant que caissier(ère) chez [Nom de l'entreprise], vous serez chargé(e) de traiter les transactions des clients de manière précise et efficace ...",
+      "placeOfWork": "Lieu de travail *",
+      "placeOfWorkPlaceholder": "Recherche d'adresse",
+      "application": "Application",
+      "howTo": "Comment le candidat doit-il postuler pour l'offre?",
+      "viaYesJob": "Application par Yes Job",
+      "viaYesJobSub": "Vous recevrez une notification des nouvelles applications par e-mail",
+      "viaExterne": "Rediriger vers un formulaire externe",
+      "viaExterneSub": "Le candidat sera redirigé vers l'extérieur que vous spécifiez",
+      "viaExternePlaceholder": "URL du formulaire externe",
+      "viaExterneValidation": "Veuillez entrer une URL valide.",
+      "viaBoth": "Application par Yes Job et un formulaire externe",
+      "viaBothSub": "Le candidat peut envoyer sa candidature via Yes Job ou vous pouvez le rediriger vers un formulaire externe.",
+      "contactDetails": "Coordonnées",
+      "contactDetailsSub": "Ces données sont uniquement à vous contacter en cas d'annonce de questions. Ils ne seront affichés nulle part.",
+      "contactDetailsName": "Nom et prénom *",
+      "contactDetailsEmail": "Adresse e-mail *",
+      "contactDetailsEmailValidation": "Veuillez entrer une adresse e-mail valide."
+    },
+    "jobFonction": {
+      "default": "Sélectionner une fonction",
+      "waiter": "Serveur(se)",
+      "cook": "Cuisinier",
+      "chefDePartie": "Chef de partie",
+      "chefCook": "Chef de cuisine",
+      "bartender": "Barman/Barmaid",
+      "dishwasher": "Plongeur(se)",
+      "shiftLeader": "Shift Leader",
+      "cleaningStaff": "Personnel de nettoyage",
+      "restaurantManager": "Gérant de restaurant",
+      "hotelReceptionist": "Réceptionniste d'hôtel",
+      "hotelManager": "Gérant d'hôtel",
+      "hotelMaster": "Maître d'hôtel",
+      "pastryChef": "Chef pâtissier",
+      "deliveryDriver": "Livreur(se)",
+      "other": "Autre"
+    },
+    "adPage": {
+      "description": "Description du poste",
+      "apply": "Postulez",
+      "name": "Nom complet",
+      "resume": "CV",
+      "browse": "Parcourir...",
+      "noFile": "Aucun fichier sélectionné.",
+      "phoneNumber": "Numéro de téléphone",
+      "email": "Adresse e-mail",
+      "submit": "Envoyer la candidature",
+      "redirect": "Postulez sur le site web de recruters",
+      "viewed": "Vu",
+      "publishAt": "Publier le"
+    }
+  }
+}

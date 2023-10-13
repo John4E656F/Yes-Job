@@ -1,10 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { SearchBar, ListingCard } from '../';
-import type { FormData } from '@/types';
+import type { FormData, TranslationProps } from '@/types';
 import { supabase } from '@/supabase/supabase';
 
-export function Listing() {
+export function Listing({ t }: TranslationProps) {
   const [jobPosts, setJobPosts] = useState<FormData[]>([]);
   const [totalJobOffers, setTotalJobOffers] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -67,14 +67,16 @@ export function Listing() {
       <div className='flex flex-col container py-4 md:py-16 gap-16'>
         <div className='flex flex-col gap-8'>
           <div className='flex flex-col gap-5'>
-            <h3 className='text-base font-medium'>{totalJobOffers} job offers</h3>
-            <h4 className='text-4xl font-semibold'>Explorer des milliers d'offres d'emploi</h4>
+            <h3 className='text-base font-medium'>
+              {totalJobOffers} {t('listing.jobOffers')}
+            </h3>
+            <h4 className='text-4xl font-semibold'>{t('listing.title')}</h4>
           </div>
           {/* <SearchBar /> */}
         </div>
         <div className='flex flex-col gap-4'>
           {jobPosts.map((jobPost) => (
-            <ListingCard key={jobPost.id} jobPost={jobPost} />
+            <ListingCard key={jobPost.id} jobPost={jobPost} t={t} />
           ))}
         </div>
         <div className='flex justify-between'>

@@ -3,6 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start"
   },
   "dependencies": {
@@ -13,7 +14,9 @@
     "@vercel/analytics": "^1.1.0",
     "autoprefixer": "10.4.15",
     "next": "latest",
-    "postcss": "8.4.29",
+    "next-intl": "^2.20.2",
+    "next-sitemap": "^4.2.3",
+    "postcss": "8.4.31",
     "postgres": "^3.3.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -26,6 +29,8 @@
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
-    "encoding": "^0.1.13"
+    "cssnano": "^6.0.1",
+    "encoding": "^0.1.13",
+    "postcss-import": "^15.1.0"
   }
 }
