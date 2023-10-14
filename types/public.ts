@@ -9,46 +9,6 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      company: {
-        Row: {
-          company_email: string
-          companyLogo: string
-          companyName: string
-          companyTotalRequestCount: number
-          contactName: string
-          created_at: string
-          id: string
-          user_id: string | null
-        }
-        Insert: {
-          company_email?: string
-          companyLogo?: string
-          companyName: string
-          companyTotalRequestCount?: number
-          contactName?: string
-          created_at?: string
-          id?: string
-          user_id?: string | null
-        }
-        Update: {
-          company_email?: string
-          companyLogo?: string
-          companyName?: string
-          companyTotalRequestCount?: number
-          contactName?: string
-          created_at?: string
-          id?: string
-          user_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "company_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       job_posting: {
         Row: {
           applicationMethod: string
@@ -180,7 +140,50 @@ export interface Database {
           {
             foreignKeyName: "jobPosting_compandId_fkey"
             columns: ["compandId"]
-            referencedRelation: "company"
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      users: {
+        Row: {
+          contactName: string
+          created_at: string
+          id: string
+          isCompany: boolean
+          user_email: string
+          user_id: string | null
+          user_logo: string
+          user_name: string
+          user_total_request_count: number
+        }
+        Insert: {
+          contactName?: string
+          created_at?: string
+          id?: string
+          isCompany?: boolean
+          user_email?: string
+          user_id?: string | null
+          user_logo?: string
+          user_name: string
+          user_total_request_count?: number
+        }
+        Update: {
+          contactName?: string
+          created_at?: string
+          id?: string
+          isCompany?: boolean
+          user_email?: string
+          user_id?: string | null
+          user_logo?: string
+          user_name?: string
+          user_total_request_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "users_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]

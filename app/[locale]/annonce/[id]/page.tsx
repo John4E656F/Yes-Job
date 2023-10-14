@@ -21,7 +21,7 @@ export default function annoncePage({ params }: { params: { id: number } }) {
           .select(
             `
         *,
-        companyId:company ( companyName, companyEmail, companyLogo, companyTotalRequestCount ) 
+        companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) 
       `,
           )
           .eq('id', params.id)
@@ -119,14 +119,14 @@ export default function annoncePage({ params }: { params: { id: number } }) {
         <section className='container flex flex-col gap-4'>
           <div className='flex flex-row items-center px-1 md:flex-row md:p-2'>
             <Image
-              src={jobPost.companyId?.companyLogo as string}
+              src={jobPost.companyId?.user_logo as string}
               alt='Yes Job'
               className='w-20 m-5 h-20 md:w-24 md:h-24 object-contain bg-blue-200 rounded-2xl'
               unoptimized
             />
             <div className=''>
               <h6 className='text-base font-semibold md:text-lg'>{jobPost.title}</h6>
-              <p className='text-base md:text-lg'>{jobPost.companyId?.companyName}</p>
+              <p className='text-base md:text-lg'>{jobPost.companyId?.user_name}</p>
             </div>
           </div>
           <div className='flex flex-wrap gap-2.5 py-4 md:py-1 justify-center md:justify-start'>

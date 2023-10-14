@@ -1,12 +1,12 @@
 import React, { FC, RefObject } from 'react';
 import { Link } from '..';
-import type { TranslationProps, CompanyTypes } from '@/types';
+import type { TranslationProps, UsersTypes } from '@/types';
 
 interface ProfileMenuProps extends TranslationProps {
   isMenuOpen: boolean;
   toggleMenu: () => void;
   menuRef: RefObject<HTMLDivElement>;
-  userData: CompanyTypes;
+  userData: UsersTypes;
 }
 
 export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menuRef, t, userData }) => {

@@ -21,7 +21,7 @@ export function Listing() {
           .select(
             `
           *,
-          companyId:company ( companyName, company_email, companyLogo, companyTotalRequestCount ) 
+          companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) 
         `,
           )
           .order('created_at', { ascending: false }) // Order by most recent
