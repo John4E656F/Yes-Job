@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database, UsersTypes } from '@/types';
 import { useToggleMenu } from '@/hooks';
+import { useStore } from '@/lib/store';
 
 interface NavbarProps {
   currentLocale: string;
@@ -16,6 +17,8 @@ interface NavbarProps {
 export function Navbar({ currentLocale, session }: NavbarProps) {
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
+
+  const setUser = useStore((state) => state.setUser);
 
   const [userData, setUserData] = useState<UsersTypes>({
     user_email: '',
@@ -45,15 +48,24 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
 
       if (ownerID) {
         try {
-          const { data: fetchedUserData, error: userError } = await supabase
-            .from('users')
-            .select('user_email, user_logo, user_name, contactName, user_total_request_count, isCompany, created_at, id, user_id')
-            .eq('user_id', ownerID)
-            .single();
+          const { data: fetchedUserData, error: userError } = await supabase.from('users').select('*').eq('user_id', ownerID).single();
           if (userError) {
             console.error('Error fetching user data:', userError);
           } else {
             setUserData(fetchedUserData);
+            setUser({
+              id: fetchedUserData.id,
+              user_id: fetchedUserData.user_id,
+              email: fetchedUserData.user_email,
+              user_logo: fetchedUserData.user_logo,
+              user_name: fetchedUserData.user_name,
+              user_total_request_count: fetchedUserData.user_total_request_count,
+              isCompany: fetchedUserData.isCompany,
+              contactName: fetchedUserData.contactName,
+              created_at: fetchedUserData.created_at,
+              phone: fetchedUserData.phone,
+              countryCode: fetchedUserData.countryCode,
+            });
           }
         } catch (error) {
           console.error('Error fetching user data:', error);

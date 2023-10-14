@@ -1,5 +1,6 @@
 export interface FormData {
   id?: number;
+  user_Id?: string;
   companyId?: {
     user_name: string;
     user_email: string;
