@@ -7,10 +7,16 @@ import { supabase } from '@/supabase/supabase';
 import { v4 as uuidv4 } from 'uuid';
 import { getOrCreateCompanyId } from '@/utils/getOrCreateCompanyId';
 import { useTranslations } from 'next-intl';
+import { useStore } from '@/lib/store';
+import { useRouter } from 'next/navigation';
 
 const page: React.FC = () => {
   const t = useTranslations('app');
+  const router = useRouter();
+  const user = useStore((state) => state);
+
   const [formData, setFormData] = useState<FormData>({
+    user_Id: '',
     companyName: '',
     logo: '',
     title: '',
@@ -33,6 +39,19 @@ const page: React.FC = () => {
   const [logoPreviewUrl, setLogoPreviewUrl] = useState<string | null>(null);
   const [isExternalFormURLValid, setIsExternalFormURLValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
+  useEffect(() => {
+    if (user && user.isCompany) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        user_Id: user.id || '',
+        contactName: user.contactName || '',
+        contactEmail: user.email || '',
+        companyName: user.user_name || '',
+        logo: user.user_logo || null,
+      }));
+      setLogoPreviewUrl(user.user_logo || null);
+    }
+  }, [user]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -110,7 +129,6 @@ const page: React.FC = () => {
 
         const publicUrl = publicUrlData.publicUrl;
 
-        // Update the form data with the uploaded logo path
         formData.logo = publicUrl;
       } catch (uploadError: any) {
         console.error('An error occurred while uploading the logo:', uploadError.message);
@@ -119,10 +137,16 @@ const page: React.FC = () => {
     }
 
     try {
-      const companyId = await getOrCreateCompanyId(formData.companyName, formData.contactEmail, formData.logo, formData.contactName);
+      if (formData.user_Id === '') {
+        const companyId = await getOrCreateCompanyId(formData.companyName, formData.contactEmail, formData.logo, formData.contactName);
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          user_Id: companyId,
+        }));
+      }
 
       const { data: insertData, error: insertError } = await supabase.from('jobPosting').insert({
-        companyId: companyId,
+        companyId: formData.companyId,
         title: formData.title,
         jobFunction: formData.jobFunction,
         cdd: formData.cdd,
@@ -142,7 +166,7 @@ const page: React.FC = () => {
         console.error('Error inserting job posting:', insertError.message);
         return;
       }
-
+      router.push('/');
       console.log('Form data submitted successfully:', insertData);
     } catch (error: any) {
       console.error('An error occurred:', error.message);
@@ -352,7 +376,7 @@ const page: React.FC = () => {
                 <input
                   className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   name='salaryMin'
-                  value={formData.salaryMin !== null ? formData.salaryMin : 0}
+                  value={formData.salaryMin !== null ? formData.salaryMin : ''}
                   onChange={handleInputChange}
                   type='number'
                   required
@@ -363,7 +387,7 @@ const page: React.FC = () => {
                 <input
                   className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   name='salaryMax'
-                  value={formData.salaryMax !== null ? formData.salaryMax : 0}
+                  value={formData.salaryMax !== null ? formData.salaryMax : ''}
                   onChange={handleInputChange}
                   type='number'
                 />
@@ -475,33 +499,38 @@ const page: React.FC = () => {
               </>
             )}
           </div>
-          <div className='w-full h-px bg-slate-300 rounded' />
-          <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>
-          <h3 className='text-md '>{t('publishAds.contactDetailsSub')}</h3>
-          <div className='flex flex-col gap-3'>
-            <label className='text-lg font-medium'>{t('publishAds.contactDetailsName')}</label>
-            <input
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-              name='contactName'
-              value={formData.contactName}
-              onChange={handleInputChange}
-              type='text'
-              placeholder='Lenny De Wolf'
-            />
-          </div>
-          <div className='flex flex-col gap-3'>
-            <label className='text-lg font-medium'>{t('publishAds.contactDetailsEmail')}</label>
-            <input
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-              name='contactEmail'
-              value={formData.contactEmail}
-              onChange={handleInputChange}
-              type='text'
-              placeholder='recrument@mcdonalds.be'
-            />
-            {!isEmailValid && <p className='text-red-500 text-sm'>{t('publishAds.contactDetailsEmailValidation')}</p>}
-          </div>
+          {user && user.isCompany === true ? null : (
+            <>
+              <div className='w-full h-px bg-slate-300 rounded' />
+              <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>
+              <h3 className='text-md '>{t('publishAds.contactDetailsSub')}</h3>
+              <div className='flex flex-col gap-3'>
+                <label className='text-lg font-medium'>{t('publishAds.contactDetailsName')}</label>
+                <input
+                  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                  name='contactName'
+                  value={formData.contactName}
+                  onChange={handleInputChange}
+                  type='text'
+                  placeholder='Lenny De Wolf'
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <label className='text-lg font-medium'>{t('publishAds.contactDetailsEmail')}</label>
+                <input
+                  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                  name='contactEmail'
+                  value={formData.contactEmail}
+                  onChange={handleInputChange}
+                  type='text'
+                  placeholder='recrument@mcdonalds.be'
+                />
+                {!isEmailValid && <p className='text-red-500 text-sm'>{t('publishAds.contactDetailsEmailValidation')}</p>}
+              </div>
+            </>
+          )}
         </div>
+
         <button
           type='submit'
           className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-gray-200  '
