@@ -1,9 +1,10 @@
 export interface FormData {
   id?: number;
   companyId?: {
-    companyName: string;
-    companyEmail: string;
-    companyLogo: string;
+    user_name: string;
+    user_email: string;
+    user_logo: string;
+    isCompany?: boolean;
   };
   companyName: string;
   logo: string | File | null;
