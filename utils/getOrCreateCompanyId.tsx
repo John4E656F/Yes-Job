@@ -10,7 +10,7 @@ interface Company {
 
 export const getOrCreateCompanyId = async (companyName: string, companyEmail: string, companyLogo: string | null, contactName: string) => {
   // Try to fetch the company from the database
-  const { data: companyData, error: companyError } = await supabase.from('user').select('id').eq('user_email', companyEmail).single();
+  const { data: companyData, error: companyError } = await supabase.from('userd').select('id').eq('user_email', companyEmail).single();
 
   if (companyError) {
     console.error('Error fetching company:', companyError.message);

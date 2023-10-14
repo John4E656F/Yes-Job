@@ -110,7 +110,6 @@ const page: React.FC = () => {
 
         const publicUrl = publicUrlData.publicUrl;
 
-        // Update the form data with the uploaded logo path
         formData.logo = publicUrl;
       } catch (uploadError: any) {
         console.error('An error occurred while uploading the logo:', uploadError.message);
