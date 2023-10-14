@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation';
 import { Analytics } from '@vercel/analytics/react';
 import '../globals.css';
 import { Navbar, Footer } from '@/components';
-import { useStore } from '@/lib/store';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -16,15 +15,6 @@ export const metadata = {
   title: 'Yes Job',
   description: 'Trouver les meilleures offres d’emploi dans horeca',
 };
-
-async function getUserData() {
-  const supabase = createServerComponentClient({ cookies });
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  return user;
-}
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {
   const validLocales = ['en', 'fr', 'nl'];
@@ -41,25 +31,18 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
   } catch (error) {
     notFound();
   }
+  const supabase = createServerComponentClient({ cookies });
 
-  const setUser = useStore((state) => state.setUser);
-
-  const user = useStore((state) => ({
-    id: state.id,
-    email: state.email,
-    phone: state.phone,
-  }));
-
-  if (user.id == '') {
-    const userData = await getUserData();
-  }
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
   return (
     <html lang={locale}>
       <body>
         <NextIntlClientProvider locale={locale} messages={translation}>
           <main className='flex flex-col items-center'>
-            <Navbar currentLocale={locale} />
+            <Navbar currentLocale={locale} session={session} />
             {children}
             <Footer />
             <Analytics />
