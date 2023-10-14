@@ -1,10 +1,12 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { SearchBar, ListingCard } from '../';
-import type { FormData, TranslationProps } from '@/types';
+import type { FormData } from '@/types';
 import { supabase } from '@/supabase/supabase';
+import { useTranslations } from 'next-intl';
 
-export function Listing({ t }: TranslationProps) {
+export function Listing() {
+  const t = useTranslations('app');
   const [jobPosts, setJobPosts] = useState<FormData[]>([]);
   const [totalJobOffers, setTotalJobOffers] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,7 +21,7 @@ export function Listing({ t }: TranslationProps) {
           .select(
             `
           *,
-          companyId:company ( companyName, companyEmail, companyLogo, companyTotalRequestCount ) 
+          companyId:company ( companyName, company_email, companyLogo, companyTotalRequestCount ) 
         `,
           )
           .order('created_at', { ascending: false }) // Order by most recent
