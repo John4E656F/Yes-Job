@@ -36,7 +36,6 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  // console.log(session);
 
   return (
     <html lang={locale}>
