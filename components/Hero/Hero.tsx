@@ -2,9 +2,10 @@ import React from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Image, Button } from '..';
 import Link from 'next/link';
-import type { TranslationProps } from '@/types';
+import { useTranslations } from 'next-intl';
 
-export const Hero = ({ t }: TranslationProps) => {
+export const Hero = () => {
+  const t = useTranslations('app');
   const router = useRouter();
   const pathname = usePathname();
   const isLoginPage = pathname === '/auth/login';

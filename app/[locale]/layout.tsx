@@ -1,3 +1,5 @@
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { Analytics } from '@vercel/analytics/react';
@@ -29,13 +31,18 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
   } catch (error) {
     notFound();
   }
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
   return (
     <html lang={locale}>
       <body>
         <NextIntlClientProvider locale={locale} messages={translation}>
           <main className='flex flex-col items-center'>
-            <Navbar currentLocale={locale} />
+            <Navbar currentLocale={locale} session={session} />
             {children}
             <Footer />
             <Analytics />

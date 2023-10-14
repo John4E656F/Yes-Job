@@ -1,6 +1,8 @@
 export { Logo } from './Logo/Logo';
 export { Image } from './Image/Image';
 export { Navbar } from './Navbar/Navbar';
+export { MobileMenu } from './Menu/MobileMenu';
+export { ProfileMenu } from './Menu/ProfileMenu';
 export { Footer } from './Footer/Footer';
 export { Hero } from './Hero/Hero';
 export { Listing } from './Listing/Listing';
