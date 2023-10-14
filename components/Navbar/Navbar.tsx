@@ -34,7 +34,6 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
 
   const t = useTranslations('app');
-  // console.log(session);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -111,20 +110,21 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
             />
           </div>
           <div className='flex gap-2'>
-            {userData.user_logo ? (
-              <Button
-                text={<Image src={userData.user_logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
-                btnType='button'
-                onClick={toggleProfileMenu}
-              />
-            ) : (
-              <HiUser
-                size={40}
-                className='rounded-full p-1 ring-2 ring-gray-300 text-gray-400'
-                aria-label='user avatar'
-                onClick={toggleProfileMenu}
-              />
-            )}
+            {session &&
+              (userData.user_logo ? (
+                <Button
+                  text={<Image src={userData.user_logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
+                  btnType='button'
+                  onClick={toggleProfileMenu}
+                />
+              ) : (
+                <HiUser
+                  size={40}
+                  className='rounded-full p-1 ring-2 ring-gray-300 text-gray-400'
+                  aria-label='user avatar'
+                  onClick={toggleProfileMenu}
+                />
+              ))}
             <Button text={<HiMiniLanguage className='text-xl text-gray-400 ' />} btnType='button' onClick={toggleLocaleModal} />
           </div>
         </div>
