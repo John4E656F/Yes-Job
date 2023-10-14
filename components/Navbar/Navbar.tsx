@@ -5,7 +5,7 @@ import { Image, Button, Logo, Link, LocaleSwitcher, MobileMenu, ProfileMenu } fr
 import { HiBars3, HiMiniLanguage, HiUser } from 'react-icons/hi2';
 import { useTranslations } from 'next-intl';
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database, CompanyTypes } from '@/types';
+import { Database, UsersTypes } from '@/types';
 import { useToggleMenu } from '@/hooks';
 
 interface NavbarProps {
@@ -17,11 +17,13 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
-  const [companyData, setCompanyData] = useState<CompanyTypes>({
-    company_email: '',
-    companyLogo: '',
-    companyName: '',
-    companyTotalRequestCount: undefined,
+  const [userData, setUserData] = useState<UsersTypes>({
+    user_email: '',
+    user_logo: '',
+    user_name: '',
+    user_total_request_count: undefined,
+    isCompany: false,
+    contactName: '',
     created_at: '',
     id: '',
     user_id: '',
@@ -35,44 +37,33 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   // console.log(session);
 
   useEffect(() => {
-    const fetchCompanyData = async () => {
+    const fetchUserData = async () => {
       let ownerID;
 
       if (session && session.user) {
-        ownerID = session.user.id; // Accessing user id
+        ownerID = session.user.id;
       }
 
       if (ownerID) {
         try {
-          const { data: fetchedCompanyData, error: companyError } = await supabase
-            .from('company')
-            .select(
-              `
-              company_email,
-              companyLogo,
-              companyName,
-              companyTotalRequestCount,
-              created_at,
-              id,
-              user_id
-            `,
-            )
+          const { data: fetchedUserData, error: userError } = await supabase
+            .from('users')
+            .select('user_email, user_logo, user_name, contactName, user_total_request_count, isCompany, created_at, id, user_id')
             .eq('user_id', ownerID)
             .single();
-
-          if (companyError) {
-            throw companyError;
+          if (userError) {
+            console.error('Error fetching user data:', userError);
           } else {
-            setCompanyData(fetchedCompanyData);
+            setUserData(fetchedUserData);
           }
         } catch (error) {
-          console.error('Error fetching company data:', error);
+          console.error('Error fetching user data:', error);
         }
       } else {
         console.log('No owner ID found');
       }
     };
-    fetchCompanyData();
+    fetchUserData();
   }, []);
 
   return (
@@ -105,7 +96,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
                 </Link>
               </li>
               <li>
-                {!companyData && (
+                {!userData && (
                   <Link href='/login' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200'>
                     Login
                   </Link>
@@ -120,11 +111,9 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
             />
           </div>
           <div className='flex gap-2'>
-            {companyData.companyLogo ? (
+            {userData.user_logo ? (
               <Button
-                text={
-                  <Image src={companyData.companyLogo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />
-                }
+                text={<Image src={userData.user_logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
                 btnType='button'
                 onClick={toggleProfileMenu}
               />
@@ -139,7 +128,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
             <Button text={<HiMiniLanguage className='text-xl text-gray-400 ' />} btnType='button' onClick={toggleLocaleModal} />
           </div>
         </div>
-        <ProfileMenu isMenuOpen={isProfileMenuOpen} toggleMenu={toggleProfileMenu} menuRef={profileMenuRef} t={t} userData={companyData} />
+        <ProfileMenu isMenuOpen={isProfileMenuOpen} toggleMenu={toggleProfileMenu} menuRef={profileMenuRef} t={t} userData={userData} />
         <MobileMenu isMenuOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} menuRef={mobileMenuRef} t={t} session={session} />
       </div>
       <LocaleSwitcher isOpen={isLocaleModalOpen} closeModal={toggleLocaleModal} onClose={toggleLocaleModal} currentLocale={currentLocale} />

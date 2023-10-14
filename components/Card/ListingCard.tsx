@@ -13,7 +13,7 @@ export function ListingCard({ jobPost, t }: ListingCardProps) {
     <Link href={`/annonce/${jobPost.id}`}>
       <Card className='flex flex-col items-center px-1 md:flex-row md:p-2'>
         <Image
-          src={jobPost.companyId?.companyLogo as string}
+          src={jobPost.companyId?.user_logo as string}
           alt='Yes Job'
           className='w-20 m-5 h-20 md:w-24 md:h-24 object-contain bg-blue-200 rounded-2xl'
           unoptimized
@@ -21,7 +21,7 @@ export function ListingCard({ jobPost, t }: ListingCardProps) {
         <div>
           <div className='text-center md:text-left'>
             <h5 className='text-base font-semibold md:text-lg'>{jobPost.title}</h5>
-            <p className='text-base md:text-lg'>{jobPost.companyName}</p>
+            <p className='text-base md:text-lg'>{jobPost.companyId?.user_name}</p>
           </div>
           <div className='flex flex-wrap gap-2.5 py-4 md:py-1 justify-center md:justify-start'>
             <Label text={jobPost.location} type='location' />

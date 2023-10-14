@@ -8,14 +8,9 @@ interface Company {
   logo: string;
 }
 
-interface User {
-  id: string;
-  // other properties if they exist...
-}
-
 export const getOrCreateCompanyId = async (companyName: string, companyEmail: string, companyLogo: string | null, contactName: string) => {
   // Try to fetch the company from the database
-  const { data: companyData, error: companyError } = await supabase.from('company').select('id').eq('email', companyEmail).single();
+  const { data: companyData, error: companyError } = await supabase.from('user').select('id').eq('user_email', companyEmail).single();
 
   if (companyError) {
     console.error('Error fetching company:', companyError.message);
@@ -41,12 +36,13 @@ export const getOrCreateCompanyId = async (companyName: string, companyEmail: st
   const userId = userData.user.id; // Access the id here
 
   const { data: newCompanyData, error: newCompanyError } = await supabase
-    .from('companies')
+    .from('users')
     .insert({
-      companyName: companyName,
-      companyEmail: companyEmail,
-      companyLogo: companyLogo,
+      user_name: companyName,
+      user_email: companyEmail,
+      user_logo: companyLogo,
       contactName: contactName,
+      isCompany: true,
       ownerId: userId,
     })
     .single();
