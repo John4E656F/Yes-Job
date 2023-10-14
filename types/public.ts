@@ -80,7 +80,7 @@ export interface Database {
           applicationMethod: string
           cdd: boolean
           cdi: boolean
-          compandId: string | null
+          companyId: string | null
           created_at: string
           description: string
           experience: boolean
@@ -100,7 +100,7 @@ export interface Database {
           applicationMethod?: string
           cdd?: boolean
           cdi?: boolean
-          compandId?: string | null
+          companyId?: string | null
           created_at?: string
           description?: string
           experience?: boolean
@@ -120,7 +120,7 @@ export interface Database {
           applicationMethod?: string
           cdd?: boolean
           cdi?: boolean
-          compandId?: string | null
+          companyId?: string | null
           created_at?: string
           description?: string
           experience?: boolean
@@ -138,8 +138,8 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "jobPosting_compandId_fkey"
-            columns: ["compandId"]
+            foreignKeyName: "jobPosting_companyId_fkey"
+            columns: ["companyId"]
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -148,9 +148,11 @@ export interface Database {
       users: {
         Row: {
           contactName: string
+          countryCode: string | null
           created_at: string
           id: string
           isCompany: boolean
+          phone: number | null
           user_email: string
           user_id: string | null
           user_logo: string
@@ -159,9 +161,11 @@ export interface Database {
         }
         Insert: {
           contactName?: string
+          countryCode?: string | null
           created_at?: string
           id?: string
           isCompany?: boolean
+          phone?: number | null
           user_email?: string
           user_id?: string | null
           user_logo?: string
@@ -170,9 +174,11 @@ export interface Database {
         }
         Update: {
           contactName?: string
+          countryCode?: string | null
           created_at?: string
           id?: string
           isCompany?: boolean
+          phone?: number | null
           user_email?: string
           user_id?: string | null
           user_logo?: string
