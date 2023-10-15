@@ -90,14 +90,14 @@ const ContactPage = () => {
   };
 
   return (
-    <header className='w-full flex flex-col justify-center'>
+    <header className='w-full flex flex-col justify-center items-center'>
       <Toast
         isOpen={isToastOpen}
         onClose={handleCloseToast}
         title={isSubmitSuccessful ? ToastTitle.Message : ToastTitle.Error}
         message={isSubmitSuccessful ? 'Message Sent' : 'Message failed. Try later or email yesjob.contact@gmail.com'}
       />
-      <div className='flex flex-col container justify-center py-4 md:py-8 '>
+      <div className='flex flex-col container justify-center  py-4 md:py-8 '>
         <div className='flex flex-col lg:flex-row gap-16 justify-between items-center  '>
           <div className=' w-auto flex flex-col gap-4 text-center md:text-start'>
             <h1 className='text-5xl font-semibold'>Do you have a question? Write!</h1>
