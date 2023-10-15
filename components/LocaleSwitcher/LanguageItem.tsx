@@ -10,12 +10,13 @@ export function LanguageItem({ country, isSelected, name, onClick }: LanguageIte
     <li
       role='listitem'
       className={`${
-        isSelected ? `border-brand-primary shadow-brand-shadow-selected` : `border-current shadow-brand-shadow`
-      } border-2  px-3 py-3 visited:bg-brand-bg hover:bg-brand-bg focus:bg-brand-bg`}
+        isSelected ? `border-brand-primary bg-blue-300 shadow-brand-shadow-selected` : `border-current shadow-brand-shadow`
+      }flex border rounded px-3 py-3 cursor-pointer visited:bg-brand-bg hover:bg-brand-bg focus:bg-brand-bg`}
       onClick={onClick}
     >
-      <h3>{name}</h3>
-      <p>{country}</p>
+      <p>
+        {country} - {name}
+      </p>
     </li>
   );
 }

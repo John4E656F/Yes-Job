@@ -13,3 +13,4 @@ export { Label } from './Label/Label';
 export { LocaleSwitcher } from './LocaleSwitcher/LocaleSwitcher';
 export { Link } from './Link/Link';
 export { Button } from './Button/Button';
+export { Toast } from './Toast/Toast';
