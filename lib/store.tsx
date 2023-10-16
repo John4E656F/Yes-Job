@@ -1,32 +1,23 @@
 import { create } from 'zustand';
+import { UsersTypes } from '@/types';
 
-interface User {
-  id: string | null;
-  email?: string;
-  phone?: string | number | null;
-  confirmed_at?: string;
-  user_id?: string | null;
-  user_logo?: string;
-  user_name?: string;
-  user_total_request_count?: number;
-  isCompany?: boolean;
-  contactName?: string;
-  created_at?: string;
-  countryCode?: string | null;
-}
-
-interface UserStoreInterface extends User {
+interface UserStoreInterface extends UsersTypes {
   lastUpdate: number;
-  setUser: (user: User) => void;
+  setUser: (user: UsersTypes) => void;
   reset: () => void;
 }
 
 const getDefaultInitialState = (): UserStoreInterface => ({
   lastUpdate: Date.now(),
   id: '',
-  email: '',
+  user_email: '',
+  user_id: '',
+  user_name: '',
+  user_logo: '',
+  isCompany: false,
   phone: '',
   confirmed_at: '',
+  created_at: '',
   setUser: () => {},
   reset: () => {},
 });

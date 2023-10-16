@@ -51,6 +51,10 @@ export function ListingCard({ jobPost, t }: ListingCardProps) {
             )}
           </div>
         </div>
+<<<<<<< Updated upstream
+=======
+        <p className='hidden md:block text-sm mt-auto ml-auto text-right whitespace-nowrap'>{timeDifference(jobPost.created_at || '', { t })}</p>
+>>>>>>> Stashed changes
       </Card>
     </Link>
   );
