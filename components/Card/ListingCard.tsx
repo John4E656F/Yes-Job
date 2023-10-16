@@ -4,6 +4,7 @@ import { Card, Image, Label } from '..';
 import type { FormData, TranslationProps } from '@/types';
 import Link from 'next/link';
 import { BsFillPinAngleFill } from 'react-icons/bs';
+import { timeDifference } from '@/utils';
 
 interface ListingCardProps extends TranslationProps {
   jobPost: FormData;
@@ -58,6 +59,7 @@ export function ListingCard({ jobPost, t }: ListingCardProps) {
             )}
           </div>
         </div>
+        <p className='hidden md:block mt-auto ml-auto text-right whitespace-nowrap'>{timeDifference(jobPost.created_at || '', { t })}</p>
       </Card>
     </Link>
   );
