@@ -3,15 +3,22 @@ import React from 'react';
 import { Card, Image, Label } from '..';
 import type { FormData, TranslationProps } from '@/types';
 import Link from 'next/link';
+import { BsFillPinAngleFill } from 'react-icons/bs';
 
 interface ListingCardProps extends TranslationProps {
   jobPost: FormData;
 }
 
 export function ListingCard({ jobPost, t }: ListingCardProps) {
+  console.log(jobPost);
   return (
     <Link href={`/annonce/${jobPost.id}`}>
-      <Card className='flex flex-col items-center px-1 md:flex-row md:p-2'>
+      <Card className={`flex flex-col relative items-center p-1 md:flex-row md:p-2 ${jobPost.pinned && 'border-blue-500'}`}>
+        {jobPost.pinned && (
+          <div className='absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2'>
+            <BsFillPinAngleFill size={30} className='text-blue-500' />
+          </div>
+        )}
         <Image
           src={jobPost.companyId?.user_logo as string}
           alt='Yes Job'
