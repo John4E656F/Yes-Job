@@ -1,7 +1,9 @@
 import type { PropsWithChildrenOptional } from '@/types';
 
-type CardProps = { className?: string } & PropsWithChildrenOptional;
+type CardProps = { className?: string; pinned?: boolean } & PropsWithChildrenOptional;
 
-export function Card({ children, className }: CardProps) {
-  return <article className={`${className} border border-gray-300 rounded-md bg-white`}>{children}</article>;
+export function Card({ children, className, pinned }: CardProps) {
+  return (
+    <article className={`${className} ${!pinned ? 'border border-gray-300' : 'border-2 border-blue-500'}  rounded-md bg-white`}>{children}</article>
+  );
 }

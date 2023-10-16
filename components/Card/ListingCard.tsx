@@ -13,7 +13,7 @@ export function ListingCard({ jobPost, t }: ListingCardProps) {
   console.log(jobPost);
   return (
     <Link href={`/annonce/${jobPost.id}`}>
-      <Card className={`flex flex-col relative items-center p-1 md:flex-row md:p-2 ${jobPost.pinned ? 'border-2 border-blue-500' : ''}`}>
+      <Card className='flex flex-col relative items-center p-1 md:flex-row md:p-2' pinned={jobPost.pinned}>
         {jobPost.pinned && (
           <div className='absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2'>
             <BsFillPinAngleFill size={30} className='text-blue-500' />
