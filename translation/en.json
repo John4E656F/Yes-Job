@@ -36,7 +36,13 @@
       "fulltime": "Full Time",
       "partTime": "Part Time",
       "experience": "Experience required",
-      "noExperience": "No experience required"
+      "noExperience": "No experience required",
+      "hourAgo": "1 hour ago",
+      "hoursAgo": "hours ago",
+      "dayAgo": "1 day ago",
+      "daysAgo": "days ago",
+      "monthAgo": "1 month ago",
+      "monthsAgo": "months ago"
     },
     "ads": {
       "title": "We're glad you'd like to advertise with us!",
