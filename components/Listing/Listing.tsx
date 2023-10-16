@@ -24,7 +24,8 @@ export function Listing() {
           companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) 
         `,
           )
-          .order('created_at', { ascending: false }) // Order by most recent
+          .order('pinned', { ascending: false }) // Order pinned posts first
+          .order('created_at', { ascending: false }) // Then order by most recent
           .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
 
         if (error) {

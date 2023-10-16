@@ -34,6 +34,8 @@ const page: React.FC = () => {
     externalFormURL: '',
     contactName: '',
     contactEmail: '',
+    pinned: false,
+    pinned_at: null,
   });
 
   const [logoPreviewUrl, setLogoPreviewUrl] = useState<string | null>(null);
@@ -160,6 +162,8 @@ const page: React.FC = () => {
         salaryMax: formData.salaryMax,
         applicationMethod: formData.applicationMethod,
         externalFormURL: formData.externalFormURL,
+        pinned: true,
+        prinned_at: new Date().toISOString(),
       });
 
       if (insertError) {
