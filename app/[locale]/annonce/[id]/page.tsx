@@ -91,19 +91,30 @@ export default function annoncePage({ params }: { params: { id: number } }) {
     try {
       const { name, email, phoneNumber, cvFile } = formData;
 
+      if (!jobPost || !jobPost.companyId || !jobPost.companyId.user_email) {
+        console.error('Recruiter email is not available');
+        return;
+      }
+
+      const recruiterEmail = jobPost.companyId.user_email;
+
       const formDataToSend = new FormData();
       formDataToSend.append('name', name);
       formDataToSend.append('email', email);
       formDataToSend.append('phoneNumber', phoneNumber);
       formDataToSend.append('cvFile', cvFile as Blob);
+      formDataToSend.append('recruiterEmail', recruiterEmail);
+      console.log(formDataToSend);
 
-      const response = await fetch('/api/submitForm', {
+      const response = await fetch('/api/sendEmail', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: formDataToSend,
       });
 
       if (response.ok) {
-        // Handle successful submission (e.g., show a success message)
         console.log('Form submitted successfully');
       } else {
         console.error('Form submission failed');
