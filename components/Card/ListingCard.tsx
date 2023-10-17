@@ -3,6 +3,8 @@ import React from 'react';
 import { Card, Image, Label } from '..';
 import type { FormData, TranslationProps } from '@/types';
 import Link from 'next/link';
+import { BsFillPinAngleFill } from 'react-icons/bs';
+import { timeDifference } from '@/utils';
 
 interface ListingCardProps extends TranslationProps {
   jobPost: FormData;
@@ -11,7 +13,12 @@ interface ListingCardProps extends TranslationProps {
 export function ListingCard({ jobPost, t }: ListingCardProps) {
   return (
     <Link href={`/annonce/${jobPost.id}`}>
-      <Card className='flex flex-col items-center px-1 md:flex-row md:p-2'>
+      <Card className='flex flex-col relative items-center p-1 md:flex-row md:p-2' pinned={jobPost.pinned}>
+        {jobPost.pinned && (
+          <div className='absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2'>
+            <BsFillPinAngleFill size={30} className='text-blue-500' />
+          </div>
+        )}
         <Image
           src={jobPost.companyId?.user_logo as string}
           alt='Yes Job'
@@ -51,7 +58,7 @@ export function ListingCard({ jobPost, t }: ListingCardProps) {
             )}
           </div>
         </div>
-        {/* <p className='hidden md:block text-sm mt-auto ml-auto text-right whitespace-nowrap'>{timeDifference(jobPost.created_at || '', { t })}</p> */}
+        <p className='hidden md:block mt-auto ml-auto text-right whitespace-nowrap'>{timeDifference(jobPost.created_at || '', { t })}</p>
       </Card>
     </Link>
   );
