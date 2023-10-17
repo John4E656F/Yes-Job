@@ -56,7 +56,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
             setUser({
               id: fetchedUserData.id,
               user_id: fetchedUserData.user_id,
-              email: fetchedUserData.user_email,
+              user_email: fetchedUserData.user_email,
               user_logo: fetchedUserData.user_logo,
               user_name: fetchedUserData.user_name,
               user_total_request_count: fetchedUserData.user_total_request_count,
