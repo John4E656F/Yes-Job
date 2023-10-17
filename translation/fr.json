@@ -36,7 +36,13 @@
       "fulltime": "Temps Plein",
       "partTime": "Temps Partiel",
       "experience": "Expérience requise",
-      "noExperience": "Pas d'expérience requise"
+      "noExperience": "Pas d'expérience requise",
+      "hourAgo": "il y a 1 heures ",
+      "hoursAgo": "heures passés",
+      "dayAgo": "il y a 1 jour",
+      "daysAgo": "jours passés",
+      "monthAgo": "il y a un mois",
+      "monthsAgo": "mois passés"
     },
     "ads": {
       "title": "Nous sommes heureux que vous souhaitiez ajouter une annonce chez nous!",

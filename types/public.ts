@@ -91,6 +91,10 @@ export interface Database {
           location: string
           pageViewCount: number
           partTime: boolean
+          pinned: boolean
+          pinned_at: string | null
+          promoted: boolean
+          promoted_at: string | null
           requestCount: number
           salaryMax: number | null
           salaryMin: number | null
@@ -111,6 +115,10 @@ export interface Database {
           location?: string
           pageViewCount?: number
           partTime?: boolean
+          pinned?: boolean
+          pinned_at?: string | null
+          promoted?: boolean
+          promoted_at?: string | null
           requestCount?: number
           salaryMax?: number | null
           salaryMin?: number | null
@@ -131,6 +139,10 @@ export interface Database {
           location?: string
           pageViewCount?: number
           partTime?: boolean
+          pinned?: boolean
+          pinned_at?: string | null
+          promoted?: boolean
+          promoted_at?: string | null
           requestCount?: number
           salaryMax?: number | null
           salaryMin?: number | null

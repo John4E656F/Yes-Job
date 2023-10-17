@@ -36,7 +36,13 @@
       "fulltime": "Fulltime",
       "partTime": "Parttime",
       "experience": "Ervaring vereist",
-      "noExperience": "Geen ervaring vereist"
+      "noExperience": "Geen ervaring vereist",
+      "hourAgo": "1 uur geleden",
+      "hoursAgo": "uren geleden",
+      "dayAgo": "1 dag geleden",
+      "daysAgo": "dagen geleden",
+      "monthAgo": "1 maand geleden",
+      "monthsAgo": "maanden geleden"
     },
     "ads": {
       "title": "We zijn blij dat u bij ons wilt adverteren!",
