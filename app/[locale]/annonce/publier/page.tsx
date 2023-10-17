@@ -47,7 +47,7 @@ const page: React.FC = () => {
         ...prevFormData,
         user_Id: user.id || '',
         contactName: user.contactName || '',
-        contactEmail: user.email || '',
+        contactEmail: user.user_email || '',
         companyName: user.user_name || '',
         logo: user.user_logo || null,
       }));
