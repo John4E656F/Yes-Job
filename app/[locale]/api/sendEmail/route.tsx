@@ -3,15 +3,23 @@ import { sendEmail } from '@/services';
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
-    const formData = await req.formData(); // This line stays the same
+    const formData = await req.formData();
 
     const name = formData.get('name') as string;
-    const cvFile = formData.get('cvFile') as any; // Temporarily use `any` here
     const phoneNumber = formData.get('phoneNumber') as string;
     const email = formData.get('email') as string;
     const recruiterEmail = formData.get('recruiterEmail') as string;
 
-    const cvFileBuffer = cvFile?.buffer; // Assume it's a file object with a buffer property
+    const cvFile = formData.get('cvFile') as any;
+
+    let cvFileBuffer;
+    if (cvFile) {
+      const chunks = [];
+      for await (const chunk of cvFile.stream()) {
+        chunks.push(chunk);
+      }
+      cvFileBuffer = Buffer.concat(chunks);
+    }
 
     const emailMessage = `
       Name: ${name}
