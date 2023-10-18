@@ -7,7 +7,7 @@ export async function sendEmail(sender: string, recipient: string, subject: stri
     secure: true,
     auth: {
       user: process.env.NEXT_PRIVATE_GMAIL_EMAIL,
-      pass: process.env.NEXT_PRIVATE_GMAIL_PASS2,
+      pass: process.env.NEXT_PRIVATE_GMAIL_PASS,
     },
   });
 
