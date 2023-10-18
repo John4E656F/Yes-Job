@@ -108,9 +108,6 @@ export default function annoncePage({ params }: { params: { id: number } }) {
 
       const response = await fetch('/api/sendEmail', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: formDataToSend,
       });
 
