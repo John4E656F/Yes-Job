@@ -16,8 +16,6 @@ export async function POST(request: Request) {
     password,
   });
 
-  console.log('Sign in data ', data);
-
   if (error) {
     console.log(error);
 
