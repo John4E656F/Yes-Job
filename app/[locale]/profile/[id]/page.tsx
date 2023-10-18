@@ -55,7 +55,6 @@ export default function ProfilePage({ params }: { params: { id: number } }) {
 
     fetchUserDataAndPosts();
   }, [params.id, storedUserData]);
-  console.log(userPosts);
 
   return (
     <header className='w-full flex justify-center py-4 bg-brand-lightbg'>
