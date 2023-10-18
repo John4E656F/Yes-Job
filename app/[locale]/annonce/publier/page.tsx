@@ -108,7 +108,6 @@ const page: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log('Form data:', formData);
     if (formData.logo instanceof File) {
       const fileExtension = formData.logo.name.split('.').pop();
       const filename = `${uuidv4()}.${fileExtension}`;
@@ -126,8 +125,6 @@ const page: React.FC = () => {
         }
 
         const { data: publicUrlData } = await supabase.storage.from('logo').getPublicUrl(uploadData.path, { transform: { width: 50, height: 50 } });
-
-        console.log(uploadData);
 
         const publicUrl = publicUrlData.publicUrl;
 

@@ -104,7 +104,6 @@ export default function annoncePage({ params }: { params: { id: number } }) {
       formDataToSend.append('phoneNumber', phoneNumber);
       formDataToSend.append('cvFile', cvFile as Blob);
       formDataToSend.append('recruiterEmail', recruiterEmail);
-      console.log(formDataToSend);
 
       const response = await fetch('/api/sendEmail', {
         method: 'POST',
