@@ -121,10 +121,10 @@ export default function annoncePage({ params }: { params: { id: number } }) {
   };
 
   return (
-    <header className='w-full flex justify-center bg-brand-lightbg'>
+    <header className='w-full flex justify-center py-4 bg-brand-lightbg'>
       {jobPost ? (
         <section className='container flex flex-col gap-4'>
-          <div className='flex flex-row items-center px-1 md:flex-row md:p-2'>
+          <div className='flex flex-row items-center md:flex-row md:p-2'>
             <Image
               src={jobPost.companyId?.user_logo as string}
               alt='Yes Job'

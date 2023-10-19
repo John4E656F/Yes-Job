@@ -22,7 +22,7 @@ export function ListingCard({ jobPost, t }: ListingCardProps) {
         <Image
           src={jobPost.companyId?.user_logo as string}
           alt='Yes Job'
-          className='w-20 m-5 h-20 md:w-24 md:h-24 object-contain bg-blue-200 rounded-2xl'
+          className='w-20 m-5 h-20 md:w-24 md:h-24 object-contain bg-blue-200 rounded'
           unoptimized
         />
         <div>
