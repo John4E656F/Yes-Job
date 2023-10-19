@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 export const Footer = () => {
   const t = useTranslations('app');
   return (
-    <footer className='w-full flex flex-col items-center'>
+    <footer className='w-full flex flex-col items-center '>
       <div className='container flex flex-col md:flex-row items-center justify-between text-sm gap-4 pt-16 pb-12'>
         <div className='flex flex-col items-center md:items-start max-w-xs'>
           <Link href='/' className='' aria-label='YesJob Footer Logo'>
@@ -39,7 +39,7 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-      <div className='flex flex-col w-full text-center justify-center py-10 gap-3.5 bg-brand-lightbg'>
+      <div className='flex flex-col w-full text-center justify-center py-10 gap-3.5 '>
         <div className='flex gap-4 justify-center'>
           <Link href='/conditions' className='text-xs font-light '>
             {t('footer.terms')}
@@ -52,14 +52,6 @@ export const Footer = () => {
           </Link>
         </div>
         <div>
-          <div className='flex justify-center'>
-            <p>
-              {t('footer.developedBy')}{' '}
-              <a href='https://www.linkedin.com/in/john4e656f/' target='_blank' className='text-red-700'>
-                John Andres
-              </a>
-            </p>
-          </div>
           <p>
             {t('footer.based')}
             <span className='text-red-700'>{t('footer.brussels')}</span>
