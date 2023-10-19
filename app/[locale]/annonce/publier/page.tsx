@@ -196,7 +196,7 @@ const page: React.FC = () => {
 
   return (
     <header className='w-full flex justify-center bg-brand-lightbg'>
-      <form className='flex flex-col container py-4 md:py-16 gap-16' onSubmit={handleSubmit}>
+      <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-16' onSubmit={handleSubmit}>
         <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>
         <div className='flex flex-col bg-white p-4 lg:p-8 gap-6'>
           <h3 className='text-2xl font-semibold'>{t('publishAds.infoCompany')}</h3>
