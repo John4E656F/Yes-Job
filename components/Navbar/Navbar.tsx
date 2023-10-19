@@ -91,24 +91,20 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
             className='inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200'
           />
           <div className='hidden w-full items-center md:flex md:w-auto gap-3' id='navbar-default'>
-            <ul className='font-medium flex flex-row p-2 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 '>
+            <ul className='font-bold text-lg flex flex-row p-2 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 '>
               <li>
-                <Link
-                  href='/'
-                  className='block py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 '
-                  aria-current='page'
-                >
+                <Link href='/' className='block py-2 text-gray-900 rounded hover:text-gray-400 md:border-0 ' aria-current='page'>
                   {t('nav.home')}
                 </Link>
               </li>
               <li>
-                <Link href='/contact' className='block py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0'>
+                <Link href='/contact' className='block py-2 text-gray-900 rounded hover:text-gray-400 md:border-0'>
                   {t('nav.contact')}
                 </Link>
               </li>
               <li>
                 {!session && (
-                  <Link href='/login' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200'>
+                  <Link href='/login' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-gray-400'>
                     Login
                   </Link>
                 )}
@@ -118,7 +114,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               text={t('cta.publish')}
               btnType='button'
               onClick={() => router.push('/annonce')}
-              className='hidden md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-gray-200'
+              className='hidden md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
             />
           </div>
           <div className='flex gap-2'>
@@ -137,7 +133,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
                   onClick={toggleProfileMenu}
                 />
               ))}
-            <Button text={<HiMiniLanguage className='text-xl text-gray-400 ' />} btnType='button' onClick={toggleLocaleModal} />
+            <Button text={<HiMiniLanguage className='text-xl text-gray-400 hover:text-gray-200' />} btnType='button' onClick={toggleLocaleModal} />
           </div>
         </div>
         <ProfileMenu isMenuOpen={isProfileMenuOpen} toggleMenu={toggleProfileMenu} menuRef={profileMenuRef} t={t} userData={userData} />

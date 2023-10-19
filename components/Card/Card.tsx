@@ -4,6 +4,6 @@ type CardProps = { className?: string; pinned?: boolean } & PropsWithChildrenOpt
 
 export function Card({ children, className, pinned }: CardProps) {
   return (
-    <article className={`${className} ${!pinned ? 'border border-gray-300' : 'border-2 border-blue-500'}  rounded-md bg-white`}>{children}</article>
+    <article className={`${className} ${!pinned ? 'border border-gray-300' : 'border-2 border-blue-500'}  rounded-sm bg-white`}>{children}</article>
   );
 }
