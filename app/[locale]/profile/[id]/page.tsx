@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/supabase/supabase';
 import { Image, Link, ListingCard } from '@/components';
-import type { UsersTypes, FormData } from '@/types';
+import type { UsersTypes, ListingData } from '@/types';
 import { useStore } from '@/lib/store';
 import { HiUser } from 'react-icons/hi2';
 import { useTranslations } from 'next-intl';
@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl';
 export default function ProfilePage({ params }: { params: { id: number } }) {
   const t = useTranslations('app');
   const [userData, setUserData] = useState<UsersTypes>();
-  const [userPosts, setUserPosts] = useState<FormData[]>([]);
+  const [userPosts, setUserPosts] = useState<ListingData[]>([]);
   const [isOwner, setIsOwner] = useState(false);
   const storedUserData = useStore((state) => state);
 
