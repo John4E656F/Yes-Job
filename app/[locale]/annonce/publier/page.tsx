@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { BiUpload } from 'react-icons/bi';
-import type { FormData } from '@/types';
+import type { PublishData } from '@/types';
 import { Image } from '@/components';
 import { supabase } from '@/supabase/supabase';
 import { v4 as uuidv4 } from 'uuid';
@@ -15,7 +15,7 @@ const page: React.FC = () => {
   const router = useRouter();
   const user = useStore((state) => state);
 
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<PublishData>({
     user_Id: '',
     companyName: '',
     logo: '',
@@ -145,7 +145,7 @@ const page: React.FC = () => {
       }
 
       const { data: insertData, error: insertError } = await supabase.from('jobPosting').insert({
-        companyId: formData.companyId,
+        companyId: formData.user_Id,
         title: formData.title,
         jobFunction: formData.jobFunction,
         cdd: formData.cdd,

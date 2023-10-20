@@ -4,14 +4,14 @@ import { Image, Label } from '@/components';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/supabase/supabase';
-import type { FormData } from '@/types';
+import type { ListingData } from '@/types';
 import { formatDescription, formatDate } from '@/utils';
 import { useTranslations } from 'next-intl';
 
 export default function annoncePage({ params }: { params: { id: number } }) {
   const t = useTranslations('app');
   const router = useRouter();
-  const [jobPost, setJobPost] = useState<FormData>();
+  const [jobPost, setJobPost] = useState<ListingData>();
 
   useEffect(() => {
     const fetchJobPostById = async () => {
@@ -44,7 +44,7 @@ export default function annoncePage({ params }: { params: { id: number } }) {
       }
     };
 
-    const updatePageViewCount = async (jobData: FormData) => {
+    const updatePageViewCount = async (jobData: ListingData) => {
       try {
         if (jobData && jobData.pageViewCount !== undefined) {
           const { error } = await supabase
