@@ -2,32 +2,18 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { BiUpload } from 'react-icons/bi';
 import type { PublishData } from '@/types';
-import { Image, FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea } from '@/components';
+import { Image } from '@/components';
 import { supabase } from '@/supabase/supabase';
 import { v4 as uuidv4 } from 'uuid';
 import { getOrCreateCompanyId } from '@/utils/getOrCreateCompanyId';
 import { useTranslations } from 'next-intl';
 import { useStore } from '@/lib/store';
 import { useRouter } from 'next/navigation';
-import { publishFormResolver, type PublishFormInputs } from './publishFormResolver';
-import { useForm, SubmitHandler } from 'react-hook-form';
 
-enum ExperienceField {
-  NoExperienceRequired = 'noExperienceRequired',
-  ExperienceRequired = 'experienceRequired',
-}
-
-const PublishPage: React.FC = () => {
+const page: React.FC = () => {
   const t = useTranslations('app');
   const router = useRouter();
   const user = useStore((state) => state);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<PublishFormInputs>({ resolver: publishFormResolver, mode: 'onBlur' });
 
   const [formData, setFormData] = useState<PublishData>({
     user_Id: '',
@@ -55,7 +41,6 @@ const PublishPage: React.FC = () => {
   const [logoPreviewUrl, setLogoPreviewUrl] = useState<string | null>(null);
   const [isExternalFormURLValid, setIsExternalFormURLValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
-
   useEffect(() => {
     if (user && user.isCompany) {
       setFormData((prevFormData) => ({
@@ -70,89 +55,59 @@ const PublishPage: React.FC = () => {
     }
   }, [user]);
 
-  const options = [
-    { value: '', label: t('jobFonction.default'), disabled: true },
-    { value: 'waiter', label: t('jobFonction.waiter') },
-    { value: 'cook', label: t('jobFonction.cook') },
-    { value: 'chefDePartie', label: t('jobFonction.chefDePartie') },
-    { value: 'chefCook', label: t('jobFonction.chefCook') },
-    { value: 'bartender', label: t('jobFonction.bartender') },
-    { value: 'dishwasher', label: t('jobFonction.dishwasher') },
-    { value: 'shiftLeader', label: t('jobFonction.shiftLeader') },
-    { value: 'cleaningStaff', label: t('jobFonction.cleaningStaff') },
-    { value: 'restaurantManager', label: t('jobFonction.restaurantManager') },
-    { value: 'hotelReceptionist', label: t('jobFonction.hotelReceptionist') },
-    { value: 'hotelManager', label: t('jobFonction.hotelManager') },
-    { value: 'hotelMaster', label: t('jobFonction.hotelMaster') },
-    { value: 'pastryChef', label: t('jobFonction.pastryChef') },
-    { value: 'deliveryDriver', label: t('jobFonction.deliveryDriver') },
-    { value: 'other', label: t('jobFonction.other') },
-  ];
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+    if (type === 'file') {
+      const fileInput = e.target as HTMLInputElement;
+      const selectedFile = fileInput.files?.[0];
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type } = event.target;
-
-    if (type === 'checkbox') {
-      setFormData({ ...formData, [name as keyof PublishData]: event.target.checked });
-    } else if (type === 'radio' && (name === 'applicationMethod' || name === 'experience')) {
-      setFormData({ ...formData, [name as keyof PublishData]: value });
+      if (selectedFile) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setFormData({ ...formData, logo: selectedFile });
+          setLogoPreviewUrl(reader.result as string);
+        };
+        reader.readAsDataURL(selectedFile);
+      }
+    } else if (type === 'checkbox') {
+      const checkboxInput = e.target as HTMLInputElement;
+      setFormData({ ...formData, [name]: checkboxInput.checked });
+    } else if (type === 'radio') {
+      if (name === 'noExperienceRequired') {
+        // For "Pas d'expérience requise" radio button
+        setFormData({ ...formData, experience: false });
+      } else if (name === 'experienceRequired') {
+        // For "Expérience requise" radio button
+        setFormData({ ...formData, experience: true });
+      } else {
+        setFormData({ ...formData, [name]: value });
+      }
     } else {
-      setFormData({ ...formData, [name as keyof PublishData]: value });
+      if (name === 'salaryMin' || name === 'salaryMax') {
+        const newValue = parseInt(value, 10);
+        if (!isNaN(newValue) && newValue >= 0) {
+          setFormData({ ...formData, [name]: newValue });
+        } else {
+          // Handle invalid input (e.g., show an error message)
+        }
+      } else {
+        setFormData({ ...formData, [name]: value });
+
+        if (name === 'externalFormURL') {
+          const urlPattern = /^((https?:\/\/)?(www\.)?)?[^\/]+[a-z]{2,}(\.[a-z]{2,})?(\/.*)?$/i;
+          setIsExternalFormURLValid(urlPattern.test(value));
+        }
+
+        if (name === 'contactEmail') {
+          const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          setIsEmailValid(emailPattern.test(value));
+        }
+      }
     }
   };
-  // const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-  //   const { name, value, type } = e.target;
-  //   if (type === 'file') {
-  //     const fileInput = e.target as HTMLInputElement;
-  //     const selectedFile = fileInput.files?.[0];
 
-  //     if (selectedFile) {
-  //       const reader = new FileReader();
-  //       reader.onload = () => {
-  //         setFormData({ ...formData, logo: selectedFile });
-  //         setLogoPreviewUrl(reader.result as string);
-  //       };
-  //       reader.readAsDataURL(selectedFile);
-  //     }
-  //   } else if (type === 'checkbox') {
-  //     const checkboxInput = e.target as HTMLInputElement;
-  //     setFormData({ ...formData, [name]: checkboxInput.checked });
-  //   } else if (type === 'radio') {
-  //     if (name === 'noExperienceRequired') {
-  //       // For "Pas d'expérience requise" radio button
-  //       setFormData({ ...formData, experience: false });
-  //     } else if (name === 'experienceRequired') {
-  //       // For "Expérience requise" radio button
-  //       setFormData({ ...formData, experience: true });
-  //     } else {
-  //       setFormData({ ...formData, [name]: value });
-  //     }
-  //   } else {
-  //     if (name === 'salaryMin' || name === 'salaryMax') {
-  //       const newValue = parseInt(value, 10);
-  //       if (!isNaN(newValue) && newValue >= 0) {
-  //         setFormData({ ...formData, [name]: newValue });
-  //       } else {
-  //         // Handle invalid input (e.g., show an error message)
-  //       }
-  //     } else {
-  //       setFormData({ ...formData, [name]: value });
-
-  //       if (name === 'externalFormURL') {
-  //         const urlPattern = /^((https?:\/\/)?(www\.)?)?[^\/]+[a-z]{2,}(\.[a-z]{2,})?(\/.*)?$/i;
-  //         setIsExternalFormURLValid(urlPattern.test(value));
-  //       }
-
-  //       if (name === 'contactEmail') {
-  //         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  //         setIsEmailValid(emailPattern.test(value));
-  //       }
-  //     }
-  //   }
-  // };
-
-  const onSubmit = async (data: PublishFormInputs) => {
-    reset();
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     if (formData.logo instanceof File) {
       const fileExtension = formData.logo.name.split('.').pop();
       const filename = `${uuidv4()}.${fileExtension}`;
@@ -241,54 +196,147 @@ const PublishPage: React.FC = () => {
 
   return (
     <header className='w-full flex justify-center bg-brand-lightbg'>
-      <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-16' onSubmit={handleSubmit(onSubmit)}>
+      <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-16' onSubmit={handleSubmit}>
         <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>
         <div className='flex flex-col bg-white p-4 lg:p-8 gap-6'>
           <h3 className='text-2xl font-semibold'>{t('publishAds.infoCompany')}</h3>
           <div className='flex flex-col gap-3'>
-            <FormInput
-              label={t('publishAds.companyName')}
+            <label className='text-lg font-medium'>{t('publishAds.companyName')}</label>
+            <input
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              name='companyName'
+              value={formData.companyName}
+              onChange={handleInputChange}
               type='text'
-              register={register('companyName')}
-              error={errors.companyName}
               placeholder='Quick, McDonald ...'
+              required
             />
           </div>
           <div className='flex flex-col gap-3'>
-            <ImageUpload label={t('publishAds.companyLogo')} register={register('logo')} error={errors.logo} />
+            <label className='text-lg font-medium'>{t('publishAds.companyLogo')}</label>
+            <div className='flex flex-col items-center justify-center w-full gap-4'>
+              {logoPreviewUrl ? (
+                <Image src={logoPreviewUrl} alt='Logo Preview' className='w-24 h-24 p-1 object-contain bg-blue-200 rounded-xl' />
+              ) : (
+                <div className='w-24 h-24 bg-blue-200 rounded-xl' />
+              )}
+              <label
+                htmlFor='logo'
+                className='flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100'
+              >
+                <div className='flex flex-col items-center justify-center pt-5 pb-6'>
+                  <BiUpload />
+                  <p className='mb-2 text-sm  text-gray-500'>
+                    <span className='font-semibold'>{t('publishAds.upload')}</span> {t('publishAds.dnd')}
+                  </p>
+                  <p className='text-xs text-gray-500'>{t('publishAds.uploadDetails')}</p>
+                </div>
+                <input id='logo' name='logo' onChange={handleInputChange} type='file' className='hidden' />
+              </label>
+            </div>
           </div>
           <div className='w-full h-px bg-slate-300 rounded' />
           <h2 className='text-2xl font-semibold'>{t('publishAds.infoAds')}</h2>
           <div className='flex flex-col gap-3'>
-            <FormInput
-              label={t('publishAds.adsTitle')}
+            <label className='text-lg font-medium'>{t('publishAds.adsTitle')}</label>
+            <input
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              name='title'
+              value={formData.title}
+              onChange={handleInputChange}
               type='text'
-              register={register('title')}
-              error={errors.title}
               placeholder={t('publishAds.adsTitlePlaceholder')}
+              required
             />
           </div>
           <div className='flex flex-col gap-3'>
-            <FormSelect
-              register={register('jobFunction', { required: true })}
-              error={errors.jobFunction}
-              label={t('publishAds.adsPosition')}
-              options={options}
-            />
+            <label className='text-lg font-medium'>{t('publishAds.adsPosition')}</label>
+            <select
+              className='shadow appearance-none border rounded w-full py-2 px-3 bg-white text-gray-500  focus:outline-none focus:shadow-outline'
+              name='jobFunction'
+              value={formData.jobFunction}
+              onChange={handleInputChange}
+              required
+            >
+              <option value='' disabled>
+                {t('jobFonction.default')}
+              </option>
+              <option value='waiter'>{t('jobFonction.waiter')}</option>
+              <option value='cook'>{t('jobFonction.cook')}</option>
+              <option value='chefDePartie'>{t('jobFonction.chefDePartie')}</option>
+              <option value='chefCook'>{t('jobFonction.chefCook')}</option>
+              <option value='bartender'>{t('jobFonction.bartender')}</option>
+              <option value='dishwasher'>{t('jobFonction.dishwasher')}</option>
+              <option value='shiftLeader'>{t('jobFonction.shiftLeader')}</option>
+              <option value='cleaningStaff'>{t('jobFonction.cleaningStaff')}</option>
+              <option value='restaurantManager'>{t('jobFonction.restaurantManager')}</option>
+              <option value='hotelReceptionist'>{t('jobFonction.hotelReceptionist')}</option>
+              <option value='hotelManager'>{t('jobFonction.hotelManager')}</option>
+              <option value='hotelMaster'>{t('jobFonction.hotelMaster')}</option>
+              <option value='pastryChef'>{t('jobFonction.pastryChef')}</option>
+              <option value='deliveryDriver'>{t('jobFonction.deliveryDriver')}</option>
+              <option value='other'>{t('jobFonction.other')}</option>
+            </select>
           </div>
-          <div className='flex flex-col md:flex-row justify-between gap-2'>
+          <div className='flex flex-col md:flex-row justify-between'>
             <div className='flex flex-col gap-3'>
               <label className='text-lg font-medium'>{t('publishAds.contractDuration')}</label>
               <div className='flex flex-row gap-8 justify-evenly '>
-                <FormCheckbox register={register('cdd')} error={errors.cdd} label='CDD' subText={t('publishAds.CDD')} />
-                <FormCheckbox register={register('cdi')} error={errors.cdi} label='CDI' subText={t('publishAds.CDI')} />
+                <div className='flex mb-4 '>
+                  <input
+                    className='w-4 h-4 mt-0.5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+                    name='cdd'
+                    checked={formData.cdd}
+                    onChange={handleInputChange}
+                    type='checkbox'
+                  />
+                  <label htmlFor='default-checkbox' className='ml-2 text-sm text-gray-900 '>
+                    <p className='font-medium'>CDD</p>
+                    <p className='text-gray-600'>{t('publishAds.CDD')}</p>
+                  </label>
+                </div>
+                <div className='flex mb-4'>
+                  <input
+                    className='w-4 h-4 mt-0.5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+                    name='cdi'
+                    checked={formData.cdi}
+                    onChange={handleInputChange}
+                    type='checkbox'
+                  />
+                  <label htmlFor='default-checkbox' className='ml-2 text-sm text-gray-900 '>
+                    <p className='font-medium'>CDI</p>
+                    <p className='text-gray-600'>{t('publishAds.CDI')}</p>
+                  </label>
+                </div>
               </div>
             </div>
             <div className='flex flex-col gap-3'>
               <label className='text-lg font-medium'>{t('publishAds.workDuration')}</label>
               <div className='flex flex-row gap-8 justify-evenly'>
-                <FormCheckbox register={register('fullTime')} error={errors.fullTime} label={t('listing.fullTime')} />
-                <FormCheckbox register={register('partTime')} error={errors.partTime} label={t('listing.partTime')} />
+                <div className='flex  mb-4'>
+                  <input
+                    className='w-4 h-4 mt-0.5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+                    name='fullTime'
+                    checked={formData.fullTime}
+                    onChange={handleInputChange}
+                    type='checkbox'
+                  />
+                  <label htmlFor='default-checkbox' className='ml-2 text-sm font-medium text-gray-900 '>
+                    {t('listing.fulltime')}
+                  </label>
+                </div>
+                <div className='flex  mb-4'>
+                  <input
+                    className='w-4 h-4 mt-0.5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+                    name='partTime'
+                    checked={formData.partTime}
+                    onChange={handleInputChange}
+                    type='checkbox'
+                  />
+                  <label htmlFor='default-checkbox' className='ml-2 text-sm font-medium text-gray-900 '>
+                    {t('listing.partTime')}
+                  </label>
+                </div>
               </div>
             </div>
             <div className='flex flex-col gap-3'>
@@ -319,46 +367,54 @@ const PublishPage: React.FC = () => {
                   </label>
                 </div>
               </div>
-              <div className='flex flex-row gap-8 justify-evenly '>
-                <FormRadio
-                  name='experience'
-                  register={register('experience')}
-                  error={errors.experience}
-                  label={t('listing.noExperience')}
-                  value='false'
-                />
-                <FormRadio
-                  name='experience'
-                  register={register('experience')}
-                  error={errors.experience}
-                  label={t('listing.experience')}
-                  value='true'
-                />
-              </div>
             </div>
           </div>
           <div className='flex flex-col gap-3 w-full'>
             <label className='text-lg font-medium'>{t('publishAds.salary')}</label>
             <div className='flex flex-row gap-3 justify-between'>
-              <FormInput label={t('publishAds.from')} type='number' register={register('salaryMin')} error={errors.salaryMin} />
-              <FormInput label={t('publishAds.to')} type='number' register={register('salaryMax')} error={errors.salaryMax} />
+              <div className='flex items-center gap-2 w-full'>
+                <h6 className='text-sm'>{t('publishAds.from')}</h6>
+                <input
+                  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                  name='salaryMin'
+                  value={formData.salaryMin !== null ? formData.salaryMin : ''}
+                  onChange={handleInputChange}
+                  type='number'
+                  required
+                />
+              </div>
+              <div className='flex items-center gap-2 w-full'>
+                <h6 className='text-sm'>{t('publishAds.to')}</h6>
+                <input
+                  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                  name='salaryMax'
+                  value={formData.salaryMax !== null ? formData.salaryMax : ''}
+                  onChange={handleInputChange}
+                  type='number'
+                />
+              </div>
             </div>
           </div>
           <div className='flex flex-col gap-3'>
-            <FormTextarea
-              register={register('description')}
-              error={errors.description}
-              label={t('publishAds.description')}
+            <label className='text-lg font-medium'>{t('publishAds.description')}</label>
+            <textarea
+              className='shadow appearance-none border rounded w-full h-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              name='description'
+              value={formData.description}
+              onChange={handleInputChange}
               placeholder={t('publishAds.descPlaceholder')}
             />
           </div>
           <div className='flex flex-col gap-3'>
-            <FormInput
-              label={t('publishAds.placeOfWork')}
+            <label className='text-lg font-medium'>{t('publishAds.placeOfWork')}</label>
+            <input
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              name='location'
+              value={formData.location}
+              onChange={handleInputChange}
               type='text'
-              register={register('location', { required: true })}
-              error={errors.salaryMax}
               placeholder={t('publishAds.placeOfWorkPlaceholder')}
+              required
             />
           </div>
           <div className='w-full h-px bg-slate-300 rounded' />
@@ -451,25 +507,25 @@ const PublishPage: React.FC = () => {
               <h3 className='text-md '>{t('publishAds.contactDetailsSub')}</h3>
               <div className='flex flex-col gap-3'>
                 <label className='text-lg font-medium'>{t('publishAds.contactDetailsName')}</label>
-                {/* <input
+                <input
                   className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   name='contactName'
                   value={formData.contactName}
                   onChange={handleInputChange}
                   type='text'
                   placeholder='Lenny De Wolf'
-                /> */}
+                />
               </div>
               <div className='flex flex-col gap-3'>
                 <label className='text-lg font-medium'>{t('publishAds.contactDetailsEmail')}</label>
-                {/* <input
+                <input
                   className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   name='contactEmail'
                   value={formData.contactEmail}
                   onChange={handleInputChange}
                   type='text'
                   placeholder='recrument@mcdonalds.be'
-                /> */}
+                />
                 {!isEmailValid && <p className='text-red-500 text-sm'>{t('publishAds.contactDetailsEmailValidation')}</p>}
               </div>
             </>
@@ -487,4 +543,4 @@ const PublishPage: React.FC = () => {
   );
 };
 
-export default PublishPage;
+export default page;
