@@ -33,7 +33,7 @@
     "listing": {
       "jobOffers": "offres d'emploi",
       "title": "Explorer des milliers d'offres d'emploi",
-      "fulltime": "Temps Plein",
+      "fullTime": "Temps Plein",
       "partTime": "Temps Partiel",
       "experience": "Expérience requise",
       "noExperience": "Pas d'expérience requise",
