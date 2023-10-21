@@ -5,11 +5,19 @@ import { FormLabel, InputError } from '@/components';
 interface FormTextAreaProps {
   register: UseFormRegisterReturn;
   error: any;
+  isRequiredMessage?: string;
   label: string;
   placeholder?: string;
 }
 
-export function FormTextarea({ register, error, label, placeholder }: FormTextAreaProps) {
+export function FormTextarea({ register, error, isRequiredMessage, label, placeholder }: FormTextAreaProps) {
+  let errorMessage;
+  if (error && error.message === 'String must contain at least 1 character(s)') {
+    errorMessage = isRequiredMessage;
+  } else if (error) {
+    errorMessage = error.message;
+  }
+
   return (
     <div className='form-control'>
       <FormLabel htmlFor={`input${label}`} labelText={label} />
@@ -22,7 +30,7 @@ export function FormTextarea({ register, error, label, placeholder }: FormTextAr
         placeholder={placeholder}
       />
 
-      {error && <InputError error={error} />}
+      {error && <InputError error={{ message: errorMessage }} />}
     </div>
   );
 }
