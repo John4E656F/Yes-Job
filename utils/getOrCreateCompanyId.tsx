@@ -5,32 +5,43 @@ interface Company {
   id: string;
   name: string;
   email: string;
+  password: string;
   logo: string;
 }
+interface Result {
+  companyId?: string;
+  error?: string;
+}
 
-export const getOrCreateCompanyId = async (companyName: string, companyEmail: string, companyLogo: string | null, contactName: string) => {
+export const getOrCreateCompanyId = async (
+  companyName: string,
+  companyEmail: string,
+  companyLogo: string | null,
+  contactName: string,
+  contactPassword: string,
+): Promise<Result> => {
   // Try to fetch the company from the database
-  const { data: companyData, error: companyError } = await supabase.from('userd').select('id').eq('user_email', companyEmail).single();
+  const { data: companyData, error: companyError } = await supabase.from('users').select('id').eq('user_email', companyEmail);
 
   if (companyError) {
     console.error('Error fetching company:', companyError.message);
-    throw companyError;
+    return { error: companyError.message };
   }
 
-  // If the company exists, return its ID
-  if (companyData) {
-    return (companyData as Company).id;
+  // If the company exists, return an error
+  if (companyData && companyData.length > 0) {
+    return { error: 'Company already exists' };
   }
 
   // If the company does not exist, create a new one
   const { data: userData, error: userError } = await supabase.auth.signUp({
     email: companyEmail,
-    password: generatePassword(12),
+    password: contactPassword,
   });
 
   if (userError || !userData?.user) {
     console.error('Error creating new user:', userError?.message);
-    throw userError || new Error('User data is null');
+    return { error: userError?.message || 'User data is null' };
   }
 
   const userId = userData.user.id; // Access the id here
@@ -43,15 +54,15 @@ export const getOrCreateCompanyId = async (companyName: string, companyEmail: st
       user_logo: companyLogo,
       contactName: contactName,
       isCompany: true,
-      ownerId: userId,
+      user_id: userId,
     })
     .single();
 
   if (newCompanyError) {
     console.error('Error creating new company:', newCompanyError.message);
-    throw newCompanyError;
+    return { error: newCompanyError.message };
   }
 
   // Return the new company's ID
-  return (newCompanyData as Company).id;
+  return { companyId: (newCompanyData as Company).id };
 };
