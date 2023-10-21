@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
 import { Card, Image, Label } from '..';
-import type { FormData, TranslationProps } from '@/types';
+import type { ListingData, TranslationProps } from '@/types';
 import Link from 'next/link';
 import { BsFillPinAngleFill } from 'react-icons/bs';
 import { timeDifference } from '@/utils';
 
 interface ListingCardProps extends TranslationProps {
-  jobPost: FormData;
+  jobPost: ListingData;
 }
 
 export function ListingCard({ jobPost, t }: ListingCardProps) {
