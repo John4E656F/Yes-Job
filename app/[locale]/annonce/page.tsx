@@ -16,31 +16,31 @@ const AnnoncePage = () => {
             <ul className='flex flex-col text-lg text-left gap-3'>
               <li className='flex items-center gap-2'>
                 <div>
-                  <BsPinAngle size={24} />
+                  <BsPinAngle size={24} className='text-brand-primary' />
                 </div>
                 <p>{t('ads.li')}</p>
               </li>
               <li className='flex items-center gap-2  '>
                 <div>
-                  <BsBullseye size={24} />
+                  <BsBullseye size={24} className='text-brand-primary' />
                 </div>
                 <p>{t('ads.li1')}</p>
               </li>
               <li className='flex items-center gap-2  '>
                 <div>
-                  <BsFacebook size={24} />
+                  <BsFacebook size={24} className='text-brand-primary' />
                 </div>
                 <p>{t('ads.li2')}</p>
               </li>
               <li className='flex items-center gap-2 '>
                 <div>
-                  <BsGoogle size={24} />
+                  <BsGoogle size={24} className='text-brand-primary' />
                 </div>
                 <p>{t('ads.li3')}</p>
               </li>
               <li className='flex items-center gap-2'>
                 <div>
-                  <BsGoogle size={24} />
+                  <BsGoogle size={24} className='text-brand-primary' />
                 </div>
                 <p>{t('ads.li4')}</p>
               </li>
