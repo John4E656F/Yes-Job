@@ -12,7 +12,7 @@ export function InputError({ error }: InputErrorProps) {
   }
 
   return (
-    <span className='flex pt-2 italic text-red-500'>
+    <span className='flex pt-2 italic items-center gap-1 text-red-500'>
       <HiOutlineExclamationCircle size={20} />
       {error.message}
     </span>

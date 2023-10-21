@@ -10,11 +10,19 @@ interface Option {
 interface FormSelectProps {
   register: UseFormRegisterReturn;
   error: any;
+  isRequiredMessage?: string;
   label: string;
   options: Option[];
 }
 
-export function FormSelect({ register, error, label, options }: FormSelectProps) {
+export function FormSelect({ register, error, isRequiredMessage, label, options }: FormSelectProps) {
+  let errorMessage;
+  if (error && error.message === 'String must contain at least 1 character(s)') {
+    errorMessage = isRequiredMessage;
+  } else if (error) {
+    errorMessage = error.message;
+  }
+
   return (
     <div className='form-control'>
       <FormLabel htmlFor={`select${label}`} labelText={label} />
@@ -29,7 +37,7 @@ export function FormSelect({ register, error, label, options }: FormSelectProps)
           </option>
         ))}
       </select>
-      {error && <InputError error={error} />}
+      {error && <InputError error={{ message: errorMessage }} />}
     </div>
   );
 }

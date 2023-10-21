@@ -8,11 +8,11 @@ interface FormRadioProps {
   error: any;
   label: string;
   subText?: string;
-  checked: boolean;
-  onChange: () => void;
+  value: string;
+  onChange?: () => void;
 }
 
-export function FormRadio({ name, register, error, label, subText, checked, onChange }: FormRadioProps) {
+export function FormRadio({ name, register, error, label, subText, value, onChange }: FormRadioProps) {
   return (
     <div className='form-control flex mb-4'>
       <input
@@ -20,7 +20,7 @@ export function FormRadio({ name, register, error, label, subText, checked, onCh
         id={`radio-${name}`}
         className='w-4 h-4 mt-0.5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
         type='radio'
-        checked={checked}
+        value={value}
         onChange={onChange}
       />
       <label htmlFor={`radio-${name}`} className='ml-2 text-sm text-gray-900'>

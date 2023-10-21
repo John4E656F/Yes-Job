@@ -9,15 +9,43 @@ interface FormInputProps {
   show?: boolean;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
   type: string;
-  label: string;
+  label?: string;
   placeholder?: string;
   isPasswordField?: boolean;
+  isRequiredMessage?: string;
+  invalidURL?: string;
+  invalidEmail?: string;
+  className?: string;
 }
 
-export function FormInput({ register, error, show, setShow, type, label, placeholder, isPasswordField = false }: FormInputProps) {
+export function FormInput({
+  register,
+  error,
+  isRequiredMessage,
+  invalidURL,
+  invalidEmail,
+  show,
+  setShow,
+  type,
+  label,
+  placeholder,
+  className,
+  isPasswordField = false,
+}: FormInputProps) {
+  let errorMessage;
+  if (error && error.message === 'String must contain at least 1 character(s)') {
+    errorMessage = isRequiredMessage;
+  } else if (error && error.message === 'Invalid url') {
+    errorMessage = invalidURL;
+  } else if (error && error.message === 'Invalid email') {
+    errorMessage = invalidEmail;
+  } else if (error) {
+    errorMessage = error.message;
+  }
+
   return (
-    <div className={`form-control ${type == 'number' && 'flex items-center gap-2 w-full'}`}>
-      <FormLabel htmlFor={`input${label}`} labelText={label} className='text-lg font-medium' />
+    <div className={`form-control ${type == 'number' && 'flex items-center gap-2 w-full'} ${className}`}>
+      {label && <FormLabel htmlFor={`input${label}`} labelText={label} className='text-lg font-medium' />}
       <div
         className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
           error ? 'border-red-500' : ''
@@ -30,7 +58,7 @@ export function FormInput({ register, error, show, setShow, type, label, placeho
           </span>
         )}
       </div>
-      {error && <InputError error={error} />}
+      {error && <InputError error={{ message: errorMessage }} />}
     </div>
   );
 }
