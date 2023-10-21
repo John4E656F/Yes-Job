@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { BiUpload } from 'react-icons/bi';
 import { Image } from '@/components';
@@ -9,10 +9,11 @@ interface ImageUploadProps {
   register: UseFormRegisterReturn;
   error: any;
   label: string;
+  initialPreview: string;
 }
 
-export function ImageUpload({ register, error, label }: ImageUploadProps) {
-  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
+export function ImageUpload({ register, error, label, initialPreview }: ImageUploadProps) {
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>(initialPreview);
 
   const { ref, onChange: defaultOnChange, ...rest } = register;
 

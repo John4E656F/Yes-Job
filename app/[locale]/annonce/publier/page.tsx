@@ -1,8 +1,6 @@
 'use client';
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
-import { BiUpload } from 'react-icons/bi';
-import type { PublishData } from '@/types';
-import { Image, FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea } from '@/components';
+import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea } from '@/components';
 import { supabase } from '@/supabase/supabase';
 import { v4 as uuidv4 } from 'uuid';
 import { getOrCreateCompanyId } from '@/utils/getOrCreateCompanyId';
@@ -11,11 +9,6 @@ import { useStore } from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import { publishFormResolver, type PublishFormInputs } from './publishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
-
-enum ExperienceField {
-  NoExperienceRequired = 'noExperienceRequired',
-  ExperienceRequired = 'experienceRequired',
-}
 
 const PublishPage: React.FC = () => {
   const t = useTranslations('app');
@@ -51,49 +44,19 @@ const PublishPage: React.FC = () => {
       externalFormURL: '',
       contactName: '',
       contactEmail: '',
+      contactPassword: '',
       pinned: false,
       pinned_at: null,
     },
   });
 
-  const [formData, setFormData] = useState<PublishFormInputs>({
-    user_Id: '',
-    companyName: '',
-    logo: '',
-    title: '',
-    jobFunction: '',
-    cdd: false,
-    cdi: false,
-    fullTime: false,
-    partTime: false,
-    experience: 'noExperience',
-    description: '',
-    location: '',
-    salaryMin: null,
-    salaryMax: null,
-    applicationMethod: 'yesJob',
-    externalFormURL: '',
-    contactName: '',
-    contactEmail: '',
-    pinned: false,
-    pinned_at: null,
-  });
-
-  const [logoPreviewUrl, setLogoPreviewUrl] = useState<string | null>(null);
-  const [isExternalFormURLValid, setIsExternalFormURLValid] = useState(true);
-  const [isEmailValid, setIsEmailValid] = useState(true);
-
   useEffect(() => {
     if (user && user.isCompany) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        user_Id: user.id || '',
-        contactName: user.contactName || '',
-        contactEmail: user.user_email || '',
-        companyName: user.user_name || '',
-        logo: user.user_logo || null,
-      }));
-      setLogoPreviewUrl(user.user_logo || null);
+      setValue('user_Id', user.id || '');
+      setValue('contactName', user.contactName || '');
+      setValue('contactEmail', user.user_email || '');
+      setValue('companyName', user.user_name || '');
+      setValue('logo', user.user_logo || null);
     }
   }, [user]);
 
@@ -148,8 +111,21 @@ const PublishPage: React.FC = () => {
 
     try {
       if (data.user_Id === '') {
-        const company_Id = await getOrCreateCompanyId(data.companyName, data.contactEmail, data.logo, data.contactName);
-        setValue('user_Id', company_Id);
+        const { companyId, error } = await getOrCreateCompanyId(
+          data.companyName,
+          data.contactEmail,
+          data.logo,
+          data.contactName,
+          data.contactPassword,
+        );
+
+        if (error) {
+          // Handle error
+          console.error(error);
+        } else {
+          // Use companyId
+          setValue('user_Id', companyId);
+        }
       }
 
       const { data: insertData, error: insertError } = await supabase.from('jobPosting').insert({
@@ -168,38 +144,38 @@ const PublishPage: React.FC = () => {
         applicationMethod: data.applicationMethod,
         externalFormURL: data.externalFormURL,
         pinned: true,
-        prinned_at: new Date().toISOString(),
+        pinned_at: new Date().toISOString(),
       });
 
       if (insertError) {
         console.error('Error inserting job posting:', insertError.message);
         return;
       }
-      router.push('/');
+      // router.push('/');
       console.log('Form data submitted successfully:', insertData);
     } catch (error: any) {
       console.error('An error occurred:', error.message);
     }
 
-    reset({
-      companyName: '',
-      logo: null,
-      title: '',
-      jobFunction: '',
-      cdd: false,
-      cdi: false,
-      fullTime: false,
-      partTime: false,
-      experience: 'noExperience',
-      description: '',
-      location: '',
-      salaryMin: null,
-      salaryMax: null,
-      applicationMethod: 'yesJob',
-      externalFormURL: '',
-      contactName: '',
-      contactEmail: '',
-    });
+    // reset({
+    //   companyName: '',
+    //   logo: null,
+    //   title: '',
+    //   jobFunction: '',
+    //   cdd: false,
+    //   cdi: false,
+    //   fullTime: false,
+    //   partTime: false,
+    //   experience: 'noExperience',
+    //   description: '',
+    //   location: '',
+    //   salaryMin: null,
+    //   salaryMax: null,
+    //   applicationMethod: 'yesJob',
+    //   externalFormURL: '',
+    //   contactName: '',
+    //   contactEmail: '',
+    // });
   };
 
   // console.log(errors.companyName);
@@ -221,7 +197,7 @@ const PublishPage: React.FC = () => {
             />
           </div>
           <div className='flex flex-col gap-3'>
-            <ImageUpload label={t('publishAds.companyLogo')} register={register('logo')} error={errors.logo} />
+            <ImageUpload label={t('publishAds.companyLogo')} register={register('logo')} error={errors.logo} initialPreview={user.user_logo} />
           </div>
           <div className='w-full h-px bg-slate-300 rounded' />
           <h2 className='text-2xl font-semibold'>{t('publishAds.infoAds')}</h2>
@@ -385,6 +361,16 @@ const PublishPage: React.FC = () => {
                   register={register('contactEmail')}
                   error={errors.contactEmail}
                   invalidEmail={t('error.invalidEmail')}
+                  placeholder='recrument@mcdonalds.be'
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.contactDetailsPassword') + ' *'}
+                  type='password'
+                  register={register('contactPassword')}
+                  error={errors.contactPassword}
+                  isRequiredMessage={t('publishAds.contactDetailsPasswordValidationMin')}
                   placeholder='recrument@mcdonalds.be'
                 />
               </div>

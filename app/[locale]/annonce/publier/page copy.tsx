@@ -322,7 +322,7 @@ const page: React.FC = () => {
                     type='checkbox'
                   />
                   <label htmlFor='default-checkbox' className='ml-2 text-sm font-medium text-gray-900 '>
-                    {t('listing.fulltime')}
+                    {t('listing.fullTime')}
                   </label>
                 </div>
                 <div className='flex  mb-4'>
