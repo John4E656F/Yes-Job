@@ -145,7 +145,7 @@ export default function annoncePage({ params }: { params: { id: number } }) {
             ) : null}
             {jobPost.cdd ? <Label text='CDD' type='WorkDuration' /> : null}
             {jobPost.cdi ? <Label text='CDI' type='WorkDuration' /> : null}
-            {jobPost.fullTime ? <Label text={t('listing.fulltime')} type='WorkDuration' /> : null}{' '}
+            {jobPost.fullTime ? <Label text={t('listing.fullTime')} type='WorkDuration' /> : null}{' '}
             {jobPost.partTime ? <Label text={t('listing.partTime')} type='WorkDuration' /> : null}
             {jobPost.experience ? (
               <Label text={t('listing.experience')} type='noExp' className='block md:hidden lg:block' />

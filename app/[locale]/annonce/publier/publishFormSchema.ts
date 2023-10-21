@@ -27,6 +27,17 @@ export const publishFormSchema = z.object({
     .trim()
     .email()
     .transform((val) => val.toLowerCase()),
+  contactPassword: z
+    .string()
+    .min(8, 'Password must have at least 8 characters')
+    .refine((value) => /[!@#$%^&*() _+=[\]{ }; ':"\\|,.<>?]+/.test(value), {
+      message: 'Password must contain at least one special character',
+      path: ['password'],
+    })
+    .refine((value) => /\d.*\d/.test(value), {
+      message: 'Password must contain at least two numbers',
+      path: ['password'],
+    }),
   pinned: z.boolean().optional(),
   pinned_at: z.date().nullable().optional(),
 });

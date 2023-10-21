@@ -91,7 +91,11 @@
       "contactDetailsSub": "Deze gegevens zijn alleen bedoeld om contact met u op te nemen in geval van vragen over de advertentie. Ze worden nergens weergegeven.",
       "contactDetailsName": "Voor- en achternaam",
       "contactDetailsEmail": "E-mailadres",
-      "contactDetailsEmailValidation": "Voer een geldig e-mailadres in."
+      "contactDetailsEmailValidation": "Voer een geldig e-mailadres in.",
+      "contactDetailsPassword": "Wachtwoord",
+      "contactDetailsPasswordValidationMin": "Wachtwoord moet minstens 8 tekens bevatten",
+      "contactDetailsPasswordValidationSpecial": "Wachtwoord moet minstens één speciaal teken bevatten",
+      "contactDetailsPasswordValidationNum": "Wachtwoord moet minstens twee cijfers bevatten"
     },
     "jobFonction": {
       "default": "Selecteer een functie",

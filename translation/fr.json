@@ -91,7 +91,11 @@
       "contactDetailsSub": "Ces données sont uniquement à vous contacter en cas d'annonce de questions. Ils ne seront affichés nulle part.",
       "contactDetailsName": "Nom et prénom",
       "contactDetailsEmail": "Adresse e-mail",
-      "contactDetailsEmailValidation": "Veuillez entrer une adresse e-mail valide."
+      "contactDetailsEmailValidation": "Veuillez entrer une adresse e-mail valide.",
+      "contactDetailsPassword": "Mot de passe",
+      "contactDetailsPasswordValidationMin": "Le mot de passe doit comporter au moins 8 caractères",
+      "contactDetailsPasswordValidationSpecial": "Le mot de passe doit contenir au moins un caractère spécial",
+      "contactDetailsPasswordValidationNum": "Le mot de passe doit contenir au moins deux chiffres"
     },
     "jobFonction": {
       "default": "Sélectionner une fonction",

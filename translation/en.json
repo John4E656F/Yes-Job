@@ -91,7 +91,11 @@
       "contactDetailsSub": "These data are only for contacting you in case of ad questions. They will not be displayed anywhere.",
       "contactDetailsName": "First and Last name",
       "contactDetailsEmail": "Email address",
-      "contactDetailsEmailValidation": "Please enter a valid e-mail address."
+      "contactDetailsEmailValidation": "Please enter a valid e-mail address.",
+      "contactDetailsPassword": "Password",
+      "contactDetailsPasswordValidationMin": "Password must have at least 8 characters",
+      "contactDetailsPasswordValidationSpecial": "Password must contain at least one special character",
+      "contactDetailsPasswordValidationNum": "Password must contain at least two numbers"
     },
     "jobFonction": {
       "default": "Select a function",
