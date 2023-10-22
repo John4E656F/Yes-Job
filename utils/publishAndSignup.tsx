@@ -14,19 +14,27 @@ interface Company {
   user_total_request_count: number;
   created_at: string;
 }
-interface Result {
-  companyId?: string;
-  error?: string;
-}
 
-export const getOrCreateCompanyId = async (
+export const publishAndSignup = async (
   companyName: string,
   companyEmail: string,
   companyLogo: string | null,
   contactName: string,
   contactPassword: string,
-): Promise<Result> => {
-  // If the company does not exist, create a new user
+) => {
+  // Try to fetch the company from the database
+  const { data: companyData, error: companyError } = await supabase.from('users').select('id').eq('user_email', companyEmail).single();
+
+  if (companyError) {
+    console.error('Error fetching company:', companyError.message);
+  }
+
+  // If the company exists, return its ID
+  if (companyData) {
+    return (companyData as Company).id;
+  }
+
+  // If the company does not exist, create a new one
   const { data: userData, error: userError } = await supabase.auth.signUp({
     email: companyEmail,
     password: contactPassword,
@@ -34,12 +42,11 @@ export const getOrCreateCompanyId = async (
 
   if (userError || !userData?.user) {
     console.error('Error creating new user:', userError?.message);
-    return { error: userError?.message || 'User data is null' };
+    throw userError || new Error('User data is null');
   }
 
   const userId = userData.user.id;
 
-  // Insert a new company with a user_id referencing the newly created user
   const { data: newCompanyData, error: newCompanyError } = await supabase
     .from('users')
     .insert({
@@ -48,14 +55,17 @@ export const getOrCreateCompanyId = async (
       user_logo: companyLogo,
       contactName: contactName,
       isCompany: true,
-      user_id: userId,
+      ownerId: userId,
     })
     .single();
 
   if (newCompanyError) {
     console.error('Error creating new company:', newCompanyError.message);
-    return { error: newCompanyError.message };
+    throw newCompanyError;
   }
 
-  return { companyId: (newCompanyData as Company).id };
+  console.log(newCompanyData);
+
+  // Return the new company's ID
+  return (newCompanyData as Company).id;
 };

@@ -17,7 +17,7 @@ export function FormRadio({ name, register, error, label, subText, value, onChan
     <div className='form-control flex mb-4'>
       <input
         {...register}
-        id={`radio-${name}`}
+        id={`radio-${name}-${label}`}
         className='w-4 h-4 mt-0.5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
         type='radio'
         value={value}
