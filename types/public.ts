@@ -80,7 +80,7 @@ export interface Database {
           applicationMethod: string
           cdd: boolean
           cdi: boolean
-          companyId: string | null
+          companyId: string
           created_at: string
           description: string
           experience: boolean
@@ -104,7 +104,7 @@ export interface Database {
           applicationMethod?: string
           cdd?: boolean
           cdi?: boolean
-          companyId?: string | null
+          companyId: string
           created_at?: string
           description?: string
           experience?: boolean
@@ -128,7 +128,7 @@ export interface Database {
           applicationMethod?: string
           cdd?: boolean
           cdi?: boolean
-          companyId?: string | null
+          companyId?: string
           created_at?: string
           description?: string
           experience?: boolean
@@ -166,7 +166,7 @@ export interface Database {
           isCompany: boolean
           phone: number | null
           user_email: string
-          user_id: string | null
+          user_id: string
           user_logo: string
           user_name: string
           user_total_request_count: number
@@ -179,7 +179,7 @@ export interface Database {
           isCompany?: boolean
           phone?: number | null
           user_email?: string
-          user_id?: string | null
+          user_id?: string
           user_logo?: string
           user_name: string
           user_total_request_count?: number
@@ -192,7 +192,7 @@ export interface Database {
           isCompany?: boolean
           phone?: number | null
           user_email?: string
-          user_id?: string | null
+          user_id?: string
           user_logo?: string
           user_name?: string
           user_total_request_count?: number

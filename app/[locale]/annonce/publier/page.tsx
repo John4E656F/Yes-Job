@@ -1,22 +1,28 @@
 'use client';
-import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
-import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea } from '@/components';
+import React, { useState, useEffect } from 'react';
+import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button } from '@/components';
 import { supabase } from '@/supabase/supabase';
 import { v4 as uuidv4 } from 'uuid';
-import { getOrCreateCompanyId } from '@/utils/getOrCreateCompanyId';
+import { publishAndSignup } from '@/utils/';
 import { useTranslations } from 'next-intl';
 import { useStore } from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import { publishFormResolver, type PublishFormInputs } from './publishFormResolver';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { useToggle } from '@/hooks';
+import { ToastTitle } from '@/types';
 
 const PublishPage: React.FC = () => {
   const t = useTranslations('app');
   const router = useRouter();
   const user = useStore((state) => state);
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
+  const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
+  const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
 
   const {
     register,
+    unregister,
     handleSubmit,
     formState: { errors },
     reset,
@@ -25,6 +31,7 @@ const PublishPage: React.FC = () => {
   } = useForm<PublishFormInputs>({
     resolver: publishFormResolver,
     mode: 'onBlur',
+    reValidateMode: 'onBlur',
     defaultValues: {
       user_Id: '',
       companyName: '',
@@ -45,10 +52,18 @@ const PublishPage: React.FC = () => {
       contactName: '',
       contactEmail: '',
       contactPassword: '',
-      pinned: false,
-      pinned_at: null,
     },
   });
+  const applicationMethod = watch('applicationMethod');
+
+  useEffect(() => {
+    if (applicationMethod === 'yesJob') {
+      unregister('externalFormURL');
+    } else {
+      register('externalFormURL', { required: true, pattern: /^(ftp|http|https):\/\/[^ "]+$/ });
+      setValue('externalFormURL', '');
+    }
+  }, [applicationMethod, register, unregister, setValue]);
 
   useEffect(() => {
     if (user && user.isCompany) {
@@ -80,8 +95,6 @@ const PublishPage: React.FC = () => {
   ];
 
   const onSubmit = async (data: PublishFormInputs) => {
-    console.log(data);
-
     if (data.logo instanceof File) {
       const fileExtension = data.logo.name.split('.').pop();
       const filename = `${uuidv4()}.${fileExtension}`;
@@ -94,7 +107,7 @@ const PublishPage: React.FC = () => {
         });
 
         if (uploadError) {
-          console.error('Error uploading logo:', uploadError.message);
+          setToastErrorMessage('Error uploading logo please try again later.');
           return;
         }
 
@@ -111,21 +124,21 @@ const PublishPage: React.FC = () => {
 
     try {
       if (data.user_Id === '') {
-        const { companyId, error } = await getOrCreateCompanyId(
-          data.companyName,
-          data.contactEmail,
-          data.logo,
-          data.contactName,
-          data.contactPassword,
-        );
+        const companyId = await publishAndSignup(data.companyName, data.contactEmail, data.logo, data.contactName, data.contactPassword);
 
-        if (error) {
-          // Handle error
-          console.error(error);
-        } else {
-          // Use companyId
-          setValue('user_Id', companyId);
-        }
+        // if (error) {
+        //   console.log(error);
+
+        //   setToastErrorMessage('User already exists, please login first');
+        //   toggleToast(true);
+        //   setIsSubmitSuccessful(false);
+        //   setTimeout(() => {
+        //     toggleToast(false);
+        //   }, 10000);
+        //   return;
+        // } else {
+        //   setValue('user_Id', companyId);
+        // }
       }
 
       const { data: insertData, error: insertError } = await supabase.from('jobPosting').insert({
@@ -147,12 +160,17 @@ const PublishPage: React.FC = () => {
         pinned_at: new Date().toISOString(),
       });
 
-      if (insertError) {
-        console.error('Error inserting job posting:', insertError.message);
-        return;
-      }
-      // router.push('/');
-      console.log('Form data submitted successfully:', insertData);
+      // if (insertError) {
+      //   console.error('Error inserting job posting:', insertError.message);
+      //   return;
+      // };
+      setIsSubmitSuccessful(true);
+      toggleToast(!isToastOpen);
+
+      setTimeout(() => {
+        toggleToast(false);
+        router.push('/');
+      }, 2000);
     } catch (error: any) {
       console.error('An error occurred:', error.message);
     }
@@ -178,10 +196,20 @@ const PublishPage: React.FC = () => {
     // });
   };
 
+  const handleCloseToast = () => {
+    toggleToast(!isToastOpen);
+  };
+
   // console.log(errors.companyName);
   console.log(watch());
   return (
     <header className='w-full flex justify-center bg-brand-lightbg'>
+      <Toast
+        isOpen={isToastOpen}
+        onClose={handleCloseToast}
+        title={isSubmitSuccessful ? ToastTitle.Success : ToastTitle.Error}
+        message={isSubmitSuccessful ? 'Ad submitted successfully' : toastErrorMessage}
+      />
       <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-5' onSubmit={handleSubmit(onSubmit)}>
         <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>
         <div className='flex flex-col bg-white p-4 md:p-8 gap-6'>
@@ -378,12 +406,11 @@ const PublishPage: React.FC = () => {
           )}
         </div>
 
-        <button
-          type='submit'
-          className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-gray-200  '
-        >
-          {t('cta.publishFree')}
-        </button>
+        <Button
+          btnType='submit'
+          text={t('cta.publishFree')}
+          className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+        />
       </form>
     </header>
   );
