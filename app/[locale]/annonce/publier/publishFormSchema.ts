@@ -17,7 +17,7 @@ export const publishFormSchema = z.object({
   salaryMin: z.number().nullable(),
   salaryMax: z.number().nullable(),
   applicationMethod: z.enum(['yesJob', 'externalForm', 'both']),
-  externalFormURL: z.string().url(),
+  externalFormURL: z.string().url().optional(),
   contactName: z
     .string()
     .min(1)
@@ -38,6 +38,4 @@ export const publishFormSchema = z.object({
       message: 'Password must contain at least two numbers',
       path: ['password'],
     }),
-  pinned: z.boolean().optional(),
-  pinned_at: z.date().nullable().optional(),
 });
