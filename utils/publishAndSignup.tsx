@@ -1,5 +1,4 @@
 import { supabase } from '@/supabase/supabase';
-import { generatePassword } from './generatePassword';
 
 interface Company {
   id: string;
@@ -25,47 +24,40 @@ export const publishAndSignup = async (
   // Try to fetch the company from the database
   const { data: companyData, error: companyError } = await supabase.from('users').select('id').eq('user_email', companyEmail).single();
 
-  if (companyError) {
-    console.error('Error fetching company:', companyError.message);
+  if (!companyData === null) {
+    return { error: 'User data already exist' };
   }
-
-  // If the company exists, return its ID
-  if (companyData) {
-    return (companyData as Company).id;
-  }
-
   // If the company does not exist, create a new one
   const { data: userData, error: userError } = await supabase.auth.signUp({
     email: companyEmail,
     password: contactPassword,
   });
 
-  if (userError || !userData?.user) {
-    console.error('Error creating new user:', userError?.message);
-    throw userError || new Error('User data is null');
+  if (userData && userData.user) {
+    const { data: newCompanyData, error: newCompanyError } = await supabase
+      .from('users')
+      .insert({
+        user_name: companyName,
+        user_email: companyEmail,
+        user_logo: companyLogo,
+        contactName: contactName,
+        isCompany: true,
+        user_id: userData.user.id,
+      })
+      .select();
+
+    if (newCompanyError || !newCompanyData) {
+      console.log('Error inserting new company:', newCompanyError ? newCompanyError.message : 'No data returned');
+      throw newCompanyError ? newCompanyError.message : 'No data returned';
+    }
+    console.log(newCompanyData);
+
+    return (newCompanyData[0] as Company).id;
+  } else {
+    if (userError) {
+      console.log('Error signing up:', userError.message);
+      return { error: userError.message };
+    }
+    return { error: 'Unexpected error' };
   }
-
-  const userId = userData.user.id;
-
-  const { data: newCompanyData, error: newCompanyError } = await supabase
-    .from('users')
-    .insert({
-      user_name: companyName,
-      user_email: companyEmail,
-      user_logo: companyLogo,
-      contactName: contactName,
-      isCompany: true,
-      ownerId: userId,
-    })
-    .single();
-
-  if (newCompanyError) {
-    console.error('Error creating new company:', newCompanyError.message);
-    throw newCompanyError;
-  }
-
-  console.log(newCompanyData);
-
-  // Return the new company's ID
-  return (newCompanyData as Company).id;
 };

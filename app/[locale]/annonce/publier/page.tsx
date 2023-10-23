@@ -95,13 +95,11 @@ const PublishPage: React.FC = () => {
   ];
 
   const onSubmit = async (data: PublishFormInputs) => {
-    if (data.logo instanceof File) {
-      const fileExtension = data.logo.name.split('.').pop();
-      const filename = `${uuidv4()}.${fileExtension}`;
+    if (data.logo[0] instanceof File) {
+      const filename = uuidv4() + data.logo[0].name;
 
       try {
-        // Upload the logo to Supabase storage
-        const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo, {
+        const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
           cacheControl: '3600',
           upsert: false,
         });
@@ -110,12 +108,12 @@ const PublishPage: React.FC = () => {
           setToastErrorMessage('Error uploading logo please try again later.');
           return;
         }
+        console.log(uploadData);
 
         const { data: publicUrlData } = await supabase.storage.from('logo').getPublicUrl(uploadData.path, { transform: { width: 50, height: 50 } });
 
         const publicUrl = publicUrlData.publicUrl;
-
-        data.logo = publicUrl;
+        setValue('logo', publicUrl);
       } catch (uploadError: any) {
         console.error('An error occurred while uploading the logo:', uploadError.message);
         return;
@@ -125,6 +123,7 @@ const PublishPage: React.FC = () => {
     try {
       if (data.user_Id === '') {
         const companyId = await publishAndSignup(data.companyName, data.contactEmail, data.logo, data.contactName, data.contactPassword);
+        console.log(companyId);
 
         // if (error) {
         //   console.log(error);
@@ -167,10 +166,10 @@ const PublishPage: React.FC = () => {
       setIsSubmitSuccessful(true);
       toggleToast(!isToastOpen);
 
-      setTimeout(() => {
-        toggleToast(false);
-        router.push('/');
-      }, 2000);
+      // setTimeout(() => {
+      //   toggleToast(false);
+      //   router.push('/');
+      // }, 2000);
     } catch (error: any) {
       console.error('An error occurred:', error.message);
     }
