@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button } from '@/components';
 import { supabase } from '@/supabase/supabase';
 import { v4 as uuidv4 } from 'uuid';
-import { registerNewCompany, removeSpaces } from '@/utils/';
+import { publishAndSignup } from '@/utils/';
 import { useTranslations } from 'next-intl';
 import { useStore } from '@/lib/store';
 import { useRouter } from 'next/navigation';
@@ -96,8 +96,7 @@ const PublishPage: React.FC = () => {
 
   const onSubmit = async (data: PublishFormInputs) => {
     if (data.logo[0] instanceof File) {
-      const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
-      console.log('Uploading file:', data.logo[0]);
+      const filename = uuidv4() + data.logo[0].name;
 
       try {
         const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
@@ -109,8 +108,9 @@ const PublishPage: React.FC = () => {
           setToastErrorMessage('Error uploading logo please try again later.');
           return;
         }
+        console.log(uploadData);
 
-        const { data: publicUrlData } = await supabase.storage.from('logo').getPublicUrl(uploadData.path);
+        const { data: publicUrlData } = await supabase.storage.from('logo').getPublicUrl(uploadData.path, { transform: { width: 50, height: 50 } });
 
         const publicUrl = publicUrlData.publicUrl;
         setValue('logo', publicUrl);
@@ -122,21 +122,22 @@ const PublishPage: React.FC = () => {
 
     try {
       if (data.user_Id === '') {
-        const { companyId, error } = await registerNewCompany(data.companyName, data.contactEmail, data.logo, data.contactName, data.contactPassword);
+        const companyId = await publishAndSignup(data.companyName, data.contactEmail, data.logo, data.contactName, data.contactPassword);
+        console.log(companyId);
 
-        if (error) {
-          console.log(error);
+        // if (error) {
+        //   console.log(error);
 
-          setToastErrorMessage('User already exists, please login first');
-          toggleToast(true);
-          setIsSubmitSuccessful(false);
-          setTimeout(() => {
-            toggleToast(false);
-          }, 10000);
-          return;
-        } else {
-          setValue('user_Id', companyId);
-        }
+        //   setToastErrorMessage('User already exists, please login first');
+        //   toggleToast(true);
+        //   setIsSubmitSuccessful(false);
+        //   setTimeout(() => {
+        //     toggleToast(false);
+        //   }, 10000);
+        //   return;
+        // } else {
+        //   setValue('user_Id', companyId);
+        // }
       }
 
       const { data: insertData, error: insertError } = await supabase.from('jobPosting').insert({
@@ -157,12 +158,11 @@ const PublishPage: React.FC = () => {
         pinned: true,
         pinned_at: new Date().toISOString(),
       });
-      console.log(insertData);
 
-      if (insertError) {
-        setToastErrorMessage('Unexpected error, please try again later.');
-        return;
-      }
+      // if (insertError) {
+      //   console.error('Error inserting job posting:', insertError.message);
+      //   return;
+      // };
       setIsSubmitSuccessful(true);
       toggleToast(!isToastOpen);
 
