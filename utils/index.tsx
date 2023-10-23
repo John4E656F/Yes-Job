@@ -3,4 +3,5 @@ export { formatDate } from './formatDate';
 export { generatePassword } from './generatePassword';
 export { timeDifference } from './timeDifference';
 export { getOrCreateCompanyId } from './getOrCreateCompanyId';
-export { publishAndSignup } from './publishAndSignup';
+export { registerNewCompany } from './registerNewCompany';
+export { removeSpaces } from './removeSpaces';
