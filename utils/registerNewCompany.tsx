@@ -13,14 +13,17 @@ interface Company {
   user_total_request_count: number;
   created_at: string;
 }
-
-export const publishAndSignup = async (
+interface Result {
+  companyId?: string;
+  error?: string;
+}
+export const registerNewCompany = async (
   companyName: string,
   companyEmail: string,
   companyLogo: string | null,
   contactName: string,
   contactPassword: string,
-) => {
+): Promise<Result> => {
   // Try to fetch the company from the database
   const { data: companyData, error: companyError } = await supabase.from('users').select('id').eq('user_email', companyEmail).single();
 
@@ -52,7 +55,7 @@ export const publishAndSignup = async (
     }
     console.log(newCompanyData);
 
-    return (newCompanyData[0] as Company).id;
+    return { companyId: (newCompanyData[0] as Company).id };
   } else {
     if (userError) {
       console.log('Error signing up:', userError.message);
