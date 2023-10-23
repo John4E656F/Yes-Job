@@ -55,7 +55,7 @@ export const getOrCreateCompanyId = async (
   if (newCompanyError) {
     console.error('Error creating new company:', newCompanyError.message);
     return { error: newCompanyError.message };
+  } else {
+    return { companyId: (newCompanyData as Company).id };
   }
-
-  return { companyId: (newCompanyData as Company).id };
 };
