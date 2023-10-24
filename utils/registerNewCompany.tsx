@@ -14,7 +14,7 @@ interface Company {
   created_at: string;
 }
 interface Result {
-  companyId?: string;
+  resCompanyId?: string;
   error?: string;
 }
 export const registerNewCompany = async (
@@ -35,8 +35,9 @@ export const registerNewCompany = async (
     email: companyEmail,
     password: contactPassword,
   });
+  console.log(companyLogo);
 
-  if (userData && userData.user) {
+  if (userData && userData.user && companyLogo) {
     const { data: newCompanyData, error: newCompanyError } = await supabase
       .from('users')
       .insert({
@@ -55,7 +56,7 @@ export const registerNewCompany = async (
     }
     console.log(newCompanyData);
 
-    return { companyId: (newCompanyData[0] as Company).id };
+    return { resCompanyId: (newCompanyData[0] as Company).id };
   } else {
     if (userError) {
       console.log('Error signing up:', userError.message);
