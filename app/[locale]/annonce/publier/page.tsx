@@ -95,9 +95,9 @@ const PublishPage: React.FC = () => {
   ];
 
   const onSubmit = async (data: PublishFormInputs) => {
-    if (data.logo[0] instanceof File) {
+    let logo = data.logo[0];
+    if (logo instanceof File) {
       const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
-      console.log('Uploading file:', data.logo[0]);
 
       try {
         const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
@@ -113,7 +113,7 @@ const PublishPage: React.FC = () => {
         const { data: publicUrlData } = await supabase.storage.from('logo').getPublicUrl(uploadData.path);
 
         const publicUrl = publicUrlData.publicUrl;
-        setValue('logo', publicUrl);
+        logo = publicUrl;
       } catch (uploadError: any) {
         console.error('An error occurred while uploading the logo:', uploadError.message);
         return;
@@ -121,12 +121,12 @@ const PublishPage: React.FC = () => {
     }
 
     try {
-      if (data.user_Id === '') {
-        const { companyId, error } = await registerNewCompany(data.companyName, data.contactEmail, data.logo, data.contactName, data.contactPassword);
+      let companyId = data.user_Id;
+
+      if (companyId === '') {
+        const { resCompanyId, error } = await registerNewCompany(data.companyName, data.contactEmail, logo, data.contactName, data.contactPassword);
 
         if (error) {
-          console.log(error);
-
           setToastErrorMessage('User already exists, please login first');
           toggleToast(true);
           setIsSubmitSuccessful(false);
@@ -136,11 +136,12 @@ const PublishPage: React.FC = () => {
           return;
         } else {
           setValue('user_Id', companyId);
+          companyId = resCompanyId;
         }
       }
 
-      const { data: insertData, error: insertError } = await supabase.from('jobPosting').insert({
-        companyId: data.user_Id,
+      const { error: insertError } = await supabase.from('jobPosting').insert({
+        companyId: companyId,
         title: data.title,
         jobFunction: data.jobFunction,
         cdd: data.cdd,
@@ -157,7 +158,6 @@ const PublishPage: React.FC = () => {
         pinned: true,
         pinned_at: new Date().toISOString(),
       });
-      console.log(insertData);
 
       if (insertError) {
         setToastErrorMessage('Unexpected error, please try again later.');
@@ -166,48 +166,46 @@ const PublishPage: React.FC = () => {
       setIsSubmitSuccessful(true);
       toggleToast(!isToastOpen);
 
-      // setTimeout(() => {
-      //   toggleToast(false);
-      //   router.push('/');
-      // }, 2000);
+      setTimeout(() => {
+        toggleToast(false);
+        router.push('/');
+      }, 2000);
     } catch (error: any) {
       console.error('An error occurred:', error.message);
     }
 
-    // reset({
-    //   companyName: '',
-    //   logo: null,
-    //   title: '',
-    //   jobFunction: '',
-    //   cdd: false,
-    //   cdi: false,
-    //   fullTime: false,
-    //   partTime: false,
-    //   experience: 'noExperience',
-    //   description: '',
-    //   location: '',
-    //   salaryMin: null,
-    //   salaryMax: null,
-    //   applicationMethod: 'yesJob',
-    //   externalFormURL: '',
-    //   contactName: '',
-    //   contactEmail: '',
-    // });
+    reset({
+      companyName: '',
+      logo: null,
+      title: '',
+      jobFunction: '',
+      cdd: false,
+      cdi: false,
+      fullTime: false,
+      partTime: false,
+      experience: 'noExperience',
+      description: '',
+      location: '',
+      salaryMin: null,
+      salaryMax: null,
+      applicationMethod: 'yesJob',
+      externalFormURL: '',
+      contactName: '',
+      contactEmail: '',
+    });
   };
 
   const handleCloseToast = () => {
     toggleToast(!isToastOpen);
   };
 
-  // console.log(errors.companyName);
-  console.log(watch());
   return (
     <header className='w-full flex justify-center bg-brand-lightbg'>
       <Toast
         isOpen={isToastOpen}
         onClose={handleCloseToast}
         title={isSubmitSuccessful ? ToastTitle.Success : ToastTitle.Error}
-        message={isSubmitSuccessful ? 'Ad submitted successfully' : toastErrorMessage}
+        message={isSubmitSuccessful ? 'Ad submitted successfully, Please confirm your email!' : toastErrorMessage}
       />
       <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-5' onSubmit={handleSubmit(onSubmit)}>
         <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>
