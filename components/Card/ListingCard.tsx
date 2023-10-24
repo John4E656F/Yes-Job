@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
 import { Card, Image, Label } from '..';
-import type { FormData, TranslationProps } from '@/types';
+import type { ListingData, TranslationProps } from '@/types';
 import Link from 'next/link';
 import { BsFillPinAngleFill } from 'react-icons/bs';
 import { timeDifference } from '@/utils';
 
 interface ListingCardProps extends TranslationProps {
-  jobPost: FormData;
+  jobPost: ListingData;
 }
 
 export function ListingCard({ jobPost, t }: ListingCardProps) {
@@ -45,9 +45,9 @@ export function ListingCard({ jobPost, t }: ListingCardProps) {
               <Label text='CDI' type='WorkDuration' />
             ) : null}
             {jobPost.fullTime && jobPost.partTime ? (
-              <Label text={`${t('listing.fulltime')} +2`} type='WorkDuration' />
+              <Label text={`${t('listing.fullTime')} +2`} type='WorkDuration' />
             ) : jobPost.fullTime && !jobPost.partTime ? (
-              <Label text={t('listing.fulltime')} type='WorkDuration' />
+              <Label text={t('listing.fullTime')} type='WorkDuration' />
             ) : !jobPost.fullTime && jobPost.partTime ? (
               <Label text={t('listing.partTime')} type='WorkDuration' />
             ) : null}
