@@ -33,7 +33,7 @@
     "listing": {
       "jobOffers": "offres d'emploi",
       "title": "Explorer des milliers d'offres d'emploi",
-      "fulltime": "Temps Plein",
+      "fullTime": "Temps Plein",
       "partTime": "Temps Partiel",
       "experience": "Expérience requise",
       "noExperience": "Pas d'expérience requise",
@@ -56,15 +56,15 @@
     "publishAds": {
       "title": "Créer une annonce",
       "infoCompany": "Informations sur l'entreprise",
-      "companyName": "Nom de l'entreprise *",
+      "companyName": "Nom de l'entreprise",
       "companyLogo": "Logo de l'entreprise",
       "upload": "Cliquez pour télécharger",
       "dnd": "ou glisser-déposer",
       "uploadDetails": "SVG, PNG, JPG ou GIF",
       "infoAds": "Détails de l'annonce",
-      "adsTitle": "Titre de l'annonce *",
+      "adsTitle": "Titre de l'annonce",
       "adsTitlePlaceholder": "Employé polyvalent en restauration H/F",
-      "adsPosition": "Fonction *",
+      "adsPosition": "Fonction",
       "contractDuration": "Durée du contrat",
       "CDD": "Contrat du Déterminée",
       "CDI": "Contrat du Indéterminée",
@@ -73,9 +73,9 @@
       "salary": "Salaire",
       "from": "De",
       "to": "À",
-      "description": "Description de l'emploi *",
+      "description": "Description de l'emploi",
       "descPlaceholder": "En tant que caissier(ère) chez [Nom de l'entreprise], vous serez chargé(e) de traiter les transactions des clients de manière précise et efficace ...",
-      "placeOfWork": "Lieu de travail *",
+      "placeOfWork": "Lieu de travail",
       "placeOfWorkPlaceholder": "Recherche d'adresse",
       "application": "Application",
       "howTo": "Comment le candidat doit-il postuler pour l'offre?",
@@ -89,9 +89,13 @@
       "viaBothSub": "Le candidat peut envoyer sa candidature via Yes Job ou vous pouvez le rediriger vers un formulaire externe.",
       "contactDetails": "Coordonnées",
       "contactDetailsSub": "Ces données sont uniquement à vous contacter en cas d'annonce de questions. Ils ne seront affichés nulle part.",
-      "contactDetailsName": "Nom et prénom *",
-      "contactDetailsEmail": "Adresse e-mail *",
-      "contactDetailsEmailValidation": "Veuillez entrer une adresse e-mail valide."
+      "contactDetailsName": "Nom et prénom",
+      "contactDetailsEmail": "Adresse e-mail",
+      "contactDetailsEmailValidation": "Veuillez entrer une adresse e-mail valide.",
+      "contactDetailsPassword": "Mot de passe",
+      "contactDetailsPasswordValidationMin": "Le mot de passe doit comporter au moins 8 caractères",
+      "contactDetailsPasswordValidationSpecial": "Le mot de passe doit contenir au moins un caractère spécial",
+      "contactDetailsPasswordValidationNum": "Le mot de passe doit contenir au moins deux chiffres"
     },
     "jobFonction": {
       "default": "Sélectionner une fonction",
@@ -124,6 +128,11 @@
       "redirect": "Postulez sur le site web de recruters",
       "viewed": "Vu",
       "publishAt": "Publier le"
+    },
+    "error": {
+      "isRequired": " est obligatoire",
+      "invalidURL": "URL invalide",
+      "invalidEmail": "Adresse e-mail invalide"
     }
   }
 }

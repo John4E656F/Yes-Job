@@ -33,7 +33,7 @@
     "listing": {
       "jobOffers": "job offers",
       "title": "Explore thousands of job offers",
-      "fulltime": "Full Time",
+      "fullTime": "Full Time",
       "partTime": "Part Time",
       "experience": "Experience required",
       "noExperience": "No experience required",
@@ -56,15 +56,15 @@
     "publishAds": {
       "title": "Create an ad",
       "infoCompany": "Company information",
-      "companyName": "Company name *",
+      "companyName": "Company name",
       "companyLogo": "Company logo",
       "upload": "Click to upload",
       "dnd": "or drag and drop",
       "uploadDetails": "SVG, PNG, JPG or GIF",
       "infoAds": "Ad details",
-      "adsTitle": "Ad title *",
+      "adsTitle": "Ad title",
       "adsTitlePlaceholder": "Versatile restaurant employee M/F",
-      "adsPosition": "Position *",
+      "adsPosition": "Position",
       "contractDuration": "Contract duration",
       "CDD": "Fixed-term contract",
       "CDI": "Indefinite-term contract",
@@ -73,9 +73,9 @@
       "salary": "Salary",
       "from": "From",
       "to": "To",
-      "description": "Job description *",
+      "description": "Job description",
       "descPlaceholder": "As a cashier at [Company name], you will be in charge of handling customer transactions accurately and efficiently ...",
-      "placeOfWork": "Workplace *",
+      "placeOfWork": "Workplace",
       "placeOfWorkPlaceholder": "Address search",
       "application": "Application",
       "howTo": "How should the candidate apply for the offer?",
@@ -89,9 +89,13 @@
       "viaBothSub": "The candidate can submit their application via Yes Job or you can redirect them to an external form.",
       "contactDetails": "Contact details",
       "contactDetailsSub": "These data are only for contacting you in case of ad questions. They will not be displayed anywhere.",
-      "contactDetailsName": "First and Last name *",
-      "contactDetailsEmail": "Email address *",
-      "contactDetailsEmailValidation": "Please enter a valid e-mail address."
+      "contactDetailsName": "First and Last name",
+      "contactDetailsEmail": "Email address",
+      "contactDetailsEmailValidation": "Please enter a valid e-mail address.",
+      "contactDetailsPassword": "Password",
+      "contactDetailsPasswordValidationMin": "Password must have at least 8 characters",
+      "contactDetailsPasswordValidationSpecial": "Password must contain at least one special character",
+      "contactDetailsPasswordValidationNum": "Password must contain at least two numbers"
     },
     "jobFonction": {
       "default": "Select a function",
@@ -124,6 +128,11 @@
       "redirect": "Apply on the recruters website",
       "viewed": "Seen",
       "publishAt": "Publish on"
+    },
+    "error": {
+      "isRequired": " is required",
+      "invalidURL": "Invalid URL",
+      "invalidEmail": "Invalid email address"
     }
   }
 }
