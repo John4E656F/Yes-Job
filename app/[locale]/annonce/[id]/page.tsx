@@ -1,11 +1,14 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Image, Label } from '@/components';
+import { Image, Label, FormInput, Toast } from '@/components';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/supabase/supabase';
 import type { ListingData } from '@/types';
 import { formatDescription, formatDate } from '@/utils';
+import { submitCVFormResolver, type submitCVFormInputs } from './submitCVFormResolver';
+import { useForm } from 'react-hook-form';
+import { ToastTitle } from '@/types';
 import { useTranslations } from 'next-intl';
 
 export default function annoncePage({ params }: { params: { id: number } }) {
@@ -68,6 +71,12 @@ export default function annoncePage({ params }: { params: { id: number } }) {
     fetchJobPostById();
   }, [params.id, router]);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<submitCVFormInputs>({});
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -85,40 +94,40 @@ export default function annoncePage({ params }: { params: { id: number } }) {
     setFormData({ ...formData, cvFile: file });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
 
-    try {
-      const { name, email, phoneNumber, cvFile } = formData;
+  //   try {
+  //     const { name, email, phoneNumber, cvFile } = formData;
 
-      if (!jobPost || !jobPost.companyId || !jobPost.companyId.user_email) {
-        console.error('Recruiter email is not available');
-        return;
-      }
+  //     if (!jobPost || !jobPost.companyId || !jobPost.companyId.user_email) {
+  //       console.error('Recruiter email is not available');
+  //       return;
+  //     }
 
-      const recruiterEmail = jobPost.companyId.user_email;
+  //     const recruiterEmail = jobPost.companyId.user_email;
 
-      const formDataToSend = new FormData();
-      formDataToSend.append('name', name);
-      formDataToSend.append('email', email);
-      formDataToSend.append('phoneNumber', phoneNumber);
-      formDataToSend.append('cvFile', cvFile as Blob);
-      formDataToSend.append('recruiterEmail', recruiterEmail);
+  //     const formDataToSend = new FormData();
+  //     formDataToSend.append('name', name);
+  //     formDataToSend.append('email', email);
+  //     formDataToSend.append('phoneNumber', phoneNumber);
+  //     formDataToSend.append('cvFile', cvFile as Blob);
+  //     formDataToSend.append('recruiterEmail', recruiterEmail);
 
-      const response = await fetch('/api/sendEmail', {
-        method: 'POST',
-        body: formDataToSend,
-      });
+  //     const response = await fetch('/api/sendEmail', {
+  //       method: 'POST',
+  //       body: formDataToSend,
+  //     });
 
-      if (response.ok) {
-        console.log('Form submitted successfully');
-      } else {
-        console.error('Form submission failed');
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    }
-  };
+  //     if (response.ok) {
+  //       console.log('Form submitted successfully');
+  //     } else {
+  //       console.error('Form submission failed');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error submitting form:', error);
+  //   }
+  // };
 
   return (
     <header className='w-full flex justify-center py-4 bg-brand-lightbg'>
