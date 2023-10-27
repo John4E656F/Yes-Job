@@ -24,7 +24,8 @@
     "cta": {
       "publish": "Publiceer een advertentie",
       "add": "Gratis je advertentie toevoegen",
-      "publishFree": "Publiceer je advertentie gratis"
+      "publishFree": "Publiceer je advertentie gratis",
+      "send": "Stuur"
     },
     "hero": {
       "title": "Vind de leukste jobs in horeca",
@@ -128,6 +129,13 @@
       "redirect": "Solliciteer op de website van recruters",
       "viewed": "Gezien",
       "publishAt": "Publiceren op"
+    },
+    "contact": {
+      "title": "Heb je een vraag?",
+      "subText": "Problemen of vragen over onze vacaturebank? Neem contact met ons op via ons contactformulier voor snelle en professionele hulp.",
+      "fullName": "Volledige naam",
+      "email": "E-mailadres",
+      "message": "Bericht"
     },
     "error": {
       "isRequired": " is vereist",
