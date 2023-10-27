@@ -24,7 +24,8 @@
     "cta": {
       "publish": "Publier une annonce",
       "add": "Ajoutez votre annonce gratuitement",
-      "publishFree": "Publier votre annonce gratuitement"
+      "publishFree": "Publier votre annonce gratuitement",
+      "send": "Envoyer"
     },
     "hero": {
       "title": "Trouver les meilleures offres d’emploi dans horeca",
@@ -128,6 +129,13 @@
       "redirect": "Postulez sur le site web de recruters",
       "viewed": "Vu",
       "publishAt": "Publier le"
+    },
+    "contact": {
+      "title": "Vous avez une question ?",
+      "subText": "Vous rencontrez des problèmes ou avez des questions sur notre site d'emploi ? Contactez-nous via notre formulaire de contact pour une assistance rapide et professionnelle.",
+      "fullName": "Nom et prénom",
+      "email": "Adresse email",
+      "message": "Message"
     },
     "error": {
       "isRequired": " est obligatoire",
