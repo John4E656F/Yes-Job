@@ -1,6 +1,6 @@
 'use client';
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { Image, Toast, FormInput, FormTextarea } from '@/components';
+import React, { useState } from 'react';
+import { Image, Toast, FormInput, FormTextarea, Button } from '@/components';
 import { useToggle } from '@/hooks';
 import { ToastTitle } from '@/types';
 import { useTranslations } from 'next-intl';
@@ -73,22 +73,26 @@ const ContactPage = () => {
       <div className='flex flex-col container justify-center  py-4 md:py-8 '>
         <div className='flex flex-col lg:flex-row gap-16 justify-between items-center  '>
           <div className=' w-auto flex flex-col gap-4 text-center md:text-start'>
-            <h1 className='text-5xl font-semibold'>Do you have a question? Write!</h1>
-            <h2 className='text-xl'>
-              You need help? Something is not working? Would you like to ask us something? Contact us using the contact form and we will try to help
-              you!
-            </h2>
+            <h1 className='text-5xl font-semibold'>{t('contact.title')}</h1>
+            <h2 className='text-xl'>{t('contact.subText')}</h2>
           </div>
-          <Image src='/images/svg/question.svg' alt='Yes Job' className='w-auto max-w-xs max-h-lg object-fill bg-blue-200 rounded-2xl' />
+          <Image src='/images/svg/question.svg' alt='Yes Job' className='w-auto max-w-xs max-h-lg object-fill rounded-2xl' />
         </div>
       </div>
       <section className='w-full flex justify-center bg-brand-lightbg py-4 md:py-8'>
         <form className='flex flex-col container py-2 gap-4' onSubmit={handleSubmit(onSubmit)}>
           <h2 className='text-4xl font-semibold'>Contact us</h2>
           <div className='flex flex-col bg-white p-4 lg:p-5 gap-6'>
-            <FormInput placeholder='Raymond Albert Kroc' label='Full Name' type='text' register={register('fullName')} error={errors.fullName} />
             <FormInput
-              label='Email address'
+              placeholder='Raymond Albert Kroc'
+              label={t('contact.fullName') + ' *'}
+              type='text'
+              register={register('fullName')}
+              error={errors.fullName}
+              isRequiredMessage={t('contact.fullName') + t('error.isRequired')}
+            />
+            <FormInput
+              label={t('contact.email') + ' *'}
               type='text'
               register={register('email')}
               error={errors.email}
@@ -96,14 +100,19 @@ const ContactPage = () => {
               placeholder='kroc@gmail.com'
             />
 
-            <FormTextarea label='Message' register={register('message')} error={errors.message} isRequiredMessage='' placeholder='' />
+            <FormTextarea
+              label={t('contact.message') + ' *'}
+              register={register('message')}
+              error={errors.message}
+              isRequiredMessage={t('contact.message') + t('error.isRequired')}
+              placeholder=''
+            />
           </div>
-          <button
-            type='submit'
-            className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-gray-200  '
-          >
-            Send
-          </button>
+          <Button
+            btnType='submit'
+            text={t('cta.send')}
+            className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+          />
         </form>
       </section>
     </header>
