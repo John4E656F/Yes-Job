@@ -1,11 +1,15 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Image, Label } from '@/components';
+import { Image, Label, Button, Toast } from '@/components';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/supabase/supabase';
 import type { ListingData } from '@/types';
 import { formatDescription, formatDate } from '@/utils';
+import { submitCVFormResolver, type submitCVFormInputs } from './submitCVFormResolver';
+import { useForm } from 'react-hook-form';
+import { SubmitCVForm } from './submitCVForm';
+import { ToastTitle } from '@/types';
 import { useTranslations } from 'next-intl';
 
 export default function annoncePage({ params }: { params: { id: number } }) {
@@ -33,10 +37,9 @@ export default function annoncePage({ params }: { params: { id: number } }) {
           setJobPost(data || null);
 
           if (!data) {
-            // If jobPost is not found, navigate to the 404 page
-            router.push('/404'); // Adjust the path to your 404 page
+            router.push('/404');
           } else {
-            updatePageViewCount(data); // Call updatePageViewCount with data
+            updatePageViewCount(data);
           }
         }
       } catch (error: any) {
@@ -68,28 +71,26 @@ export default function annoncePage({ params }: { params: { id: number } }) {
     fetchJobPostById();
   }, [params.id, router]);
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phoneNumber: '',
-    cvFile: null as File | null,
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<submitCVFormInputs>({
+    resolver: submitCVFormResolver,
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
+    defaultValues: {
+      name: '',
+      email: '',
+      phoneNumber: '',
+      cvFile: undefined,
+    },
   });
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setFormData({ ...formData, cvFile: file });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = async (data: submitCVFormInputs) => {
     try {
-      const { name, email, phoneNumber, cvFile } = formData;
+      const { name, email, phoneNumber, cvFile } = data;
 
       if (!jobPost || !jobPost.companyId || !jobPost.companyId.user_email) {
         console.error('Recruiter email is not available');
@@ -161,140 +162,20 @@ export default function annoncePage({ params }: { params: { id: number } }) {
           <div className='flex flex-col gap-2.5 py-4 md:py-1 justify-center md:justify-start'>
             <h2 className='text-2xl font-semibold'>{t('adPage.apply')}</h2>
             {jobPost.applicationMethod === 'yesJob' ? (
-              <form onSubmit={handleSubmit}>
-                <div className='mb-4'>
-                  <label htmlFor='name' className='block text-lg font-medium mb-2'>
-                    {t('adPage.name')}
-                  </label>
-                  <input
-                    type='text'
-                    id='name'
-                    name='name'
-                    value={formData.name}
-                    onChange={handleFormChange}
-                    className='w-full py-2 px-3 border rounded-lg'
-                    required
-                    placeholder='James De Backer'
-                  />
-                </div>
-                <div className='mb-4'>
-                  <label htmlFor='cvFile' className='block text-lg font-medium mb-2'>
-                    {t('adPage.resume')} (PDF/DOC)
-                  </label>
-                  <input
-                    type='file'
-                    id='cvFile'
-                    name='cvFile'
-                    onChange={handleFileChange}
-                    accept='.pdf,.doc'
-                    className='w-full py-2 px-3 border rounded-lg'
-                    required
-                  />
-                </div>
-                <div className='mb-4'>
-                  <label htmlFor='phoneNumber' className='block text-lg font-medium mb-2'>
-                    {t('adPage.phoneNumber')}
-                  </label>
-                  <input
-                    type='tel'
-                    id='phoneNumber'
-                    name='phoneNumber'
-                    value={formData.phoneNumber}
-                    onChange={handleFormChange}
-                    className='w-full py-2 px-3 border rounded-lg'
-                    required
-                  />
-                </div>
-                <div className='mb-4'>
-                  <label htmlFor='email' className='block text-lg font-medium mb-2'>
-                    {t('adPage.email')}
-                  </label>
-                  <input
-                    type='email'
-                    id='email'
-                    name='email'
-                    value={formData.email}
-                    onChange={handleFormChange}
-                    className='w-full py-2 px-3 border rounded-lg'
-                    required
-                  />
-                </div>
-                <button type='submit' className='bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded'>
-                  {t('adPage.submit')}
-                </button>
-              </form>
+              <SubmitCVForm register={register} handleSubmit={handleSubmit(onSubmit)} errors={errors} showRedirect={false} jobPost={jobPost} t={t} />
             ) : jobPost.applicationMethod === 'externalForm' ? (
               <Link href={jobPost.externalFormURL}>
-                <button className={`bg-blue-500 text-white px-4 py-2 rounded`}>{t('adPage.redirect')}</button>
+                <Button btnType='button' text={t('adPage.redirect')} className={`bg-blue-500 text-white px-4 py-2 rounded`} />
               </Link>
             ) : jobPost.applicationMethod === 'both' ? (
-              <form onSubmit={handleSubmit}>
-                <div className='mb-4'>
-                  <label htmlFor='name' className='block text-lg font-medium mb-2'>
-                    {t('adPage.name')}
-                  </label>
-                  <input
-                    type='text'
-                    id='name'
-                    name='name'
-                    value={formData.name}
-                    onChange={handleFormChange}
-                    className='w-full py-2 px-3 border rounded-lg'
-                    required
-                    placeholder='James De Backer'
-                  />
-                </div>
-                <div className='mb-4'>
-                  <label htmlFor='cvFile' className='block text-lg font-medium mb-2'>
-                    {t('adPage.resume')}(PDF/DOC)
-                  </label>
-                  <input
-                    type='file'
-                    id='cvFile'
-                    name='cvFile'
-                    onChange={handleFileChange}
-                    accept='.pdf,.doc'
-                    className='w-full py-2 px-3 border rounded-lg'
-                    required
-                  />
-                </div>
-                <div className='mb-4'>
-                  <label htmlFor='phoneNumber' className='block text-lg font-medium mb-2'>
-                    {t('adPage.phoneNumber')}
-                  </label>
-                  <input
-                    type='tel'
-                    id='phoneNumber'
-                    name='phoneNumber'
-                    value={formData.phoneNumber}
-                    onChange={handleFormChange}
-                    className='w-full py-2 px-3 border rounded-lg'
-                    required
-                  />
-                </div>
-                <div className='mb-4'>
-                  <label htmlFor='email' className='block text-lg font-medium mb-2'>
-                    {t('adPage.email')}
-                  </label>
-                  <input
-                    type='email'
-                    id='email'
-                    name='email'
-                    value={formData.email}
-                    onChange={handleFormChange}
-                    className='w-full py-2 px-3 border rounded-lg'
-                    required
-                  />
-                </div>
-                <div className='flex gap-2'>
-                  <button type='submit' className='bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded'>
-                    {t('adPage.submit')}
-                  </button>
-                  <Link href={jobPost.externalFormURL}>
-                    <button className={`bg-blue-300 hover:bg-blue-700 text-white px-4 py-2 rounded`}>{t('adPage.redirect')}</button>
-                  </Link>
-                </div>
-              </form>
+              <SubmitCVForm
+                register={register}
+                handleSubmit={handleSubmit(onSubmit)}
+                errors={errors}
+                showRedirect={jobPost.applicationMethod === 'both'}
+                jobPost={jobPost}
+                t={t}
+              />
             ) : null}
             <div className='flex gap-5'>
               <p>

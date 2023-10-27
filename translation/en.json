@@ -24,7 +24,8 @@
     "cta": {
       "publish": "Publish an ad",
       "add": "Add your ad for free",
-      "publishFree": "Publish your ad for free"
+      "publishFree": "Publish your ad for free",
+      "send": "Send"
     },
     "hero": {
       "title": "Find the best job offers in horeca",
@@ -128,6 +129,13 @@
       "redirect": "Apply on the recruters website",
       "viewed": "Seen",
       "publishAt": "Publish on"
+    },
+    "contact": {
+      "title": "Do you have a question?",
+      "subText": "Encountering issues or have questions about our job board? Engage with us through our contact form for swift and professional assistance.",
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "message": "Message"
     },
     "error": {
       "isRequired": " is required",
