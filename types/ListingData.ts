@@ -32,7 +32,6 @@ export interface ListingData extends PublishData {
   created_at?: string;
   requestCount?: number;
   pageViewCount?: number;
-  cvFile?: File | null;
   promoted?: boolean;
   promoted_at?: string | null;
 }
