@@ -10,15 +10,19 @@ export function timeDifference(previous: string, { t }: TranslationProps): strin
   const msPerMonth: number = msPerDay * 30;
 
   const elapsed: number = current.getTime() - previousDate.getTime();
-
-  if (elapsed < msPerDay) {
+  if (elapsed < msPerMinute) {
+    return `${t('listing.justNow')}`;
+  } else if (elapsed < msPerHour) {
+    const minutes = Math.round(elapsed / msPerMinute);
+    return minutes > 1 ? `${t('listing.minutesAgo', { minutes: minutes })}` : `${t('listing.minuteAgo')}`;
+  } else if (elapsed < msPerDay) {
     const hours = Math.round(elapsed / msPerHour);
-    return hours > 1 ? hours + ` ${t('listing.hoursAgo')}` : `${t('listing.hourAgo')}`;
+    return hours > 1 ? `${t('listing.hoursAgo', { hours: hours })}` : `${t('listing.hourAgo')}`;
   } else if (elapsed < msPerMonth) {
     const days = Math.round(elapsed / msPerDay);
-    return days > 1 ? days + ` ${t('listing.daysAgo')}` : `${t('listing.dayAgo')}`;
+    return days > 1 ? ` ${t('listing.daysAgo', { days: days })}` : `${t('listing.dayAgo')}`;
   } else {
     const months = Math.round(elapsed / msPerMonth);
-    return months > 1 ? months + ` ${t('listing.monthsAgo')}` : `${t('listing.monthAgo')}`;
+    return months > 1 ? ` ${t('listing.monthsAgo', { months: months })}` : `${t('listing.monthAgo')}`;
   }
 }

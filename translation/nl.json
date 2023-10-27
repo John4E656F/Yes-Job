@@ -38,12 +38,15 @@
       "partTime": "Parttime",
       "experience": "Ervaring vereist",
       "noExperience": "Geen ervaring vereist",
+      "justNow": "Nu pas",
+      "minuteAgo": "1 minuut geleden",
+      "minutesAgo": "{minutes} minuten geleden",
       "hourAgo": "1 uur geleden",
-      "hoursAgo": "uren geleden",
+      "hoursAgo": "{hours} uren geleden",
       "dayAgo": "1 dag geleden",
-      "daysAgo": "dagen geleden",
+      "daysAgo": "{days} dagen geleden",
       "monthAgo": "1 maand geleden",
-      "monthsAgo": "maanden geleden"
+      "monthsAgo": "{months} maanden geleden"
     },
     "ads": {
       "title": "We zijn blij dat u bij ons wilt adverteren!",
