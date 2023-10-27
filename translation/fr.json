@@ -38,12 +38,15 @@
       "partTime": "Temps Partiel",
       "experience": "Expérience requise",
       "noExperience": "Pas d'expérience requise",
-      "hourAgo": "il y a 1 heures ",
-      "hoursAgo": "heures passés",
-      "dayAgo": "il y a 1 jour",
-      "daysAgo": "jours passés",
+      "justNow": "A l'instant",
+      "minuteAgo": "Il y a 1 minute",
+      "minutesAgo": "Il y a {minutes} minutes",
+      "hourAgo": "Il y a 1 heures ",
+      "hoursAgo": "Il y a {hours} heures",
+      "dayAgo": "Il y a 1 jour",
+      "daysAgo": "Il y a {days} jours passés",
       "monthAgo": "il y a un mois",
-      "monthsAgo": "mois passés"
+      "monthsAgo": "Il y a {months} passés"
     },
     "ads": {
       "title": "Nous sommes heureux que vous souhaitiez ajouter une annonce chez nous!",
