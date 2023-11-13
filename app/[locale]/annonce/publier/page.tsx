@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button } from '@/components';
+import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
 import { supabase } from '@/supabase/supabase';
 import { v4 as uuidv4 } from 'uuid';
 import { registerNewCompany, removeSpaces } from '@/utils/';
@@ -297,6 +297,7 @@ const PublishPage: React.FC = () => {
               label={t('publishAds.description') + ' *'}
               placeholder={t('publishAds.descPlaceholder')}
             />
+            <Tiptap />
           </div>
           <div className='flex flex-col gap-3'>
             <FormInput
