@@ -1,7 +1,7 @@
-h1 {
+/* h1 {
   font-size: 2em;
   font-weight: bolder;
-}
+} */
 
 h2 {
   font-size: 1.5em;
@@ -47,6 +47,14 @@ ul li ul {
   display: flex;
   flex-direction: row;
   gap: 10px;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
 }
 
 blockquote {

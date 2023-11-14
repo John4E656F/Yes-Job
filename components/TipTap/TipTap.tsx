@@ -1,7 +1,8 @@
 'use client';
 
 import './Tiptap.css';
-import { useEditor, EditorContent, EditorProvider } from '@tiptap/react';
+import { useEditor, EditorContent } from '@tiptap/react';
+import Placeholder from '@tiptap/extension-placeholder';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import TaskItem from '@tiptap/extension-task-item';
@@ -22,43 +23,20 @@ interface FormTextAreaProps {
 
 export const Tiptap = ({ register, error, isRequiredMessage, label, placeholder, setValue }: FormTextAreaProps) => {
   const editor = useEditor({
-    extensions: [StarterKit.configure(), Highlight, TaskList, TaskItem],
-    content: `
-  <h1>
-    Hi there,
-  </h1>
-  <h2>
-    Hi there,
-  </h2>
-  <h3>
-  Hi there,
-</h3>
-  <p>
-    this is a <em>basic</em> example of <strong>tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:
-  </p>
-  <ul>
-    <li>
-      That’s a bullet list with one …
-    </li>
-    <li>
-      … or two list items.
-    </li>
-  </ul>
-  <p>
-    Isn’t that great? And all of that is editable. But wait, there’s more. Let’s try a code block:
-  </p>
-  <pre><code class="language-css">body {
-  display: none;
-  }</code></pre>
-  <p>
-    I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
-  </p>
-  <blockquote>
-    Wow, that’s amazing. Good work, boy! 👏
-    <br />
-    — Mom
-  </blockquote>
-  `,
+    extensions: [
+      StarterKit.configure(),
+      Placeholder.configure({
+        placeholder: placeholder,
+      }),
+      Highlight,
+      TaskList,
+      TaskItem,
+    ],
+    editorProps: {
+      attributes: {
+        class: 'rounded-md border-hidden focus:outline-none h-96',
+      },
+    },
     onUpdate: ({ editor }) => {
       const htmlContent = editor.getHTML();
       setValue('description', htmlContent);
@@ -69,11 +47,11 @@ export const Tiptap = ({ register, error, isRequiredMessage, label, placeholder,
   });
 
   return (
-    <div>
+    <div className=''>
       <FormLabel htmlFor={`input${label}`} labelText={label} />
-      <div className=' h-auto flex-col border rounded shadow appearance-none '>
+      <div className='h-auto  flex-col border rounded shadow appearance-none '>
         <MenuBar editor={editor} />
-        <EditorContent editor={editor} className='flex-auto overflow-x-hidden overflow-y-auto py-5 px-4 ' />
+        <EditorContent editor={editor} className='flex-auto overflow-x-hidden overflow-y-auto py-5 px-4 h-auto min-h-96' />
       </div>
     </div>
   );
