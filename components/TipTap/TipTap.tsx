@@ -1,5 +1,6 @@
 'use client';
 
+import './Tiptap.css';
 import { useEditor, EditorContent, EditorProvider } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
@@ -22,9 +23,16 @@ interface FormTextAreaProps {
 export const Tiptap = ({ register, error, isRequiredMessage, label, placeholder, setValue }: FormTextAreaProps) => {
   const editor = useEditor({
     extensions: [StarterKit.configure(), Highlight, TaskList, TaskItem],
-    content: `<h2>
+    content: `
+  <h1>
+    Hi there,
+  </h1>
+  <h2>
     Hi there,
   </h2>
+  <h3>
+  Hi there,
+</h3>
   <p>
     this is a <em>basic</em> example of <strong>tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:
   </p>
