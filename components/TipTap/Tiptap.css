@@ -1,0 +1,77 @@
+/* h1 {
+  font-size: 2em;
+  font-weight: bolder;
+} */
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+
+h3 {
+  font-size: 1.17em;
+  font-weight: bolder;
+}
+
+h4 {
+  font-size: 1em;
+  font-weight: bolder;
+}
+
+ol {
+  list-style-type: decimal;
+  list-style-position: inside;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+ol p,
+ul p {
+  display: inline;
+}
+ul {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+ul li ul {
+  list-style-type: circle;
+  margin-left: 10px;
+}
+
+[data-type='taskList'] {
+  list-style-type: none;
+}
+
+[data-type='taskList'] li {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: '\201C''\201D''\2018''\2019';
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
