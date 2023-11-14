@@ -1,5 +1,6 @@
 import React, { FC, ReactNode } from 'react';
 
+import type { Editor } from '@tiptap/react';
 import { MenuItem } from './MenuItem';
 import { LuBold, LuItalic, LuStrikethrough, LuHeading1, LuHeading2, LuHeading3, LuHeading4 } from 'react-icons/lu';
 import {
@@ -16,7 +17,7 @@ import {
 } from 'react-icons/ri';
 import { PiParagraphBold } from 'react-icons/pi';
 interface MenuBarProps {
-  editor: any; // Replace 'any' with the specific type of your 'editor' prop
+  editor: Editor | null;
 }
 
 interface MenuItemData {
@@ -28,12 +29,16 @@ interface MenuItemData {
 }
 
 export const MenuBar: FC<MenuBarProps> = ({ editor }) => {
+  if (!editor) {
+    return null;
+  }
+
   const items: MenuItemData[] = [
     {
       icon: <LuBold />,
       title: 'Bold',
       action: () => editor.chain().focus().toggleBold().run(),
-      //   isActive: () => editor.isActive('bold'),
+      isActive: () => editor.isActive('bold'),
     },
     {
       icon: <LuItalic />,
