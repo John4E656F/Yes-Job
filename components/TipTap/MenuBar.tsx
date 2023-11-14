@@ -35,91 +35,91 @@ export const MenuBar: FC<MenuBarProps> = ({ editor }) => {
 
   const items: MenuItemData[] = [
     {
-      icon: <LuBold />,
+      icon: <LuBold size={20} className='font-black' />,
       title: 'Bold',
       action: () => editor.chain().focus().toggleBold().run(),
       isActive: () => editor.isActive('bold'),
     },
     {
-      icon: <LuItalic />,
+      icon: <LuItalic size={20} />,
       title: 'Italic',
       action: () => editor.chain().focus().toggleItalic().run(),
-      //   isActive: () => editor.isActive('italic'),
+      isActive: () => editor.isActive('italic'),
     },
     {
-      icon: <LuStrikethrough />,
+      icon: <LuStrikethrough size={20} />,
       title: 'Strike',
       action: () => editor.chain().focus().toggleStrike().run(),
-      //   isActive: () => editor.isActive('strike'),
+      isActive: () => editor.isActive('strike'),
     },
     {
-      icon: <RiMarkPenLine />,
+      icon: <RiMarkPenLine size={20} />,
       title: 'Highlight',
       action: () => editor.chain().focus().toggleHighlight().run(),
-      //   isActive: () => editor.isActive('highlight'),
+      isActive: () => editor.isActive('highlight'),
     },
     {
       type: 'divider',
     },
     {
-      icon: <LuHeading1 />,
+      icon: <LuHeading1 size={20} />,
       title: 'Heading 1',
       action: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
-      //   isActive: () => editor.isActive('heading', { level: 1 }),
+      isActive: () => editor.isActive('heading', { level: 1 }),
     },
     {
-      icon: <LuHeading2 />,
+      icon: <LuHeading2 size={20} />,
       title: 'Heading 2',
       action: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
-      //   isActive: () => editor.isActive('heading', { level: 2 }),
+      isActive: () => editor.isActive('heading', { level: 2 }),
     },
     {
-      icon: <LuHeading3 />,
+      icon: <LuHeading3 size={20} />,
       title: 'Heading 3',
       action: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
-      //   isActive: () => editor.isActive('heading', { level: 3 }),
+      isActive: () => editor.isActive('heading', { level: 3 }),
     },
     {
-      icon: <LuHeading4 />,
+      icon: <LuHeading4 size={20} />,
       title: 'Heading 2',
       action: () => editor.chain().focus().toggleHeading({ level: 5 }).run(),
-      //   isActive: () => editor.isActive('heading', { level: 4 }),
+      isActive: () => editor.isActive('heading', { level: 4 }),
     },
     {
-      icon: <PiParagraphBold />,
+      icon: <PiParagraphBold size={20} />,
       title: 'Paragraph',
       action: () => editor.chain().focus().setParagraph().run(),
-      //   isActive: () => editor.isActive('paragraph'),
+      isActive: () => editor.isActive('paragraph'),
     },
     {
-      icon: <RiListUnordered />,
+      icon: <RiListUnordered size={20} />,
       title: 'Bullet List',
       action: () => editor.chain().focus().toggleBulletList().run(),
-      //   isActive: () => editor.isActive('bulletList'),
+      isActive: () => editor.isActive('bulletList'),
     },
     {
-      icon: <RiListOrdered />,
+      icon: <RiListOrdered size={20} />,
       title: 'Ordered List',
       action: () => editor.chain().focus().toggleOrderedList().run(),
-      //   isActive: () => editor.isActive('orderedList'),
+      isActive: () => editor.isActive('orderedList'),
     },
     {
-      icon: <RiListCheck2 />,
+      icon: <RiListCheck2 size={20} />,
       title: 'Task List',
       action: () => editor.chain().focus().toggleTaskList().run(),
-      //   isActive: () => editor.isActive('taskList'),
+      isActive: () => editor.isActive('taskList'),
     },
     {
       type: 'divider',
     },
     {
-      icon: <RiDoubleQuotesL />,
+      icon: <RiDoubleQuotesL size={20} />,
       title: 'Blockquote',
       action: () => editor.chain().focus().toggleBlockquote().run(),
-      //   isActive: () => editor.isActive('blockquote'),
+      isActive: () => editor.isActive('blockquote'),
     },
     {
-      icon: <RiSeparator />,
+      icon: <RiSeparator size={20} />,
       title: 'Horizontal Rule',
       action: () => editor.chain().focus().setHorizontalRule().run(),
     },
@@ -127,12 +127,12 @@ export const MenuBar: FC<MenuBarProps> = ({ editor }) => {
       type: 'divider',
     },
     {
-      icon: <RiTextWrap />,
+      icon: <RiTextWrap size={20} />,
       title: 'Hard Break',
       action: () => editor.chain().focus().setHardBreak().run(),
     },
     {
-      icon: <RiFormatClear />,
+      icon: <RiFormatClear size={20} />,
       title: 'Clear Format',
       action: () => editor.chain().focus().clearNodes().unsetAllMarks().run(),
     },
@@ -140,19 +140,19 @@ export const MenuBar: FC<MenuBarProps> = ({ editor }) => {
       type: 'divider',
     },
     {
-      icon: <RiArrowGoBackFill />,
+      icon: <RiArrowGoBackFill size={20} />,
       title: 'Undo',
       action: () => editor.chain().focus().undo().run(),
     },
     {
-      icon: <RiArrowGoForwardFill />,
+      icon: <RiArrowGoForwardFill size={20} />,
       title: 'Redo',
       action: () => editor.chain().focus().redo().run(),
     },
   ];
 
   return (
-    <div className='flex bg-black w-full items-center p-2 rounded-t'>
+    <div className='flex border-b w-full items-center p-2 rounded-t'>
       {items.map((item, index) => (
         <React.Fragment key={index}>{item.type === 'divider' ? <div className='divider' /> : <MenuItem {...item} />}</React.Fragment>
       ))}
