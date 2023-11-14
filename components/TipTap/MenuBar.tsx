@@ -154,7 +154,9 @@ export const MenuBar: FC<MenuBarProps> = ({ editor }) => {
   return (
     <div className='flex border-b w-full items-center p-2 rounded-t'>
       {items.map((item, index) => (
-        <React.Fragment key={index}>{item.type === 'divider' ? <div className='divider' /> : <MenuItem {...item} />}</React.Fragment>
+        <React.Fragment key={index}>
+          {item.type === 'divider' ? <div className='h-6 w-px mr-1 bg-gray-300' /> : <MenuItem {...item} />}
+        </React.Fragment>
       ))}
     </div>
   );
