@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Image, Label, Button, Toast } from '@/components';
+import { Image, Label, Button, Toast, Tiptap } from '@/components';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/supabase/supabase';
@@ -156,7 +156,7 @@ export default function annoncePage({ params }: { params: { id: number } }) {
           </div>
           <div className='flex flex-col gap-2.5 py-4 md:py-1 justify-center md:justify-start'>
             <h2 className='text-2xl font-semibold'>{t('adPage.description')}</h2>
-            {formatDescription(jobPost.description)}
+            <Tiptap content={jobPost.description} editable={false} />
           </div>
           <div className='w-full h-px bg-slate-300 rounded' />
           <div className='flex flex-col gap-2.5 py-4 md:py-1 justify-center md:justify-start'>

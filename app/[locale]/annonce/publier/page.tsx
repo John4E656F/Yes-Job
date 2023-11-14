@@ -55,6 +55,7 @@ const PublishPage: React.FC = () => {
     },
   });
   const applicationMethod = watch('applicationMethod');
+  console.log(watch());
 
   useEffect(() => {
     if (applicationMethod === 'yesJob') {
@@ -304,6 +305,7 @@ const PublishPage: React.FC = () => {
               label={t('publishAds.description') + ' *'}
               placeholder={t('publishAds.descPlaceholder')}
               setValue={setValue}
+              editable={true}
             />
           </div>
           <div className='flex flex-col gap-3'>
