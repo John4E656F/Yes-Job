@@ -6,8 +6,9 @@ import Highlight from '@tiptap/extension-highlight';
 import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
 import { MenuBar } from './MenuBar';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import { FormLabel, InputError } from '@/components';
+import { type PublishFormInputs } from '@/app/[locale]/annonce/publier/publishFormResolver';
 
 interface FormTextAreaProps {
   register: UseFormRegisterReturn;
@@ -15,9 +16,13 @@ interface FormTextAreaProps {
   isRequiredMessage?: string;
   label: string;
   placeholder?: string;
+  setValue: UseFormSetValue<PublishFormInputs>;
 }
 
-export const Tiptap = ({ register, error, isRequiredMessage, label, placeholder }: FormTextAreaProps) => {
+export const Tiptap = ({ register, error, isRequiredMessage, label, placeholder, setValue }: FormTextAreaProps) => {
+  const { onBlur, name, ref } = register;
+  // console.log(name);
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -28,12 +33,27 @@ export const Tiptap = ({ register, error, isRequiredMessage, label, placeholder 
       TaskItem,
     ],
     content: '<p>Hello World! 🌎️</p>',
+    onUpdate: ({ editor }) => {
+      const htmlContent = editor.getHTML();
+      setValue('description', htmlContent);
+      // onBlur(name);
+      console.log(htmlContent);
+
+      console.log(editor.getJSON());
+    },
   });
 
+  // useEffect(() => {
+  //   onBlur(name);
+  // }, [onBlur, name]);
+
   return (
-    <div className='bg-red-100 h-full max-h-96 flex-col border rounded shadow appearance-none '>
-      <MenuBar editor={editor} />
-      <EditorContent editor={editor} className='flex-auto overflow-x-hidden overflow-y-auto py-5 px-4 ' />
+    <div>
+      <FormLabel htmlFor={`input${label}`} labelText={label} />
+      <div className='bg-red-100 h-full max-h-96 flex-col border rounded shadow appearance-none '>
+        <MenuBar editor={editor} />
+        <EditorContent editor={editor} className='flex-auto overflow-x-hidden overflow-y-auto py-5 px-4 ' />
+      </div>
     </div>
   );
 };

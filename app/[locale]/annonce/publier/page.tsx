@@ -30,7 +30,7 @@ const PublishPage: React.FC = () => {
     setValue,
   } = useForm<PublishFormInputs>({
     resolver: publishFormResolver,
-    mode: 'onBlur',
+    mode: 'onChange',
     reValidateMode: 'onBlur',
     defaultValues: {
       user_Id: '',
@@ -297,7 +297,15 @@ const PublishPage: React.FC = () => {
               label={t('publishAds.description') + ' *'}
               placeholder={t('publishAds.descPlaceholder')}
             />
-            <Tiptap />
+
+            <Tiptap
+              register={register('description')}
+              error={errors.description}
+              isRequiredMessage={t('publishAds.description') + t('error.isRequired')}
+              label={t('publishAds.description') + ' *'}
+              placeholder={t('publishAds.descPlaceholder')}
+              setValue={setValue}
+            />
           </div>
           <div className='flex flex-col gap-3'>
             <FormInput
