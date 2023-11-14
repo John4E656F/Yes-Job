@@ -91,7 +91,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
             className='inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200'
           />
           <div className='hidden w-full items-center md:flex md:w-auto gap-3' id='navbar-default'>
-            <ul className='font-bold text-lg flex flex-row p-2 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 '>
+            <ul className='font-bold text-lg flex flex-row p-2 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 list-none'>
               <li>
                 <Link href='/' className='block py-2 text-gray-900 rounded hover:text-gray-400 md:border-0 ' aria-current='page'>
                   {t('nav.home')}
