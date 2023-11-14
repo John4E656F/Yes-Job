@@ -290,14 +290,13 @@ const PublishPage: React.FC = () => {
             </div>
           </div>
           <div className='flex flex-col gap-3'>
-            <FormTextarea
+            {/* <FormTextarea
               register={register('description')}
               error={errors.description}
               isRequiredMessage={t('publishAds.description') + t('error.isRequired')}
               label={t('publishAds.description') + ' *'}
               placeholder={t('publishAds.descPlaceholder')}
-            />
-
+            /> */}
             <Tiptap
               register={register('description')}
               error={errors.description}
