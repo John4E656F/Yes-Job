@@ -16,7 +16,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRe
   return (
     <div
       ref={menuRef}
-      className='absolute top-20 justify-self-center w-4/5 border border-gray-300 rounded-md bg-brand-lightbg md:hidden'
+      className='absolute top-20 right-10 justify-self-center w-4/5 border border-gray-300 rounded-md bg-brand-lightbg md:hidden'
       id='navbar-menu'
     >
       <ul className='font-medium flex flex-col p-4 md:p-0 rounded-lg list-none'>

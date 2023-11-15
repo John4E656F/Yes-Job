@@ -40,7 +40,7 @@ export const LocaleSwitcher: React.FC<LangSelectionProps> = ({ isOpen, onClose, 
       >
         <h2>{t('localeSwitcher.title')}</h2>
         <p className=''>{t('localeSwitcher.subTitle')}</p>
-        <ul className='flex flex-col gap-3'>
+        <ul className='flex flex-col gap-3 list-none'>
           {languages.map((language) => (
             <LanguageItem
               key={language.code}
