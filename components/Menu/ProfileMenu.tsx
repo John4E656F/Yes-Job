@@ -20,7 +20,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
     >
       <ul className='font-medium flex flex-col p-4 md:p-0 rounded-lg list-none'>
         <li>
-          <Link href={`/profile/${userData.id}`} className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200' onClick={toggleMenu}>
+          <Link href={`profile/${userData.id}`} className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200' onClick={toggleMenu}>
             Profile
           </Link>
         </li>
