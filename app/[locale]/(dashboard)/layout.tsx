@@ -30,14 +30,12 @@ export default async function HomeLayout({ children, params }: HomeLayoutProps) 
   } = await supabase.auth.getSession();
 
   return (
-    <>
-      <header>
-        <Sidebar currentLocale={locale} session={session} />
-      </header>
+    <div className='flex'>
+      <Sidebar currentLocale={locale} session={session} />
       <section>
         <main className='flex flex-col items-center'>{children}</main>
+        <Footer />
       </section>
-      <Footer />
-    </>
+    </div>
   );
 }
