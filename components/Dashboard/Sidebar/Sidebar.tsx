@@ -15,7 +15,7 @@ export const Sidebar = ({ currentLocale, session }: NavbarProps) => {
   const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
 
   return (
-    <aside className=' flex flex-col gap-5 p-5 w-64 min-w-fit border-r border-b rounded-br-md bg-brand-lightbg'>
+    <aside className='fixed flex flex-col h-screen gap-5 p-5 w-64 min-w-fit border-r bg-brand-lightbg bg-transparent'>
       <div className='flex justify-between items-center'>
         <Link href='/' className='flex items-center' aria-label='YesJob Navbar Logo'>
           <Logo width={80} height={80} />
