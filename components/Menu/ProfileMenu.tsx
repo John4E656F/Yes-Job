@@ -13,7 +13,11 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
   if (!isMenuOpen) return null;
 
   return (
-    <div ref={menuRef} className='absolute top-20 justify-self-center w-11/12 border border-gray-300 rounded-md bg-brand-lightbg' id='navbar-menu'>
+    <div
+      ref={menuRef}
+      className='absolute top-14 right-0 max-w-2xl justify-self-center w-auto border border-gray-300 rounded-md bg-brand-lightbg'
+      id='navbar-menu'
+    >
       <ul className='font-medium flex flex-col p-4 md:p-0 rounded-lg list-none'>
         <li>
           <Link href={`/profile/${userData.id}`} className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200' onClick={toggleMenu}>
