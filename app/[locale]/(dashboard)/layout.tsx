@@ -32,10 +32,10 @@ export default async function HomeLayout({ children, params }: HomeLayoutProps) 
   return (
     <div className='flex'>
       <Sidebar currentLocale={locale} session={session} />
-      <section>
-        <main className='flex flex-col items-center'>{children}</main>
+      <main className='flex flex-grow flex-col items-center bg-blue-200 ml-64'>
+        {children}
         <Footer />
-      </section>
+      </main>
     </div>
   );
 }

@@ -57,37 +57,36 @@ export default function ProfilePage({ params }: { params: { id: number } }) {
   }, [params.id, storedUserData]);
 
   return (
-    <header className='w-full flex justify-center py-4 bg-brand-lightbg'>
-      <section className='container bg-white flex flex-col py-4 gap-4'>
-        <div className='flex p-4 lg:p-8 gap-6'>
-          {userData?.user_logo ? (
-            <Image src={userData.user_logo} alt='user avatar' width={100} height={100} className='rounded-full p-1 ring-2 ring-gray-300' />
-          ) : (
-            <HiUser size={100} className='rounded-full p-1 ring-2 ring-gray-300 text-gray-400' aria-label='profile user avatar' />
-          )}
-          <div className='flex flex-col justify-center'>
-            <h2 className='text-base font-semibold md:text-lg'>{userData?.user_name}</h2>
-            <h3 className='text-base md:text-lg'>{userData?.user_email}</h3>
-          </div>
-        </div>
-        <div className='w-full h-px bg-slate-300 rounded' />
-        {isOwner ? (
-          userPosts.map((jobPost) => {
-            const adaptedJobPost = {
-              ...jobPost, // spread all existing jobPost properties
-              companyId: {
-                user_name: userData!.user_name || '',
-                user_email: userData!.user_email || '',
-                user_logo: userData!.user_logo,
-                isCompany: userData!.isCompany,
-              },
-            };
-            return <ListingCard key={jobPost.id} jobPost={adaptedJobPost} t={t} />;
-          })
+    <section className='w-full bg-white flex flex-col py-4 px-5 gap-4'>
+      <div className='flex p-4 lg:p-8 gap-6'>
+        {userData?.user_logo ? (
+          <Image src={userData.user_logo} alt='user avatar' width={100} height={100} className='rounded-full p-1 ring-2 ring-gray-300' />
         ) : (
-          <div></div>
+          <HiUser size={100} className='rounded-full p-1 ring-2 ring-gray-300 text-gray-400' aria-label='profile user avatar' />
         )}
-      </section>
-    </header>
+        <div className='flex flex-col justify-center'>
+          <h2 className='text-base font-semibold md:text-lg'>{userData?.user_name}</h2>
+          <h3 className='text-base md:text-lg'>{userData?.user_email}</h3>
+        </div>
+      </div>
+      <div className='w-full h-px bg-slate-300 rounded' />
+      {isOwner ? (
+        userPosts.map((jobPost) => {
+          const adaptedJobPost = {
+            ...jobPost, // spread all existing jobPost properties
+            companyId: {
+              user_name: userData!.user_name || '',
+              user_email: userData!.user_email || '',
+              user_logo: userData!.user_logo,
+              isCompany: userData!.isCompany,
+            },
+          };
+          return <ListingCard key={jobPost.id} jobPost={adaptedJobPost} t={t} />;
+        })
+      ) : (
+        <div></div>
+      )}
+      <div className='h-screen'>Helli World</div>
+    </section>
   );
 }
