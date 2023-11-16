@@ -4,7 +4,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { Analytics } from '@vercel/analytics/react';
 import '../globals.css';
-import { Navbar, Footer } from '@/components';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -42,9 +41,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
       <body>
         <NextIntlClientProvider locale={locale} messages={translation}>
           <main className='flex flex-col items-center'>
-            <Navbar currentLocale={locale} session={session} />
             {children}
-            <Footer />
             <Analytics />
           </main>
         </NextIntlClientProvider>
