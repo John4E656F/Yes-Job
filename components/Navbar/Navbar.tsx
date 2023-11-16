@@ -78,12 +78,12 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   }, []);
 
   return (
-    <nav className='w-full flex justify-center h-auto'>
-      <div className='container flex justify-between items-center py-3 text-sm '>
+    <nav className='w-full flex justify-center h-auto relative'>
+      <div className='container flex justify-between items-center py-3 text-sm relative'>
         <Link href='/' className='flex items-center' aria-label='YesJob Navbar Logo'>
           <Logo width={80} height={80} />
         </Link>
-        <div className='flex items-center gap-3 md:gap-4'>
+        <div className='flex items-center gap-3 md:gap-4 relative'>
           <Button
             text={<HiBars3 size={40} />}
             btnType='button'
@@ -135,10 +135,11 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               ))}
             <Button text={<HiMiniLanguage className='text-xl text-gray-400 hover:text-gray-200' />} btnType='button' onClick={toggleLocaleModal} />
           </div>
+          <MobileMenu isMenuOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} menuRef={mobileMenuRef} t={t} session={session} />
+          <ProfileMenu isMenuOpen={isProfileMenuOpen} toggleMenu={toggleProfileMenu} menuRef={profileMenuRef} t={t} userData={userData} />
         </div>
-        <ProfileMenu isMenuOpen={isProfileMenuOpen} toggleMenu={toggleProfileMenu} menuRef={profileMenuRef} t={t} userData={userData} />
-        <MobileMenu isMenuOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} menuRef={mobileMenuRef} t={t} session={session} />
       </div>
+
       <LocaleSwitcher isOpen={isLocaleModalOpen} closeModal={toggleLocaleModal} onClose={toggleLocaleModal} currentLocale={currentLocale} />
     </nav>
   );
