@@ -1,7 +1,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { Navbar, Footer } from '@/components';
+import { Sidebar, Footer } from '@/components';
 
 interface HomeLayoutProps {
   children: React.ReactNode;
@@ -30,12 +30,14 @@ export default async function HomeLayout({ children, params }: HomeLayoutProps) 
   } = await supabase.auth.getSession();
 
   return (
-    <div className='flex flex-col items-center'>
-      <Navbar currentLocale={locale} session={session} />
+    <>
+      <header>
+        <Sidebar currentLocale={locale} session={session} />
+      </header>
       <section>
         <main className='flex flex-col items-center'>{children}</main>
       </section>
       <Footer />
-    </div>
+    </>
   );
 }

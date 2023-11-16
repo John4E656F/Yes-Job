@@ -40,7 +40,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
     <html lang={locale}>
       <body>
         <NextIntlClientProvider locale={locale} messages={translation}>
-          <main className='flex flex-col items-center'>
+          <main>
             {children}
             <Analytics />
           </main>
