@@ -32,11 +32,13 @@ export const Sidebar = ({ currentLocale, session }: NavbarProps) => {
           <Logo width={80} height={80} />
         </Link>
         <div className='flex gap-2 items-center'>
-          <Button
-            text={<FaArrowLeft size={40} />}
-            btnType='button'
+          <Link
+            href='/'
             className='inline-flex items-center p-2 w-10 h-10 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-brand-hover focus:outline-none focus:ring-2 focus:ring-gray-200'
-          />
+            aria-current='home'
+          >
+            <FaArrowLeft size={40} />
+          </Link>
           <Button
             text={<HiMiniLanguage className='text-xl text-gray-400 hover:text-brand-hover' size={30} />}
             btnType='button'
@@ -45,7 +47,7 @@ export const Sidebar = ({ currentLocale, session }: NavbarProps) => {
         </div>
       </div>
       <SidebarList t={t} companyName={currentUser.user_name} />
-      <div className='flex gap-2 p-2 my-2 mt-auto'>
+      <div className='flex gap-2 p-2 mt-auto'>
         {session &&
           (currentUser.user_logo ? (
             <Button

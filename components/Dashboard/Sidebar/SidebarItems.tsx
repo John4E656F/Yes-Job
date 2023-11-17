@@ -13,7 +13,7 @@ export const SidebarItems: React.FC<SidebarItemsProps> = ({ icon: Icon, text, co
       <span className='flex items-center text-base font-semibold gap-2'>
         <Icon size={24} className='font-normal' /> {text}
       </span>
-      {count && <span className='border rounded-3xl py-1 px-3 text-sm'>{count}</span>}
+      {count !== undefined && <span className='bg-brand-gray border rounded-3xl py-1 px-3 text-sm'>{count}</span>}
     </li>
   );
 };
