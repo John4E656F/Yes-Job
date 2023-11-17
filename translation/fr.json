@@ -4,6 +4,21 @@
       "home": "Accueil",
       "contact": "Contact"
     },
+    "sidebar": {
+      "back": "Retour au site principal",
+      "inbox": "Boîte de réception",
+      "support": "Support",
+      "settings": "Paramètres",
+
+      "joblisting": "Offres d'emploi",
+      "company": "Entreprise",
+      "Team": "Équipe",
+      "candidate": "Candidat",
+      "addCompanyInfo": "Ajouter des informations sur l'entreprise",
+      "description": "Complétez votre profil et affichez-vous annonce sur Yes Job",
+      "verifyEmail": "Vérifier votre email",
+      "postAJob": "Publier une offre d'emploi"
+    },
     "footer": {
       "text": "Connectez-vous aux professionnels Horeca passionnés pour des carrières florissantes",
       "applicants": "Candidates",
