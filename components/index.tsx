@@ -1,4 +1,5 @@
 export { Logo } from './Logo/Logo';
+export { Divider } from './Divider/Divider';
 export { Image } from './Image/Image';
 export { Navbar } from './Navbar/Navbar';
 export { MobileMenu } from './Menu/MobileMenu';

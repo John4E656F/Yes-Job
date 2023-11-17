@@ -26,7 +26,7 @@ export const SidebarList = ({ companyName, t }: SidebarProps) => {
     },
     {
       icon: RiGroupLine,
-      text: t('sidebar.company'),
+      text: t('sidebar.team'),
     },
     { icon: RiSparklingLine, text: t('sidebar.candidate') },
   ];
@@ -35,6 +35,7 @@ export const SidebarList = ({ companyName, t }: SidebarProps) => {
     {
       icon: RiMailLine,
       text: t('sidebar.inbox'),
+      count: 0,
     },
     {
       icon: RiLifebuoyLine,
@@ -49,7 +50,7 @@ export const SidebarList = ({ companyName, t }: SidebarProps) => {
   return (
     <div className='flex flex-col gap-5'>
       <div className='flex flex-col gap-2'>
-        <p>{companyName}</p>
+        <p className='text-lg'>{companyName}</p>
         <ul className='pl-2 cursor-pointer list-none'>
           {upperNavItems.map((item, index) => (
             <SidebarItems key={index} icon={item.icon} text={item.text} count={item.count} />
