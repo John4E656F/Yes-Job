@@ -4,6 +4,21 @@
       "home": "Home",
       "contact": "Contact"
     },
+    "sidebar": {
+      "back": "Back to the main site",
+      "inbox": "Inbox",
+      "support": "Support",
+      "settings": "Setting",
+
+      "joblisting": "Job listings",
+      "company": "Company",
+      "Team": "Team",
+      "candidate": "Candidate",
+      "addCompanyInfo": "Add company info",
+      "description": "Complete your profile and get listed on Yes Job",
+      "verifyEmail": "Verify your email",
+      "postAJob": "Post a job"
+    },
     "footer": {
       "text": "Connect with passionate Horeca professionals for thriving careers",
       "applicants": "Applicants",

@@ -1,10 +1,15 @@
 'use client';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useTranslations } from 'next-intl';
 import { Image, Button, Logo, Link, LocaleSwitcher, MobileMenu, ProfileMenu } from '../../';
 import { FaArrowLeft } from 'react-icons/fa';
 import { HiBars3, HiMiniLanguage, HiUser } from 'react-icons/hi2';
+import { SidebarList } from './SidebarList';
 import { useToggleMenu } from '@/hooks';
+import { Database, UsersTypes } from '@/types';
+import { useStore } from '@/lib/store';
 
 interface NavbarProps {
   currentLocale: string;
@@ -12,7 +17,13 @@ interface NavbarProps {
 }
 
 export const Sidebar = ({ currentLocale, session }: NavbarProps) => {
+  const supabase = createClientComponentClient<Database>();
+  const router = useRouter();
+
+  const currentUser = useStore((state) => state);
+
   const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
+  const t = useTranslations('app');
 
   return (
     <aside className='fixed flex flex-col h-screen gap-5 p-5 w-64 min-w-fit border-r bg-brand-lightbg bg-transparent'>
@@ -33,7 +44,22 @@ export const Sidebar = ({ currentLocale, session }: NavbarProps) => {
           />
         </div>
       </div>
-      <div>Hello World</div>
+      <SidebarList t={t} companyName={currentUser.user_name} />
+      <div className='flex gap-2 p-2 my-2 mt-auto'>
+        {session &&
+          (currentUser.user_logo ? (
+            <Button
+              text={<Image src={currentUser.user_logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
+              btnType='button'
+            />
+          ) : (
+            <HiUser size={40} className='rounded-full p-1 ring-2 ring-gray-300 text-gray-400' aria-label='user avatar' />
+          ))}
+        <div>
+          <p>{currentUser.contactName}</p>
+          <p>{currentUser.user_email}</p>
+        </div>
+      </div>
       <LocaleSwitcher isOpen={isLocaleModalOpen} closeModal={toggleLocaleModal} onClose={toggleLocaleModal} currentLocale={currentLocale} />
     </aside>
   );
