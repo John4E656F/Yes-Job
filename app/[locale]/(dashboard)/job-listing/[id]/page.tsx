@@ -9,7 +9,7 @@ const page = async ({ params }: { params: { id: Number } }) => {
   const currentUserJobListing: ListingData[] = await getCurrentUserJobListing({ ownerId });
   const promotedListings: ListingData[] = currentUserJobListing.filter((listing) => listing.promoted === true);
   // console.log(currentUser);
-  // console.log(currentUserJobListing);
+  console.log(currentUserJobListing);
   console.log(promotedListings);
 
   return (
@@ -27,6 +27,9 @@ const page = async ({ params }: { params: { id: Number } }) => {
             <span className='font-semibold'>/{currentUser.availablePromotion} Promotion</span>
           </div>
         </div>
+      </div>
+      <div>
+        <div></div>
       </div>
     </section>
   );

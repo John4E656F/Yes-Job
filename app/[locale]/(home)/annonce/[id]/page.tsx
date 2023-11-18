@@ -11,25 +11,18 @@ import { useForm } from 'react-hook-form';
 import { SubmitCVForm } from './submitCVForm';
 import { ToastTitle } from '@/types';
 import { useTranslations } from 'next-intl';
-
-export default function annoncePage({ params }: { params: { id: number } }) {
+import { getJobPostById, updateViewCount } from '@/lib/actions';
+export default async function annoncePage({ params }: { params: { id: number } }) {
   const t = useTranslations('app');
   const router = useRouter();
   const [jobPost, setJobPost] = useState<ListingData>();
+  const [viewCount, setViewCount] = useState<number>(0);
 
   useEffect(() => {
     const fetchJobPostById = async () => {
       try {
-        const { data, error } = await supabase
-          .from('jobPosting')
-          .select(
-            `
-        *,
-        companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) 
-      `,
-          )
-          .eq('id', params.id)
-          .single();
+        const ownerId = params.id;
+        const { data, error } = await getJobPostById({ ownerId });
 
         if (error) {
           console.error('Error fetching job post:', error.message);
@@ -39,7 +32,8 @@ export default function annoncePage({ params }: { params: { id: number } }) {
           if (!data) {
             router.push('/404');
           } else {
-            updatePageViewCount(data);
+            const { data, error } = await updateViewCount({ itemId: ownerId });
+            console.log(data);
           }
         }
       } catch (error: any) {

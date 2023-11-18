@@ -5,11 +5,12 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '@/supabase/supabase';
 import type { ListingData } from '@/types';
 
-interface currentUserProps {
+interface JobPostProps {
   ownerId: Number;
   path?: string;
 }
-export async function getCurrentUserJobListing({ ownerId, path }: currentUserProps) {
+
+export async function getCurrentUserJobListing({ ownerId, path }: JobPostProps) {
   // const supabase = createClientComponentClient<Database>();
   try {
     if (!ownerId) {
@@ -25,6 +26,35 @@ export async function getCurrentUserJobListing({ ownerId, path }: currentUserPro
       revalidatePath(path);
     }
     return fetchedUserData;
+  } catch (error: any) {
+    return error.message;
+  }
+}
+
+export async function getJobPostById({ ownerId, path }: JobPostProps) {
+  try {
+    if (!ownerId) {
+      return;
+    }
+
+    const { data: fetchedJobPost, error: fetchedJobPostError } = await supabase
+      .from('jobPosting')
+      .select(
+        `
+      *,
+      companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) 
+    `,
+      )
+      .eq('id', ownerId)
+      .single();
+    if (fetchedJobPostError) {
+      throw new Error('Failed to fetch user data: ' + fetchedJobPostError.message);
+    }
+
+    if (path) {
+      revalidatePath(path);
+    }
+    return fetchedJobPost;
   } catch (error: any) {
     return error.message;
   }

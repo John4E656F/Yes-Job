@@ -1,14 +1,13 @@
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { NextRequest } from 'next/server';
-import createIntlMiddleware from 'next-intl/middleware';
+import createMiddleware from 'next-intl/middleware';
+import { pathnames, locales } from './i18n.config';
 
 export default async function middleware(req: NextRequest) {
-  const handleI18nRouting = createIntlMiddleware({
-    locales: ['en', 'fr', 'nl'],
+  const handleI18nRouting = createMiddleware({
     defaultLocale: 'en',
+    locales,
   });
-
-  // Here we use 'req' instead of 'request', which is not defined
   const res = handleI18nRouting(req);
 
   const supabase = createMiddlewareClient({ req, res });
@@ -19,5 +18,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next|.*\\..*).*)'],
+  matcher: ['/', '/(en|fr|nl)/:path'],
 };
