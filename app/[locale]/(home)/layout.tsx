@@ -1,7 +1,7 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { Navbar, Footer } from '@/components';
+import { supabase } from '@/supabase/supabase';
 
 interface HomeLayoutProps {
   children: React.ReactNode;
@@ -23,7 +23,6 @@ export default async function HomeLayout({ children, params }: HomeLayoutProps) 
   } catch (error) {
     notFound();
   }
-  const supabase = createServerComponentClient({ cookies });
 
   const {
     data: { session },

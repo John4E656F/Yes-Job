@@ -1,4 +1,3 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { Sidebar, Footer } from '@/components';
@@ -23,15 +22,11 @@ export default async function HomeLayout({ children, params }: HomeLayoutProps) 
   } catch (error) {
     notFound();
   }
-  const supabase = createServerComponentClient({ cookies });
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
 
   return (
     <div className='flex'>
-      <Sidebar currentLocale={locale} session={session} />
+      <Sidebar currentLocale={locale} />
       <main className='flex flex-grow flex-col items-center bg-blue-200 ml-64'>{children}</main>
     </div>
   );

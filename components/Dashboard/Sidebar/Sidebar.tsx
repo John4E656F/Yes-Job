@@ -13,7 +13,7 @@ import { useStore } from '@/lib/store';
 
 interface NavbarProps {
   currentLocale: string;
-  session: Session | null;
+  session?: Session | null;
 }
 
 export const Sidebar = ({ currentLocale, session }: NavbarProps) => {
