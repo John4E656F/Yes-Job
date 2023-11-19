@@ -1,28 +1,24 @@
-'use client';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+// import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useTranslations } from 'next-intl';
 import { Image, Button, Logo, Link, LocaleSwitcher, MobileMenu, ProfileMenu } from '../../';
 import { FaArrowLeft } from 'react-icons/fa';
 import { HiBars3, HiMiniLanguage, HiUser } from 'react-icons/hi2';
 import { SidebarList } from './SidebarList';
-import { useToggleMenu } from '@/hooks';
+// import { useToggleMenu } from '@/hooks';
 import { Database, UsersTypes } from '@/types';
-import { useStore } from '@/lib/store';
 
 interface NavbarProps {
   currentLocale: string;
-  session?: Session | null;
+  // session?: Session | null;
 }
 
-export const Sidebar = ({ currentLocale, session }: NavbarProps) => {
-  const supabase = createClientComponentClient<Database>();
+export const Sidebar = ({ currentLocale }: NavbarProps) => {
+  // const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
-  const currentUser = useStore((state) => state);
-
-  const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
+  // const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
   const t = useTranslations('app');
 
   return (
@@ -39,16 +35,16 @@ export const Sidebar = ({ currentLocale, session }: NavbarProps) => {
           >
             <FaArrowLeft size={40} />
           </Link>
-          <Button
+          {/* <Button
             text={<HiMiniLanguage className='text-xl text-gray-400 hover:text-brand-hover' size={30} />}
             btnType='button'
             onClick={toggleLocaleModal}
-          />
+          /> */}
         </div>
       </div>
-      <SidebarList t={t} companyName={currentUser.user_name} />
-      <div className='flex gap-2 p-2 mt-auto'>
-        {session &&
+      {/* <SidebarList t={t} companyName={currentUser.user_name} /> */}
+      {/* <div className='flex gap-2 p-2 mt-auto'> */}
+      {/* {session &&
           (currentUser.user_logo ? (
             <Button
               text={<Image src={currentUser.user_logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
@@ -62,7 +58,7 @@ export const Sidebar = ({ currentLocale, session }: NavbarProps) => {
           <p>{currentUser.user_email}</p>
         </div>
       </div>
-      <LocaleSwitcher isOpen={isLocaleModalOpen} closeModal={toggleLocaleModal} onClose={toggleLocaleModal} currentLocale={currentLocale} />
+      <LocaleSwitcher isOpen={isLocaleModalOpen} closeModal={toggleLocaleModal} onClose={toggleLocaleModal} currentLocale={currentLocale} /> */}
     </aside>
   );
 };
