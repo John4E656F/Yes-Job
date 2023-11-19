@@ -1,4 +1,5 @@
 export { Logo } from './Logo/Logo';
+export { Divider } from './Divider/Divider';
 export { Image } from './Image/Image';
 export { Navbar } from './Navbar/Navbar';
 export { MobileMenu } from './Menu/MobileMenu';
@@ -25,3 +26,4 @@ export { InputError } from './Input/InputError';
 export { ImageUpload } from './Input/ImageUpload';
 export { FileUpload } from './Input/FileUpload';
 export { Tiptap } from './TipTap/TipTap';
+export { Sidebar } from './Dashboard';
