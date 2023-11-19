@@ -1,7 +1,7 @@
 'use client';
 import React, { useTransition } from 'react';
 import { useTranslations } from 'next-intl';
-import { usePathname, useRouter } from 'next-intl/client';
+// import { usePathname, useRouter } from 'next-intl/client';
 
 import { LanguageItem } from './LanguageItem';
 import { Backdrop } from './Backdrop';
@@ -17,12 +17,12 @@ interface LangSelectionProps {
 export const LocaleSwitcher: React.FC<LangSelectionProps> = ({ isOpen, onClose, closeModal, currentLocale }) => {
   const t = useTranslations('app');
   const [isPending, startTransition] = useTransition();
-  const router = useRouter();
-  const pathname = usePathname();
+  // const router = useRouter();
+  // const pathname = usePathname();
 
   function onLanguageSelect(langCode: string) {
     startTransition(() => {
-      router.replace(pathname, { locale: langCode });
+      // router.replace(pathname, { locale: langCode });
       onClose();
     });
   }

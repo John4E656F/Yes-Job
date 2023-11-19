@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+import NextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = NextIntlPlugin('./i18n.tsx');
 const nextConfig = {
   images: {
     domains: ['pykxxycnouynvrmhbbvs.supabase.co'],
@@ -6,4 +9,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default withNextIntl(nextConfig);
