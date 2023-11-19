@@ -139,7 +139,6 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
           <ProfileMenu isMenuOpen={isProfileMenuOpen} toggleMenu={toggleProfileMenu} menuRef={profileMenuRef} t={t} userData={userData} />
         </div>
       </div>
-
       <LocaleSwitcher isOpen={isLocaleModalOpen} closeModal={toggleLocaleModal} onClose={toggleLocaleModal} currentLocale={currentLocale} />
     </nav>
   );

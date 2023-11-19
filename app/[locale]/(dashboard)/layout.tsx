@@ -23,6 +23,7 @@ export default async function HomeLayout({ children, params }: HomeLayoutProps) 
     notFound();
   }
 
+
   return (
     <div className='flex'>
       <Sidebar currentLocale={locale} />
