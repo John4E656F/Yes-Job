@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { Navbar, Footer } from '@/components';
-import { supabase } from '@/supabase/supabase';
 
 interface HomeLayoutProps {
   children: React.ReactNode;
@@ -9,28 +8,9 @@ interface HomeLayoutProps {
 }
 
 export default async function HomeLayout({ children, params }: HomeLayoutProps) {
-  const validLocales = ['en', 'fr', 'nl'];
-  let locale = params?.locale ?? 'en';
-
-  if (!validLocales.includes(locale)) {
-    // logger.warn(`Invalid locale "${locale}" provided. Defaulting to "en".`);
-    locale = 'en';
-  }
-
-  let translation;
-  try {
-    translation = (await import(`../../../translation/${locale}.json`)).default;
-  } catch (error) {
-    notFound();
-  }
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
   return (
     <div className='flex flex-col items-center'>
-      <Navbar currentLocale={locale} session={session} />
+      <Navbar />
       <section>
         <main className='flex flex-col items-center'>{children}</main>
       </section>

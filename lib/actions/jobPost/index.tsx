@@ -2,7 +2,8 @@
 
 import { revalidatePath } from 'next/cache';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { supabase } from '@/supabase/supabase';
+import { headers, cookies } from 'next/headers';
+import { createClient } from '@/utils/supabase/server';
 import type { ListingData } from '@/types';
 
 interface JobPostProps {
@@ -11,7 +12,8 @@ interface JobPostProps {
 }
 
 export async function getCurrentUserJobListing({ ownerId, path }: JobPostProps) {
-  // const supabase = createClientComponentClient<Database>();
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore); // const supabase = createClientComponentClient<Database>();
   try {
     if (!ownerId) {
       return;
@@ -32,6 +34,8 @@ export async function getCurrentUserJobListing({ ownerId, path }: JobPostProps) 
 }
 
 export async function getJobPostById({ ownerId, path }: JobPostProps) {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
   try {
     if (!ownerId) {
       return;

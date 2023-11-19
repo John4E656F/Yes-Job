@@ -1,5 +1,4 @@
-'use client';
-import React, { useState } from 'react';
+// import React, { useRef } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { BiUpload } from 'react-icons/bi';
 import { Image } from '@/components';
@@ -13,8 +12,7 @@ interface ImageUploadProps {
 }
 
 export function ImageUpload({ register, error, label, initialPreview }: ImageUploadProps) {
-  const [preview, setPreview] = useState<string | ArrayBuffer | null>(initialPreview);
-
+  // const previewRef = useRef<string | ArrayBuffer | null>(initialPreview);
   const { ref, onChange: defaultOnChange, ...rest } = register;
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +20,7 @@ export function ImageUpload({ register, error, label, initialPreview }: ImageUpl
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreview(reader.result);
+        // previewRef.current = reader.result;
       };
       reader.readAsDataURL(file);
     }
@@ -35,7 +33,9 @@ export function ImageUpload({ register, error, label, initialPreview }: ImageUpl
     <div className='form-control '>
       <FormLabel htmlFor={`input${label}`} labelText={label} className='text-lg font-medium' />
       <div className='flex flex-col items-center justify-center w-full gap-4'>
-        {preview ? <Image src={preview as string} alt='Preview' className='w-24 h-24 p-1 object-contain bg-blue-200 rounded-xl' /> : null}
+        {/* {previewRef.current ? (
+          <Image src={previewRef.current as string} alt='Preview' className='w-24 h-24 p-1 object-contain bg-blue-200 rounded-xl' />
+        ) : null} */}
         <label
           htmlFor={`input${label}`}
           className='flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100'

@@ -10,7 +10,7 @@
     "@sendgrid/mail": "^7.7.0",
     "@supabase/auth-helpers-nextjs": "latest",
     "@supabase/ssr": "^0.0.10",
-    "@supabase/supabase-js": "latest",
+    "@supabase/supabase-js": "^2.38.4",
     "@tiptap/extension-highlight": "^2.1.12",
     "@tiptap/extension-placeholder": "^2.1.12",
     "@tiptap/extension-task-item": "^2.1.12",
