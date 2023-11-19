@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { SearchBar, ListingCard } from '../';
 import type { ListingData } from '@/types';
-import { supabase } from '@/supabase/supabase';
+// import { supabase } from '@/supabase/supabase';
 import { useTranslations } from 'next-intl';
 
 export function Listing() {
@@ -15,40 +15,39 @@ export function Listing() {
 
   useEffect(() => {
     const fetchJobPosts = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('jobPosting')
-          .select(
-            `
-          *,
-          companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) 
-        `,
-          )
-          .order('pinned', { ascending: false }) // Order pinned posts first
-          .order('created_at', { ascending: false }) // Then order by most recent
-          .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
-
-        if (error) {
-          console.error('Error fetching job posts:', error.message);
-        } else {
-          setJobPosts(data || []);
-        }
-      } catch (error: any) {
-        console.error('An error occurred:', error.message);
-      }
+      // try {
+      //   const { data, error } = await supabase
+      //     .from('jobPosting')
+      //     .select(
+      //       `
+      //     *,
+      //     companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany )
+      //   `,
+      //     )
+      //     .order('pinned', { ascending: false }) // Order pinned posts first
+      //     .order('created_at', { ascending: false }) // Then order by most recent
+      //     .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
+      //   if (error) {
+      //     console.error('Error fetching job posts:', error.message);
+      //   } else {
+      //     setJobPosts(data || []);
+      //   }
+      // } catch (error: any) {
+      //   console.error('An error occurred:', error.message);
+      // }
     };
 
     const fetchTotalJobOffers = async () => {
-      try {
-        const { count, error } = await supabase.from('jobPosting').select('id', { count: 'exact' });
-        if (error) {
-          console.error('Error fetching total job offers:', error.message);
-        } else {
-          setTotalJobOffers(count || 0);
-        }
-      } catch (error: any) {
-        console.error('An error occurred:', error.message);
-      }
+      // try {
+      //   const { count, error } = await supabase.from('jobPosting').select('id', { count: 'exact' });
+      //   if (error) {
+      //     console.error('Error fetching total job offers:', error.message);
+      //   } else {
+      //     setTotalJobOffers(count || 0);
+      //   }
+      // } catch (error: any) {
+      //   console.error('An error occurred:', error.message);
+      // }
     };
 
     fetchJobPosts();
