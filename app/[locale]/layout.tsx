@@ -1,4 +1,4 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
@@ -16,6 +16,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {
+  const cookieStore = cookies();
   const validLocales = ['en', 'fr', 'nl'];
   let locale = params?.locale ?? 'en';
 
@@ -30,7 +31,13 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
   } catch (error) {
     notFound();
   }
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+    cookies: {
+      get(name: string) {
+        return cookieStore.get(name)?.value;
+      },
+    },
+  });
 
   const {
     data: { session },
