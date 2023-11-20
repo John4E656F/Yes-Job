@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/client';
 
-export async function getServerUserSession() {
+export async function getClientUserSession() {
   const supabase = createClient();
 
   const {
