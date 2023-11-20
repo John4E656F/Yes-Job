@@ -7,7 +7,7 @@ import { useStore } from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import { publishFormResolver, type PublishFormInputs } from './publishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
-// import { useToggle } from '@/hooks';
+import { useToggle } from '@/hooks';
 import { ToastTitle, UsersTypes } from '@/types';
 import { publishListing } from '@/lib/actions/publishListing';
 import { useTransition } from 'react';
@@ -29,7 +29,7 @@ const PublishPage: React.FC = () => {
   });
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
-  // const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
+  const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
 
   const {
     register,
@@ -138,47 +138,61 @@ const PublishPage: React.FC = () => {
   ];
 
   const onSubmit = async (data: PublishFormInputs) => {
-    console.log('submit');
+    const result = await publishListing(data);
 
-    startTransition(async () => {
-      const result = await publishListing(data);
-      console.log(result);
+    if (result.type == 'success') {
+      setIsSubmitSuccessful(true);
+      toggleToast(!isToastOpen);
+      setTimeout(() => {
+        toggleToast(false);
+        router.push('/');
+      }, 2000);
+    } else if (result.type == 'error' && result.message === 'User already exists, please login first') {
+      setToastErrorMessage('User already exists, please login first');
+      setTimeout(() => {
+        toggleToast(false);
+        router.push('/login');
+      }, 10000);
+    } else {
+      setToastErrorMessage('Unexpected error, please try again later.');
+      setTimeout(() => {
+        toggleToast(false);
+      }, 10000);
+    }
+
+    reset({
+      companyName: '',
+      logo: null,
+      title: '',
+      jobFunction: '',
+      cdd: false,
+      cdi: false,
+      fullTime: false,
+      partTime: false,
+      experience: 'noExperience',
+      description: '',
+      location: '',
+      salaryMin: null,
+      salaryMax: null,
+      applicationMethod: 'yesJob',
+      externalFormURL: '',
+      contactName: '',
+      contactEmail: '',
     });
-
-    // reset({
-    //   companyName: '',
-    //   logo: null,
-    //   title: '',
-    //   jobFunction: '',
-    //   cdd: false,
-    //   cdi: false,
-    //   fullTime: false,
-    //   partTime: false,
-    //   experience: 'noExperience',
-    //   description: '',
-    //   location: '',
-    //   salaryMin: null,
-    //   salaryMax: null,
-    //   applicationMethod: 'yesJob',
-    //   externalFormURL: '',
-    //   contactName: '',
-    //   contactEmail: '',
-    // });
   };
 
   const handleCloseToast = () => {
-    // toggleToast(!isToastOpen);
+    toggleToast(!isToastOpen);
   };
-  console.log(errors);
 
   return (
     <header className='w-full flex justify-center bg-brand-lightbg'>
-      {/* <Toast
+      <Toast
         isOpen={isToastOpen}
         onClose={handleCloseToast}
         title={isSubmitSuccessful ? ToastTitle.Success : ToastTitle.Error}
         message={isSubmitSuccessful ? 'Ad submitted successfully, Please confirm your email!' : toastErrorMessage}
-      /> */}
+      />
       <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-5' onSubmit={handleSubmit(onSubmit)}>
         <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>
         <div className='flex flex-col bg-white p-4 md:p-8 gap-6'>

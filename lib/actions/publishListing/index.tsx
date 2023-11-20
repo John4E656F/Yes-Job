@@ -24,8 +24,7 @@ export async function publishListing(data: PublishFormInputs) {
       const publicUrl = publicUrlData.publicUrl;
       logo = publicUrl;
     } catch (uploadError: any) {
-      console.error('An error occurred while uploading the logo:', uploadError.message);
-      return;
+      return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
     }
   }
   try {
@@ -75,6 +74,10 @@ export async function publishListing(data: PublishFormInputs) {
       message: 'Your job offer has been published successfully.',
     };
   } catch (error: any) {
-    console.error('An error occurred:', error.message);
+    // console.error('An error occurred:', error.message);
+    return {
+      type: 'error' as const,
+      message: 'Unexpected error, please try again later.',
+    };
   }
 }
