@@ -42,7 +42,7 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
 
   return (
     <html lang={locale}>
-      <body className='flex flex-col items-center'>
+      <body className='flex flex-col'>
         <NextIntlClientProvider locale={locale} messages={translation}>
           <Navbar currentLocale={locale} session={session} />
           <section>

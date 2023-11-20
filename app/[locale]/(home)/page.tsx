@@ -5,9 +5,8 @@ import { Hero, Listing } from '@/components';
 export default function Index() {
   return (
     <div className='w-full items-center justify-center'>
-      <p>ehllo</p>
-      {/* <Hero /> */}
-      {/* <Listing /> */}
+      <Hero />
+      <Listing />
     </div>
   );
 }

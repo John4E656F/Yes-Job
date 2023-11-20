@@ -1,5 +1,5 @@
+'use server';
 import { createClient } from '@/utils/supabase/server';
-import { cookies } from 'next/headers';
 
 interface Company {
   id: string;
@@ -26,8 +26,8 @@ export const registerNewCompany = async (
   contactPassword: string,
 ): Promise<Result> => {
   // Try to fetch the company from the database
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+
+  const supabase = createClient();
   const { data: companyData, error: companyError } = await supabase.from('users').select('id').eq('user_email', companyEmail).single();
 
   if (!companyData === null) {
