@@ -45,14 +45,10 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
 
       if (ownerID) {
         try {
-          console.log(ownerID);
-
           const response = await fetch(`/api/user/${ownerID}`);
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
-            console.log(fetchedUserData);
-
             setUserData(fetchedUserData);
           } else {
             console.error('Failed to fetch user data');
