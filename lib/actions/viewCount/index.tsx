@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { supabase } from '@/supabase/supabase';
+import { createClient } from '@/utils/supabase/server';
 import type { ListingData } from '@/types';
 
 interface viewCountProps {
@@ -10,6 +10,7 @@ interface viewCountProps {
   path?: string;
 }
 export async function updateViewCount({ itemId, path }: viewCountProps) {
+  const supabase = createClient();
   try {
     if (!itemId) {
       return;

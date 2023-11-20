@@ -2,21 +2,21 @@
 
 import { revalidatePath } from 'next/cache';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { supabase } from '@/supabase/supabase';
+import { createClient } from '@/utils/supabase/server';
 import { Database } from '@/types';
 
 interface currentUserProps {
-  ownerId: Number;
+  ownerId: string;
   path?: string;
 }
 export async function getCurrentUser({ ownerId, path }: currentUserProps) {
-  // const supabase = createClientComponentClient<Database>();
+  const supabase = createClient();
   try {
     if (!ownerId) {
       return;
     }
 
-    const { data: fetchedUserData, error: userError } = await supabase.from('users').select('*').eq('id', ownerId).single();
+    const { data: fetchedUserData, error: userError } = await supabase.auth.getUser();
 
     if (userError) {
       throw new Error('Failed to fetch user data: ' + userError.message);
