@@ -1,16 +1,15 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
-// import { supabase } from '@/supabase/supabase';
-import { v4 as uuidv4 } from 'uuid';
 import { registerNewCompany, removeSpaces } from '@/utils/';
 import { useTranslations } from 'next-intl';
 import { useStore } from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import { publishFormResolver, type PublishFormInputs } from './publishFormResolver';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 // import { useToggle } from '@/hooks';
 import { ToastTitle } from '@/types';
+import { publishListing } from '@/lib/actions/publishListing';
 
 const PublishPage: React.FC = () => {
   const t = useTranslations('app');
@@ -95,102 +94,29 @@ const PublishPage: React.FC = () => {
     { value: 'other', label: t('jobFonction.other') },
   ];
 
-  const onSubmit = async (data: PublishFormInputs) => {
-    let logo = data.logo[0];
-    if (logo instanceof File) {
-      const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
+  const onSubmit: SubmitHandler<PublishFormInputs> = async (data: PublishFormInputs) => {
+    const result = await publishListing(data);
+    console.log(result);
 
-      try {
-        // const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
-        //   cacheControl: '3600',
-        //   upsert: false,
-        // });
-        // if (uploadError) {
-        //   setToastErrorMessage('Error uploading logo please try again later.');
-        //   return;
-        // }
-        // const { data: publicUrlData } = await supabase.storage.from('logo').getPublicUrl(uploadData.path);
-        // const publicUrl = publicUrlData.publicUrl;
-        // logo = publicUrl;
-      } catch (uploadError: any) {
-        console.error('An error occurred while uploading the logo:', uploadError.message);
-        return;
-      }
-    }
-
-    try {
-      let companyId = data.user_Id;
-
-      if (companyId === '') {
-        const { resCompanyId, error } = await registerNewCompany(data.companyName, data.contactEmail, logo, data.contactName, data.contactPassword);
-
-        // if (error) {
-        //   setToastErrorMessage('User already exists, please login first');
-        //   toggleToast(true);
-        //   setIsSubmitSuccessful(false);
-        //   setTimeout(() => {
-        //     toggleToast(false);
-        //   }, 10000);
-        //   return;
-        // } else {
-        //   setValue('user_Id', companyId);
-        //   companyId = resCompanyId;
-        // }
-      }
-
-      // const { error: insertError } = await supabase.from('jobPosting').insert({
-      //   companyId: companyId,
-      //   title: data.title,
-      //   jobFunction: data.jobFunction,
-      //   cdd: data.cdd,
-      //   cdi: data.cdi,
-      //   fullTime: data.fullTime,
-      //   partTime: data.partTime,
-      //   description: data.description,
-      //   experience: data.experience === 'experience' ? true : false,
-      //   location: data.location,
-      //   salaryMin: data.salaryMin,
-      //   salaryMax: data.salaryMax,
-      //   applicationMethod: data.applicationMethod,
-      //   externalFormURL: data.externalFormURL,
-      //   pinned: true,
-      //   pinned_at: new Date().toISOString(),
-      // });
-
-      // if (insertError) {
-      //   setToastErrorMessage('Unexpected error, please try again later.');
-      //   return;
-      // }
-      setIsSubmitSuccessful(true);
-      // toggleToast(!isToastOpen);
-
-      // setTimeout(() => {
-      //   toggleToast(false);
-      //   router.push('/');
-      // }, 2000);
-    } catch (error: any) {
-      console.error('An error occurred:', error.message);
-    }
-
-    reset({
-      companyName: '',
-      logo: null,
-      title: '',
-      jobFunction: '',
-      cdd: false,
-      cdi: false,
-      fullTime: false,
-      partTime: false,
-      experience: 'noExperience',
-      description: '',
-      location: '',
-      salaryMin: null,
-      salaryMax: null,
-      applicationMethod: 'yesJob',
-      externalFormURL: '',
-      contactName: '',
-      contactEmail: '',
-    });
+    // reset({
+    //   companyName: '',
+    //   logo: null,
+    //   title: '',
+    //   jobFunction: '',
+    //   cdd: false,
+    //   cdi: false,
+    //   fullTime: false,
+    //   partTime: false,
+    //   experience: 'noExperience',
+    //   description: '',
+    //   location: '',
+    //   salaryMin: null,
+    //   salaryMax: null,
+    //   applicationMethod: 'yesJob',
+    //   externalFormURL: '',
+    //   contactName: '',
+    //   contactEmail: '',
+    // });
   };
 
   const handleCloseToast = () => {

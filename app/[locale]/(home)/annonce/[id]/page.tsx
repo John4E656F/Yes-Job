@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Image, Label, Button, Toast, Tiptap } from '@/components';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { supabase } from '@/supabase/supabase';
+import { createClient } from '@/utils/supabase/client';
 import type { ListingData } from '@/types';
 import { formatDescription, formatDate } from '@/utils';
 import { submitCVFormResolver, type submitCVFormInputs } from './submitCVFormResolver';
@@ -18,6 +18,7 @@ export default function annoncePage({ params }: { params: { id: number } }) {
   const [jobPost, setJobPost] = useState<ListingData>();
 
   useEffect(() => {
+    const supabase = createClient();
     const fetchJobPostById = async () => {
       try {
         const { data, error } = await supabase
