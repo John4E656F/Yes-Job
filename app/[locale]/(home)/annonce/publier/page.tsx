@@ -1,20 +1,32 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
-import { registerNewCompany, removeSpaces } from '@/utils/';
+import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useTranslations } from 'next-intl';
 import { useStore } from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import { publishFormResolver, type PublishFormInputs } from './publishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
 // import { useToggle } from '@/hooks';
-import { ToastTitle } from '@/types';
+import { ToastTitle, UsersTypes } from '@/types';
 import { publishListing } from '@/lib/actions/publishListing';
+import { useTransition } from 'react';
 
 const PublishPage: React.FC = () => {
   const t = useTranslations('app');
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  const user = useStore((state) => state);
+  const [userData, setUserData] = useState<UsersTypes>({
+    user_email: '',
+    user_logo: '',
+    user_name: '',
+    user_total_request_count: undefined,
+    isCompany: false,
+    contactName: '',
+    created_at: '',
+    id: '',
+    user_id: '',
+  });
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
   // const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
@@ -66,14 +78,45 @@ const PublishPage: React.FC = () => {
   }, [applicationMethod, register, unregister, setValue]);
 
   useEffect(() => {
-    if (user && user.isCompany) {
-      setValue('user_Id', user.id || '');
-      setValue('contactName', user.contactName || '');
-      setValue('contactEmail', user.user_email || '');
-      setValue('companyName', user.user_name || '');
-      setValue('logo', user.user_logo || null);
+    const fetchUserData = async () => {
+      const session = await getClientUserSession();
+
+      let ownerID;
+
+      if (session && session.user) {
+        ownerID = session.user.id;
+      }
+
+      if (ownerID) {
+        try {
+          const response = await fetch(`/api/user/${ownerID}`);
+
+          if (response.ok) {
+            const { fetchedUserData } = await response.json();
+            setUserData(fetchedUserData);
+          } else {
+            console.error('Failed to fetch user data');
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      } else {
+        console.log('No owner ID found');
+      }
+    };
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    if (userData && userData.isCompany) {
+      setValue('user_Id', userData.id || '');
+      setValue('contactName', userData.contactName || '');
+      setValue('contactEmail', userData.user_email || '');
+      setValue('companyName', userData.user_name || '');
+      setValue('contactPassword', 'User_already_exists69');
+      setValue('logo', userData.user_logo || null);
     }
-  }, [user]);
+  }, [userData]);
 
   const options = [
     { value: '', label: t('jobFonction.default'), disabled: true },
@@ -94,9 +137,13 @@ const PublishPage: React.FC = () => {
     { value: 'other', label: t('jobFonction.other') },
   ];
 
-  const onSubmit: SubmitHandler<PublishFormInputs> = async (data: PublishFormInputs) => {
-    const result = await publishListing(data);
-    console.log(result);
+  const onSubmit = async (data: PublishFormInputs) => {
+    console.log('submit');
+
+    startTransition(async () => {
+      const result = await publishListing(data);
+      console.log(result);
+    });
 
     // reset({
     //   companyName: '',
@@ -122,6 +169,7 @@ const PublishPage: React.FC = () => {
   const handleCloseToast = () => {
     // toggleToast(!isToastOpen);
   };
+  console.log(errors);
 
   return (
     <header className='w-full flex justify-center bg-brand-lightbg'>
@@ -134,21 +182,30 @@ const PublishPage: React.FC = () => {
       <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-5' onSubmit={handleSubmit(onSubmit)}>
         <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>
         <div className='flex flex-col bg-white p-4 md:p-8 gap-6'>
-          <h3 className='text-2xl font-semibold'>{t('publishAds.infoCompany')}</h3>
-          <div className='flex flex-col gap-3'>
-            <FormInput
-              label={t('publishAds.companyName') + ' *'}
-              type='text'
-              register={register('companyName', { required: true })}
-              error={errors.companyName}
-              isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
-              placeholder='Quick, McDonald ...'
-            />
-          </div>
-          <div className='flex flex-col gap-3'>
-            <ImageUpload label={t('publishAds.companyLogo')} register={register('logo')} error={errors.logo} initialPreview={user.user_logo} />
-          </div>
-          <div className='w-full h-px bg-slate-300 rounded' />
+          {userData && userData.isCompany === true ? null : (
+            <>
+              <h3 className='text-2xl font-semibold'>{t('publishAds.infoCompany')}</h3>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.companyName') + ' *'}
+                  type='text'
+                  register={register('companyName', { required: true })}
+                  error={errors.companyName}
+                  isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
+                  placeholder='Quick, McDonald ...'
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <ImageUpload
+                  label={t('publishAds.companyLogo')}
+                  register={register('logo')}
+                  error={errors.logo}
+                  initialPreview={userData.user_logo}
+                />
+              </div>
+              <div className='w-full h-px bg-slate-300 rounded' />
+            </>
+          )}
           <h2 className='text-2xl font-semibold'>{t('publishAds.infoAds')}</h2>
           <div className='flex flex-col gap-3'>
             <FormInput
@@ -297,7 +354,7 @@ const PublishPage: React.FC = () => {
               />
             )}
           </div>
-          {user && user.isCompany === true ? null : (
+          {userData && userData.isCompany === true ? null : (
             <>
               <div className='w-full h-px bg-slate-300 rounded' />
               <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>

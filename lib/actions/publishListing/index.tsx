@@ -6,6 +6,8 @@ import { createClient } from '@/utils/supabase/server';
 
 export async function publishListing(data: PublishFormInputs) {
   const supabase = createClient();
+  console.log(data);
+
   let logo = data.logo[0];
   if (logo instanceof File) {
     const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
@@ -31,6 +33,7 @@ export async function publishListing(data: PublishFormInputs) {
 
     if (companyId === '') {
       const { resCompanyId, error } = await registerNewCompany(data.companyName, data.contactEmail, logo, data.contactName, data.contactPassword);
+      console.log(companyId);
 
       if (error) {
         return {
