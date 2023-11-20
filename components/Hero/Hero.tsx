@@ -1,3 +1,4 @@
+'use server';
 import React from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Image, Button } from '..';

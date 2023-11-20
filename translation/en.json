@@ -1,4 +1,7 @@
 {
+  "HomeLayout": {
+    "title": "title"
+  },
   "app": {
     "nav": {
       "home": "Home",
