@@ -5,6 +5,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@/utils/supabase/server';
 import type { ListingData, viewCounterDataType, viewCounterResponseType } from '@/types';
 import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 
 interface viewCountProps {
   itemId: string;
@@ -46,9 +47,9 @@ export async function updateViewCount({ itemId, path }: viewCountProps) {
       // console.log(totalViewCount);
       cookieStore.set('viewCount', itemId);
       const data: viewCounterResponseType = { type: 'success', message: fetchedViewCount as viewCounterDataType[], totalViewCount: totalViewCount };
-      return data;
+      return NextResponse.json(data);
     } catch (error: any) {
-      return { type: 'error', message: error.message };
+      return NextResponse.json({ type: 'error', message: error.message });
     }
   }
 }

@@ -3,6 +3,7 @@ import { type PublishFormInputs } from '@/app/[locale]/(home)/annonce/publier/pu
 import { v4 as uuidv4 } from 'uuid';
 import { registerNewCompany, removeSpaces } from '@/utils/';
 import { createClient } from '@/utils/supabase/server';
+import { NextResponse } from 'next/server';
 
 export async function publishListing(data: PublishFormInputs) {
   const supabase = createClient();
@@ -63,20 +64,20 @@ export async function publishListing(data: PublishFormInputs) {
     });
 
     if (insertError) {
-      return {
+      return NextResponse.json({
         type: 'error' as const,
         message: 'Unexpected error, please try again later.',
-      };
+      });
     }
-    return {
+    return NextResponse.json({
       type: 'success' as const,
       message: 'Your job offer has been published successfully.',
-    };
+    });
   } catch (error: any) {
     // console.error('An error occurred:', error.message);
-    return {
+    return NextResponse.json({
       type: 'error' as const,
       message: 'Unexpected error, please try again later.',
-    };
+    });
   }
 }
