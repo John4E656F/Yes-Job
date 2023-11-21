@@ -22,8 +22,10 @@ export async function GET(request: Request, { params }: { params: { id: string }
     //   return Response.json({ 'Failed to fetch user data ': userError.message });
     // }
 
-    return Response.json({ fetchedJobPostData: fetchedJobPostData as ListingData });
+    return new Response(JSON.stringify(fetchedJobPostData), { status: 200, headers: { 'content-type': 'application/json' } });
+    // Response.json({ fetchedJobPostData: fetchedJobPostData as ListingData });
   } catch (error: any) {
-    return Response.json(error.message);
+    return new Response(JSON.stringify(error.message), { status: 500, headers: { 'content-type': 'application/json' } });
+    // Response.json(error.message);
   }
 }
