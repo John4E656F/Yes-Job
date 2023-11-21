@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { supabase } from '@/supabase/supabase';
+
 import { Image, Link, ListingCard } from '@/components';
 import type { UsersTypes, ListingData } from '@/types';
 import { useStore } from '@/lib/store';
@@ -14,47 +14,47 @@ export default function ProfilePage({ params }: { params: { id: number } }) {
   const [isOwner, setIsOwner] = useState(false);
   const storedUserData = useStore((state) => state);
 
-  useEffect(() => {
-    const fetchUserDataAndPosts = async () => {
-      try {
-        let fetchedUserData;
+  // useEffect(() => {
+  //   const fetchUserDataAndPosts = async () => {
+  //     try {
+  //       let fetchedUserData;
 
-        if (!fetchedUserData) {
-          const { data, error } = await supabase.from('users').select('*').eq('id', params.id).single();
+  //       if (!fetchedUserData) {
+  //         const { data, error } = await supabase.from('users').select('*').eq('id', params.id).single();
 
-          if (error) {
-            console.error('Error fetching user:', error.message);
-            return;
-          }
+  //         if (error) {
+  //           console.error('Error fetching user:', error.message);
+  //           return;
+  //         }
 
-          fetchedUserData = data;
-        }
+  //         fetchedUserData = data;
+  //       }
 
-        setIsOwner(storedUserData?.id === fetchedUserData?.id);
+  //       setIsOwner(storedUserData?.id === fetchedUserData?.id);
 
-        if (storedUserData?.id !== fetchedUserData?.id) {
-          setUserData(fetchedUserData);
-        } else {
-          setUserData(storedUserData);
-        }
+  //       if (storedUserData?.id !== fetchedUserData?.id) {
+  //         setUserData(fetchedUserData);
+  //       } else {
+  //         setUserData(storedUserData);
+  //       }
 
-        if (fetchedUserData && fetchedUserData.isCompany) {
-          const { data: postsData, error: postsError } = await supabase.from('jobPosting').select('*').eq('companyId', params.id);
+  //       if (fetchedUserData && fetchedUserData.isCompany) {
+  //         const { data: postsData, error: postsError } = await supabase.from('jobPosting').select('*').eq('companyId', params.id);
 
-          if (postsError) {
-            console.error('Error fetching posts:', postsError.message);
-            return;
-          }
+  //         if (postsError) {
+  //           console.error('Error fetching posts:', postsError.message);
+  //           return;
+  //         }
 
-          setUserPosts(postsData || []);
-        }
-      } catch (error: any) {
-        console.error('An error occurred:', error.message);
-      }
-    };
+  //         setUserPosts(postsData || []);
+  //       }
+  //     } catch (error: any) {
+  //       console.error('An error occurred:', error.message);
+  //     }
+  //   };
 
-    fetchUserDataAndPosts();
-  }, [params.id, storedUserData]);
+  //   fetchUserDataAndPosts();
+  // }, [params.id, storedUserData]);
 
   return (
     <section className='w-full bg-white flex flex-col py-4 px-5 gap-4'>
