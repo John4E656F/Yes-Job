@@ -6,7 +6,7 @@ import { createClient } from '@/utils/supabase/server';
 import type { ListingData } from '@/types';
 
 interface JobPostProps {
-  ownerId: Number;
+  ownerId: string;
   path?: string;
 }
 

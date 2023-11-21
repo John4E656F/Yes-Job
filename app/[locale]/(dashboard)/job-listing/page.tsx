@@ -1,16 +1,24 @@
+'use server';
 import React from 'react';
-import { getCurrentUser, getCurrentUserJobListing } from '@/lib/actions';
+import { getCurrentUserJobListing } from '@/lib/actions';
 import type { UsersTypes, ListingData } from '@/types';
+import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 
-const page = async ({ params }: { params: { id: Number } }) => {
-  const ownerId = params.id;
-  const currentUser: UsersTypes = await getCurrentUser({ ownerId });
+export default async function jobListing() {
+  const session = await getServerUserSession();
+
+  const ownerId = session!.user.id;
+  const response = await fetch(
+    process.env.NEXT_PRIVATE_PRODUCTION === 'true'
+      ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/user/${ownerId}`
+      : process.env.NEXT_PRIVATE_URL + `/api/user/${ownerId}`,
+  );
+  const currentUser: UsersTypes = await response.json();
   const currentUserJobListing: ListingData[] = await getCurrentUserJobListing({ ownerId });
   const promotedListings: ListingData[] = currentUserJobListing.filter((listing) => listing.promoted === true);
-  // console.log(currentUser);
+  console.log(currentUser);
   // console.log(currentUserJobListing);
   // console.log(promotedListings);
-
 
   return (
     <section className='w-full bg-white flex flex-col py-4 px-5 gap-4'>
@@ -29,14 +37,11 @@ const page = async ({ params }: { params: { id: Number } }) => {
         </div>
       </div>
       <div>
-
         <div>
           <p>Views 24 hours</p>
           <p></p>
-        </div
+        </div>
       </div>
     </section>
   );
-};
-
-export default page;
+}
