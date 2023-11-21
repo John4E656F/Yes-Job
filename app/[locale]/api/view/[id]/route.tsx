@@ -21,16 +21,16 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         .upsert([{ item_id: itemId, viewed_at: new Date(), view_count: 1 }])
         .select();
 
-      if (updateError) {
-        return Response.json({ type: 'error', message: updateError.message });
-      }
+      //   if (updateError) {
+      //     return Response.json({ type: 'error', message: updateError.message });
+      //   }
 
       const { data: fetchedViewCount, error: fetchError } = await supabase.from('viewCounter').select('*').eq('item_id', itemId);
       // console.log(fetchedViewCount);
 
-      if (fetchError) {
-        return Response.json({ type: 'error', message: fetchError.message });
-      }
+      //   if (fetchError) {
+      //     return Response.json({ type: 'error', message: fetchError.message });
+      //   }
 
       let totalViewCount: number = 0;
 
@@ -69,7 +69,8 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       });
       //   console.log(responseBody);
 
-      return responseBody;
+      return new Response(JSON.stringify(responseBody), { status: 200, headers: { 'content-type': 'application/json' } });
+      //   responseBody;
       // return NextResponse.json({ totalViewCount }, {
       //     headers: {
       //       'Set-Cookie': cookieStore.toString(),
@@ -77,6 +78,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       // })
     }
   } catch (error: any) {
-    return Response.json({ type: 'error', message: error.message });
+    return new Response(JSON.stringify(error.message), { status: 500, headers: { 'content-type': 'application/json' } });
+    // Response.json({ type: 'error', message: error.message });
   }
 }
