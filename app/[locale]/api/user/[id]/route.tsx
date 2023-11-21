@@ -13,8 +13,10 @@ export async function GET(request: Request, { params }: { params: { id: string }
       throw new Error('Failed to fetch user data: ' + userError.message);
     }
 
-    return Response.json({ fetchedUserData: fetchedUserData as UsersTypes });
+    return new Response(JSON.stringify(fetchedUserData), { status: 200, headers: { 'content-type': 'application/json' } });
+    // Response.json({ fetchedUserData: fetchedUserData as UsersTypes });
   } catch (error: any) {
-    return Response.json(error.message);
+    return new Response(JSON.stringify(error.message), { status: 500, headers: { 'content-type': 'application/json' } });
+    // Response.json(error.message);
   }
 }
