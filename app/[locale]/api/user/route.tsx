@@ -1,11 +1,12 @@
 import { createClient } from '@/utils/supabase/server';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
+import { NextResponse } from 'next/server';
 
 export async function GET() {
   const session = await getServerUserSession();
 
   if (!session) {
-    return Response.json({ message: 'No session found' });
+    return NextResponse.json({ message: 'No session found' });
   }
 
   const ownerId = session.user.id;
