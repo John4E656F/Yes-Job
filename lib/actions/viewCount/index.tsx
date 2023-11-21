@@ -3,39 +3,43 @@
 import { revalidatePath } from 'next/cache';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@/utils/supabase/server';
-import type { ListingData } from '@/types';
+import type { ListingData, viewCounterDataType, viewCounterResponseType } from '@/types';
 
 interface viewCountProps {
-  itemId: Number;
+  itemId: string;
   path?: string;
 }
+
 export async function updateViewCount({ itemId, path }: viewCountProps) {
   const supabase = createClient();
   try {
-    if (!itemId) {
-      return;
-    }
-    const { data: fetchedViewCount, error: fetchError } = await supabase.from('view_counts').select('view_count').eq('item_id', itemId);
+    // Update the view count for the specified ownerId
+    // const { data: newViewCount, error: updateError } = await supabase
+    //   .from('viewCounter')
+    //   .upsert([{ item_id: itemId, viewed_at: new Date(), view_count: 1 }])
+    //   .select();
+
+    // if (updateError) {
+    //   return { type: 'error', message: updateError.message };
+    // }
+
+    const { data: fetchedViewCount, error: fetchError } = await supabase.from('viewCounter').select('*').eq('item_id', itemId);
+    console.log(fetchedViewCount);
 
     if (fetchError) {
-      throw new Error('Failed to fetch view count: ' + fetchError.message);
+      return { type: 'error', message: fetchError.message };
     }
 
-    let updatedViewCount = fetchedViewCount?.[0]?.view_count ?? 0;
-    updatedViewCount++;
+    let totalViewCount: number = 0;
 
-    // Update the view count for the specified ownerId
-    const { data: newViewCount, error: updateError } = await supabase
-      .from('view_counts')
-      .upsert([{ item_id: itemId, viewed_at: new Date(), view_count: updatedViewCount }])
-      .select();
-    console.log(newViewCount);
-
-    if (updateError) {
-      throw new Error('Failed to update view count: ' + updateError.message);
+    for (let i = 0; i < fetchedViewCount.length; i++) {
+      totalViewCount += fetchedViewCount[i].view_count;
     }
-    return newViewCount;
+    console.log(totalViewCount);
+
+    const data: viewCounterResponseType = { type: 'success', message: fetchedViewCount as viewCounterDataType[], totalViewCount: totalViewCount };
+    return data;
   } catch (error: any) {
-    return error.message;
+    return { type: 'error', message: error.message };
   }
 }
