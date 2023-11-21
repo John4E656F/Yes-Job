@@ -70,7 +70,7 @@ export default async function annoncePage({ params }: { params: { id: string } }
         <ContactForm jobPost={jobPost} />
         <div className='flex gap-5'>
           <p>
-            {t('adPage.viewed')} {totalViewCount}{' '}
+            {t('adPage.viewed')} {totalViewCount}
           </p>
           <p>
             {t('adPage.publishAt')} {jobPost?.created_at ? formatDate(jobPost.created_at) : 'N/A'}

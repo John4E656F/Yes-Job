@@ -19,7 +19,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
       .single();
 
     if (userError) {
-      return Response.json('Failed to fetch user data: ' + userError.message);
+      return Response.json({ 'Failed to fetch user data ': userError.message });
     }
 
     return Response.json({ fetchedJobPostData: fetchedJobPostData as ListingData });
