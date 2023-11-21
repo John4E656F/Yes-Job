@@ -1,16 +1,17 @@
 'use client';
 import React, { useState } from 'react';
 import { Image, Toast, FormInput, FormTextarea, Button } from '@/components';
-// import { useToggle } from '@/hooks';
+import { useToggle } from '@/hooks';
 import { ToastTitle } from '@/types';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { contactFormResolver, type contactFormInputs } from './contactFormResolver';
+import { submitContactForm } from '@/lib/actions/submitContact';
 
 const ContactPage = () => {
   const t = useTranslations('app');
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
-  // const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
+  const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
 
   const {
     register,
@@ -28,47 +29,36 @@ const ContactPage = () => {
     },
   });
   const handleCloseToast = () => {
-    // toggleToast(!isToastOpen);
+    toggleToast(!isToastOpen);
   };
 
   const onSubmit = async (data: contactFormInputs) => {
-    // Make a POST request to the Formspark endpoint
-    // const response = await fetch('https://submit-form.com/PSmSObp9', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Accept: 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     fullName: data.fullName,
-    //     email: data.email,
-    //     message: data.message,
-    //   }),
-    // });
-    // if (response.ok) {
-    //   reset();
-    //   setIsSubmitSuccessful(true);
-    //   toggleToast(!isToastOpen);
-    //   setTimeout(() => {
-    //     window.location.href = '/';
-    //   }, 2000);
-    // } else {
-    //   toggleToast(true);
-    //   setIsSubmitSuccessful(false);
-    //   setTimeout(() => {
-    //     toggleToast(false);
-    //   }, 10000);
-    // }
+    const result = await submitContactForm(data);
+
+    if (result.ok) {
+      reset();
+      setIsSubmitSuccessful(true);
+      toggleToast(!isToastOpen);
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
+    } else {
+      toggleToast(true);
+      setIsSubmitSuccessful(false);
+      setTimeout(() => {
+        toggleToast(false);
+      }, 10000);
+    }
   };
 
   return (
     <header className='w-full flex flex-col justify-center items-center'>
-      {/* <Toast
+      <Toast
         isOpen={isToastOpen}
         onClose={handleCloseToast}
         title={isSubmitSuccessful ? ToastTitle.Message : ToastTitle.Error}
         message={isSubmitSuccessful ? 'Message Sent' : 'Message failed. Try later or email yesjob.contact@gmail.com'}
-      /> */}
+      />
       <div className='flex flex-col container justify-center  py-4 md:py-8 '>
         <div className='flex flex-col lg:flex-row gap-16 justify-between items-center  '>
           <div className=' w-auto flex flex-col gap-4 text-center md:text-start'>

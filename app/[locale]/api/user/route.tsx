@@ -1,9 +1,17 @@
 import { createClient } from '@/utils/supabase/server';
+import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 
 export async function GET() {
+  const session = await getServerUserSession();
+
+  if (!session) {
+    return Response.json({ message: 'No session found' });
+  }
+
+  const ownerId = session.user.id;
   const supabase = createClient();
   try {
-    const { data: fetchedUserData, error: userError } = await supabase.auth.getUser();
+    const { data: fetchedUserData, error: userError } = await supabase.from('users').select('*').eq('user_id', ownerId).single();
 
     if (userError) {
       throw new Error('Failed to fetch user data: ' + userError.message);
@@ -11,6 +19,6 @@ export async function GET() {
 
     return Response.json({ fetchedUserData });
   } catch (error: any) {
-    return error.message;
+    return Response.json(error.message);
   }
 }

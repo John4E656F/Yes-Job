@@ -6,10 +6,9 @@ import { HiBars3, HiMiniLanguage, HiUser } from 'react-icons/hi2';
 import { useTranslations } from 'next-intl';
 import { Database, UsersTypes } from '@/types';
 import { useToggleMenu } from '@/hooks';
-import { getCurrentUser } from '@/lib/actions';
 import type { TranslationProps } from '@/types';
 import type { Session } from '@supabase/supabase-js';
-import { log } from 'console';
+
 interface NavbarProps {
   currentLocale: string;
   session?: Session | null;
