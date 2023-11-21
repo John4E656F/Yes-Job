@@ -6,7 +6,7 @@ export interface viewCounterDataType {
 }
 
 export interface viewCounterResponseType {
-  type: string;
-  message: viewCounterDataType[];
+  type: 'success' | 'error';
+  message: viewCounterDataType[] | string;
   totalViewCount: number;
 }

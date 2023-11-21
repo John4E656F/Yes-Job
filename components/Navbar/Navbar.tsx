@@ -4,9 +4,8 @@ import { useRouter } from 'next/navigation';
 import { Image, Button, Logo, Link, LocaleSwitcher, MobileMenu, ProfileMenu } from '..';
 import { HiBars3, HiMiniLanguage, HiUser } from 'react-icons/hi2';
 import { useTranslations } from 'next-intl';
-import { Database, UsersTypes } from '@/types';
+import { UsersTypes } from '@/types';
 import { useToggleMenu } from '@/hooks';
-import type { TranslationProps } from '@/types';
 import type { Session } from '@supabase/supabase-js';
 
 interface NavbarProps {
