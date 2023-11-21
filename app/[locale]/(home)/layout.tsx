@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers';
 import { Analytics } from '@vercel/analytics/react';
 import { notFound } from 'next/navigation';
 import { Navbar, Footer } from '@/components';

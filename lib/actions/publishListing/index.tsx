@@ -6,7 +6,6 @@ import { createClient } from '@/utils/supabase/server';
 
 export async function publishListing(data: PublishFormInputs) {
   const supabase = createClient();
-  console.log(data);
 
   let logo = data.logo[0];
   if (logo instanceof File) {

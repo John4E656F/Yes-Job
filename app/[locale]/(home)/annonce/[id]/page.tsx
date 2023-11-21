@@ -1,13 +1,7 @@
-// import React, { useEffect, useState } from 'react';
+import { formatDate } from '@/utils';
 import { Image, Label, Button, Toast, Tiptap } from '@/components';
-// import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { ContactForm } from './form';
 import type { ListingData, viewCounterDataType, viewCounterResponseType } from '@/types';
-import { formatDescription, formatDate } from '@/utils';
-import { submitCVFormResolver, type submitCVFormInputs } from './submitCVFormResolver';
-import { useForm } from 'react-hook-form';
-import { SubmitCVForm } from './submitCVForm';
-import { ToastTitle } from '@/types';
 import { getTranslations } from 'next-intl/server';
 import { updateViewCount } from '@/lib/actions';
 
@@ -23,36 +17,18 @@ export default async function annoncePage({ params }: { params: { id: string } }
 
   const { fetchedJobPostData } = await response.json();
   const jobPost: ListingData = fetchedJobPostData;
-  console.log(jobPost);
+  // console.log(jobPost);
 
-  // useEffect(() => {
-  //   const fetchJobPostById = async () => {
-  //     try {
-  //       const response = await fetch(`/api/jobPost/${params.id}`);
-  //       console.log(response);
+  // const viewCounterResponse = await updateViewCount({ itemId: params.id });
+  const viewCounterResponse = await fetch(
+    process.env.NEXT_PRIVATE_PRODUCTION === 'true'
+      ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/view/${jobPost.id}`
+      : process.env.NEXT_PRIVATE_URL + `/api/view/${jobPost.id}`,
+    { method: 'PUT', credentials: 'include' },
+  );
+  // console.log(viewCounterResponse);
 
-  //       if (response.ok) {
-  //         const { fetchedJobPostData } = await response.json();
-  //         setJobPost(fetchedJobPostData || null);
-  //       } else {
-  //         console.error('Error fetching job post');
-  //         // router.push('/404');
-  //       }
-
-  //       // const viewCounterResponse = await updateViewCount({ itemId: params.id });
-  //       // if (viewCounterResponse.type === 'success') {
-  //       //   const viewCounterData: viewCounterDataType = viewCounterResponse.message?.[0];
-  //       //   console.log(viewCounterData);
-
-  //       //   // setJobPost({ pageViewCount: response.message?.[0]?.view_count });
-  //       // }
-  //     } catch (error: any) {
-  //       console.error('An error occurred:', error.message);
-  //     }
-  //   };
-
-  //   fetchJobPostById();
-  // }, [params.id]);
+  const { totalViewCount } = await viewCounterResponse.json();
 
   return (
     <header className='w-full flex justify-center py-4 bg-brand-lightbg'>
@@ -91,6 +67,15 @@ export default async function annoncePage({ params }: { params: { id: string } }
           <Tiptap content={jobPost.description} editable={false} />
         </div>
         <div className='w-full h-px bg-slate-300 rounded' />
+        <ContactForm jobPost={jobPost} />
+        <div className='flex gap-5'>
+          <p>
+            {t('adPage.viewed')} {totalViewCount}{' '}
+          </p>
+          <p>
+            {t('adPage.publishAt')} {jobPost?.created_at ? formatDate(jobPost.created_at) : 'N/A'}
+          </p>
+        </div>
       </section>
     </header>
   );
