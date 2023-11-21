@@ -1,6 +1,5 @@
 'use server';
 import { type contactFormInputs } from '@/app/[locale]/(home)/contact/contactFormResolver';
-import { NextResponse } from 'next/server';
 
 export async function submitContactForm(data: contactFormInputs) {
   try {
@@ -18,11 +17,11 @@ export async function submitContactForm(data: contactFormInputs) {
     });
 
     if (response.ok) {
-      return NextResponse.json({ type: 'success' });
+      return { type: 'success' };
     } else {
-      return NextResponse.json({ type: 'error' });
+      return { type: 'error' };
     }
   } catch (error: any) {
-    return NextResponse.json(error.message);
+    return error.message;
   }
 }
