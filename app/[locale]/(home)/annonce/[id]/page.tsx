@@ -17,14 +17,14 @@ export default async function annoncePage({ params }: { params: { id: string } }
 
   const { fetchedJobPostData } = await response.json();
   const jobPost: ListingData = fetchedJobPostData;
-  // console.log(jobPost);
+  console.log(jobPost);
 
   // const viewCounterResponse = await updateViewCount({ itemId: params.id });
   const viewCounterResponse = await fetch(
     process.env.NEXT_PRIVATE_PRODUCTION === 'true'
-      ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/view/${jobPost.id}`
-      : process.env.NEXT_PRIVATE_URL + `/api/view/${jobPost.id}`,
-    { method: 'PUT', credentials: 'include' },
+      ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/view/${params.id}`
+      : process.env.NEXT_PRIVATE_URL + `/api/view/${params.id}`,
+    { method: 'PUT' },
   );
   // console.log(viewCounterResponse);
 

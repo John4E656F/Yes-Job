@@ -1,6 +1,7 @@
 'use server';
 import { createClient } from '@/utils/supabase/server';
 import { ListingData } from '@/types';
+import { NextResponse } from 'next/server';
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   const supabase = createClient();
@@ -22,8 +23,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
     //   return Response.json({ 'Failed to fetch user data ': userError.message });
     // }
 
-    return new Response(JSON.stringify(fetchedJobPostData), { status: 200, headers: { 'content-type': 'application/json' } });
-    // Response.json({ fetchedJobPostData: fetchedJobPostData as ListingData });
+    return NextResponse.json({ fetchedJobPostData: fetchedJobPostData as ListingData });
+    // new Response(JSON.stringify(fetchedJobPostData), { status: 200, headers: { 'content-type': 'application/json' } });
   } catch (error: any) {
     return new Response(JSON.stringify(error.message), { status: 500, headers: { 'content-type': 'application/json' } });
     // Response.json(error.message);
