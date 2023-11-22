@@ -1,11 +1,15 @@
+//NOTE: Have a filter function to filter expired, promoted, and draft listings
+//NOTE: Either have pages for listing or have infinite scroll
+//NOTE: Upgraded users can have more listings with special features such as infite scroll, and filter
 'use server';
 import React from 'react';
 import { Link, Divider, DashboardListingCard } from '@/components';
-import { RiFileList3Line } from 'react-icons/ri';
+
 import type { UsersTypes, ListingData, dashboardViewCounterDisplayType } from '@/types';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 import { refreshUserSession } from '@/lib/actions/refreshServerSession';
 import { ViewCountDisplay } from './viewCountDisplay';
+import { DashboardListing } from './dashboardListing';
 import { getTranslations } from 'next-intl/server';
 
 export default async function jobListing() {
@@ -72,48 +76,7 @@ export default async function jobListing() {
           </Link>
         </div>
         <Divider />
-        {fetchedJobPostData ? (
-          <div className='flex flex-col gap-4'>
-            {jobListing.map((jobPost) => (
-              <DashboardListingCard key={jobPost.id} jobPost={jobPost} />
-            ))}
-            <div className='flex flex-col gap-2 p-2 items-center border border-brand-lightbg rounded'>
-              <span className='p-3 border border-brand-gray rounded-md'>
-                <RiFileList3Line size={28} />
-              </span>
-              <div className='flex flex-col gap- text-center'>
-                <p className='text-sm font-medium'>Need to list more job ?</p>
-                <p className='text-sm'>Upgrade your account and get to list more job vacancy</p>
-              </div>
-              <Link
-                href='/annonce/publier'
-                className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
-              >
-                <button type='button' className='px-4 h-11 text-sm'>
-                  Upgrade
-                </button>
-              </Link>
-            </div>
-          </div>
-        ) : (
-          <div className='flex flex-col gap-3 p-5 items-center border border-brand-lightbg rounded'>
-            <span className='p-3 border border-brand-gray rounded-md'>
-              <RiFileList3Line size={28} />
-            </span>
-            <div className='flex flex-col gap- text-center'>
-              <p className='text-sm font-medium'>Post your first job vacancy!</p>
-              <p className='text-sm'>Your first 2 job listing are free</p>
-            </div>
-            <Link
-              href='/annonce/publier'
-              className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
-            >
-              <button type='button' className='px-4 h-11 text-sm'>
-                Post a job
-              </button>
-            </Link>
-          </div>
-        )}
+        <DashboardListing jobPost={jobListing} />
       </div>
     </section>
   );
