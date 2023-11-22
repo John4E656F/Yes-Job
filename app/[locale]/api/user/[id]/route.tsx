@@ -1,6 +1,7 @@
 'use server';
 import { createClient } from '@/utils/supabase/server';
 import { UsersTypes } from '@/types';
+import { NextResponse } from 'next/server';
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   const supabase = createClient();
@@ -13,10 +14,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
       throw new Error('Failed to fetch user data: ' + userError.message);
     }
 
-    return new Response(JSON.stringify(fetchedUserData), { status: 200, headers: { 'content-type': 'application/json' } });
-    // Response.json({ fetchedUserData: fetchedUserData as UsersTypes });
+    return NextResponse.json({ fetchedUserData: fetchedUserData as UsersTypes });
   } catch (error: any) {
-    return new Response(JSON.stringify(error.message), { status: 500, headers: { 'content-type': 'application/json' } });
-    // Response.json(error.message);
+    return NextResponse.json(error.message);
   }
 }

@@ -1,9 +1,7 @@
-'use client';
 import React, { useEffect, useState } from 'react';
 
 import { Image, Link, ListingCard } from '@/components';
 import type { UsersTypes, ListingData } from '@/types';
-import { useStore } from '@/lib/store';
 import { HiUser } from 'react-icons/hi2';
 import { useTranslations } from 'next-intl';
 
@@ -12,7 +10,6 @@ export default function ProfilePage({ params }: { params: { id: number } }) {
   const [userData, setUserData] = useState<UsersTypes>();
   const [userPosts, setUserPosts] = useState<ListingData[]>([]);
   const [isOwner, setIsOwner] = useState(false);
-  const storedUserData = useStore((state) => state);
 
   // useEffect(() => {
   //   const fetchUserDataAndPosts = async () => {

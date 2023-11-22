@@ -10,6 +10,7 @@ export { Listing } from './Listing/Listing';
 export { SearchBar } from './SearchBar/SearchBar';
 export { Card } from './Card/Card';
 export { ListingCard } from './Card/ListingCard';
+export { DashboardListingCard } from './Card/DashboardListingCard';
 export { Label } from './Label/Label';
 export { FormLabel } from './Label/FormLabel';
 export { LocaleSwitcher } from './LocaleSwitcher/LocaleSwitcher';

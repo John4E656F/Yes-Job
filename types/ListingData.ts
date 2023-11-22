@@ -34,4 +34,6 @@ export interface ListingData extends PublishData {
   pageViewCount?: number;
   promoted?: boolean;
   promoted_at?: string | null;
+  published?: boolean;
+  published_at?: string | null;
 }

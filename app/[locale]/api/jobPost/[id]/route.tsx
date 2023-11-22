@@ -26,7 +26,6 @@ export async function GET(request: Request, { params }: { params: { id: string }
     return NextResponse.json({ fetchedJobPostData: fetchedJobPostData as ListingData });
     // new Response(JSON.stringify(fetchedJobPostData), { status: 200, headers: { 'content-type': 'application/json' } });
   } catch (error: any) {
-    return new Response(JSON.stringify(error.message), { status: 500, headers: { 'content-type': 'application/json' } });
-    // Response.json(error.message);
+    return NextResponse.json(error.message);
   }
 }
