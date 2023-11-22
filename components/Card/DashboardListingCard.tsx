@@ -28,17 +28,78 @@ export function DashboardListingCard({ jobPost }: ListingCardProps) {
             <h5 className='text-base font-semibold md:text-lg'>{jobPost.title}</h5>
             <p className='text-base md:text-lg'>{jobPost.companyId?.user_name}</p>
           </div>
-          <div>
-            <div className='flex gap-4'>
-              {jobPost.promoted && (
-                <div className='flex gap-1 items-center'>
-                  <IoDiamondOutline size={20} className='text-brand-primary' />
-                  <p className='text-brand-primary'>Promoted</p>
+          {!jobPost.expired && jobPost.published ? (
+            <div className=''>
+              <div className='flex gap-4 text-right justify-end'>
+                {jobPost.promoted && (
+                  <div className='flex gap-1 items-center'>
+                    <IoDiamondOutline size={20} className='text-brand-primary' />
+                    <p className='text-brand-primary'>Promoted</p>
+                  </div>
+                )}
+                <p className='text-brand-success'>Published</p>
+              </div>
+              {jobPost.promoted ? (
+                <div className='flex gap-2 justify-end'>
+                  <Link
+                    href={`/api/promote/${jobPost.id}`}
+                    className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+                  >
+                    <button type='button' className='px-4 h-11 text-sm'>
+                      Edit
+                    </button>
+                  </Link>
+                </div>
+              ) : (
+                <div className='flex gap-2 justify-end'>
+                  <Link
+                    href={`/api/promote/${jobPost.id}`}
+                    className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+                  >
+                    <button type='button' className='px-4 h-11 text-sm'>
+                      Promote
+                    </button>
+                  </Link>
+                  <Link
+                    href={`/api/promote/${jobPost.id}`}
+                    className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+                  >
+                    <button type='button' className='px-4 h-11 text-sm'>
+                      Edit
+                    </button>
+                  </Link>
                 </div>
               )}
-              {jobPost.published ? <p className='text-brand-success'>Published</p> : <p className='text-brand-failed'>Draft</p>}
             </div>
-          </div>
+          ) : !jobPost.expired && !jobPost.published ? (
+            <div className='flex flex-col justify-end text-right'>
+              <p className='text-brand-failed'>Draft</p>
+              <div className='flex gap-2 '>
+                <Link
+                  href={`/api/promote/${jobPost.id}`}
+                  className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+                >
+                  <button type='button' className='px-4 h-11 text-sm'>
+                    Edit
+                  </button>
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div className='text-right'>
+              <p className='text-brand-failed'>Expired</p>
+              <div className='flex gap-2'>
+                <Link
+                  href={`/api/promote/${jobPost.id}`}
+                  className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+                >
+                  <button type='button' className='px-4 h-11 text-sm'>
+                    Republish
+                  </button>
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
         <div className='flex flex-wrap gap-2.5 py-4 md:py-1 justify-center md:justify-start'>
           <Label text={jobPost.location} type='location' />

@@ -60,6 +60,7 @@ export async function publishListing(data: PublishFormInputs) {
       externalFormURL: data.externalFormURL,
       pinned: true,
       pinned_at: new Date().toISOString(),
+      published: true,
     });
 
     if (insertError) {
