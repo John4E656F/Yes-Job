@@ -1,8 +1,26 @@
 {
+  "HomeLayout": {
+    "title": "title"
+  },
   "app": {
     "nav": {
       "home": "Thuis",
       "contact": "Contact"
+    },
+    "sidebar": {
+      "back": "Terug naar de hoofdpagina",
+      "inbox": "Postvak IN",
+      "support": "Postvak IN",
+      "settings": "Instellingen",
+
+      "joblisting": "Vacatures",
+      "company": "Bedrijf",
+      "team": "Team",
+      "candidate": "Kandidaat",
+      "addCompanyInfo": "Bedrijfsinfo toevoegen",
+      "description": "Vul uw profiel in en word vermeld op Yes Job",
+      "verifyEmail": "Controleer je e-mail",
+      "postAJob": "Een vacature plaatsen"
     },
     "footer": {
       "text": "Maak contact met gepassioneerde horecaprofessionals voor een bloeiende carrière",
