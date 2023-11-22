@@ -1,8 +1,8 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SearchBar, ListingCard } from '../';
 import type { ListingData } from '@/types';
-import { supabase } from '@/supabase/supabase';
+import { createClient } from '@/utils/supabase/client';
 import { useTranslations } from 'next-intl';
 
 export function Listing() {
@@ -11,9 +11,10 @@ export function Listing() {
   const [totalJobOffers, setTotalJobOffers] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const postsPerPage = 10; // Number of job posts to display per page
+  const postsPerPage = 10;
 
   useEffect(() => {
+    const supabase = createClient();
     const fetchJobPosts = async () => {
       try {
         const { data, error } = await supabase

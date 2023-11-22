@@ -1,5 +1,4 @@
-'use client';
-import React, { useState } from 'react';
+// import React, { useRef } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { BiUpload } from 'react-icons/bi';
 import { FormLabel, InputError } from '@/components';
@@ -11,14 +10,13 @@ interface FileUploadProps {
 }
 
 export function FileUpload({ register, error, label }: FileUploadProps) {
-  const [fileName, setFileName] = useState<string | null>(null);
-
+  // const fileNameRef = useRef<string | null>(null);
   const { ref, onChange: defaultOnChange, ...rest } = register;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setFileName(file.name);
+      // fileNameRef.current = file.name;
     }
     if (defaultOnChange) {
       defaultOnChange(e);
@@ -29,7 +27,7 @@ export function FileUpload({ register, error, label }: FileUploadProps) {
     <div className='form-control '>
       <FormLabel htmlFor={`input${label}`} labelText={label} className='text-lg font-medium' />
       <div className='flex flex-col items-center justify-center w-full gap-4'>
-        {fileName ? <p className='text-gray-500'>{fileName}</p> : null}
+        {/* {fileNameRef.current ? <p className='text-gray-500'>{fileNameRef.current}</p> : null} */}
         <label
           htmlFor={`input${label}`}
           className='flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100'

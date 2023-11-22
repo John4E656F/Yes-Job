@@ -1,7 +1,7 @@
 'use client';
 import React, { useTransition } from 'react';
 import { useTranslations } from 'next-intl';
-import { usePathname, useRouter } from 'next-intl/client';
+import { usePathname, useRouter } from '@/navigation';
 
 import { LanguageItem } from './LanguageItem';
 import { Backdrop } from './Backdrop';

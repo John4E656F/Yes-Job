@@ -1,24 +1,20 @@
 'use client';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Image, Button, Logo, Link, LocaleSwitcher, MobileMenu, ProfileMenu } from '..';
 import { HiBars3, HiMiniLanguage, HiUser } from 'react-icons/hi2';
 import { useTranslations } from 'next-intl';
-import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database, UsersTypes } from '@/types';
+import { UsersTypes } from '@/types';
 import { useToggleMenu } from '@/hooks';
-import { useStore } from '@/lib/store';
+import type { Session } from '@supabase/supabase-js';
 
 interface NavbarProps {
   currentLocale: string;
-  session: Session | null;
+  session?: Session | null;
 }
 
 export function Navbar({ currentLocale, session }: NavbarProps) {
-  const supabase = createClientComponentClient<Database>();
   const router = useRouter();
-
-  const setUser = useStore((state) => state.setUser);
 
   const [userData, setUserData] = useState<UsersTypes>({
     user_email: '',
@@ -35,7 +31,6 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   const { menuRef: profileMenuRef, isMenuOpen: isProfileMenuOpen, toggleMenu: toggleProfileMenu } = useToggleMenu();
   const { menuRef: mobileMenuRef, isMenuOpen: isMobileMenuOpen, toggleMenu: toggleMobileMenu } = useToggleMenu();
   const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
-
   const t = useTranslations('app');
 
   useEffect(() => {
@@ -48,24 +43,13 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
 
       if (ownerID) {
         try {
-          const { data: fetchedUserData, error: userError } = await supabase.from('users').select('*').eq('user_id', ownerID).single();
-          if (userError) {
-            console.error('Error fetching user data:', userError);
-          } else {
+          const response = await fetch(`/api/user/${ownerID}`);
+
+          if (response.ok) {
+            const { fetchedUserData } = await response.json();
             setUserData(fetchedUserData);
-            setUser({
-              id: fetchedUserData.id,
-              user_id: fetchedUserData.user_id,
-              user_email: fetchedUserData.user_email,
-              user_logo: fetchedUserData.user_logo,
-              user_name: fetchedUserData.user_name,
-              user_total_request_count: fetchedUserData.user_total_request_count,
-              isCompany: fetchedUserData.isCompany,
-              contactName: fetchedUserData.contactName,
-              created_at: fetchedUserData.created_at,
-              phone: fetchedUserData.phone,
-              countryCode: fetchedUserData.countryCode,
-            });
+          } else {
+            console.error('Failed to fetch user data');
           }
         } catch (error) {
           console.error('Error fetching user data:', error);
@@ -135,11 +119,10 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               ))}
             <Button text={<HiMiniLanguage className='text-xl text-gray-400 hover:text-gray-200' />} btnType='button' onClick={toggleLocaleModal} />
           </div>
-          <MobileMenu isMenuOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} menuRef={mobileMenuRef} t={t} session={session} />
+          <MobileMenu isMenuOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} menuRef={mobileMenuRef} t={t} />
           <ProfileMenu isMenuOpen={isProfileMenuOpen} toggleMenu={toggleProfileMenu} menuRef={profileMenuRef} t={t} userData={userData} />
         </div>
       </div>
-
       <LocaleSwitcher isOpen={isLocaleModalOpen} closeModal={toggleLocaleModal} onClose={toggleLocaleModal} currentLocale={currentLocale} />
     </nav>
   );
