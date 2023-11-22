@@ -17,7 +17,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
   return (
     <div
       ref={menuRef}
-      className='absolute top-14 right-0 w-80 min-w-min max-w-fit py-5 justify-self-center border border-gray-300 rounded-md bg-brand-lightbg '
+      className='absolute top-14 right-0 w-80 min-w-min max-w-fit py-5 justify-self-center border border-gray-300 rounded-md bg-brand-lightbg whitespace-nowrap'
       id='navbar-menu'
     >
       <p className='flex gap-5 items-center justify-between px-5 py-2 text-base font-medium whitespace-nowrap'>

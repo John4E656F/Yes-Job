@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { locales } from '@/navigation';
-import { Sidebar, Footer } from '@/components';
+import { Sidebar, MobileNavbar, Footer } from '@/components';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 import '../../globals.css';
 
@@ -41,7 +41,8 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
       <body className='flex flex-col'>
         <NextIntlClientProvider locale={locale} messages={translation}>
           <Sidebar currentLocale={locale} session={session} />
-          <main className='flex flex-grow flex-col items-center bg-blue-200 ml-64'>{children}</main>
+          <MobileNavbar />
+          <main className='flex flex-grow flex-col items-center bg-blue-200 md:ml-64'>{children}</main>
         </NextIntlClientProvider>
       </body>
     </html>
