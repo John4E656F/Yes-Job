@@ -62,7 +62,7 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
   }, []);
 
   return (
-    <aside className='fixed flex flex-col h-screen gap-5 p-5 w-64 min-w-fit border-r bg-brand-lightbg bg-transparent'>
+    <aside className='hidden fixed md:flex flex-col h-screen gap-5 p-5 w-64 min-w-fit border-r bg-brand-lightbg bg-transparent'>
       <div className='flex justify-between items-center'>
         <Link href='/' className='flex items-center' aria-label='YesJob Navbar Logo'>
           <Logo width={80} height={80} />
