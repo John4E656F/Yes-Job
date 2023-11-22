@@ -25,8 +25,10 @@ export function Listing() {
           companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) 
         `,
           )
+          .eq('published', true)
+          .eq('expired', false)
           .order('pinned', { ascending: false }) // Order pinned posts first
-          .order('created_at', { ascending: false }) // Then order by most recent
+          .order('published_at', { ascending: false }) // Then order by most recent
           .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
 
         if (error) {
@@ -41,7 +43,7 @@ export function Listing() {
 
     const fetchTotalJobOffers = async () => {
       try {
-        const { count, error } = await supabase.from('jobPosting').select('id', { count: 'exact' });
+        const { count, error } = await supabase.from('jobPosting').select('id', { count: 'exact' }).eq('published', true);
         if (error) {
           console.error('Error fetching total job offers:', error.message);
         } else {
@@ -80,7 +82,7 @@ export function Listing() {
         </div>
         <div className='flex flex-col gap-4'>
           {jobPosts.map((jobPost) => (
-            <ListingCard key={jobPost.id} jobPost={jobPost} t={t} />
+            <ListingCard key={jobPost.id} jobPost={jobPost} />
           ))}
         </div>
         <div className='flex justify-between'>

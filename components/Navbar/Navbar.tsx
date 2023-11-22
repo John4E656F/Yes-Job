@@ -101,7 +101,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               className='hidden md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
             />
           </div>
-          <div className='flex gap-2'>
+          <div className='flex gap-2 cursor-pointer'>
             {session &&
               (userData.user_logo ? (
                 <Button

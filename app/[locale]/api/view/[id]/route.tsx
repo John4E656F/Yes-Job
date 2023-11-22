@@ -69,8 +69,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       });
       //   console.log(responseBody);
 
-      return new Response(JSON.stringify(responseBody), { status: 200, headers: { 'content-type': 'application/json' } });
-      //   responseBody;
+      return responseBody;
       // return NextResponse.json({ totalViewCount }, {
       //     headers: {
       //       'Set-Cookie': cookieStore.toString(),
@@ -78,7 +77,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       // })
     }
   } catch (error: any) {
-    return new Response(JSON.stringify(error.message), { status: 500, headers: { 'content-type': 'application/json' } });
-    // Response.json({ type: 'error', message: error.message });
+    return NextResponse.json({ type: 'error', message: error.message });
   }
 }
