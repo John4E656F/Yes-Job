@@ -1,68 +1,22 @@
-import createMiddleware from 'next-intl/middleware';
-import { pathnames, locales } from './navigation';
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { type NextRequest, NextResponse } from 'next/server';
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
+import { NextRequest } from 'next/server';
+import createIntlMiddleware from 'next-intl/middleware';
 
-// export const createClient = (request: NextRequest) => {
-//   // Create an unmodified response
-//   let response = NextResponse.next({
-//     request: {
-//       headers: request.headers,
-//     },
-//   });
+export default async function middleware(req: NextRequest) {
+  const handleI18nRouting = createIntlMiddleware({
+    locales: ['en', 'fr', 'nl'],
+    defaultLocale: 'en',
+  });
 
-//   const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
-//     cookies: {
-//       get(name: string) {
-//         return request.cookies.get(name)?.value;
-//       },
-//       set(name: string, value: string, options: CookieOptions) {
-//         // If the cookie is updated, update the cookies for the request and response
-//         request.cookies.set({
-//           name,
-//           value,
-//           ...options,
-//         });
-//         response = NextResponse.next({
-//           request: {
-//             headers: request.headers,
-//           },
-//         });
-//         response.cookies.set({
-//           name,
-//           value,
-//           ...options,
-//         });
-//       },
-//       remove(name: string, options: CookieOptions) {
-//         // If the cookie is removed, update the cookies for the request and response
-//         request.cookies.set({
-//           name,
-//           value: '',
-//           ...options,
-//         });
-//         response = NextResponse.next({
-//           request: {
-//             headers: request.headers,
-//           },
-//         });
-//         response.cookies.set({
-//           name,
-//           value: '',
-//           ...options,
-//         });
-//       },
-//     },
-//   });
+  // Here we use 'req' instead of 'request', which is not defined
+  const res = handleI18nRouting(req);
 
-//   return { supabase, response };
-// };
+  const supabase = createMiddlewareClient({ req, res });
+  await supabase.auth.getSession();
 
-export default createMiddleware({
-  defaultLocale: 'en',
-  locales,
-  pathnames,
-});
+  // Here we use 'res' instead of 'response', which is not defined
+  return res;
+}
 
 export const config = {
   matcher: ['/((?!_next|.*\\..*).*)'],

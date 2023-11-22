@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Card, Image, Label } from '..';
 import type { ListingData, TranslationProps } from '@/types';

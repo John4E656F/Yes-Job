@@ -11,6 +11,4 @@ export interface UsersTypes {
   phone?: string | number | null;
   confirmed_at?: string;
   countryCode?: string | null;
-  availableJobListing?: number | null;
-  availablePromotion?: number | null;
 }

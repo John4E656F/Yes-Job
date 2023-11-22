@@ -1,4 +1,5 @@
 'use client';
+
 import './Tiptap.css';
 import { useEditor, EditorContent } from '@tiptap/react';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -9,7 +10,7 @@ import TaskList from '@tiptap/extension-task-list';
 import { MenuBar } from './MenuBar';
 import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import { FormLabel, InputError } from '@/components';
-import { type PublishFormInputs } from '@/app/[locale]/(home)/annonce/publier/publishFormResolver';
+import { type PublishFormInputs } from '@/app/[locale]/annonce/publier/publishFormResolver';
 
 interface FormTextAreaProps {
   register?: UseFormRegisterReturn;

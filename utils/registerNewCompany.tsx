@@ -1,5 +1,4 @@
-'use server';
-import { createClient } from '@/utils/supabase/server';
+import { supabase } from '@/supabase/supabase';
 
 interface Company {
   id: string;
@@ -26,8 +25,6 @@ export const registerNewCompany = async (
   contactPassword: string,
 ): Promise<Result> => {
   // Try to fetch the company from the database
-
-  const supabase = createClient();
   const { data: companyData, error: companyError } = await supabase.from('users').select('id').eq('user_email', companyEmail).single();
 
   if (!companyData === null) {
