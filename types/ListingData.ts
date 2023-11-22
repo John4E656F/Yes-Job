@@ -36,4 +36,5 @@ export interface ListingData extends PublishData {
   promoted_at?: string | null;
   published?: boolean;
   published_at?: string | null;
+  expired?: boolean;
 }
