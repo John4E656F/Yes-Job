@@ -47,8 +47,9 @@ companyId:users ( user_name, user_email, user_logo, user_total_request_count, is
         fetchedViewCount.forEach((view: viewCounterDataType) => {
           const viewedDate = new Date(view.viewed_at);
 
+          //NOTE: This is a temporary fix for the view count bug. Need to find a better solution
           // Calculate view counts based on time intervals
-          if (differenceInHours(currentDate, viewedDate) <= 24) {
+          if (differenceInHours(currentDate, viewedDate) >= 24) {
             totalViewCount24Hours += view.view_count;
           }
           if (differenceInDays(currentDate, viewedDate) >= 7) {
