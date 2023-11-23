@@ -250,7 +250,8 @@ export default function PublishPage({ params }: { params: { id: string } }) {
                 isRequiredMessage={t('publishAds.description') + t('error.isRequired')}
                 label={t('publishAds.description') + ' *'}
                 placeholder={t('publishAds.descPlaceholder')}
-                setValue={setValue}
+                setDashboardValue={setValue}
+                isDashboard={true}
                 editable={true}
                 content={watch('description')}
               />

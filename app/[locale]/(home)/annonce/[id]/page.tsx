@@ -64,7 +64,7 @@ export default async function annoncePage({ params }: { params: { id: string } }
         </div>
         <div className='flex flex-col gap-2.5 py-4 md:py-1 justify-center md:justify-start'>
           <h2 className='text-2xl font-semibold'>{t('adPage.description')}</h2>
-          <Tiptap content={jobPost.description} editable={false} />
+          <Tiptap content={jobPost.description} editable={false} isDashboard={false} />
         </div>
         <div className='w-full h-px bg-slate-300 rounded' />
         <ContactForm jobPost={jobPost} />

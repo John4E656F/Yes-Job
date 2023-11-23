@@ -18,12 +18,25 @@ interface FormTextAreaProps {
   isRequiredMessage?: string;
   label?: string;
   placeholder?: string;
-  setValue?: UseFormSetValue<PublishFormInputs> | UseFormSetValue<EditFormInputs>;
+  setValue?: UseFormSetValue<PublishFormInputs>;
+  setDashboardValue?: UseFormSetValue<EditFormInputs>;
+  isDashboard: boolean;
   editable: boolean;
   content?: string;
 }
 
-export const Tiptap = ({ register, error, isRequiredMessage, label, placeholder, setValue, editable, content }: FormTextAreaProps) => {
+export const Tiptap = ({
+  register,
+  error,
+  isRequiredMessage,
+  label,
+  placeholder,
+  setValue,
+  setDashboardValue,
+  isDashboard,
+  editable,
+  content,
+}: FormTextAreaProps) => {
   const editor = useEditor({
     editable: editable,
     extensions: [
@@ -43,8 +56,12 @@ export const Tiptap = ({ register, error, isRequiredMessage, label, placeholder,
     content: content ? content : '',
     onUpdate: ({ editor }) => {
       const htmlContent = editor.getHTML();
-      if (editable && setValue) {
-        setValue('description', htmlContent);
+      if (editable) {
+        if (isDashboard && setDashboardValue) {
+          setDashboardValue('description', htmlContent);
+        } else if (setValue) {
+          setValue('description', htmlContent);
+        }
       }
     },
   });
