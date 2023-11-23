@@ -39,11 +39,11 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRe
             >
               <FaArrowLeft size={40} />
             </Link>
-            {/* <Button
+            <Button
               text={<HiMiniLanguage className='text-xl text-gray-400 hover:text-brand-hover' size={30} />}
               btnType='button'
               onClick={toggleLocaleModal}
-            /> */}
+            />
           </div>
           <Button
             text={<HiXMark size={40} />}
@@ -53,9 +53,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRe
           />
         </div>
       </div>
-      <div className='w-fit'>
-        <SidebarList t={t} companyName={userData.user_name} />
-      </div>
+      <SidebarList t={t} companyName={userData.user_name} />
       <div className='flex gap-2 p-2 mt-auto'>
         {userData.user_logo ? (
           <Button

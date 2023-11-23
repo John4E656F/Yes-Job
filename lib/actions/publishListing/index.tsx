@@ -31,7 +31,6 @@ export async function publishListing(data: PublishFormInputs) {
 
     if (companyId === '') {
       const { resCompanyId, error } = await registerNewCompany(data.companyName, data.contactEmail, logo, data.contactName, data.contactPassword);
-      console.log(companyId);
 
       if (error) {
         return {

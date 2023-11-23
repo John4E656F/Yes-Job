@@ -38,7 +38,6 @@ export const registerNewCompany = async (
     email: companyEmail,
     password: contactPassword,
   });
-  console.log(companyLogo);
 
   if (userData && userData.user && companyLogo) {
     const { data: newCompanyData, error: newCompanyError } = await supabase
@@ -57,7 +56,6 @@ export const registerNewCompany = async (
       console.log('Error inserting new company:', newCompanyError ? newCompanyError.message : 'No data returned');
       throw newCompanyError ? newCompanyError.message : 'No data returned';
     }
-    console.log(newCompanyData);
 
     return { resCompanyId: (newCompanyData[0] as Company).id };
   } else {
