@@ -29,8 +29,6 @@ export async function updateViewCount({ itemId, path }: viewCountProps) {
         return { type: 'error', message: updateError.message };
       }
 
-      console.log(newViewCount);
-
       const { data: fetchedViewCount, error: fetchError } = await supabase.from('viewCounter').select('*').eq('item_id', itemId);
       // console.log(fetchedViewCount);
 

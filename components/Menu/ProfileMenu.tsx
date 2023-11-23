@@ -12,7 +12,6 @@ interface ProfileMenuProps extends TranslationProps {
 
 export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menuRef, t, userData }) => {
   if (!isMenuOpen) return null;
-  console.log(userData);
 
   return (
     <div
@@ -29,7 +28,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
       <Divider />
       <ul className='text-base font-medium flex flex-col gap-2 rounded-lg list-none'>
         <li className=''>
-          <Link href={`/job-listing`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
+          <Link href={`/dashboard/job-listing`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
             <RiFileList3Line size={24} />
             View your Job Listing
           </Link>

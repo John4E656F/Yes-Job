@@ -11,8 +11,6 @@ interface ListingCardProps {
 }
 
 export function DashboardListingCard({ jobPost }: ListingCardProps) {
-  console.log(jobPost);
-
   const t = useTranslations('app');
   return (
     <Card className='flex flex-col relative items-center md:flex-row ' pinned={false}>
