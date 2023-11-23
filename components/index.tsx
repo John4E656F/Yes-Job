@@ -1,6 +1,7 @@
 export { Logo } from './Logo/Logo';
 export { Link } from './Link/Link';
 export { Button } from './Button/Button';
+export { PromoteButton } from './Button/PromoteButton';
 export { Divider } from './Divider/Divider';
 export { Image } from './Image/Image';
 export { Navbar } from './Navbar/Navbar';

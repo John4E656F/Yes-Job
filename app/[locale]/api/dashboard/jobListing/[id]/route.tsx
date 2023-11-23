@@ -25,7 +25,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
       .select(
         `
 *,
-companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) 
+companyId:users (*) 
 `,
       )
       .eq('companyId', userData.id);
