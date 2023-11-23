@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Image, Label } from '..';
+import { Card, Image, Label, PromoteButton } from '..';
 import { useTranslations } from 'next-intl';
 import type { ListingData } from '@/types';
 import Link from 'next/link';
@@ -8,10 +8,13 @@ import { timeDifference } from '@/utils';
 
 interface ListingCardProps {
   jobPost: ListingData;
+  setIsPromotionSuccessful: React.Dispatch<React.SetStateAction<boolean>>;
+  usedPromotion: number;
 }
 
-export function DashboardListingCard({ jobPost }: ListingCardProps) {
+export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPromotion }: ListingCardProps) {
   const t = useTranslations('app');
+
   return (
     <Card className='flex flex-col relative items-center md:flex-row ' pinned={false}>
       <div className='w-full block md:hidden pt-2 pr-2'>
@@ -39,14 +42,7 @@ export function DashboardListingCard({ jobPost }: ListingCardProps) {
               </div>
             ) : (
               <div className='flex gap-2 justify-end'>
-                <Link
-                  href={`/api/promote/${jobPost.id}`}
-                  className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
-                >
-                  <button type='button' className='px-4 py-2 text-sm'>
-                    Promote
-                  </button>
-                </Link>
+                <PromoteButton jobPost={jobPost} setIsPromotionSuccessful={setIsPromotionSuccessful} usedPromotion={usedPromotion} />
                 <Link
                   href={`/api/promote/${jobPost.id}`}
                   className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
@@ -125,14 +121,7 @@ export function DashboardListingCard({ jobPost }: ListingCardProps) {
                   </div>
                 ) : (
                   <div className='flex gap-2 justify-end'>
-                    <Link
-                      href={`/api/promote/${jobPost.id}`}
-                      className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
-                    >
-                      <button type='button' className='px-4 py-2 text-sm'>
-                        Promote
-                      </button>
-                    </Link>
+                    <PromoteButton jobPost={jobPost} setIsPromotionSuccessful={setIsPromotionSuccessful} usedPromotion={usedPromotion} />
                     <Link
                       href={`/api/promote/${jobPost.id}`}
                       className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'

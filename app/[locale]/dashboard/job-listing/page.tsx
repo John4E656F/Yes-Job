@@ -37,7 +37,6 @@ export default async function jobListing() {
 
   // console.log(ownerId);
 
-  // const currentUserJobListing: ListingData[] = await getCurrentUserJobListing({ ownerId });
   const promotedListings: ListingData[] = jobListing.filter((listing) => listing.promoted === true);
   // console.log(currentUser);
   // console.log(currentUserJobListing);
@@ -76,7 +75,7 @@ export default async function jobListing() {
           </Link>
         </div>
         <Divider />
-        <DashboardListing jobPost={jobListing} />
+        <DashboardListing jobPost={jobListing} usedPromotion={promotedListings.length} />
       </div>
     </section>
   );

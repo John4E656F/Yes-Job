@@ -15,7 +15,6 @@ export async function updateViewCount({ itemId, path }: viewCountProps) {
   const cookieStore = cookies();
   const hasViewed = cookieStore.get('viewCount');
   const supabase = createClient();
-  console.log(hasViewed);
 
   if (!hasViewed) {
     try {

@@ -1,13 +1,44 @@
-import { Link, Divider, DashboardListingCard } from '@/components';
-import type { UsersTypes, ListingData, dashboardViewCounterDisplayType } from '@/types';
+'use client';
+import React, { useState, useEffect } from 'react';
+import { Link, Toast, DashboardListingCard } from '@/components';
+import { ToastTitle, UsersTypes, type ListingData, dashboardViewCounterDisplayType } from '@/types';
 import { RiFileList3Line } from 'react-icons/ri';
-export const DashboardListing = ({ jobPost }: { jobPost: ListingData[] }) => {
+import { useToggle } from '@/hooks';
+
+interface DashboardListingProps {
+  jobPost: ListingData[];
+  usedPromotion: number;
+}
+
+export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingProps) => {
+  const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
+  const [isPromotionSuccessful, setIsPromotionSuccessful] = useState<boolean>(false);
+  const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
+
+  const handleCloseToast = () => {
+    toggleToast(!isToastOpen);
+  };
   return (
     <>
+      <Toast
+        isOpen={isToastOpen}
+        onClose={handleCloseToast}
+        title={isPromotionSuccessful ? ToastTitle.Success : ToastTitle.Error}
+        message={
+          isPromotionSuccessful
+            ? 'Ad submitted successfully, Please confirm your email!'
+            : 'No more promotion available, upgrade your account or buy to get more promotion'
+        }
+      />
       {jobPost ? (
         <div className='flex flex-col gap-4'>
           {jobPost.map((jobPost) => (
-            <DashboardListingCard key={jobPost.id} jobPost={jobPost} />
+            <DashboardListingCard
+              key={jobPost.id}
+              jobPost={jobPost}
+              setIsPromotionSuccessful={setIsPromotionSuccessful}
+              usedPromotion={usedPromotion}
+            />
           ))}
           <div className='flex flex-col gap-2 p-2 items-center border border-brand-lightbg rounded'>
             <span className='p-3 border border-brand-gray rounded-md'>
