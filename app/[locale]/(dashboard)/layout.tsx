@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { locales } from '@/navigation';
@@ -36,12 +36,15 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
   }
   const session = await getServerUserSession();
 
+  if (!session) {
+    redirect('/');
+  }
   return (
     <html lang={locale}>
       <body className='flex flex-col'>
         <NextIntlClientProvider locale={locale} messages={translation}>
           <Sidebar currentLocale={locale} session={session} />
-          <MobileNavbar />
+          <MobileNavbar currentLocale={locale} session={session} />
           <main className='flex flex-grow flex-col items-center bg-blue-200 md:ml-64'>{children}</main>
         </NextIntlClientProvider>
       </body>
