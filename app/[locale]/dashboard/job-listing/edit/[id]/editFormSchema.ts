@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 export const editFormSchema = z.object({
   id: z.number().optional(),
-  user_Id: z.string().optional(),
   title: z.string().min(1),
   jobFunction: z.string().min(1),
   cdd: z.boolean(),

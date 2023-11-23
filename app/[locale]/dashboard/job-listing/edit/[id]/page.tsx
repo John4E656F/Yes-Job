@@ -1,3 +1,4 @@
+//NOTE: Create a loading state or skeleton before the data is fetched
 'use client';
 import React, { useState, useEffect } from 'react';
 import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
@@ -10,24 +11,16 @@ import { useToggle } from '@/hooks';
 import { ToastTitle, UsersTypes } from '@/types';
 import { useTransition } from 'react';
 
-import { updateListing } from '@/lib/actions';
+import { updateListing, publishDraftListing, saveListingAsDraft } from '@/lib/actions';
+import { set } from 'date-fns';
 
 export default function PublishPage({ params }: { params: { id: string } }) {
   const t = useTranslations('app');
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  const [userData, setUserData] = useState<UsersTypes>({
-    user_email: '',
-    user_logo: '',
-    user_name: '',
-    user_total_request_count: undefined,
-    isCompany: false,
-    contactName: '',
-    created_at: '',
-    id: '',
-    user_id: '',
-  });
+  const [isPublished, setIsPublished] = useState<boolean>();
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
+  const [toastSucessMessage, setToastSuccessMessage] = useState<string>('');
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
   const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
 
@@ -44,7 +37,6 @@ export default function PublishPage({ params }: { params: { id: string } }) {
     mode: 'onChange',
     reValidateMode: 'onBlur',
     defaultValues: {
-      user_Id: '',
       title: '',
       jobFunction: '',
       cdd: false,
@@ -61,7 +53,7 @@ export default function PublishPage({ params }: { params: { id: string } }) {
     },
   });
   const applicationMethod = watch('applicationMethod');
-  console.log(watch());
+  // console.log(watch());
 
   useEffect(() => {
     if (applicationMethod === 'yesJob') {
@@ -81,39 +73,10 @@ export default function PublishPage({ params }: { params: { id: string } }) {
 
         if (response.ok) {
           const { fetchedJobPostData } = await response.json();
-          // const {
-          //   title,
-          //   jobFunction,
-          //   cdd,
-          //   cdi,
-          //   fullTime,
-          //   partTime,
-          //   experience,
-          //   description,
-          //   location,
-          //   salaryMin,
-          //   salaryMax,
-          //   applicationMethod,
-          //   externalFormURL,
-          // } = fetchedJobPostData;
 
-          // setValue('title', title);
-          // setValue('jobFunction', jobFunction);
-          // setValue('cdd', cdd);
-          // setValue('cdi', cdi);
-          // setValue('fullTime', fullTime);
-          // setValue('partTime', partTime);
-          // setValue('experience', experience);
-          // setValue('description', description);
-          // setValue('location', location);
-          // setValue('salaryMin', salaryMin);
-          // setValue('salaryMax', salaryMax);
-          // setValue('applicationMethod', applicationMethod);
-          // setValue('externalFormURL', externalFormURL);
-
-          console.log(fetchedJobPostData);
-
+          setIsPublished(fetchedJobPostData.isPublished);
           const fieldNames = Object.keys(fetchedJobPostData) as (keyof EditFormInputs)[];
+          console.log(fetchedJobPostData);
 
           fieldNames.forEach((fieldName) => {
             if (fieldName in fetchedJobPostData) {
@@ -133,12 +96,6 @@ export default function PublishPage({ params }: { params: { id: string } }) {
     };
     fetchUserData();
   }, []);
-
-  useEffect(() => {
-    if (userData && userData.isCompany) {
-      setValue('user_Id', userData.id || '');
-    }
-  }, [userData]);
 
   const options = [
     { value: '', label: t('jobFonction.default'), disabled: true },
@@ -160,43 +117,46 @@ export default function PublishPage({ params }: { params: { id: string } }) {
   ];
 
   const onSubmit = async (data: EditFormInputs) => {
-    const result = await updateListing(data);
+    let result;
+    if (isPublished) {
+      result = await publishDraftListing({ data: data, path: `/dashboard/job-listing` });
+    } else {
+      result = await updateListing({ data: data, path: `/dashboard/job-listing` });
+    }
 
     if (result.type == 'success') {
+      setToastSuccessMessage(result.message);
       setIsSubmitSuccessful(true);
       toggleToast(!isToastOpen);
       setTimeout(() => {
         toggleToast(false);
-        router.push('/');
+        router.push('/dashboard/job-listing');
       }, 2000);
-    } else if (result.type == 'error' && result.message === 'User already exists, please login first') {
-      setToastErrorMessage('User already exists, please login first');
-      setTimeout(() => {
-        toggleToast(false);
-        router.push('/login');
-      }, 10000);
     } else {
       setToastErrorMessage('Unexpected error, please try again later.');
       setTimeout(() => {
         toggleToast(false);
       }, 10000);
     }
+  };
 
-    reset({
-      title: '',
-      jobFunction: '',
-      cdd: false,
-      cdi: false,
-      fullTime: false,
-      partTime: false,
-      experience: 'noExperience',
-      description: '',
-      location: '',
-      salaryMin: null,
-      salaryMax: null,
-      applicationMethod: 'yesJob',
-      externalFormURL: '',
-    });
+  const saveAsDraft = async (data: EditFormInputs) => {
+    const result = await saveListingAsDraft({ data: data, path: `/dashboard/job-listing` });
+
+    if (result.type == 'success') {
+      setToastSuccessMessage('Your job offer has been saved as draft.');
+      setIsSubmitSuccessful(true);
+      toggleToast(!isToastOpen);
+      setTimeout(() => {
+        toggleToast(false);
+        router.push('/dashboard/job-listing');
+      }, 2000);
+    } else {
+      setToastErrorMessage('Unexpected error, please try again later.');
+      setTimeout(() => {
+        toggleToast(false);
+      }, 10000);
+    }
   };
 
   const handleCloseToast = () => {
@@ -209,10 +169,10 @@ export default function PublishPage({ params }: { params: { id: string } }) {
         isOpen={isToastOpen}
         onClose={handleCloseToast}
         title={isSubmitSuccessful ? ToastTitle.Success : ToastTitle.Error}
-        message={isSubmitSuccessful ? 'Ad submitted successfully' : toastErrorMessage}
+        message={isSubmitSuccessful ? toastSucessMessage : toastErrorMessage}
       />
       <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-5' onSubmit={handleSubmit(onSubmit)}>
-        <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>
+        {isPublished ? <h2 className='text-4xl font-semibold'>Edit published ad</h2> : <h2 className='text-4xl font-semibold'>Edit draft</h2>}
         <div className='flex flex-col bg-white p-4 md:p-8 gap-6'>
           <h2 className='text-2xl font-semibold'>{t('publishAds.infoAds')}</h2>
           <div className='flex flex-col gap-3'>
@@ -363,12 +323,21 @@ export default function PublishPage({ params }: { params: { id: string } }) {
             )}
           </div>
         </div>
-
-        <Button
-          btnType='submit'
-          text={t('cta.publishFree')}
-          className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
-        />
+        <div className='flex justify-center gap-5'>
+          <Button
+            btnType='submit'
+            text={isPublished ? 'Update ad' : 'Publish ad'}
+            className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+          />
+          {!isPublished && (
+            <Button
+              onClick={() => saveAsDraft(watch())}
+              btnType='button'
+              text={'Save as draft'}
+              className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-secondary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+            />
+          )}
+        </div>
       </form>
     </header>
   );
