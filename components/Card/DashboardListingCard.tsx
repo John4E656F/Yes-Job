@@ -32,7 +32,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
             {jobPost.promoted ? (
               <div className='flex gap-2 justify-end'>
                 <Link
-                  href={`/api/promote/${jobPost.id}`}
+                  href={`/dashboard/job-listing/edit/${jobPost.id}`}
                   className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
                 >
                   <button type='button' className='px-4 py-2 text-sm'>
@@ -44,7 +44,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
               <div className='flex gap-2 justify-end'>
                 <PromoteButton jobPost={jobPost} setIsPromotionSuccessful={setIsPromotionSuccessful} usedPromotion={usedPromotion} />
                 <Link
-                  href={`/api/promote/${jobPost.id}`}
+                  href={`/dashboard/job-listing/edit/${jobPost.id}`}
                   className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
                 >
                   <button type='button' className='px-4 py-2 text-sm'>
@@ -59,7 +59,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
             <p className='text-brand-failed'>Draft</p>
             <div className='flex justify-end'>
               <Link
-                href={`/api/promote/${jobPost.id}`}
+                href={`/dashboard/job-listing/edit/${jobPost.id}`}
                 className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
               >
                 <button type='button' className='px-4 py-2 text-sm'>
@@ -111,7 +111,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
                 {jobPost.promoted ? (
                   <div className='flex gap-2 justify-end'>
                     <Link
-                      href={`/api/promote/${jobPost.id}`}
+                      href={`/dashboard/job-listing/edit/${jobPost.id}`}
                       className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
                     >
                       <button type='button' className='px-4 py-2 text-sm'>
@@ -123,7 +123,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
                   <div className='flex gap-2 justify-end'>
                     <PromoteButton jobPost={jobPost} setIsPromotionSuccessful={setIsPromotionSuccessful} usedPromotion={usedPromotion} />
                     <Link
-                      href={`/api/promote/${jobPost.id}`}
+                      href={`/dashboard/job-listing/edit/${jobPost.id}`}
                       className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
                     >
                       <button type='button' className='px-4 py-2 text-sm'>
@@ -138,7 +138,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
                 <p className='text-brand-failed'>Draft</p>
                 <div className='flex gap-2 '>
                   <Link
-                    href={`/api/promote/${jobPost.id}`}
+                    href={`/dashboard/job-listing/edit/${jobPost.id}`}
                     className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
                   >
                     <button type='button' className='px-4 py-2 text-sm'>

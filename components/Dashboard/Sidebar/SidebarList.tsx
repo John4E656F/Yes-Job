@@ -20,7 +20,7 @@ export const SidebarList = ({ companyName, t }: SidebarProps) => {
       icon: RiFileList3Line,
       text: t('sidebar.joblisting'),
       count: 0,
-      link: '/dashboard/joblisting',
+      link: '/dashboard/job-listing',
     },
     {
       icon: RiHomeSmileLine,
