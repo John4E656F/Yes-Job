@@ -299,6 +299,7 @@ const PublishPage: React.FC = () => {
               label={t('publishAds.description') + ' *'}
               placeholder={t('publishAds.descPlaceholder')}
               setValue={setValue}
+              isDashboard={false}
               editable={true}
             />
           </div>
