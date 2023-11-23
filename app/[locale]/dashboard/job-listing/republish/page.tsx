@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const RepublishPage = () => {
+export default function RepublishPage() {
   return (
     <div>
       <div>Hello world</div>
     </div>
   );
-};
+}
