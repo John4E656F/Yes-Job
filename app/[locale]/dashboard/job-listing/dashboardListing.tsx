@@ -18,20 +18,29 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
   const handleCloseToast = () => {
     toggleToast(!isToastOpen);
   };
+  useEffect(() => {
+    if (isPromotionSuccessful) {
+      toggleToast(true);
+      setTimeout(() => {
+        toggleToast(false);
+      }, 3000);
+    }
+  }, [isPromotionSuccessful]);
+
   return (
     <>
-      <Toast
-        isOpen={isToastOpen}
-        onClose={handleCloseToast}
-        title={isPromotionSuccessful ? ToastTitle.Success : ToastTitle.Error}
-        message={
-          isPromotionSuccessful
-            ? 'Ad submitted successfully, Please confirm your email!'
-            : 'No more promotion available, upgrade your account or buy to get more promotion'
-        }
-      />
       {jobPost ? (
         <div className='flex flex-col gap-4'>
+          <Toast
+            isOpen={isToastOpen}
+            onClose={handleCloseToast}
+            title={isPromotionSuccessful ? ToastTitle.Success : ToastTitle.Error}
+            message={
+              isPromotionSuccessful
+                ? 'Job vacancy promoted successfully!'
+                : 'No more promotion available, upgrade your account or buy to get more promotion'
+            }
+          />
           {jobPost.map((jobPost) => (
             <DashboardListingCard
               key={jobPost.id}

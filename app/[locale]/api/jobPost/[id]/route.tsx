@@ -6,6 +6,7 @@ import { NextResponse } from 'next/server';
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   const supabase = createClient();
   const ownerId = params.id;
+  console.log(params.id);
 
   try {
     const { data: fetchedJobPostData, error: userError } = await supabase
@@ -18,6 +19,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
       )
       .eq('id', params.id)
       .single();
+    console.log(userError);
 
     // if (userError) {
     //   return Response.json({ 'Failed to fetch user data ': userError.message });

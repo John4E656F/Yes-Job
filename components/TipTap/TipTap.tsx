@@ -10,6 +10,7 @@ import { MenuBar } from './MenuBar';
 import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import { FormLabel, InputError } from '@/components';
 import { type PublishFormInputs } from '@/app/[locale]/(home)/annonce/publier/publishFormResolver';
+import { type EditFormInputs } from '@/app/[locale]/dashboard/job-listing/edit/[id]/editFormResolver';
 
 interface FormTextAreaProps {
   register?: UseFormRegisterReturn;
@@ -17,7 +18,7 @@ interface FormTextAreaProps {
   isRequiredMessage?: string;
   label?: string;
   placeholder?: string;
-  setValue?: UseFormSetValue<PublishFormInputs>;
+  setValue?: UseFormSetValue<PublishFormInputs> | UseFormSetValue<EditFormInputs>;
   editable: boolean;
   content?: string;
 }
