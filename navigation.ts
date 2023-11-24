@@ -31,7 +31,7 @@ export const pathnames = {
   },
   '/dashboard/job-listing': {
     en: '/dashboard/job-listing',
-    fr: '/tableau-de-/bordlisting-d-emploi',
+    fr: '/tableau-de-/bord/listing-d-emploi',
     nl: '/dashboard/job-listing',
   },
   '/dashboard/job-listing/republish/[id]': {
@@ -45,6 +45,8 @@ export const pathnames = {
     nl: '/dashboard/job-listing/bewerken/[id]',
   },
 } satisfies Pathnames<typeof locales>;
+
+export type AppPathnames = keyof typeof pathnames;
 
 export const { Link, redirect, usePathname, useRouter } = createLocalizedPathnamesNavigation({
   locales,

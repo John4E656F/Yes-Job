@@ -60,10 +60,11 @@ import { type NextRequest, NextResponse } from 'next/server';
 
 export default createMiddleware({
   defaultLocale: 'en',
+  localePrefix: 'always',
   locales,
   pathnames,
 });
 
 export const config = {
-  matcher: ['/((?!_next|.*\\..*).*)'],
+  matcher: ['/((?!_next|.*\\..*).*)', '/', '/(en|fr|nl)/:path*'],
 };
