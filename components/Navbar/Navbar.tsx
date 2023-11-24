@@ -101,7 +101,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               className='hidden md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
             />
           </div>
-          <div className='flex gap-2'>
+          <div className='flex gap-2 cursor-pointer'>
             {session &&
               (userData.user_logo ? (
                 <Button
@@ -119,7 +119,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               ))}
             <Button text={<HiMiniLanguage className='text-xl text-gray-400 hover:text-gray-200' />} btnType='button' onClick={toggleLocaleModal} />
           </div>
-          <MobileMenu isMenuOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} menuRef={mobileMenuRef} t={t} />
+          <MobileMenu isMenuOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} menuRef={mobileMenuRef} session={session} t={t} />
           <ProfileMenu isMenuOpen={isProfileMenuOpen} toggleMenu={toggleProfileMenu} menuRef={profileMenuRef} t={t} userData={userData} />
         </div>
       </div>

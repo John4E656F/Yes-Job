@@ -10,6 +10,7 @@ import { MenuBar } from './MenuBar';
 import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import { FormLabel, InputError } from '@/components';
 import { type PublishFormInputs } from '@/app/[locale]/(home)/annonce/publier/publishFormResolver';
+import { type EditFormInputs } from '@/app/[locale]/dashboard/job-listing/edit/[id]/editFormResolver';
 
 interface FormTextAreaProps {
   register?: UseFormRegisterReturn;
@@ -18,11 +19,24 @@ interface FormTextAreaProps {
   label?: string;
   placeholder?: string;
   setValue?: UseFormSetValue<PublishFormInputs>;
+  setDashboardValue?: UseFormSetValue<EditFormInputs>;
+  isDashboard: boolean;
   editable: boolean;
   content?: string;
 }
 
-export const Tiptap = ({ register, error, isRequiredMessage, label, placeholder, setValue, editable, content }: FormTextAreaProps) => {
+export const Tiptap = ({
+  register,
+  error,
+  isRequiredMessage,
+  label,
+  placeholder,
+  setValue,
+  setDashboardValue,
+  isDashboard,
+  editable,
+  content,
+}: FormTextAreaProps) => {
   const editor = useEditor({
     editable: editable,
     extensions: [
@@ -42,8 +56,12 @@ export const Tiptap = ({ register, error, isRequiredMessage, label, placeholder,
     content: content ? content : '',
     onUpdate: ({ editor }) => {
       const htmlContent = editor.getHTML();
-      if (editable && setValue) {
-        setValue('description', htmlContent);
+      if (editable) {
+        if (isDashboard && setDashboardValue) {
+          setDashboardValue('description', htmlContent);
+        } else if (setValue) {
+          setValue('description', htmlContent);
+        }
       }
     },
   });

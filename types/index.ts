@@ -5,4 +5,4 @@ export type { TranslationProps } from './TranslationProps';
 export type { UsersTypes } from './UsersTypes';
 export type { Database } from './public';
 export { ToastTitle, type ToastProps } from './ToastProps';
-export type { viewCounterDataType, viewCounterResponseType } from './ViewCounterDataType';
+export type { viewCounterDataType, viewCounterResponseType, dashboardViewCounterDisplayType } from './ViewCounterDataType';
