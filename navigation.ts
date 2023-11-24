@@ -29,6 +29,21 @@ export const pathnames = {
     fr: '/connexion',
     nl: '/inloggen',
   },
+  '/dashboard/job-listing': {
+    en: '/dashboard/job-listing',
+    fr: '/tableau-de-/bordlisting-d-emploi',
+    nl: '/dashboard/job-listing',
+  },
+  '/dashboard/job-listing/republish/[id]': {
+    en: '/dashboard/job-listing/republish/[id]',
+    fr: '/tableau-de-bord/listing-d-emploi/republier[id]',
+    nl: '/dashboard/job-listing/herpubliceren/[id]',
+  },
+  '/dashboard/job-listing/edit/[id]': {
+    en: '/dashboard/job-listing/edit/[id]',
+    fr: '/tableau-de-bord/listing-d-emploi/modifier/[id]',
+    nl: '/dashboard/job-listing/bewerken/[id]',
+  },
 } satisfies Pathnames<typeof locales>;
 
 export const { Link, redirect, usePathname, useRouter } = createLocalizedPathnamesNavigation({
