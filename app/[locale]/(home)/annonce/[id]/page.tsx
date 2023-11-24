@@ -17,7 +17,7 @@ export default async function annoncePage({ params }: { params: { id: string } }
 
   const { fetchedJobPostData } = await response.json();
   const jobPost: ListingData = fetchedJobPostData;
-  console.log(jobPost);
+  // console.log(jobPost);
 
   // const viewCounterResponse = await updateViewCount({ itemId: params.id });
   const viewCounterResponse = await fetch(

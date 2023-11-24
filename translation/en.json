@@ -20,7 +20,12 @@
       "addCompanyInfo": "Add company info",
       "description": "Complete your profile and get listed on Yes Job",
       "verifyEmail": "Verify your email",
-      "postAJob": "Post a job"
+      "postAJob": "Post a job",
+
+      "viewProfile": "View profile",
+      "viewJobListing": "View your job listing",
+      "editCompanyProfile": "Edit your company profile",
+      "logout": "Logout"
     },
     "footer": {
       "text": "Connect with passionate Horeca professionals for thriving careers",
@@ -38,6 +43,12 @@
     "localeSwitcher": {
       "title": "Languages",
       "subTitle": "This website is available in the following languages:"
+    },
+    "login": {
+      "signIn": "Sign in",
+      "signUp": "Sign up",
+      "email": "Email Address",
+      "password": "Password"
     },
     "cta": {
       "publish": "Publish an ad",
@@ -162,6 +173,42 @@
       "isRequired": " is required",
       "invalidURL": "Invalid URL",
       "invalidEmail": "Invalid email address"
+    }
+  },
+  "dashboard": {
+    "jobListing": {
+      "welcomeBack": "Welcome back,",
+      "jobListing": "Job listing",
+      "promotion": "Promotion",
+      "view24Hours": "Views 24 hours",
+      "view7Days": "Views 7 days",
+      "view30Days": "Views 30 days",
+      "subText": "Manage your live and draft job listings here.",
+      "promotionSuccess": "Job vacancy promoted successfully!",
+      "promotionFailed": "No more promotion available, upgrade your account or buy to get more promotion",
+      "moreJobListing": "Need to list more job ?",
+      "moreJobListingSub": "Upgrade your account and get to list more job vacancy",
+      "firstJobListing": "Post your first job vacancy!",
+      "firstJobListingSub": "Your first 2 job listing are free"
+    },
+    "tags": {
+      "published": "Published",
+      "draft": "Draft",
+      "expired": "Expired",
+      "promoted": "Promoted"
+    },
+    "button": {
+      "postAJob": "Post a job",
+      "republish": "Republish",
+      "edit": "Edit",
+      "promote": "Promote",
+      "upgrade": "Upgrade"
+    },
+    "card": {
+      "fullTime": "Full Time",
+      "partTime": "Part Time",
+      "experience": "Experience required",
+      "noExperience": "No experience required"
     }
   }
 }

@@ -4,6 +4,8 @@ import { Link, Toast, DashboardListingCard } from '@/components';
 import { ToastTitle, UsersTypes, type ListingData, dashboardViewCounterDisplayType } from '@/types';
 import { RiFileList3Line } from 'react-icons/ri';
 import { useToggle } from '@/hooks';
+import { useTranslations } from 'next-intl';
+import { set } from 'date-fns';
 
 interface DashboardListingProps {
   jobPost: ListingData[];
@@ -11,6 +13,8 @@ interface DashboardListingProps {
 }
 
 export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingProps) => {
+  const t = useTranslations('dashboard');
+  const [toastSuccessMessage, setToastSuccessMessage] = useState<string>('');
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
   const [isPromotionSuccessful, setIsPromotionSuccessful] = useState<boolean>(false);
   const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
@@ -20,6 +24,13 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
   };
   useEffect(() => {
     if (isPromotionSuccessful) {
+      setToastSuccessMessage(t('jobListing.promotionSuccess'));
+      toggleToast(true);
+      setTimeout(() => {
+        toggleToast(false);
+      }, 3000);
+    } else {
+      setToastErrorMessage(t('jobListing.promotionFailed'));
       toggleToast(true);
       setTimeout(() => {
         toggleToast(false);
@@ -35,11 +46,7 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
             isOpen={isToastOpen}
             onClose={handleCloseToast}
             title={isPromotionSuccessful ? ToastTitle.Success : ToastTitle.Error}
-            message={
-              isPromotionSuccessful
-                ? 'Job vacancy promoted successfully!'
-                : 'No more promotion available, upgrade your account or buy to get more promotion'
-            }
+            message={isPromotionSuccessful ? toastSuccessMessage : toastErrorMessage}
           />
           {jobPost.map((jobPost) => (
             <DashboardListingCard
@@ -54,15 +61,15 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
               <RiFileList3Line size={28} />
             </span>
             <div className='flex flex-col gap- text-center'>
-              <p className='text-sm font-medium'>Need to list more job ?</p>
-              <p className='text-sm'>Upgrade your account and get to list more job vacancy</p>
+              <p className='text-sm font-medium'>{t('jobListing.moreJobListing')}</p>
+              <p className='text-sm'>{t('jobListing.moreJobListingSub')}</p>
             </div>
             <Link
               href='/annonce/publier'
               className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
             >
               <button type='button' className='px-4 h-11 text-sm'>
-                Upgrade
+                {t('button.upgrade')}
               </button>
             </Link>
           </div>
@@ -73,15 +80,15 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
             <RiFileList3Line size={28} />
           </span>
           <div className='flex flex-col gap- text-center'>
-            <p className='text-sm font-medium'>Post your first job vacancy!</p>
-            <p className='text-sm'>Your first 2 job listing are free</p>
+            <p className='text-sm font-medium'>{t('jobListing.firstJobListing')}</p>
+            <p className='text-sm'>{t('jobListing.firstJobListingSub')}</p>
           </div>
           <Link
             href='/annonce/publier'
             className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
           >
             <button type='button' className='px-4 h-11 text-sm'>
-              Post a job
+              {t('button.postAJob')}
             </button>
           </Link>
         </div>

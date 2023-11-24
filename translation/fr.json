@@ -1,6 +1,6 @@
 {
   "HomeLayout": {
-    "title": "title"
+    "title": "Yes Job"
   },
   "app": {
     "nav": {
@@ -20,7 +20,12 @@
       "addCompanyInfo": "Ajouter des informations sur l'entreprise",
       "description": "Complétez votre profil et affichez-vous annonce sur Yes Job",
       "verifyEmail": "Vérifier votre email",
-      "postAJob": "Publier une offre d'emploi"
+      "postAJob": "Publier une offre d'emploi",
+
+      "viewProfile": "Voir votre profil",
+      "viewJobListing": "Voir votre offre d'emploi",
+      "editCompanyProfile": "Modifier le profil de votre entreprise",
+      "logout": "Se déconnecter"
     },
     "footer": {
       "text": "Connectez-vous aux professionnels Horeca passionnés pour des carrières florissantes",
@@ -38,6 +43,12 @@
     "localeSwitcher": {
       "title": "Langues",
       "subTitle": "Ce site est disponible dans les langues suivantes :"
+    },
+    "login": {
+      "signIn": "Se connecter",
+      "signUp": "S'inscrire",
+      "email": "Adresse email",
+      "password": "Mot de passe"
     },
     "cta": {
       "publish": "Publier une annonce",
@@ -162,6 +173,42 @@
       "isRequired": " est obligatoire",
       "invalidURL": "URL invalide",
       "invalidEmail": "Adresse e-mail invalide"
+    }
+  },
+  "dashboard": {
+    "jobListing": {
+      "welcomeBack": "Bienvenue,",
+      "jobListing": "Offre d'emploi",
+      "promotion": "Promotion",
+      "view24Hours": "Vues 24 heures",
+      "view7Days": "Vues 24 heures",
+      "view30Days": "Vues 30 jours",
+      "subText": "Gérez ici vos offres d'emploi en ligne et provisoires.",
+      "promotionSuccess": "L'offre d'emploi a été promue avec succès !",
+      "promotionFailed": "Vous n'avez plus de promotion disponible, passez à la version supérieure ou achetez pour obtenir plus de promotion.",
+      "moreJobListing": "Besoin de répertorier plus d'offres d'emploi ?",
+      "moreJobListingSub": "Passez à la version et obtenez plus d'offres d'emploi.",
+      "firstJobListing": "Publiez votre première offre d'emploi !",
+      "firstJobListingSub": "Vos 2 premières offres d'emploi sont gratuites"
+    },
+    "tags": {
+      "published": "Publié",
+      "draft": "Projet",
+      "expired": "Expiré",
+      "promoted": "Promu"
+    },
+    "button": {
+      "postAJob": "Publier un emploi",
+      "republish": "Republier",
+      "edit": "Modifier",
+      "promote": "Promouvoir",
+      "upgrade": "Mise à niveau"
+    },
+    "card": {
+      "fullTime": "Temps Plein",
+      "partTime": "Temps Partiel",
+      "experience": "Expérience requise",
+      "noExperience": "Pas d'expérience requise"
     }
   }
 }

@@ -13,7 +13,7 @@ import { DashboardListing } from './dashboardListing';
 import { getTranslations } from 'next-intl/server';
 
 export default async function jobListing() {
-  const t = await getTranslations('app');
+  const t = await getTranslations('dashboard');
   const session = await getServerUserSession();
   let sessionId;
   if (session) {
@@ -45,16 +45,22 @@ export default async function jobListing() {
   return (
     <section className='w-full bg-white flex flex-col py-4 px-5 gap-y-8'>
       <div className='flex flex-col gap-2'>
-        <h1>Welcome back, {currentUser.user_name}</h1>
+        <h1>
+          {t('jobListing.welcomeBack')} {currentUser.user_name}
+        </h1>
         <div className='flex p-1 px-2 gap-2 w-fit rounded border border-gray-300'>
           <div>
             {jobListing.length}
-            <span className='font-medium'>/{currentUser.availableJobListing} Job Listing </span>
+            <span className='font-medium'>
+              /{currentUser.availableJobListing} {t('jobListing.jobListing')}{' '}
+            </span>
           </div>
           <hr className='w-px h-auto border bg-gray-300' />
           <div>
             {promotedListings.length}
-            <span className='font-medium'>/{currentUser.availablePromotion} Promotion</span>
+            <span className='font-medium'>
+              /{currentUser.availablePromotion} {t('jobListing.promotion')}
+            </span>
           </div>
         </div>
       </div>
@@ -62,15 +68,15 @@ export default async function jobListing() {
       <div>
         <div className='flex justify-between'>
           <div>
-            <p className='font-semibold'>Job Listings</p>
-            <p>Manage your live and draft job listings here.</p>
+            <p className='font-semibold'>{t('jobListing.jobListing')}</p>
+            <p>{t('jobListing.subText')}</p>
           </div>
           <Link
             href='/annonce/publier'
             className='flex items-center justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
           >
             <button type='button' className='px-4 py-2 text-sm whitespace-nowrap'>
-              Post a job
+              {t('button.postAJob')}
             </button>
           </Link>
         </div>

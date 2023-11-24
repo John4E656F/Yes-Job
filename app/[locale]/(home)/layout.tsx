@@ -50,7 +50,7 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
               <Analytics />
             </main>
           </section>
-          {/* <Footer /> */}
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
