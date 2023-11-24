@@ -1,15 +1,17 @@
 import React from 'react';
 import { Card, Image, Label } from '..';
+import { useTranslations } from 'next-intl';
 import type { ListingData, TranslationProps } from '@/types';
 import Link from 'next/link';
 import { BsFillPinAngleFill } from 'react-icons/bs';
 import { timeDifference } from '@/utils';
 
-interface ListingCardProps extends TranslationProps {
+interface ListingCardProps {
   jobPost: ListingData;
 }
 
-export function ListingCard({ jobPost, t }: ListingCardProps) {
+export function ListingCard({ jobPost }: ListingCardProps) {
+  const t = useTranslations('app');
   return (
     <Link href={`/annonce/${jobPost.id}`}>
       <Card className='flex flex-col relative items-center p-1 md:flex-row md:p-2' pinned={jobPost.pinned}>

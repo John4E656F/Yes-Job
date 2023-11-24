@@ -1,4 +1,3 @@
-'use client';
 import type { MouseEventHandler, ReactNode } from 'react';
 
 type BtnType = 'button' | 'submit';

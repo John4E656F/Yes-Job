@@ -1,5 +1,5 @@
 export interface PublishData {
-  id?: number;
+  id?: string;
   user_Id?: string;
   companyName: string;
   logo: string | File | null;
@@ -28,10 +28,19 @@ export interface ListingData extends PublishData {
     user_email: string;
     user_logo: string;
     isCompany?: boolean;
+    user_id: string | null;
+    phone?: string | number | null;
+    confirmed_at?: string;
+    countryCode?: string | null;
+    availableJobListing?: number | null;
+    availablePromotion?: number | null;
   };
   created_at?: string;
   requestCount?: number;
   pageViewCount?: number;
   promoted?: boolean;
   promoted_at?: string | null;
+  published?: boolean;
+  published_at?: string | null;
+  expired?: boolean;
 }

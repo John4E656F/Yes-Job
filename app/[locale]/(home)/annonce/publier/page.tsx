@@ -191,7 +191,7 @@ const PublishPage: React.FC = () => {
         isOpen={isToastOpen}
         onClose={handleCloseToast}
         title={isSubmitSuccessful ? ToastTitle.Success : ToastTitle.Error}
-        message={isSubmitSuccessful ? 'Ad submitted successfully, Please confirm your email!' : toastErrorMessage}
+        message={isSubmitSuccessful ? 'Ad submitted successfully' : toastErrorMessage}
       />
       <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-5' onSubmit={handleSubmit(onSubmit)}>
         <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>
@@ -299,6 +299,7 @@ const PublishPage: React.FC = () => {
               label={t('publishAds.description') + ' *'}
               placeholder={t('publishAds.descPlaceholder')}
               setValue={setValue}
+              isDashboard={false}
               editable={true}
             />
           </div>

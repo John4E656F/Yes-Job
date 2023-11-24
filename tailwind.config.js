@@ -22,6 +22,8 @@ module.exports = {
         'brand-secondary': '#40E0D0',
         'brand-accent': '#ff7f50',
         'brand-gray': '#f5f5f5',
+        'brand-success': '#067647',
+        'brand-failed': '#B42318',
       },
     },
   },
