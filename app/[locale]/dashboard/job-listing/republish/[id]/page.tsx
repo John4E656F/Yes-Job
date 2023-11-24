@@ -5,13 +5,13 @@ import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextar
 import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { editFormResolver, type EditFormInputs } from './editFormResolver';
+import { republishFormResolver, type RepublishFormInputs } from './republishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToggle } from '@/hooks';
 import { ToastTitle, UsersTypes } from '@/types';
 import { useTransition } from 'react';
 
-import { updateListing, publishDraftListing, saveListingAsDraft } from '@/lib/actions';
+import { republishListing, saveListingAsDraft } from '@/lib/actions';
 import { set } from 'date-fns';
 
 export default function PublishPage({ params }: { params: { id: string } }) {
@@ -32,8 +32,8 @@ export default function PublishPage({ params }: { params: { id: string } }) {
     reset,
     watch,
     setValue,
-  } = useForm<EditFormInputs>({
-    resolver: editFormResolver,
+  } = useForm<RepublishFormInputs>({
+    resolver: republishFormResolver,
     mode: 'onChange',
     reValidateMode: 'onBlur',
     defaultValues: {
@@ -66,7 +66,7 @@ export default function PublishPage({ params }: { params: { id: string } }) {
         if (response.ok) {
           const { fetchedJobPostData } = await response.json();
           setIsPublished(fetchedJobPostData.published);
-          const fieldNames = Object.keys(fetchedJobPostData) as (keyof EditFormInputs)[];
+          const fieldNames = Object.keys(fetchedJobPostData) as (keyof RepublishFormInputs)[];
           // console.log(fetchedJobPostData);
 
           fieldNames.forEach((fieldName) => {
@@ -123,13 +123,8 @@ export default function PublishPage({ params }: { params: { id: string } }) {
     { value: 'other', label: t('jobFonction.other') },
   ];
 
-  const onSubmit = async (data: EditFormInputs) => {
-    let result;
-    if (isPublished) {
-      result = await updateListing({ data: data, path: `/dashboard/job-listing` });
-    } else {
-      result = await publishDraftListing({ data: data, path: `/dashboard/job-listing` });
-    }
+  const onSubmit = async (data: RepublishFormInputs) => {
+    let result = await republishListing({ data: data, path: `/dashboard/job-listing` });
 
     if (result.type == 'success') {
       setToastSuccessMessage(result.message);
@@ -147,7 +142,7 @@ export default function PublishPage({ params }: { params: { id: string } }) {
     }
   };
 
-  const saveAsDraft = async (data: EditFormInputs) => {
+  const saveAsDraft = async (data: RepublishFormInputs) => {
     const result = await saveListingAsDraft({ data: data, path: `/dashboard/job-listing` });
 
     if (result.type == 'success') {
@@ -334,7 +329,7 @@ export default function PublishPage({ params }: { params: { id: string } }) {
         <div className='flex justify-center gap-5'>
           <Button
             btnType='submit'
-            text={isPublished ? 'Update ad' : 'Publish ad'}
+            text={'RePublish ad'}
             className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
           />
           {!isPublished && (

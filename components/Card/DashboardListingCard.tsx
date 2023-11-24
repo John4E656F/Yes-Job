@@ -73,7 +73,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
             <p className='text-brand-failed'>Expired</p>
             <div className='flex justify-end'>
               <Link
-                href={`/api/promote/${jobPost.id}`}
+                href={`/dashboard/job-listing/republish/${jobPost.id}`}
                 className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
               >
                 <button type='button' className='px-4 py-2 text-sm'>
@@ -152,7 +152,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
                 <p className='text-brand-failed'>Expired</p>
                 <div className='flex gap-2'>
                   <Link
-                    href={`/api/promote/${jobPost.id}`}
+                    href={`/dashboard/job-listing/republish/${jobPost.id}`}
                     className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
                   >
                     <button type='button' className='px-4 py-2 text-sm'>

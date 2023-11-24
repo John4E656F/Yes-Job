@@ -25,12 +25,12 @@ export const SidebarList = ({ companyName, t }: SidebarProps) => {
     {
       icon: RiHomeSmileLine,
       text: t('sidebar.company'),
-      link: '/dashboard/company',
+      // link: '/dashboard/company',
     },
     {
       icon: RiGroupLine,
       text: t('sidebar.team'),
-      link: '/dashboard/team',
+      // link: '/dashboard/team',
     },
     { icon: RiSparklingLine, text: t('sidebar.candidate') },
   ];
@@ -40,17 +40,17 @@ export const SidebarList = ({ companyName, t }: SidebarProps) => {
       icon: RiMailLine,
       text: t('sidebar.inbox'),
       count: 0,
-      link: '/dashboard/inbox',
+      // link: '/dashboard/inbox',
     },
     {
       icon: RiLifebuoyLine,
       text: t('sidebar.support'),
-      link: '/dashboard/support',
+      // link: '/dashboard/support',
     },
     {
       icon: RiSettings3Line,
       text: t('sidebar.settings'),
-      link: '/dashboard/settings',
+      // link: '/dashboard/settings',
     },
   ];
 

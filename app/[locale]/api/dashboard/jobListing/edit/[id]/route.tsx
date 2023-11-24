@@ -2,8 +2,6 @@
 import { createClient } from '@/utils/supabase/server';
 import { UsersTypes, ListingData, viewCounterDataType, dashboardViewCounterDisplayType } from '@/types';
 import { NextResponse } from 'next/server';
-import { differenceInHours, differenceInDays, differenceInMonths } from 'date-fns';
-import { log } from 'console';
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   const supabase = createClient();

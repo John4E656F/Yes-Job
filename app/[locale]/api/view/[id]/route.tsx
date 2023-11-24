@@ -11,7 +11,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   const cookieStore = cookies();
   const hasViewed = cookies().get('viewCount');
   const supabase = createClient();
-  console.log(hasViewed);
 
   try {
     if (!hasViewed) {
