@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const editFormSchema = z.object({
+export const republishFormSchema = z.object({
   id: z.string().optional(),
   title: z.string().min(1),
   jobFunction: z.string().min(1),
