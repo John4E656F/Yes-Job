@@ -22,7 +22,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
       <p className='flex gap-5 items-center justify-between px-5 py-2 text-base font-medium whitespace-nowrap'>
         {userData.user_name}
         <Link href={`/profile/${userData.id}`} className=' block text-brand-primary rounded ' onClick={toggleMenu}>
-          View Profile
+          {t('sidebar.viewProfile')}
         </Link>
       </p>
       <Divider />
@@ -30,13 +30,13 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
         <li className=''>
           <Link href={`/dashboard/job-listing`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
             <RiFileList3Line size={24} />
-            View your Job Listing
+            {t('sidebar.viewJobListing')}
           </Link>
         </li>
         <li className=''>
           <Link href={`profile/${userData.id}`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
             <RiHomeSmileLine size={24} />
-            Edit company profile
+            {t('sidebar.editCompanyProfile')}
           </Link>
         </li>
         <li className=''>
@@ -70,7 +70,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
           <form action='/auth/sign-out' method='post'>
             <button className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200 w-full'>
               <RiLogoutBoxLine size={24} />
-              Logout
+              {t('sidebar.logout')}
             </button>
           </form>
         </li>

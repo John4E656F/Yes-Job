@@ -9,11 +9,31 @@ export const pathnames = {
     fr: '/annonce',
     nl: '/annonce',
   },
+  '/annonce/publier': {
+    en: '/ad/publish',
+    fr: '/annonce/publier',
+    nl: '/ad/publiceer',
+  },
+  '/annonce/[id]': {
+    en: '/ad/[id]',
+    fr: '/annonce/[id]',
+    nl: '/ad/[id]',
+  },
+  '/contact': {
+    en: '/contact',
+    fr: '/contact',
+    nl: '/contact',
+  },
+  '/login': {
+    en: '/login',
+    fr: '/connexion',
+    nl: '/inloggen',
+  },
 } satisfies Pathnames<typeof locales>;
 
-// export const { Link, redirect, usePathname, useRouter } = createLocalizedPathnamesNavigation({
-//   locales,
-//   pathnames,
-// });
+export const { Link, redirect, usePathname, useRouter } = createLocalizedPathnamesNavigation({
+  locales,
+  pathnames,
+});
 
-export const { Link, redirect, usePathname, useRouter } = createSharedPathnamesNavigation({ locales });
+// export const { Link, redirect, usePathname, useRouter } = createSharedPathnamesNavigation({ locales });

@@ -34,6 +34,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   const t = useTranslations('app');
 
   useEffect(() => {
+    console.log('useEffect triggered');
     const fetchUserData = async () => {
       let ownerID;
 

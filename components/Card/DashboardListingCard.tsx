@@ -13,10 +13,10 @@ interface ListingCardProps {
 }
 
 export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPromotion }: ListingCardProps) {
-  const t = useTranslations('app');
+  const t = useTranslations('dashboard');
 
   return (
-    <Card className='flex flex-col relative items-center md:flex-row ' pinned={false}>
+    <Card className='flex flex-col items-center md:flex-row ' pinned={false}>
       <div className='w-full block md:hidden pt-2 pr-2'>
         {!jobPost.expired && jobPost.published ? (
           <div className='flex flex-col gap-2 justify-end'>
@@ -24,10 +24,10 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
               {jobPost.promoted && (
                 <div className='flex gap-1 items-center'>
                   <IoDiamondOutline size={20} className='text-brand-primary' />
-                  <p className='text-brand-primary'>Promoted</p>
+                  <p className='text-brand-primary'>{t('tags.promoted')}</p>
                 </div>
               )}
-              <p className='text-brand-success'>Published</p>
+              <p className='text-brand-success'>{t('tags.published')}</p>
             </div>
             {jobPost.promoted ? (
               <div className='flex gap-2 justify-end'>
@@ -36,7 +36,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
                   className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
                 >
                   <button type='button' className='px-4 py-2 text-sm'>
-                    Edit
+                    {t('button.edit')}
                   </button>
                 </Link>
               </div>
@@ -48,7 +48,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
                   className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
                 >
                   <button type='button' className='px-4 py-2 text-sm'>
-                    Edit
+                    {t('button.edit')}
                   </button>
                 </Link>
               </div>
@@ -56,28 +56,28 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
           </div>
         ) : !jobPost.expired && !jobPost.published ? (
           <div className='flex flex-col text-right gap-2'>
-            <p className='text-brand-failed'>Draft</p>
+            <p className='text-brand-failed'>{t('tags.draft')}</p>
             <div className='flex justify-end'>
               <Link
                 href={`/dashboard/job-listing/edit/${jobPost.id}`}
                 className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
               >
                 <button type='button' className='px-4 py-2 text-sm'>
-                  Edit
+                  {t('button.edit')}
                 </button>
               </Link>
             </div>
           </div>
         ) : (
           <div className='flex flex-col gap-2 text-right'>
-            <p className='text-brand-failed'>Expired</p>
+            <p className='text-brand-failed'>{t('tags.expired')}</p>
             <div className='flex justify-end'>
               <Link
                 href={`/dashboard/job-listing/republish/${jobPost.id}`}
                 className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
               >
                 <button type='button' className='px-4 py-2 text-sm'>
-                  Republish
+                  {t('button.republish')}
                 </button>
               </Link>
             </div>
@@ -103,10 +103,10 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
                   {jobPost.promoted && (
                     <div className='flex gap-1 items-center'>
                       <IoDiamondOutline size={20} className='text-brand-primary' />
-                      <p className='text-brand-primary'>Promoted</p>
+                      <p className='text-brand-primary'>{t('tags.promoted')}</p>
                     </div>
                   )}
-                  <p className='text-brand-success'>Published</p>
+                  <p className='text-brand-success'>{t('tags.published')}</p>
                 </div>
                 {jobPost.promoted ? (
                   <div className='flex gap-2 justify-end'>
@@ -115,7 +115,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
                       className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
                     >
                       <button type='button' className='px-4 py-2 text-sm'>
-                        Edit
+                        {t('button.edit')}
                       </button>
                     </Link>
                   </div>
@@ -127,7 +127,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
                       className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
                     >
                       <button type='button' className='px-4 py-2 text-sm'>
-                        Edit
+                        {t('button.edit')}
                       </button>
                     </Link>
                   </div>
@@ -135,28 +135,28 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
               </div>
             ) : !jobPost.expired && !jobPost.published ? (
               <div className='flex flex-col justify-end text-right gap-2'>
-                <p className='text-brand-failed'>Draft</p>
+                <p className='text-brand-failed'>{t('tags.draft')}</p>
                 <div className='flex gap-2 '>
                   <Link
                     href={`/dashboard/job-listing/edit/${jobPost.id}`}
                     className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
                   >
                     <button type='button' className='px-4 py-2 text-sm'>
-                      Edit
+                      {t('button.edit')}
                     </button>
                   </Link>
                 </div>
               </div>
             ) : (
               <div className='flex flex-col gap-2 text-right'>
-                <p className='text-brand-failed'>Expired</p>
+                <p className='text-brand-failed'>{t('tags.expired')}</p>
                 <div className='flex gap-2'>
                   <Link
                     href={`/dashboard/job-listing/republish/${jobPost.id}`}
                     className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'
                   >
                     <button type='button' className='px-4 py-2 text-sm'>
-                      Republish
+                      {t('button.republish')}
                     </button>
                   </Link>
                 </div>
@@ -179,16 +179,16 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
             <Label text='CDI' type='WorkDuration' />
           ) : null}
           {jobPost.fullTime && jobPost.partTime ? (
-            <Label text={`${t('listing.fullTime')} +2`} type='WorkDuration' />
+            <Label text={`${t('card.fullTime')} +2`} type='WorkDuration' />
           ) : jobPost.fullTime && !jobPost.partTime ? (
-            <Label text={t('listing.fullTime')} type='WorkDuration' />
+            <Label text={t('card.fullTime')} type='WorkDuration' />
           ) : !jobPost.fullTime && jobPost.partTime ? (
-            <Label text={t('listing.partTime')} type='WorkDuration' />
+            <Label text={t('card.partTime')} type='WorkDuration' />
           ) : null}
           {jobPost.experience ? (
-            <Label text={t('listing.experience')} type='noExp' className='block md:hidden lg:block' />
+            <Label text={t('card.experience')} type='noExp' className='block md:hidden lg:block' />
           ) : (
-            <Label text={t('listing.noExperience')} type='noExp' className='block md:hidden lg:block' />
+            <Label text={t('card.noExperience')} type='noExp' className='block md:hidden lg:block' />
           )}
         </div>
       </div>
