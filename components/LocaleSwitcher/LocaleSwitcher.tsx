@@ -1,8 +1,8 @@
 'use client';
 import React, { useTransition } from 'react';
 import { useTranslations } from 'next-intl';
-import { usePathname, useRouter } from 'next-intl/client';
-
+import { usePathname, useRouter, AppPathnames } from '@/navigation';
+import { useParams } from 'next/navigation';
 import { LanguageItem } from './LanguageItem';
 import { Backdrop } from './Backdrop';
 import { languages } from '@/types';
@@ -19,16 +19,24 @@ export const LocaleSwitcher: React.FC<LangSelectionProps> = ({ isOpen, onClose, 
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const pathname = usePathname();
-
+  const params = useParams();
   function onLanguageSelect(langCode: string) {
     startTransition(() => {
-      router.replace(pathname, { locale: langCode });
+      router.replace(
+        {
+          pathname,
+          params: params as any,
+        },
+        { locale: langCode },
+      );
       onClose();
     });
   }
 
   return (
-    <div className={`fixed inset-0 flex items-center justify-center transition-opacity ${isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+    <div
+      className={`fixed z-50 inset-0 flex items-center justify-center transition-opacity ${isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+    >
       <Backdrop onClick={closeModal} />
       <article
         className={`fixed z-10 grid transform gap-2 rounded border bg-white px-8 py-8 opacity-100 shadow-lg transition-transform duration-1000 ease-in-out ${
@@ -40,7 +48,7 @@ export const LocaleSwitcher: React.FC<LangSelectionProps> = ({ isOpen, onClose, 
       >
         <h2>{t('localeSwitcher.title')}</h2>
         <p className=''>{t('localeSwitcher.subTitle')}</p>
-        <ul className='flex flex-col gap-3'>
+        <ul className='flex flex-col gap-3 list-none'>
           {languages.map((language) => (
             <LanguageItem
               key={language.code}
