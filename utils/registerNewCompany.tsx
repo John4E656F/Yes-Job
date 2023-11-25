@@ -1,4 +1,5 @@
-import { supabase } from '@/supabase/supabase';
+'use server';
+import { createClient } from '@/utils/supabase/server';
 
 interface Company {
   id: string;
@@ -25,6 +26,8 @@ export const registerNewCompany = async (
   contactPassword: string,
 ): Promise<Result> => {
   // Try to fetch the company from the database
+
+  const supabase = createClient();
   const { data: companyData, error: companyError } = await supabase.from('users').select('id').eq('user_email', companyEmail).single();
 
   if (!companyData === null) {
@@ -35,7 +38,6 @@ export const registerNewCompany = async (
     email: companyEmail,
     password: contactPassword,
   });
-  console.log(companyLogo);
 
   if (userData && userData.user && companyLogo) {
     const { data: newCompanyData, error: newCompanyError } = await supabase
@@ -54,7 +56,6 @@ export const registerNewCompany = async (
       console.log('Error inserting new company:', newCompanyError ? newCompanyError.message : 'No data returned');
       throw newCompanyError ? newCompanyError.message : 'No data returned';
     }
-    console.log(newCompanyData);
 
     return { resCompanyId: (newCompanyData[0] as Company).id };
   } else {

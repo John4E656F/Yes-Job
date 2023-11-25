@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{html,js,ts,jsx,tsx,mdx}'],
   mode: 'jit',
   theme: {
     container: {
@@ -18,9 +18,12 @@ module.exports = {
         'brand-bg': '#f4f4f4',
         'brand-lightbg': '#F5FAFF',
         'brand-primary': '#0556B3',
+        'brand-hover': '#076BCD',
         'brand-secondary': '#40E0D0',
         'brand-accent': '#ff7f50',
-        'brand-gray': '#D9D9D9',
+        'brand-gray': '#f5f5f5',
+        'brand-success': '#067647',
+        'brand-failed': '#B42318',
       },
     },
   },

@@ -1,8 +1,8 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SearchBar, ListingCard } from '../';
 import type { ListingData } from '@/types';
-import { supabase } from '@/supabase/supabase';
+import { createClient } from '@/utils/supabase/client';
 import { useTranslations } from 'next-intl';
 
 export function Listing() {
@@ -11,9 +11,10 @@ export function Listing() {
   const [totalJobOffers, setTotalJobOffers] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const postsPerPage = 10; // Number of job posts to display per page
+  const postsPerPage = 10;
 
   useEffect(() => {
+    const supabase = createClient();
     const fetchJobPosts = async () => {
       try {
         const { data, error } = await supabase
@@ -24,8 +25,10 @@ export function Listing() {
           companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) 
         `,
           )
+          .eq('published', true)
+          .eq('expired', false)
           .order('pinned', { ascending: false }) // Order pinned posts first
-          .order('created_at', { ascending: false }) // Then order by most recent
+          .order('published_at', { ascending: false }) // Then order by most recent
           .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
 
         if (error) {
@@ -40,7 +43,7 @@ export function Listing() {
 
     const fetchTotalJobOffers = async () => {
       try {
-        const { count, error } = await supabase.from('jobPosting').select('id', { count: 'exact' });
+        const { count, error } = await supabase.from('jobPosting').select('id', { count: 'exact' }).eq('published', true);
         if (error) {
           console.error('Error fetching total job offers:', error.message);
         } else {
@@ -79,7 +82,7 @@ export function Listing() {
         </div>
         <div className='flex flex-col gap-4'>
           {jobPosts.map((jobPost) => (
-            <ListingCard key={jobPost.id} jobPost={jobPost} t={t} />
+            <ListingCard key={jobPost.id} jobPost={jobPost} />
           ))}
         </div>
         <div className='flex justify-between'>

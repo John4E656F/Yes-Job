@@ -1,8 +1,31 @@
 {
+  "HomeLayout": {
+    "title": "title"
+  },
   "app": {
     "nav": {
       "home": "Thuis",
       "contact": "Contact"
+    },
+    "sidebar": {
+      "back": "Terug naar de hoofdpagina",
+      "inbox": "Postvak IN",
+      "support": "Ondersteuning",
+      "settings": "Instellingen",
+
+      "joblisting": "Vacatures",
+      "company": "Bedrijf",
+      "team": "Team",
+      "candidate": "Kandidaat",
+      "addCompanyInfo": "Bedrijfsinfo toevoegen",
+      "description": "Vul uw profiel in en word vermeld op Yes Job",
+      "verifyEmail": "Controleer je e-mail",
+      "postAJob": "Een vacature plaatsen",
+
+      "viewProfile": "Profiel bekijken",
+      "viewJobListing": "Uw vacature bekijken",
+      "editCompanyProfile": "Uw bedrijfsprofiel bewerken",
+      "logout": "Afmelden"
     },
     "footer": {
       "text": "Maak contact met gepassioneerde horecaprofessionals voor een bloeiende carrière",
@@ -20,6 +43,12 @@
     "localeSwitcher": {
       "title": "Talen",
       "subTitle": "Deze website is beschikbaar in de volgende talen:"
+    },
+    "login": {
+      "signIn": "Login",
+      "signUp": "Registreren",
+      "email": "E-mailadres",
+      "password": "Wachtwoord"
     },
     "cta": {
       "publish": "Publiceer een advertentie",
@@ -144,6 +173,42 @@
       "isRequired": " is vereist",
       "invalidURL": "Ongeldige URL",
       "invalidEmail": "Ongeldig e-mailadres"
+    }
+  },
+  "dashboard": {
+    "jobListing": {
+      "welcomeBack": "Welkom terug,",
+      "jobListing": "Vacature",
+      "promotion": "Promotie",
+      "view24Hours": "24 uur bekeken",
+      "view7Days": "7 dagen bekeken",
+      "view30Days": "30 dagen bekeken",
+      "subText": "Beheer hier uw live en conceptvacatures.",
+      "promotionSuccess": "Vacature succesvol gepromoot!",
+      "promotionFailed": "Geen promotie meer beschikbaar, upgrade je account of koop om meer promotie te krijgen.",
+      "moreJobListing": "Wil je meer vacatures plaatsen?",
+      "moreJobListingSub": "Upgrade je account en ontvang meer vacatures",
+      "firstJobListing": "Plaats je eerste vacature!",
+      "firstJobListingSub": "Je eerste 2 vacatures zijn gratis"
+    },
+    "tags": {
+      "published": "Gepubliceerd",
+      "draft": "Concept",
+      "expired": "Verlopen",
+      "promoted": "Bevorderd"
+    },
+    "button": {
+      "postAJob": "Een vacature plaatsen",
+      "republish": "Opnieuw publiceren",
+      "edit": "Bewerken",
+      "promote": "Promoot",
+      "upgrade": "Upgrade"
+    },
+    "card": {
+      "fullTime": "Fulltime",
+      "partTime": "Parttime",
+      "experience": "Ervaring vereist",
+      "noExperience": "Geen ervaring vereist"
     }
   }
 }
