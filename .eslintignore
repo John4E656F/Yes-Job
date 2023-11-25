@@ -1,8 +1,0 @@
-# modules
-node_modules
-
-# build
-dist
-
-# next stuff
-.next

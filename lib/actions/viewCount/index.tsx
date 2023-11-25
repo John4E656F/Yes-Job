@@ -2,11 +2,9 @@
 
 import { revalidatePath } from 'next/cache';
 import { NextApiRequest, NextApiResponse } from 'next';
-
-import { cookies } from 'next/headers';
-
 import { createClient } from '@/utils/supabase/server';
 import type { ListingData, viewCounterDataType, viewCounterResponseType } from '@/types';
+import { cookies } from 'next/headers';
 
 interface viewCountProps {
   itemId: string;
@@ -47,8 +45,6 @@ export async function updateViewCount({ itemId, path }: viewCountProps) {
       const data: viewCounterResponseType = { type: 'success', message: fetchedViewCount as viewCounterDataType[], totalViewCount: totalViewCount };
       return data;
     } catch (error: any) {
-      console.log(error);
-
       return { type: 'error', message: error.message };
     }
   }
