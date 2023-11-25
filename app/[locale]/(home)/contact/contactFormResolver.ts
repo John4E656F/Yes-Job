@@ -1,6 +1,7 @@
-import { contactFormSchema } from './contactFormSchema';
 import type { Resolver, FieldError } from 'react-hook-form';
 import { z, ZodError as ZodValidationError } from 'zod';
+
+import { contactFormSchema } from './contactFormSchema';
 
 export type contactFormInputs = z.infer<typeof contactFormSchema>;
 

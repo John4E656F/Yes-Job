@@ -1,13 +1,15 @@
 'use client';
 import './Tiptap.css';
+
 import { useEditor, EditorContent } from '@tiptap/react';
 import Placeholder from '@tiptap/extension-placeholder';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
-import { MenuBar } from './MenuBar';
 import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
+
+import { MenuBar } from './MenuBar';
 import { FormLabel, InputError } from '@/components';
 import { type PublishFormInputs } from '@/app/[locale]/(home)/annonce/publier/publishFormResolver';
 import { type EditFormInputs } from '@/app/[locale]/dashboard/job-listing/edit/[id]/editFormResolver';
@@ -71,9 +73,9 @@ export const Tiptap = ({
       {editable ? (
         <>
           {label && <FormLabel htmlFor={`input${label}`} labelText={label} />}
-          <div className='h-auto  flex-col border rounded shadow appearance-none '>
+          <div className='h-auto  appearance-none flex-col rounded border shadow '>
             <MenuBar editor={editor} />
-            <EditorContent editor={editor} className='flex-auto overflow-x-hidden overflow-y-auto py-5 px-4 h-auto min-h-96' />
+            <EditorContent editor={editor} className='min-h-96 h-auto flex-auto overflow-y-auto overflow-x-hidden px-4 py-5' />
           </div>
         </>
       ) : (

@@ -3,14 +3,14 @@
 //NOTE: Upgraded users can have more listings with special features such as infite scroll, and filter
 'use server';
 import React from 'react';
-import { Link, Divider, DashboardListingCard } from '@/components';
+import { getTranslations } from 'next-intl/server';
 
+import { Link, Divider, DashboardListingCard } from '@/components';
 import type { UsersTypes, ListingData, dashboardViewCounterDisplayType } from '@/types';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 import { refreshUserSession } from '@/lib/actions/refreshServerSession';
 import { ViewCountDisplay } from './viewCountDisplay';
 import { DashboardListing } from './dashboardListing';
-import { getTranslations } from 'next-intl/server';
 
 export default async function jobListing() {
   const t = await getTranslations('dashboard');
@@ -24,9 +24,7 @@ export default async function jobListing() {
   }
 
   const response = await fetch(
-    process.env.NEXT_PRIVATE_PRODUCTION === 'true'
-      ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/dashboard/jobListing/${sessionId}`
-      : process.env.NEXT_PRIVATE_URL + `/api/dashboard/jobListing/${sessionId}`,
+    process.env.NEXT_PRIVATE_PRODUCTION === 'true'? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/dashboard/jobListing/${sessionId}`: process.env.NEXT_PRIVATE_URL + `/api/dashboard/jobListing/${sessionId}`,
   );
   const { fetchedUserData, fetchedJobPostData, viewCount } = await response.json();
   const currentUser = fetchedUserData as UsersTypes;
@@ -43,19 +41,19 @@ export default async function jobListing() {
   // console.log(promotedListings);
 
   return (
-    <section className='w-full bg-white flex flex-col py-4 px-5 gap-y-8'>
+    <section className='flex w-full flex-col gap-y-8 bg-white px-5 py-4'>
       <div className='flex flex-col gap-2'>
         <h1>
           {t('jobListing.welcomeBack')} {currentUser.user_name}
         </h1>
-        <div className='flex p-1 px-2 gap-2 w-fit rounded border border-gray-300'>
+        <div className='flex w-fit gap-2 rounded border border-gray-300 p-1 px-2'>
           <div>
             {jobListing.length}
             <span className='font-medium'>
               /{currentUser.availableJobListing} {t('jobListing.jobListing')}{' '}
             </span>
           </div>
-          <hr className='w-px h-auto border bg-gray-300' />
+          <hr className='h-auto w-px border bg-gray-300' />
           <div>
             {promotedListings.length}
             <span className='font-medium'>
@@ -73,9 +71,9 @@ export default async function jobListing() {
           </div>
           <Link
             href='/annonce/publier'
-            className='flex items-center justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
+            className='flex h-fit items-center justify-center rounded-lg bg-brand-primary text-center text-white hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
           >
-            <button type='button' className='px-4 py-2 text-sm whitespace-nowrap'>
+            <button type='button' className='whitespace-nowrap px-4 py-2 text-sm'>
               {t('button.postAJob')}
             </button>
           </Link>

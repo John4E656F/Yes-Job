@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+
 import { sendEmail } from '@/services';
 
 export async function POST(req: NextRequest, res: NextResponse) {

@@ -1,18 +1,19 @@
 //NOTE: Create a loading state or skeleton before the data is fetched
 'use client';
 import React, { useState, useEffect } from 'react';
-import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
-import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { republishFormResolver, type RepublishFormInputs } from './republishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useTransition } from 'react';
+import { set } from 'date-fns';
+
+import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
+import { getClientUserSession } from '@/lib/actions/getClientUserSession';
+import { republishFormResolver, type RepublishFormInputs } from './republishFormResolver';
 import { useToggle } from '@/hooks';
 import { ToastTitle, UsersTypes } from '@/types';
-import { useTransition } from 'react';
-
 import { republishListing, saveListingAsDraft } from '@/lib/actions';
-import { set } from 'date-fns';
+
 
 export default function PublishPage({ params }: { params: { id: string } }) {
   const t = useTranslations('app');
@@ -74,9 +75,9 @@ export default function PublishPage({ params }: { params: { id: string } }) {
               if (fieldName === 'experience') {
                 setValue(fieldName, fetchedJobPostData[fieldName] ? 'experience' : 'noExperience');
                 return;
-              } else {
+              } 
                 setValue(fieldName, fetchedJobPostData[fieldName]);
-              }
+              
             }
           });
 
@@ -124,7 +125,7 @@ export default function PublishPage({ params }: { params: { id: string } }) {
   ];
 
   const onSubmit = async (data: RepublishFormInputs) => {
-    let result = await republishListing({ data: data, path: `/dashboard/job-listing` });
+    const result = await republishListing({ data: data, path: `/dashboard/job-listing` });
 
     if (result.type == 'success') {
       setToastSuccessMessage(result.message);
@@ -166,16 +167,16 @@ export default function PublishPage({ params }: { params: { id: string } }) {
   };
 
   return (
-    <header className='w-full flex justify-center bg-brand-lightbg'>
+    <header className='flex w-full justify-center bg-brand-lightbg'>
       <Toast
         isOpen={isToastOpen}
         onClose={handleCloseToast}
         title={isSubmitSuccessful ? ToastTitle.Success : ToastTitle.Error}
         message={isSubmitSuccessful ? toastSucessMessage : toastErrorMessage}
       />
-      <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-5' onSubmit={handleSubmit(onSubmit)}>
+      <form className='container flex w-full flex-col gap-5  py-4 md:py-16 lg:max-w-5xl' onSubmit={handleSubmit(onSubmit)}>
         {isPublished ? <h2 className='text-4xl font-semibold'>Edit published ad</h2> : <h2 className='text-4xl font-semibold'>Edit draft</h2>}
-        <div className='flex flex-col bg-white p-4 md:p-8 gap-6'>
+        <div className='flex flex-col gap-6 bg-white p-4 md:p-8'>
           <h2 className='text-2xl font-semibold'>{t('publishAds.infoAds')}</h2>
           <div className='flex flex-col gap-3'>
             <FormInput
@@ -196,24 +197,24 @@ export default function PublishPage({ params }: { params: { id: string } }) {
               options={options}
             />
           </div>
-          <div className='flex flex-col flex-wrap md:flex-row justify-between gap-2'>
+          <div className='flex flex-col flex-wrap justify-between gap-2 md:flex-row'>
             <div className='flex flex-col gap-3'>
               <label className='text-lg font-medium'>{t('publishAds.contractDuration')}</label>
-              <div className='flex flex-row gap-8 justify-evenly '>
+              <div className='flex flex-row justify-evenly gap-8 '>
                 <FormCheckbox register={register('cdd')} error={errors.cdd} label='CDD' subText={t('publishAds.CDD')} />
                 <FormCheckbox register={register('cdi')} error={errors.cdi} label='CDI' subText={t('publishAds.CDI')} />
               </div>
             </div>
             <div className='flex flex-col gap-3'>
               <label className='text-lg font-medium'>{t('publishAds.workDuration')}</label>
-              <div className='flex flex-row gap-8 justify-evenly'>
+              <div className='flex flex-row justify-evenly gap-8'>
                 <FormCheckbox register={register('fullTime')} error={errors.fullTime} label={t('listing.fullTime')} />
                 <FormCheckbox register={register('partTime')} error={errors.partTime} label={t('listing.partTime')} />
               </div>
             </div>
             <div className='flex flex-col gap-3'>
               <label className='text-lg font-medium'>{t('publishAds.experience')}</label>
-              <div className='flex flex-row gap-8 justify-evenly '>
+              <div className='flex flex-row justify-evenly gap-8 '>
                 {watch('experience') && (
                   <>
                     <FormRadio
@@ -237,9 +238,9 @@ export default function PublishPage({ params }: { params: { id: string } }) {
               </div>
             </div>
           </div>
-          <div className='flex flex-col gap-3 w-full'>
+          <div className='flex w-full flex-col gap-3'>
             <label className='text-lg font-medium'>{t('publishAds.salary')}</label>
-            <div className='flex flex-row gap-3 justify-between'>
+            <div className='flex flex-row justify-between gap-3'>
               <FormInput label={t('publishAds.from')} type='number' register={register('salaryMin')} error={errors.salaryMin} />
               <FormInput label={t('publishAds.to')} type='number' register={register('salaryMax')} error={errors.salaryMax} />
             </div>
@@ -269,10 +270,10 @@ export default function PublishPage({ params }: { params: { id: string } }) {
               placeholder={t('publishAds.placeOfWorkPlaceholder')}
             />
           </div>
-          <div className='w-full h-px bg-slate-300 rounded' />
+          <div className='h-px w-full rounded bg-slate-300' />
           <h2 className='text-2xl font-semibold'>{t('publishAds.application')}</h2>
           <h3 className='text-md'>{t('publishAds.howTo')}</h3>
-          <div className='flex mb-4'>
+          <div className='mb-4 flex'>
             <FormRadio
               name='applicationMethod'
               register={register('applicationMethod')}
@@ -283,7 +284,7 @@ export default function PublishPage({ params }: { params: { id: string } }) {
               onChange={() => setValue('applicationMethod', 'yesJob')}
             />
           </div>
-          <div className='flex flex-col mb-4'>
+          <div className='mb-4 flex flex-col'>
             <FormRadio
               name='applicationMethod'
               register={register('applicationMethod')}
@@ -304,7 +305,7 @@ export default function PublishPage({ params }: { params: { id: string } }) {
               />
             )}
           </div>
-          <div className='flex flex-col mb-4'>
+          <div className='mb-4 flex flex-col'>
             <FormRadio
               name='applicationMethod'
               register={register('applicationMethod')}
@@ -330,14 +331,14 @@ export default function PublishPage({ params }: { params: { id: string } }) {
           <Button
             btnType='submit'
             text={'RePublish ad'}
-            className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+            className='h-11 w-full items-center justify-center rounded-lg bg-brand-primary px-4 text-sm text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200 md:block md:w-auto'
           />
           {!isPublished && (
             <Button
               onClick={() => saveAsDraft(watch())}
               btnType='button'
               text={'Save as draft'}
-              className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-secondary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+              className='h-11 w-full items-center justify-center rounded-lg bg-brand-secondary px-4 text-sm text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200 md:block md:w-auto'
             />
           )}
         </div>

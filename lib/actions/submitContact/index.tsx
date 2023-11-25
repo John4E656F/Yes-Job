@@ -18,9 +18,9 @@ export async function submitContactForm(data: contactFormInputs) {
 
     if (response.ok) {
       return { type: 'success' };
-    } else {
+    } 
       return { type: 'error' };
-    }
+    
   } catch (error: any) {
     return error.message;
   }

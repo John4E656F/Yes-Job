@@ -1,5 +1,6 @@
-import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
+
+import { createClient } from '@/utils/supabase/server';
 
 export async function refreshUserSession() {
   const supabase = createClient();

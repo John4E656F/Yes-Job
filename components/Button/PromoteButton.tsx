@@ -1,7 +1,8 @@
 'use client';
 import React from 'react';
-import { Button } from '..';
 import { IoDiamondOutline } from 'react-icons/io5';
+
+import { Button } from '..';
 import type { ListingData } from '@/types';
 import { promote } from '@/lib/actions';
 
@@ -30,9 +31,9 @@ export function PromoteButton({ jobPost, setIsPromotionSuccessful, usedPromotion
 
   return (
     <Button
-      className='flex items-center justify-center text-center border border-brand-primary bg-gray-100 rounded-full hover:bg-white'
+      className='flex items-center justify-center rounded-full border border-brand-primary bg-gray-100 text-center hover:bg-white'
       text={
-        <div className='flex gap-2 justify-center items-center px-4 py-2 text-sm text-brand-primary'>
+        <div className='flex items-center justify-center gap-2 px-4 py-2 text-sm text-brand-primary'>
           <IoDiamondOutline size={15} />
           <p>Promote</p>
         </div>

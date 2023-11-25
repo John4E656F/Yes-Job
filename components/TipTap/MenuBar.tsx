@@ -1,7 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-
 import type { Editor } from '@tiptap/react';
-import { MenuItem } from './MenuItem';
 import { LuBold, LuItalic, LuStrikethrough, LuHeading1, LuHeading2, LuHeading3, LuHeading4 } from 'react-icons/lu';
 import {
   RiMarkPenLine,
@@ -16,6 +14,8 @@ import {
   RiArrowGoForwardFill,
 } from 'react-icons/ri';
 import { PiParagraphBold } from 'react-icons/pi';
+
+import { MenuItem } from './MenuItem';
 interface MenuBarProps {
   editor: Editor | null;
 }
@@ -152,10 +152,10 @@ export const MenuBar: FC<MenuBarProps> = ({ editor }) => {
   ];
 
   return (
-    <div className='flex flex-wrap border-b w-full items-center p-2 rounded-t'>
+    <div className='flex w-full flex-wrap items-center rounded-t border-b p-2'>
       {items.map((item, index) => (
         <React.Fragment key={index}>
-          {item.type === 'divider' ? <div className='h-6 w-px mr-1 bg-gray-300' /> : <MenuItem {...item} />}
+          {item.type === 'divider' ? <div className='mr-1 h-6 w-px bg-gray-300' /> : <MenuItem {...item} />}
         </React.Fragment>
       ))}
     </div>

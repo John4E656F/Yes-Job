@@ -1,9 +1,10 @@
 import React from 'react';
-import { Card, Image, Label } from '..';
 import { useTranslations } from 'next-intl';
-import type { ListingData, TranslationProps } from '@/types';
 import Link from 'next/link';
 import { BsFillPinAngleFill } from 'react-icons/bs';
+
+import type { ListingData, TranslationProps } from '@/types';
+import { Card, Image, Label } from '..';
 import { timeDifference } from '@/utils';
 
 interface ListingCardProps {
@@ -14,16 +15,16 @@ export function ListingCard({ jobPost }: ListingCardProps) {
   const t = useTranslations('app');
   return (
     <Link href={`/annonce/${jobPost.id}`}>
-      <Card className='flex flex-col relative items-center p-1 md:flex-row md:p-2' pinned={jobPost.pinned}>
+      <Card className='relative flex flex-col items-center p-1 md:flex-row md:p-2' pinned={jobPost.pinned}>
         {jobPost.pinned && (
-          <div className='absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2'>
+          <div className='absolute right-0 top-0 -translate-y-1/2 translate-x-1/2'>
             <BsFillPinAngleFill size={30} className='text-blue-500' />
           </div>
         )}
         <Image
           src={jobPost.companyId?.user_logo as string}
           alt='Yes Job'
-          className='w-20 m-5 h-20 md:w-24 md:h-24 object-contain bg-blue-200 rounded'
+          className='m-5 h-20 w-20 rounded bg-blue-200 object-contain md:h-24 md:w-24'
           unoptimized
         />
         <div>
@@ -31,7 +32,7 @@ export function ListingCard({ jobPost }: ListingCardProps) {
             <h5 className='text-base font-semibold md:text-lg'>{jobPost.title}</h5>
             <p className='text-base md:text-lg'>{jobPost.companyId?.user_name}</p>
           </div>
-          <div className='flex flex-wrap gap-2.5 py-4 md:py-1 justify-center md:justify-start'>
+          <div className='flex flex-wrap justify-center gap-2.5 py-4 md:justify-start md:py-1'>
             <Label text={jobPost.location} type='location' />
             {jobPost.salaryMin ? (
               <Label text={'€ ' + jobPost.salaryMin} type='salary' />
@@ -59,7 +60,7 @@ export function ListingCard({ jobPost }: ListingCardProps) {
             )}
           </div>
         </div>
-        <p className='hidden md:block mt-auto ml-auto text-right whitespace-nowrap'>{timeDifference(jobPost.created_at || '', { t })}</p>
+        <p className='ml-auto mt-auto hidden whitespace-nowrap text-right md:block'>{timeDifference(jobPost.created_at || '', { t })}</p>
       </Card>
     </Link>
   );

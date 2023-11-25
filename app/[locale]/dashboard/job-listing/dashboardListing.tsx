@@ -1,11 +1,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Link, Toast, DashboardListingCard } from '@/components';
-import { ToastTitle, UsersTypes, type ListingData, dashboardViewCounterDisplayType } from '@/types';
 import { RiFileList3Line } from 'react-icons/ri';
-import { useToggle } from '@/hooks';
 import { useTranslations } from 'next-intl';
 import { set } from 'date-fns';
+
+import { Link, Toast, DashboardListingCard } from '@/components';
+import { ToastTitle, UsersTypes, type ListingData, dashboardViewCounterDisplayType } from '@/types';
+import { useToggle } from '@/hooks';
+
 
 interface DashboardListingProps {
   jobPost: ListingData[];
@@ -56,38 +58,38 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
               usedPromotion={usedPromotion}
             />
           ))}
-          <div className='flex flex-col gap-2 p-2 items-center border border-brand-lightbg rounded'>
-            <span className='p-3 border border-brand-gray rounded-md'>
+          <div className='flex flex-col items-center gap-2 rounded border border-brand-lightbg p-2'>
+            <span className='rounded-md border border-brand-gray p-3'>
               <RiFileList3Line size={28} />
             </span>
-            <div className='flex flex-col gap- text-center'>
+            <div className='gap- flex flex-col text-center'>
               <p className='text-sm font-medium'>{t('jobListing.moreJobListing')}</p>
               <p className='text-sm'>{t('jobListing.moreJobListingSub')}</p>
             </div>
             <Link
               href='/annonce/publier'
-              className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+              className='flex items-center justify-center rounded-lg bg-brand-primary text-center text-white hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
             >
-              <button type='button' className='px-4 h-11 text-sm'>
+              <button type='button' className='h-11 px-4 text-sm'>
                 {t('button.upgrade')}
               </button>
             </Link>
           </div>
         </div>
       ) : (
-        <div className='flex flex-col gap-3 p-5 items-center border border-brand-lightbg rounded'>
-          <span className='p-3 border border-brand-gray rounded-md'>
+        <div className='flex flex-col items-center gap-3 rounded border border-brand-lightbg p-5'>
+          <span className='rounded-md border border-brand-gray p-3'>
             <RiFileList3Line size={28} />
           </span>
-          <div className='flex flex-col gap- text-center'>
+          <div className='gap- flex flex-col text-center'>
             <p className='text-sm font-medium'>{t('jobListing.firstJobListing')}</p>
             <p className='text-sm'>{t('jobListing.firstJobListingSub')}</p>
           </div>
           <Link
             href='/annonce/publier'
-            className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+            className='flex items-center justify-center rounded-lg bg-brand-primary text-center text-white hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
           >
-            <button type='button' className='px-4 h-11 text-sm'>
+            <button type='button' className='h-11 px-4 text-sm'>
               {t('button.postAJob')}
             </button>
           </Link>

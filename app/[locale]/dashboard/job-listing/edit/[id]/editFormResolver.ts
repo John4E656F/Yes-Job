@@ -1,6 +1,7 @@
-import { editFormSchema } from './editFormSchema';
 import type { Resolver, FieldError } from 'react-hook-form';
 import { z, ZodError as ZodValidationError } from 'zod';
+
+import { editFormSchema } from './editFormSchema';
 
 export type EditFormInputs = z.infer<typeof editFormSchema>;
 

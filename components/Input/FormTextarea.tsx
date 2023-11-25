@@ -1,5 +1,6 @@
 import React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
+
 import { FormLabel, InputError } from '@/components';
 
 interface FormTextAreaProps {
@@ -23,7 +24,7 @@ export function FormTextarea({ register, error, isRequiredMessage, label, placeh
       <FormLabel htmlFor={`input${label}`} labelText={label} />
 
       <textarea
-        className={`shadow appearance-none border rounded w-full h-60 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+        className={`focus:shadow-outline h-60 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none ${
           error ? 'border-red-500' : ''
         }`}
         {...register}

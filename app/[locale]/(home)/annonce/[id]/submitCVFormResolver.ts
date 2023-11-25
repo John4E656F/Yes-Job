@@ -1,6 +1,7 @@
-import { submitCVFormSchema } from './submitCVFormSchema';
 import type { Resolver, FieldError } from 'react-hook-form';
 import { z, ZodError as ZodValidationError } from 'zod';
+
+import { submitCVFormSchema } from './submitCVFormSchema';
 
 export type submitCVFormInputs = z.infer<typeof submitCVFormSchema>;
 

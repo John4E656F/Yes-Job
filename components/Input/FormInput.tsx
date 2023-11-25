@@ -1,7 +1,8 @@
 import React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { FormLabel, Input, InputError } from '@/components';
 import { HiOutlineEyeSlash, HiOutlineEye } from 'react-icons/hi2';
+
+import { FormLabel, Input, InputError } from '@/components';
 
 interface FormInputProps {
   register: UseFormRegisterReturn;
@@ -44,21 +45,30 @@ export function FormInput({
   }
 
   return (
-    <div className={`form-control ${type == 'number' && 'flex items-center gap-2 w-full'} ${className}`}>
-      {label && <FormLabel htmlFor={`input${label}`} labelText={label} className='text-lg font-medium' />}
+    <div
+      className={`form-control ${
+        type === 'number' && 'flex w-full items-center gap-2'
+      } ${className}`}
+    >
+      {label && (
+        <FormLabel htmlFor={`input${label}`} labelText={label} className="text-lg font-medium" />
+      )}
       <div
-        className={`shadow appearance-none border rounded w-full h-9 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+        className={`focus:shadow-outline h-9 w-full appearance-none rounded border leading-tight text-gray-700 shadow focus:outline-none ${
           error ? 'border-red-500' : ''
         } ${isPasswordField ? 'flex items-center' : ''}`}
       >
         <Input
-          className='w-full h-full pl-3 grow self-stretch'
+          className="h-full w-full grow self-stretch pl-3"
           type={show !== undefined ? (show ? 'text' : type) : type}
           {...register}
           placeholder={placeholder}
         />
         {isPasswordField && setShow && (
-          <span className='cursor-pointer self-center pr-2 text-brand-gray' onClick={() => setShow(!show)}>
+          <span
+            className="cursor-pointer self-center pr-2 text-brand-gray"
+            onClick={() => setShow(!show)}
+          >
             {show ? <HiOutlineEye size={20} /> : <HiOutlineEyeSlash size={20} />}
           </span>
         )}

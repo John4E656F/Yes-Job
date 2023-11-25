@@ -1,6 +1,7 @@
 'use server';
-import { type EditFormInputs } from '@/app/[locale]/dashboard/job-listing/edit/[id]/editFormResolver';
 import { revalidatePath } from 'next/cache';
+
+import { type EditFormInputs } from '@/app/[locale]/dashboard/job-listing/edit/[id]/editFormResolver';
 import { createClient } from '@/utils/supabase/server';
 
 interface EditListingProps {

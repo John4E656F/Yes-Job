@@ -1,10 +1,11 @@
 'use client';
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { useForm } from 'react-hook-form';
+
 import { Image, Toast, FormInput, FormTextarea, Button } from '@/components';
 import { useToggle } from '@/hooks';
 import { ToastTitle } from '@/types';
-import { useTranslations } from 'next-intl';
-import { useForm } from 'react-hook-form';
 import { contactFormResolver, type contactFormInputs } from './contactFormResolver';
 import { submitContactForm } from '@/lib/actions/submitContact';
 
@@ -52,26 +53,26 @@ const ContactPage = () => {
   };
 
   return (
-    <header className='w-full flex flex-col justify-center items-center'>
+    <header className='flex w-full flex-col items-center justify-center'>
       <Toast
         isOpen={isToastOpen}
         onClose={handleCloseToast}
         title={isSubmitSuccessful ? ToastTitle.Message : ToastTitle.Error}
         message={isSubmitSuccessful ? 'Message Sent' : 'Message failed. Try later or email yesjob.contact@gmail.com'}
       />
-      <div className='flex flex-col container justify-center  py-4 md:py-8 '>
-        <div className='flex flex-col lg:flex-row gap-16 justify-between items-center  '>
-          <div className=' w-auto flex flex-col gap-4 text-center md:text-start'>
+      <div className='container flex flex-col justify-center  py-4 md:py-8 '>
+        <div className='flex flex-col items-center justify-between gap-16 lg:flex-row  '>
+          <div className=' flex w-auto flex-col gap-4 text-center md:text-start'>
             <h1 className='text-5xl font-semibold'>{t('contact.title')}</h1>
             <h2 className='text-xl'>{t('contact.subText')}</h2>
           </div>
-          <Image src='/images/svg/question.svg' alt='Yes Job' className='w-auto max-w-xs max-h-lg object-fill rounded-2xl' />
+          <Image src='/images/svg/question.svg' alt='Yes Job' className='max-h-lg w-auto max-w-xs rounded-2xl object-fill' />
         </div>
       </div>
-      <section className='w-full flex justify-center bg-brand-lightbg py-4 md:py-8'>
-        <form className='flex flex-col container py-2 gap-4' onSubmit={handleSubmit(onSubmit)}>
+      <section className='flex w-full justify-center bg-brand-lightbg py-4 md:py-8'>
+        <form className='container flex flex-col gap-4 py-2' onSubmit={handleSubmit(onSubmit)}>
           <h2 className='text-4xl font-semibold'>Contact us</h2>
-          <div className='flex flex-col bg-white p-4 lg:p-5 gap-6'>
+          <div className='flex flex-col gap-6 bg-white p-4 lg:p-5'>
             <FormInput
               placeholder='Raymond Albert Kroc'
               label={t('contact.fullName') + ' *'}
@@ -100,7 +101,7 @@ const ContactPage = () => {
           <Button
             btnType='submit'
             text={t('cta.send')}
-            className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+            className='h-11 w-full items-center justify-center rounded-lg bg-brand-primary px-4 text-sm text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200 md:block md:w-auto'
           />
         </form>
       </section>

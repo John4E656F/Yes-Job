@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Link, FormInput, FileUpload, Button } from '@/components';
 import { ListingData, TranslationProps } from '@/types';
 
@@ -40,12 +41,12 @@ export const SubmitCVForm: React.FC<FormComponentProps> = ({ register, handleSub
       <FileUpload label={t('adPage.resume')} register={register('cvFile', { required: true })} error={errors.cvFile} />
 
       <div className='flex gap-2'>
-        <button type='submit' className='bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded'>
+        <button type='submit' className='rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700'>
           {t('adPage.submit')}
         </button>
         {showRedirect && (
           <Link href={jobPost.externalFormURL}>
-            <Button btnType='button' text={t('adPage.redirect')} className={`bg-blue-300 hover:bg-blue-700 text-white px-4 py-2 rounded`} />
+            <Button btnType='button' text={t('adPage.redirect')} className={`rounded bg-blue-300 px-4 py-2 text-white hover:bg-blue-700`} />
           </Link>
         )}
       </div>

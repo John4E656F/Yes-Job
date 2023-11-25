@@ -2,9 +2,10 @@
 
 import { revalidatePath } from 'next/cache';
 import { type NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+
 import { createClient } from '@/utils/supabase/server';
 import type { ListingData, viewCounterDataType, viewCounterResponseType } from '@/types';
-import { cookies } from 'next/headers';
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   const itemId = params.id;
@@ -60,7 +61,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         { status: 200, statusText: 'Set cookie successfully' },
       );
 
-      let responseBody = NextResponse.json({ totalViewCount });
+      const responseBody = NextResponse.json({ totalViewCount });
       responseBody.cookies.set('viewCount', itemId, {
         maxAge: 30 * 24 * 60 * 60,
         sameSite: 'strict',

@@ -1,4 +1,5 @@
 import React, { FC, RefObject } from 'react';
+
 import { Link } from '..';
 // import { Session } from '@supabase/auth-helpers-nextjs';
 import type { TranslationProps } from '@/types';
@@ -14,16 +15,16 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRe
   if (!isMenuOpen) return null;
 
   return (
-    <div ref={menuRef} className='fixed top-20 flex items-center w-full md:hidden' id='navbar-menu'>
-      <article className='w-4/5  border border-gray-300 rounded-md bg-brand-lightbg'>
-        <ul className='font-medium flex flex-col p-4 md:p-0 rounded-lg list-none'>
+    <div ref={menuRef} className='fixed top-20 flex w-full items-center md:hidden' id='navbar-menu'>
+      <article className='w-4/5  rounded-md border border-gray-300 bg-brand-lightbg'>
+        <ul className='flex list-none flex-col rounded-lg p-4 font-medium md:p-0'>
           <li>
-            <Link href='/' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200' onClick={toggleMenu} aria-current='page'>
+            <Link href='/' className='block rounded py-2 pl-3 pr-4 text-gray-900 hover:bg-blue-200' onClick={toggleMenu} aria-current='page'>
               {t('nav.home')}
             </Link>
           </li>
           <li>
-            <Link href='/contact' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200' onClick={toggleMenu}>
+            <Link href='/contact' className='block rounded py-2 pl-3 pr-4 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
               {t('nav.contact')}
             </Link>
           </li>
@@ -37,7 +38,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRe
           <li>
             <Link
               href='/annonce'
-              className='block py-2 pl-3 pr-4 bg-brand-primary text-white text-center rounded hover:bg-blue-200 mt-5'
+              className='mt-5 block rounded bg-brand-primary py-2 pl-3 pr-4 text-center text-white hover:bg-blue-200'
               onClick={toggleMenu}
             >
               {t('cta.publish')}

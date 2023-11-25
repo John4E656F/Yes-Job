@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { headers, cookies } from 'next/headers';
-import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+
+import { createClient } from '@/utils/supabase/server';
 
 export default async function Login({ searchParams }: { searchParams: { message: string } }) {
   const t = await getTranslations('app');
@@ -50,21 +51,21 @@ export default async function Login({ searchParams }: { searchParams: { message:
   };
 
   return (
-    <div className='flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2'>
-      <form className='animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground' action={signIn}>
+    <div className='flex w-full flex-1 flex-col justify-center gap-2 px-8 sm:max-w-md'>
+      <form className='animate-in text-foreground flex w-full flex-1 flex-col justify-center gap-2' action={signIn}>
         <label className='text-md' htmlFor='email'>
           {t('login.email')}
         </label>
-        <input className='rounded-md px-4 py-2 bg-inherit border mb-6' name='email' placeholder='you@example.com' required />
+        <input className='mb-6 rounded-md border bg-inherit px-4 py-2' name='email' placeholder='you@example.com' required />
         <label className='text-md' htmlFor='password'>
           {t('login.password')}
         </label>
-        <input className='rounded-md px-4 py-2 bg-inherit border mb-6' type='password' name='password' placeholder='••••••••' required />
-        <button className='bg-brand-primary text-white rounded-md px-4 py-2 text-foreground mb-2'>{t('login.signIn')}</button>
-        <button formAction={signUp} className='border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2'>
+        <input className='mb-6 rounded-md border bg-inherit px-4 py-2' type='password' name='password' placeholder='••••••••' required />
+        <button className='text-foreground mb-2 rounded-md bg-brand-primary px-4 py-2 text-white'>{t('login.signIn')}</button>
+        <button formAction={signUp} className='border-foreground/20 text-foreground mb-2 rounded-md border px-4 py-2'>
           {t('login.signUp')}
         </button>
-        {searchParams?.message && <p className='mt-4 p-4 bg-foreground/10 text-foreground text-center'>{searchParams.message}</p>}
+        {searchParams?.message && <p className='bg-foreground/10 text-foreground mt-4 p-4 text-center'>{searchParams.message}</p>}
       </form>
     </div>
   );

@@ -21,7 +21,7 @@ export const Label = ({ className, text, type }: LabelProps) => {
   }, [type]);
 
   return (
-    <div className={`${className} flex justify-center items-center w-fit h-fit py-1 px-2.5 rounded gap-1  ${bg}`}>
+    <div className={`${className} flex h-fit w-fit items-center justify-center gap-1 rounded px-2.5 py-1  ${bg}`}>
       {type === 'location' && <HiOutlineMapPin />}
       <p>{text}</p>
     </div>

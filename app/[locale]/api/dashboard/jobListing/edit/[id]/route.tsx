@@ -1,7 +1,8 @@
 'use server';
+import { NextResponse } from 'next/server';
+
 import { createClient } from '@/utils/supabase/server';
 import { UsersTypes, ListingData, viewCounterDataType, dashboardViewCounterDisplayType } from '@/types';
-import { NextResponse } from 'next/server';
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   const supabase = createClient();

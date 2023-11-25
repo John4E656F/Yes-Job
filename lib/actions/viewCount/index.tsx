@@ -2,9 +2,10 @@
 
 import { revalidatePath } from 'next/cache';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { cookies } from 'next/headers';
+
 import { createClient } from '@/utils/supabase/server';
 import type { ListingData, viewCounterDataType, viewCounterResponseType } from '@/types';
-import { cookies } from 'next/headers';
 
 interface viewCountProps {
   itemId: string;

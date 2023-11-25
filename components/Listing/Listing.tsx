@@ -1,9 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
+
 import { SearchBar, ListingCard } from '../';
 import type { ListingData } from '@/types';
 import { createClient } from '@/utils/supabase/client';
-import { useTranslations } from 'next-intl';
 
 export function Listing() {
   const t = useTranslations('app');
@@ -69,8 +70,8 @@ export function Listing() {
   };
 
   return (
-    <section className='w-full flex justify-center bg-brand-lightbg'>
-      <div className='flex flex-col container py-4 md:py-16 gap-16'>
+    <section className='flex w-full justify-center bg-brand-lightbg'>
+      <div className='container flex flex-col gap-16 py-4 md:py-16'>
         <div className='flex flex-col gap-8'>
           <div className='flex flex-col gap-5'>
             <h3 className='text-base font-medium'>
@@ -89,14 +90,14 @@ export function Listing() {
           <button
             onClick={handlePreviousPage}
             disabled={currentPage === 1}
-            className={`bg-blue-500 text-white px-4 py-2 rounded ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`rounded bg-blue-500 px-4 py-2 text-white ${currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''}`}
           >
             Previous
           </button>
           <button
             onClick={handleNextPage}
             disabled={jobPosts.length < postsPerPage}
-            className={`bg-blue-500 text-white px-4 py-2 rounded ${jobPosts.length < postsPerPage ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`rounded bg-blue-500 px-4 py-2 text-white ${jobPosts.length < postsPerPage ? 'cursor-not-allowed opacity-50' : ''}`}
           >
             Next
           </button>

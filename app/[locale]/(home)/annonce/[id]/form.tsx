@@ -1,12 +1,14 @@
 'use client';
 import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
+
 import { submitCVFormResolver, type submitCVFormInputs } from './submitCVFormResolver';
 import type { ListingData, TranslationProps, viewCounterResponseType } from '@/types';
-import { useForm } from 'react-hook-form';
 import { ToastTitle } from '@/types';
 import { SubmitCVForm } from './submitCVForm';
 import { Link, Button, Toast } from '@/components';
-import { useTranslations } from 'next-intl';
+
 
 export const ContactForm = ({ jobPost }: { jobPost: ListingData }) => {
   const t = useTranslations('app');
@@ -76,13 +78,13 @@ export const ContactForm = ({ jobPost }: { jobPost: ListingData }) => {
     }
   };
   return (
-    <div className='flex flex-col gap-2.5 py-4 md:py-1 justify-center md:justify-start'>
+    <div className='flex flex-col justify-center gap-2.5 py-4 md:justify-start md:py-1'>
       <h2 className='text-2xl font-semibold'>{t('adPage.apply')}</h2>
       {jobPost.applicationMethod === 'yesJob' ? (
         <SubmitCVForm register={register} handleSubmit={handleSubmit(onSubmit)} errors={errors} showRedirect={false} jobPost={jobPost} t={t} />
       ) : jobPost.applicationMethod === 'externalForm' ? (
         <Link href={jobPost.externalFormURL}>
-          <Button btnType='button' text={t('adPage.redirect')} className={`bg-blue-500 text-white px-4 py-2 rounded`} />
+          <Button btnType='button' text={t('adPage.redirect')} className={`rounded bg-blue-500 px-4 py-2 text-white`} />
         </Link>
       ) : jobPost.applicationMethod === 'both' ? (
         <SubmitCVForm

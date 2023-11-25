@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { NextApiRequest, NextApiResponse } from 'next';
+
 import { createClient } from '@/utils/supabase/server';
 
 interface PromoteProps {

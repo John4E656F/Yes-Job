@@ -1,11 +1,11 @@
 import { Analytics } from '@vercel/analytics/react';
 import { notFound } from 'next/navigation';
-import { Navbar, Footer } from '@/components';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
+
+import { Navbar, Footer } from '@/components';
 import { locales } from '@/navigation';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
-
 import '../../globals.css';
 
 interface HomeLayoutProps {

@@ -1,6 +1,7 @@
 'use server';
-import { type PublishFormInputs } from '@/app/[locale]/(home)/annonce/publier/publishFormResolver';
 import { v4 as uuidv4 } from 'uuid';
+
+import { type PublishFormInputs } from '@/app/[locale]/(home)/annonce/publier/publishFormResolver';
 import { registerNewCompany, removeSpaces } from '@/utils/';
 import { createClient } from '@/utils/supabase/server';
 
@@ -37,9 +38,9 @@ export async function publishListing(data: PublishFormInputs) {
           type: 'error' as const,
           message: 'User already exists, please login first',
         };
-      } else {
+      } 
         companyId = resCompanyId;
-      }
+      
     }
 
     const { error: insertError } = await supabase.from('jobPosting').insert({

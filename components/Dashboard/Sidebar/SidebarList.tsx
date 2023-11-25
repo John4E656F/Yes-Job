@@ -1,5 +1,6 @@
 import React from 'react';
 import { RiFileList3Line, RiHomeSmileLine, RiGroupLine, RiSparklingLine, RiMailLine, RiLifebuoyLine, RiSettings3Line } from 'react-icons/ri';
+
 import { SidebarItems } from './SidebarItems';
 import type { TranslationProps } from '@/types';
 
@@ -58,13 +59,13 @@ export const SidebarList = ({ companyName, t }: SidebarProps) => {
     <div className='flex flex-col gap-5'>
       <div className='flex flex-col gap-2'>
         <p className='text-lg'>{companyName}</p>
-        <ul className='pl-2 cursor-pointer list-none'>
+        <ul className='cursor-pointer list-none pl-2'>
           {upperNavItems.map((item, index) => (
             <SidebarItems key={index} icon={item.icon} text={item.text} count={item.count} link={item.link} />
           ))}
         </ul>
       </div>
-      <ul className='pl-2 cursor-pointer list-none'>
+      <ul className='cursor-pointer list-none pl-2'>
         {lowerNavItems.map((item, index) => (
           <SidebarItems key={index} icon={item.icon} text={item.text} count={item.count} link={item.link} />
         ))}
