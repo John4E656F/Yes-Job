@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
 import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useTranslations } from 'next-intl';
-import { useStore } from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import { publishFormResolver, type PublishFormInputs } from './publishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
