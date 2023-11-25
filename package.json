@@ -4,7 +4,10 @@
     "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "lint:debug": "next lint --debug",
+    "lint:fix": "next lint --fix"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
@@ -42,8 +45,16 @@
     "@types/nodemailer": "^6.4.11",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
     "cssnano": "^6.0.1",
     "encoding": "^0.1.13",
-    "postcss-import": "^15.1.0"
+    "eslint": "^8.54.0",
+    "eslint-config-next": "^14.0.3",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-tailwindcss": "^3.13.0",
+    "postcss-import": "^15.1.0",
+    "vitest": "^0.34.6"
   }
 }
