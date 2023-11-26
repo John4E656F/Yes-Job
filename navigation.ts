@@ -19,6 +19,11 @@ export const pathnames = {
     fr: '/annonce/[id]',
     nl: '/ad/[id]',
   },
+  '/publier': {
+    en: '/publish',
+    fr: '/publier',
+    nl: '/publiceer',
+  },
   '/contact': {
     en: '/contact',
     fr: '/contact',

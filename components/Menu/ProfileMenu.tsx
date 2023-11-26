@@ -1,5 +1,5 @@
 import React, { FC, RefObject } from 'react';
-import { Link, Divider } from '..';
+import { Link, Divider, SignoutButton } from '..';
 import type { TranslationProps, UsersTypes } from '@/types';
 import { RiFileList3Line, RiHomeSmileLine, RiGroupLine, RiMailLine, RiLifebuoyLine, RiSettings3Line, RiLogoutBoxLine } from 'react-icons/ri';
 
@@ -67,12 +67,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
           </Link>
         </li>
         <li>
-          <form action='/auth/sign-out' method='post'>
-            <button className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200 w-full'>
-              <RiLogoutBoxLine size={24} />
-              {t('sidebar.logout')}
-            </button>
-          </form>
+          <SignoutButton />
         </li>
       </ul>
     </div>
