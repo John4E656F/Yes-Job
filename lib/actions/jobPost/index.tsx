@@ -16,7 +16,7 @@ export async function getCurrentUserJobListing({ ownerId, path }: JobPostProps) 
     if (!ownerId) {
       return;
     }
-    const { data: fetchedUserData, error: userError } = await supabase.from('jobPosting').select(`*`).eq('companyId', ownerId);
+    const { data: fetchedUserListing, error: userError } = await supabase.from('jobPosting').select(`*`).eq('companyId', ownerId);
 
     if (userError) {
       throw new Error('Failed to fetch user data: ' + userError.message);
@@ -25,7 +25,7 @@ export async function getCurrentUserJobListing({ ownerId, path }: JobPostProps) 
     if (path) {
       revalidatePath(path);
     }
-    return fetchedUserData;
+    return fetchedUserListing;
   } catch (error: any) {
     return error.message;
   }

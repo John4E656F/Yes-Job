@@ -1,12 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { Image, Button, Logo, Link, LocaleSwitcher, MobileMenu, ProfileMenu } from '..';
 import { HiBars3, HiMiniLanguage, HiUser } from 'react-icons/hi2';
 import { useTranslations } from 'next-intl';
 import { UsersTypes } from '@/types';
 import { useToggleMenu } from '@/hooks';
 import type { Session } from '@supabase/supabase-js';
+import { getCurrentUserJobListing } from '@/lib/actions/jobPost';
 
 interface NavbarProps {
   currentLocale: string;
@@ -15,6 +16,7 @@ interface NavbarProps {
 
 export function Navbar({ currentLocale, session }: NavbarProps) {
   const router = useRouter();
+  const pathname = usePathname();
 
   const [userData, setUserData] = useState<UsersTypes>({
     user_email: '',
@@ -27,14 +29,15 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
     id: '',
     user_id: '',
   });
+  const [isFirstPost, setIsFirstPost] = useState<boolean>(true);
 
   const { menuRef: profileMenuRef, isMenuOpen: isProfileMenuOpen, toggleMenu: toggleProfileMenu } = useToggleMenu();
   const { menuRef: mobileMenuRef, isMenuOpen: isMobileMenuOpen, toggleMenu: toggleMobileMenu } = useToggleMenu();
   const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
   const t = useTranslations('app');
+  console.log(session);
 
   useEffect(() => {
-    console.log('useEffect triggered');
     const fetchUserData = async () => {
       let ownerID;
 
@@ -48,6 +51,15 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
+            console.log(pathname);
+            const userId = fetchedUserData.id;
+
+            const fetchedUserListing = await getCurrentUserJobListing({ ownerId: userId, path: pathname });
+            console.log(fetchedUserListing);
+
+            if (fetchedUserListing.length > 0) {
+              setIsFirstPost(false);
+            }
             setUserData(fetchedUserData);
           } else {
             console.error('Failed to fetch user data');
@@ -95,12 +107,21 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
                 )}
               </li>
             </ul>
-            <Button
-              text={t('cta.publish')}
-              btnType='button'
-              onClick={() => router.push('/annonce')}
-              className='hidden md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
-            />
+            {isFirstPost ? (
+              <Button
+                text={t('cta.publish')}
+                btnType='button'
+                onClick={() => router.push('/annonce')}
+                className='hidden md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+              />
+            ) : (
+              <Button
+                text={t('cta.publish')}
+                btnType='button'
+                onClick={() => router.push('/publier')}
+                className='hidden md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+              />
+            )}
           </div>
           <div className='flex gap-2 cursor-pointer'>
             {session &&
