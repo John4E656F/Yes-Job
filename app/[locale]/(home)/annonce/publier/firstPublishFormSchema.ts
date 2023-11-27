@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const publishFormSchema = z.object({
+export const firstPublishFormSchema = z.object({
   id: z.number().optional(),
   user_Id: z.string().optional(),
   companyName: z.string().min(1),

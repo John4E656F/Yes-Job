@@ -35,7 +35,6 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   const { menuRef: mobileMenuRef, isMenuOpen: isMobileMenuOpen, toggleMenu: toggleMobileMenu } = useToggleMenu();
   const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
   const t = useTranslations('app');
-  console.log(session);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -51,11 +50,11 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
-            console.log(pathname);
+            // console.log(pathname);
             const userId = fetchedUserData.id;
 
             const fetchedUserListing = await getCurrentUserJobListing({ ownerId: userId, path: pathname });
-            console.log(fetchedUserListing);
+            // console.log(fetchedUserListing);
 
             if (fetchedUserListing.length > 0) {
               setIsFirstPost(false);
@@ -72,7 +71,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
       }
     };
     fetchUserData();
-  }, []);
+  }, [session?.access_token]);
 
   return (
     <nav className='w-full flex justify-center h-auto relative'>
