@@ -52,8 +52,8 @@ const PublishPage: React.FC = () => {
     },
   });
   const applicationMethod = watch('applicationMethod');
-  console.log(watch());
-  console.log(errors);
+  // console.log(watch());
+  // console.log(errors);
 
   useEffect(() => {
     if (applicationMethod === 'yesJob') {
