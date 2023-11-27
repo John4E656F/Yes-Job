@@ -8,25 +8,17 @@ import { publishFormResolver, type PublishFormInputs } from './publishFormResolv
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToggle } from '@/hooks';
 import { ToastTitle, UsersTypes } from '@/types';
-import { publishListing } from '@/lib/actions/publishListing';
+import { publishListing } from '@/lib/actions';
 import { useTransition } from 'react';
+import { saveNewListingAsDraft } from '@/lib/actions';
 
 const PublishPage: React.FC = () => {
   const t = useTranslations('app');
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  const [userData, setUserData] = useState<UsersTypes>({
-    user_email: '',
-    user_logo: '',
-    user_name: '',
-    user_total_request_count: undefined,
-    isCompany: false,
-    contactName: '',
-    created_at: '',
-    id: '',
-    user_id: '',
-  });
+  const [isPublished, setIsPublished] = useState<boolean>();
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
+  const [toastSucessMessage, setToastSuccessMessage] = useState<string>('');
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
   const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
 
@@ -44,8 +36,6 @@ const PublishPage: React.FC = () => {
     reValidateMode: 'onBlur',
     defaultValues: {
       user_Id: '',
-      companyName: '',
-      logo: '',
       title: '',
       jobFunction: '',
       cdd: false,
@@ -59,13 +49,11 @@ const PublishPage: React.FC = () => {
       salaryMax: null,
       applicationMethod: 'yesJob',
       externalFormURL: '',
-      contactName: '',
-      contactEmail: '',
-      contactPassword: '',
     },
   });
   const applicationMethod = watch('applicationMethod');
-  // console.log(watch());
+  console.log(watch());
+  console.log(errors);
 
   useEffect(() => {
     if (applicationMethod === 'yesJob') {
@@ -74,7 +62,7 @@ const PublishPage: React.FC = () => {
       register('externalFormURL', { required: true, pattern: /^(ftp|http|https):\/\/[^ "]+$/ });
       setValue('externalFormURL', '');
     }
-  }, [applicationMethod, register, unregister, setValue]);
+  }, [applicationMethod]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -92,7 +80,8 @@ const PublishPage: React.FC = () => {
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
-            setUserData(fetchedUserData);
+            console.log(fetchedUserData);
+            setValue('user_Id', fetchedUserData.id || '');
           } else {
             console.error('Failed to fetch user data');
           }
@@ -105,17 +94,6 @@ const PublishPage: React.FC = () => {
     };
     fetchUserData();
   }, []);
-
-  useEffect(() => {
-    if (userData && userData.isCompany) {
-      setValue('user_Id', userData.id || '');
-      setValue('contactName', userData.contactName || '');
-      setValue('contactEmail', userData.user_email || '');
-      setValue('companyName', userData.user_name || '');
-      setValue('contactPassword', 'User_already_exists69');
-      setValue('logo', userData.user_logo || null);
-    }
-  }, [userData]);
 
   const options = [
     { value: '', label: t('jobFonction.default'), disabled: true },
@@ -146,12 +124,6 @@ const PublishPage: React.FC = () => {
         toggleToast(false);
         router.push('/');
       }, 2000);
-    } else if (result.type == 'error' && result.message === 'User already exists, please login first') {
-      setToastErrorMessage('User already exists, please login first');
-      setTimeout(() => {
-        toggleToast(false);
-        router.push('/login');
-      }, 10000);
     } else {
       setToastErrorMessage('Unexpected error, please try again later.');
       setTimeout(() => {
@@ -160,8 +132,6 @@ const PublishPage: React.FC = () => {
     }
 
     reset({
-      companyName: '',
-      logo: null,
       title: '',
       jobFunction: '',
       cdd: false,
@@ -175,9 +145,26 @@ const PublishPage: React.FC = () => {
       salaryMax: null,
       applicationMethod: 'yesJob',
       externalFormURL: '',
-      contactName: '',
-      contactEmail: '',
     });
+  };
+
+  const saveAsDraft = async (data: PublishFormInputs) => {
+    const result = await saveNewListingAsDraft({ data: data, path: `/dashboard/job-listing` });
+
+    if (result.type == 'success') {
+      setToastSuccessMessage('Your job offer has been saved as draft.');
+      setIsSubmitSuccessful(true);
+      toggleToast(!isToastOpen);
+      setTimeout(() => {
+        toggleToast(false);
+        router.push('/dashboard/job-listing');
+      }, 2000);
+    } else {
+      setToastErrorMessage('Unexpected error, please try again later.');
+      setTimeout(() => {
+        toggleToast(false);
+      }, 10000);
+    }
   };
 
   const handleCloseToast = () => {
@@ -190,35 +177,11 @@ const PublishPage: React.FC = () => {
         isOpen={isToastOpen}
         onClose={handleCloseToast}
         title={isSubmitSuccessful ? ToastTitle.Success : ToastTitle.Error}
-        message={isSubmitSuccessful ? 'Ad submitted successfully' : toastErrorMessage}
+        message={isSubmitSuccessful ? toastSucessMessage : toastErrorMessage}
       />
       <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-5' onSubmit={handleSubmit(onSubmit)}>
-        <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>
+        <h2 className='text-4xl font-semibold'>Published an ad</h2>
         <div className='flex flex-col bg-white p-4 md:p-8 gap-6'>
-          {userData && userData.isCompany === true ? null : (
-            <>
-              <h3 className='text-2xl font-semibold'>{t('publishAds.infoCompany')}</h3>
-              <div className='flex flex-col gap-3'>
-                <FormInput
-                  label={t('publishAds.companyName') + ' *'}
-                  type='text'
-                  register={register('companyName', { required: true })}
-                  error={errors.companyName}
-                  isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
-                  placeholder='Quick, McDonald ...'
-                />
-              </div>
-              <div className='flex flex-col gap-3'>
-                <ImageUpload
-                  label={t('publishAds.companyLogo')}
-                  register={register('logo')}
-                  error={errors.logo}
-                  initialPreview={userData.user_logo}
-                />
-              </div>
-              <div className='w-full h-px bg-slate-300 rounded' />
-            </>
-          )}
           <h2 className='text-2xl font-semibold'>{t('publishAds.infoAds')}</h2>
           <div className='flex flex-col gap-3'>
             <FormInput
@@ -239,7 +202,7 @@ const PublishPage: React.FC = () => {
               options={options}
             />
           </div>
-          <div className='flex flex-col md:flex-row justify-between gap-2'>
+          <div className='flex flex-col flex-wrap md:flex-row justify-between gap-2'>
             <div className='flex flex-col gap-3'>
               <label className='text-lg font-medium'>{t('publishAds.contractDuration')}</label>
               <div className='flex flex-row gap-8 justify-evenly '>
@@ -257,22 +220,26 @@ const PublishPage: React.FC = () => {
             <div className='flex flex-col gap-3'>
               <label className='text-lg font-medium'>{t('publishAds.experience')}</label>
               <div className='flex flex-row gap-8 justify-evenly '>
-                <FormRadio
-                  name='experience'
-                  register={register('experience')}
-                  error={errors.experience}
-                  label={t('listing.noExperience')}
-                  value='noExperience'
-                  onChange={() => setValue('experience', 'noExperience')}
-                />
-                <FormRadio
-                  name='experience'
-                  register={register('experience')}
-                  error={errors.experience}
-                  label={t('listing.experience')}
-                  value='experience'
-                  onChange={() => setValue('experience', 'experience')}
-                />
+                {watch('experience') && (
+                  <>
+                    <FormRadio
+                      name='experience'
+                      register={register('experience')}
+                      error={errors.experience}
+                      label={t('listing.noExperience')}
+                      value='noExperience'
+                      onChange={() => setValue('experience', 'noExperience')}
+                    />
+                    <FormRadio
+                      name='experience'
+                      register={register('experience')}
+                      error={errors.experience}
+                      label={t('listing.experience')}
+                      value='experience'
+                      onChange={() => setValue('experience', 'experience')}
+                    />
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -284,13 +251,6 @@ const PublishPage: React.FC = () => {
             </div>
           </div>
           <div className='flex flex-col gap-3'>
-            {/* <FormTextarea
-              register={register('description')}
-              error={errors.description}
-              isRequiredMessage={t('publishAds.description') + t('error.isRequired')}
-              label={t('publishAds.description') + ' *'}
-              placeholder={t('publishAds.descPlaceholder')}
-            /> */}
             <Tiptap
               register={register('description')}
               error={errors.description}
@@ -300,6 +260,7 @@ const PublishPage: React.FC = () => {
               setValue={setValue}
               isDashboard={false}
               editable={true}
+              content={watch('description')}
             />
           </div>
           <div className='flex flex-col gap-3'>
@@ -368,50 +329,22 @@ const PublishPage: React.FC = () => {
               />
             )}
           </div>
-          {userData && userData.isCompany === true ? null : (
-            <>
-              <div className='w-full h-px bg-slate-300 rounded' />
-              <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>
-              <h3 className='text-md '>{t('publishAds.contactDetailsSub')}</h3>
-              <div className='flex flex-col gap-3'>
-                <FormInput
-                  label={t('publishAds.contactDetailsName') + ' *'}
-                  type='text'
-                  register={register('contactName', { required: true })}
-                  error={errors.contactName}
-                  isRequiredMessage={t('publishAds.contactDetailsName') + t('error.isRequired')}
-                  placeholder='Lenny De Wolf'
-                />
-              </div>
-              <div className='flex flex-col gap-3'>
-                <FormInput
-                  label={t('publishAds.contactDetailsEmail') + ' *'}
-                  type='text'
-                  register={register('contactEmail')}
-                  error={errors.contactEmail}
-                  invalidEmail={t('error.invalidEmail')}
-                  placeholder='recrument@mcdonalds.be'
-                />
-              </div>
-              <div className='flex flex-col gap-3'>
-                <FormInput
-                  label={t('publishAds.contactDetailsPassword') + ' *'}
-                  type='password'
-                  register={register('contactPassword')}
-                  error={errors.contactPassword}
-                  isRequiredMessage={t('publishAds.contactDetailsPasswordValidationMin')}
-                  placeholder='recrument@mcdonalds.be'
-                />
-              </div>
-            </>
+        </div>
+        <div className='flex justify-center gap-5'>
+          <Button
+            btnType='submit'
+            text={'Publish'}
+            className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+          />
+          {!isPublished && (
+            <Button
+              onClick={() => saveAsDraft(watch())}
+              btnType='button'
+              text={'Save as draft'}
+              className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-secondary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+            />
           )}
         </div>
-
-        <Button
-          btnType='submit'
-          text={t('cta.publishFree')}
-          className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
-        />
       </form>
     </header>
   );

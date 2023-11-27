@@ -8,7 +8,7 @@ import { timeDifference } from '@/utils';
 
 interface ListingCardProps {
   jobPost: ListingData;
-  setIsPromotionSuccessful: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsPromotionSuccessful: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   usedPromotion: number;
 }
 

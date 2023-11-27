@@ -4,11 +4,11 @@ import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextar
 import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { publishFormResolver, type PublishFormInputs } from './publishFormResolver';
+import { firstPublishFormResolver, type FirstPublishFormInputs } from './firstPublishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToggle } from '@/hooks';
 import { ToastTitle, UsersTypes } from '@/types';
-import { publishListing } from '@/lib/actions/publishListing';
+import { publishFirstListing } from '@/lib/actions';
 import { useTransition } from 'react';
 
 const PublishPage: React.FC = () => {
@@ -38,8 +38,8 @@ const PublishPage: React.FC = () => {
     reset,
     watch,
     setValue,
-  } = useForm<PublishFormInputs>({
-    resolver: publishFormResolver,
+  } = useForm<FirstPublishFormInputs>({
+    resolver: firstPublishFormResolver,
     mode: 'onChange',
     reValidateMode: 'onBlur',
     defaultValues: {
@@ -136,8 +136,8 @@ const PublishPage: React.FC = () => {
     { value: 'other', label: t('jobFonction.other') },
   ];
 
-  const onSubmit = async (data: PublishFormInputs) => {
-    const result = await publishListing(data);
+  const onSubmit = async (data: FirstPublishFormInputs) => {
+    const result = await publishFirstListing(data);
 
     if (result.type == 'success') {
       setIsSubmitSuccessful(true);
@@ -284,20 +284,13 @@ const PublishPage: React.FC = () => {
             </div>
           </div>
           <div className='flex flex-col gap-3'>
-            {/* <FormTextarea
-              register={register('description')}
-              error={errors.description}
-              isRequiredMessage={t('publishAds.description') + t('error.isRequired')}
-              label={t('publishAds.description') + ' *'}
-              placeholder={t('publishAds.descPlaceholder')}
-            /> */}
             <Tiptap
               register={register('description')}
               error={errors.description}
               isRequiredMessage={t('publishAds.description') + t('error.isRequired')}
               label={t('publishAds.description') + ' *'}
               placeholder={t('publishAds.descPlaceholder')}
-              setValue={setValue}
+              setFirstPublishValue={setValue}
               isDashboard={false}
               editable={true}
             />
