@@ -7,7 +7,7 @@ import { promote } from '@/lib/actions';
 
 interface PromoteButtonProps {
   jobPost: ListingData;
-  setIsPromotionSuccessful: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsPromotionSuccessful: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   usedPromotion: number;
 }
 export function PromoteButton({ jobPost, setIsPromotionSuccessful, usedPromotion }: PromoteButtonProps) {
