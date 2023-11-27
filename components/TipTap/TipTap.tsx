@@ -9,7 +9,8 @@ import TaskList from '@tiptap/extension-task-list';
 import { MenuBar } from './MenuBar';
 import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import { FormLabel, InputError } from '@/components';
-import { type PublishFormInputs } from '@/app/[locale]/(home)/annonce/publier/publishFormResolver';
+import { type FirstPublishFormInputs } from '@/app/[locale]/(home)/annonce/publier/firstPublishFormResolver';
+import { type PublishFormInputs } from '@/app/[locale]/(home)/publier/publishFormResolver';
 import { type EditFormInputs } from '@/app/[locale]/dashboard/job-listing/edit/[id]/editFormResolver';
 
 interface FormTextAreaProps {
@@ -18,6 +19,7 @@ interface FormTextAreaProps {
   isRequiredMessage?: string;
   label?: string;
   placeholder?: string;
+  setFirstPublishValue?: UseFormSetValue<FirstPublishFormInputs>;
   setValue?: UseFormSetValue<PublishFormInputs>;
   setDashboardValue?: UseFormSetValue<EditFormInputs>;
   isDashboard: boolean;
@@ -31,6 +33,7 @@ export const Tiptap = ({
   isRequiredMessage,
   label,
   placeholder,
+  setFirstPublishValue,
   setValue,
   setDashboardValue,
   isDashboard,
@@ -59,12 +62,16 @@ export const Tiptap = ({
       if (editable) {
         if (isDashboard && setDashboardValue) {
           setDashboardValue('description', htmlContent);
+        } else if (setFirstPublishValue) {
+          setFirstPublishValue('description', htmlContent);
         } else if (setValue) {
           setValue('description', htmlContent);
         }
       }
     },
   });
+
+  let errorMessage = 'Description is required';
 
   return (
     <div>
@@ -81,6 +88,7 @@ export const Tiptap = ({
           <EditorContent editor={editor} className='flex-auto overflow-y-auto' />
         </div>
       )}
+      {error && <InputError error={{ message: errorMessage }} />}
     </div>
   );
 };

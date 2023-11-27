@@ -1,12 +1,12 @@
-import { publishFormSchema } from './publishFormSchema';
+import { firstPublishFormSchema } from './firstPublishFormSchema';
 import type { Resolver, FieldError } from 'react-hook-form';
 import { z, ZodError as ZodValidationError } from 'zod';
 
-export type PublishFormInputs = z.infer<typeof publishFormSchema>;
+export type FirstPublishFormInputs = z.infer<typeof firstPublishFormSchema>;
 
-export const publishFormResolver: Resolver<PublishFormInputs> = async (values: PublishFormInputs) => {
+export const firstPublishFormResolver: Resolver<FirstPublishFormInputs> = async (values: FirstPublishFormInputs) => {
   try {
-    const validatedData: PublishFormInputs = await publishFormSchema.parseAsync(values);
+    const validatedData: FirstPublishFormInputs = await firstPublishFormSchema.parseAsync(values);
     return { values: validatedData, errors: {} };
   } catch (error) {
     const zodError = error as ZodValidationError;
@@ -23,6 +23,6 @@ export const publishFormResolver: Resolver<PublishFormInputs> = async (values: P
       }
     }
 
-    return { values: {} as PublishFormInputs, errors: rhfErrors };
+    return { values: {} as FirstPublishFormInputs, errors: rhfErrors };
   }
 };

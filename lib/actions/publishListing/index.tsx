@@ -1,12 +1,12 @@
 'use server';
-import { type PublishFormInputs } from '@/app/[locale]/(home)/annonce/publier/publishFormResolver';
+import { type FirstPublishFormInputs } from '@/app/[locale]/(home)/annonce/publier/firstPublishFormResolver';
+import { type PublishFormInputs } from '@/app/[locale]/(home)/publier/publishFormResolver';
 import { v4 as uuidv4 } from 'uuid';
 import { registerNewCompany, removeSpaces } from '@/utils/';
 import { createClient } from '@/utils/supabase/server';
 
-export async function publishListing(data: PublishFormInputs) {
+export async function publishFirstListing(data: FirstPublishFormInputs) {
   const supabase = createClient();
-
   let logo = data.logo[0];
   if (logo instanceof File) {
     const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
@@ -41,6 +41,50 @@ export async function publishListing(data: PublishFormInputs) {
         companyId = resCompanyId;
       }
     }
+    const { error: insertError } = await supabase.from('jobPosting').insert({
+      companyId: companyId,
+      title: data.title,
+      jobFunction: data.jobFunction,
+      cdd: data.cdd,
+      cdi: data.cdi,
+      fullTime: data.fullTime,
+      partTime: data.partTime,
+      description: data.description,
+      experience: data.experience === 'experience' ? true : false,
+      location: data.location,
+      salaryMin: data.salaryMin,
+      salaryMax: data.salaryMax,
+      applicationMethod: data.applicationMethod,
+      externalFormURL: data.externalFormURL,
+      pinned: true,
+      pinned_at: new Date().toISOString(),
+      published: true,
+    });
+
+    if (insertError) {
+      return {
+        type: 'error' as const,
+        message: 'Unexpected error, please try again later.',
+      };
+    }
+    return {
+      type: 'success' as const,
+      message: 'Your job offer has been published successfully.',
+    };
+  } catch (error: any) {
+    // console.error('An error occurred:', error.message);
+    return {
+      type: 'error' as const,
+      message: 'Unexpected error, please try again later.',
+    };
+  }
+}
+
+export async function publishListing(data: PublishFormInputs) {
+  const supabase = createClient();
+
+  try {
+    let companyId = data.user_Id;
 
     const { error: insertError } = await supabase.from('jobPosting').insert({
       companyId: companyId,
