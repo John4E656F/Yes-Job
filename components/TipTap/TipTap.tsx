@@ -71,6 +71,8 @@ export const Tiptap = ({
     },
   });
 
+  let errorMessage = 'Description is required';
+
   return (
     <div>
       {editable ? (
@@ -86,6 +88,7 @@ export const Tiptap = ({
           <EditorContent editor={editor} className='flex-auto overflow-y-auto' />
         </div>
       )}
+      {error && <InputError error={{ message: errorMessage }} />}
     </div>
   );
 };
