@@ -19,7 +19,7 @@ export const firstPublishFormSchema = z.object({
   applicationMethod: z.enum(['yesJob', 'externalForm', 'both']),
   externalFormURL: z.string().url().optional(),
   companyWebsite: z.string().url().optional(),
-  companyPhone: z.string().optional(),
+  companyPhone: z.number().optional(),
   contactName: z
     .string()
     .min(1)

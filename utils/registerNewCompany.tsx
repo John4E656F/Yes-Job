@@ -36,9 +36,9 @@ interface Result {
 export const registerNewCompany = async (
   companyName: string,
   companyEmail: string,
-  companyLogo: string | null,
-  companyWebsite: string | null,
-  companyPhone: number | null,
+  companyLogo: string,
+  companyWebsite: string | undefined,
+  companyPhone: number | undefined,
   contactName: string,
   contactPassword: string,
 ): Promise<Result> => {
