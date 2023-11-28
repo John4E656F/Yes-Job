@@ -38,8 +38,9 @@ export const registerNewCompany = async (
   companyEmail: string,
   companyLogo: string,
   companyWebsite: string | undefined,
-  companyPhone: number | null,
+  companyPhone: string | null,
   contactName: string,
+  contactPhone: string | null,
   contactPassword: string,
 ): Promise<Result> => {
   // Try to fetch the company from the database
@@ -64,6 +65,7 @@ export const registerNewCompany = async (
         user_email: companyEmail,
         user_logo: companyLogo,
         contactName: contactName,
+        user_Phone: contactPhone,
         isCompany: true,
         user_id: userData.user.id,
       })
