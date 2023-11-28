@@ -3,6 +3,20 @@ import { createClient } from '@/utils/supabase/server';
 
 interface Company {
   id: string;
+  owner_id: string;
+  teamMembers: string;
+  jobListings: string;
+  name: string;
+  logo: string;
+  website: string | null;
+  phone: number | null;
+  isCompany: boolean;
+  user_total_request_count: number;
+  created_at: string;
+}
+
+interface User {
+  id: string;
   user_name: string;
   user_email: string;
   user_logo: string;
@@ -11,10 +25,11 @@ interface Company {
   countryCode: string | null;
   phone: number | null;
   isCompany: boolean;
-  user_total_request_count: number;
   created_at: string;
 }
+
 interface Result {
+  resUserId?: string;
   resCompanyId?: string;
   error?: string;
 }
@@ -22,6 +37,8 @@ export const registerNewCompany = async (
   companyName: string,
   companyEmail: string,
   companyLogo: string | null,
+  companyWebsite: string | null,
+  companyPhone: number | null,
   contactName: string,
   contactPassword: string,
 ): Promise<Result> => {
@@ -40,7 +57,7 @@ export const registerNewCompany = async (
   });
 
   if (userData && userData.user && companyLogo) {
-    const { data: newCompanyData, error: newCompanyError } = await supabase
+    const { data: newUserData, error: newUserError } = await supabase
       .from('users')
       .insert({
         user_name: companyName,
@@ -52,12 +69,25 @@ export const registerNewCompany = async (
       })
       .select();
 
+    if (newUserError || !newUserData) {
+      console.log('Error inserting new company:', newUserError ? newUserError.message : 'No data returned');
+      throw newUserError ? newUserError.message : 'No data returned';
+    }
+    const { data: newCompanyData, error: newCompanyError } = await supabase.from('company').insert({
+      owner_id: (newUserData[0] as User).id,
+      teamMembers: [(newUserData[0] as User).id],
+      name: companyName,
+      logo: companyLogo,
+      website: companyWebsite,
+      phone: companyPhone,
+    });
+
     if (newCompanyError || !newCompanyData) {
       console.log('Error inserting new company:', newCompanyError ? newCompanyError.message : 'No data returned');
       throw newCompanyError ? newCompanyError.message : 'No data returned';
     }
 
-    return { resCompanyId: (newCompanyData[0] as Company).id };
+    return { resUserId: (newUserData[0] as User).id, resCompanyId: (newCompanyData[0] as Company).id };
   } else {
     if (userError) {
       console.log('Error signing up:', userError.message);
