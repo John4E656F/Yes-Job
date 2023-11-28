@@ -10,6 +10,10 @@ import { useToggle } from '@/hooks';
 import { ToastTitle, UsersTypes } from '@/types';
 import { publishFirstListing } from '@/lib/actions';
 import { useTransition } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { removeSpaces } from '@/utils/';
+import { createClient } from '@/utils/supabase/client';
+import { set } from 'date-fns';
 
 const PublishPage: React.FC = () => {
   const t = useTranslations('app');
@@ -19,9 +23,8 @@ const PublishPage: React.FC = () => {
     user_email: '',
     user_logo: '',
     user_name: '',
-    user_total_request_count: undefined,
-    isCompany: false,
     contactName: '',
+    company_id: '',
     created_at: '',
     id: '',
     user_id: '',
@@ -73,6 +76,7 @@ const PublishPage: React.FC = () => {
   });
   const applicationMethod = watch('applicationMethod');
   console.log(watch());
+  console.log(errors);
 
   useEffect(() => {
     if (applicationMethod === 'yesJob') {
@@ -81,7 +85,7 @@ const PublishPage: React.FC = () => {
       register('externalFormURL', { required: true, pattern: /^(ftp|http|https):\/\/[^ "]+$/ });
       setValue('externalFormURL', '');
     }
-  }, [applicationMethod, register, unregister, setValue]);
+  }, [applicationMethod]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -114,7 +118,7 @@ const PublishPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (userData && userData.isCompany) {
+    if (userData && userData.company_id !== '') {
       setValue('user_Id', userData.id || '');
       setValue('contactName', userData.contactName || '');
       setValue('contactEmail', userData.user_email || '');
@@ -144,6 +148,28 @@ const PublishPage: React.FC = () => {
   ];
 
   const onSubmit = async (data: FirstPublishFormInputs) => {
+    const supabase = createClient();
+    console.log(data);
+    let logo = data.logo[0];
+    if (logo instanceof File) {
+      const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
+
+      try {
+        const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
+          cacheControl: '3600',
+          upsert: false,
+        });
+        if (uploadError) {
+          return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+        }
+        const { data: publicUrlData } = await supabase.storage.from('logo').getPublicUrl(uploadData.path);
+        const publicUrl = publicUrlData.publicUrl;
+        setValue('logo', publicUrl);
+      } catch (uploadError: any) {
+        return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+      }
+    }
+
     const result = await publishFirstListing(data);
 
     if (result.type == 'success') {
@@ -190,6 +216,7 @@ const PublishPage: React.FC = () => {
       companyWebsite: '',
       companyPhone: null,
       contactName: '',
+      contactPhone: null,
       contactEmail: '',
     });
   };
@@ -209,7 +236,7 @@ const PublishPage: React.FC = () => {
       <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-5' onSubmit={handleSubmit(onSubmit)}>
         <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>
         <div className='flex flex-col bg-white p-4 md:p-8 gap-6'>
-          {userData && userData.isCompany === true ? null : (
+          {userData && userData.company_id ? null : (
             <>
               <h3 className='text-2xl font-semibold'>{t('publishAds.infoCompany')}</h3>
               <div className='flex flex-col gap-3'>
@@ -409,7 +436,7 @@ const PublishPage: React.FC = () => {
               />
             )}
           </div>
-          {userData && userData.isCompany === true ? null : (
+          {userData && userData.company_id ? null : (
             <>
               <div className='w-full h-px bg-slate-300 rounded' />
               <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>

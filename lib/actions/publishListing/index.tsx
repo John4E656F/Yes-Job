@@ -9,26 +9,10 @@ interface jobPost {
   id: string;
 }
 export async function publishFirstListing(data: FirstPublishFormInputs) {
-  const supabase = createClient();
-  let logo = data.logo[0];
-  if (logo instanceof File) {
-    const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
+  console.log(data);
 
-    try {
-      const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
-        cacheControl: '3600',
-        upsert: false,
-      });
-      if (uploadError) {
-        return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
-      }
-      const { data: publicUrlData } = await supabase.storage.from('logo').getPublicUrl(uploadData.path);
-      const publicUrl = publicUrlData.publicUrl;
-      logo = publicUrl;
-    } catch (uploadError: any) {
-      return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
-    }
-  }
+  const supabase = createClient();
+
   try {
     let companyId = data.user_Id;
 
@@ -36,7 +20,7 @@ export async function publishFirstListing(data: FirstPublishFormInputs) {
       const { resUserId, resCompanyId, error } = await registerNewCompany(
         data.companyName,
         data.contactEmail,
-        logo,
+        data.logo,
         data.companyWebsite,
         data.companyPhone,
         data.contactName,
