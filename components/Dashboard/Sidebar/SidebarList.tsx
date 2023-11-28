@@ -22,36 +22,36 @@ export const SidebarList = ({ companyName, t }: SidebarProps) => {
       count: 0,
       link: '/dashboard/job-listing',
     },
-    {
-      icon: RiHomeSmileLine,
-      text: t('sidebar.company'),
-      // link: '/dashboard/company',
-    },
-    {
-      icon: RiGroupLine,
-      text: t('sidebar.team'),
-      // link: '/dashboard/team',
-    },
-    { icon: RiSparklingLine, text: t('sidebar.candidate') },
+    // {
+    // icon: RiHomeSmileLine,
+    // text: t('sidebar.company'),
+    // link: '/dashboard/company',
+    // },
+    // {
+    //   icon: RiGroupLine,
+    //   text: t('sidebar.team'),
+    //   // link: '/dashboard/team',
+    // },
+    // { icon: RiSparklingLine, text: t('sidebar.candidate') },
   ];
 
   const lowerNavItems: NavItemsProps[] = [
-    {
-      icon: RiMailLine,
-      text: t('sidebar.inbox'),
-      count: 0,
-      // link: '/dashboard/inbox',
-    },
-    {
-      icon: RiLifebuoyLine,
-      text: t('sidebar.support'),
-      // link: '/dashboard/support',
-    },
-    {
-      icon: RiSettings3Line,
-      text: t('sidebar.settings'),
-      // link: '/dashboard/settings',
-    },
+    // {
+    //   icon: RiMailLine,
+    //   text: t('sidebar.inbox'),
+    //   count: 0,
+    //   // link: '/dashboard/inbox',
+    // },
+    // {
+    //   icon: RiLifebuoyLine,
+    //   text: t('sidebar.support'),
+    //   // link: '/dashboard/support',
+    // },
+    // {
+    //   icon: RiSettings3Line,
+    //   text: t('sidebar.settings'),
+    //   // link: '/dashboard/settings',
+    // },
   ];
 
   return (
