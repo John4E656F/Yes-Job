@@ -38,7 +38,7 @@ export const registerNewCompany = async (
   companyEmail: string,
   companyLogo: string,
   companyWebsite: string | undefined,
-  companyPhone: number | undefined,
+  companyPhone: number | null,
   contactName: string,
   contactPassword: string,
 ): Promise<Result> => {
