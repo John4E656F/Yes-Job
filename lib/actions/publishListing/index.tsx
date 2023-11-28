@@ -40,6 +40,7 @@ export async function publishFirstListing(data: FirstPublishFormInputs) {
         data.companyWebsite,
         data.companyPhone,
         data.contactName,
+        data.contactPhone,
         data.contactPassword,
       );
 
@@ -62,6 +63,8 @@ export async function publishFirstListing(data: FirstPublishFormInputs) {
       partTime: data.partTime,
       description: data.description,
       experience: data.experience === 'experience' ? true : false,
+      student: data.student,
+      flexi: data.flexi,
       location: data.location,
       salaryMin: data.salaryMin,
       salaryMax: data.salaryMax,
@@ -107,7 +110,7 @@ export async function publishListing(data: PublishFormInputs) {
   try {
     let companyId = data.user_Id;
 
-    const { error: insertError } = await supabase.from('jobPosting').insert({
+    const { data: jobPostData, error: insertError } = await supabase.from('jobPosting').insert({
       companyId: companyId,
       title: data.title,
       jobFunction: data.jobFunction,
@@ -127,12 +130,22 @@ export async function publishListing(data: PublishFormInputs) {
       published: true,
     });
 
-    if (insertError) {
+    if (insertError || !jobPostData) {
       return {
         type: 'error' as const,
         message: 'Unexpected error, please try again later.',
       };
     }
+
+    const { error: languageError } = await supabase
+      .from('language')
+      .insert({ english: data.english, french: data.french, dutch: data.dutch, jobPost_id: (jobPostData[0] as jobPost).id });
+
+    const { error: companyError } = await supabase
+      .from('company')
+      .update({ jobListings: [(jobPostData[0] as jobPost).id] })
+      .eq('id', companyId)
+      .single();
 
     return {
       type: 'success' as const,

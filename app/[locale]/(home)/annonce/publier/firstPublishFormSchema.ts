@@ -12,6 +12,8 @@ export const firstPublishFormSchema = z.object({
   fullTime: z.boolean(),
   partTime: z.boolean(),
   experience: z.string().min(1),
+  student: z.boolean(),
+  flexi: z.boolean(),
   english: z.boolean(),
   french: z.boolean(),
   dutch: z.boolean(),
@@ -27,6 +29,7 @@ export const firstPublishFormSchema = z.object({
     .string()
     .min(1)
     .transform((val) => val.toLowerCase()),
+  contactPhone: z.number().nullable(),
   contactEmail: z
     .string()
     .trim()
