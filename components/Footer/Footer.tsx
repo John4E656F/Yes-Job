@@ -35,6 +35,9 @@ export const Footer = () => {
             <Link href='/connecter' className='font-semibold text-blue-600'>
               {t('footer.consult')}
             </Link>
+            <Link href='/pricing' className='font-semibold text-blue-600'>
+              Pricing
+            </Link>
           </div>
         </div>
       </div>
