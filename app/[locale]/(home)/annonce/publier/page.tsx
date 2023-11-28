@@ -10,10 +10,6 @@ import { useToggle } from '@/hooks';
 import { ToastTitle, UsersTypes } from '@/types';
 import { publishFirstListing } from '@/lib/actions';
 import { useTransition } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { removeSpaces } from '@/utils/';
-import { createClient } from '@/utils/supabase/client';
-import { set } from 'date-fns';
 
 const PublishPage: React.FC = () => {
   const t = useTranslations('app');
@@ -148,29 +144,9 @@ const PublishPage: React.FC = () => {
   ];
 
   const onSubmit = async (data: FirstPublishFormInputs) => {
-    const supabase = createClient();
     console.log(data);
-    let logo = data.logo[0];
-    if (logo instanceof File) {
-      const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
 
-      try {
-        const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
-          cacheControl: '3600',
-          upsert: false,
-        });
-        if (uploadError) {
-          return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
-        }
-        const { data: publicUrlData } = await supabase.storage.from('logo').getPublicUrl(uploadData.path);
-        const publicUrl = publicUrlData.publicUrl;
-        setValue('logo', publicUrl);
-      } catch (uploadError: any) {
-        return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
-      }
-    }
-
-    const result = await publishFirstListing(data);
+    const result = await publishFirstListing(JSON.parse(JSON.stringify(data)));
 
     if (result.type == 'success') {
       setIsSubmitSuccessful(true);

@@ -65,7 +65,7 @@ export const registerNewCompany = async (
         user_email: companyEmail,
         user_logo: companyLogo,
         contactName: contactName,
-        user_Phone: contactPhone,
+        user_phone: contactPhone,
         isCompany: true,
         user_id: userData.user.id,
       })
