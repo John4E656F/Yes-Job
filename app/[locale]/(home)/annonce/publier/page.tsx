@@ -53,6 +53,8 @@ const PublishPage: React.FC = () => {
       fullTime: false,
       partTime: false,
       experience: 'noExperience',
+      student: false,
+      flexi: false,
       english: false,
       french: false,
       dutch: false,
@@ -70,7 +72,7 @@ const PublishPage: React.FC = () => {
     },
   });
   const applicationMethod = watch('applicationMethod');
-  // console.log(watch());
+  console.log(watch());
 
   useEffect(() => {
     if (applicationMethod === 'yesJob') {
@@ -174,6 +176,8 @@ const PublishPage: React.FC = () => {
       fullTime: false,
       partTime: false,
       experience: 'noExperience',
+      student: false,
+      flexi: false,
       english: false,
       french: false,
       dutch: false,
@@ -226,6 +230,26 @@ const PublishPage: React.FC = () => {
                   initialPreview={userData.user_logo}
                 />
               </div>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.companyWebsite')}
+                  type='text'
+                  register={register('companyWebsite')}
+                  error={errors.companyName}
+                  isRequiredMessage={t('publishAds.companyWebsite') + t('error.isRequired')}
+                  placeholder='quick.be'
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.companyPhone')}
+                  type='tel'
+                  register={register('companyPhone')}
+                  error={errors.companyName}
+                  isRequiredMessage={t('publishAds.companyPhone') + t('error.isRequired')}
+                  placeholder='0491234567'
+                />
+              </div>
               <div className='w-full h-px bg-slate-300 rounded' />
             </>
           )}
@@ -249,7 +273,7 @@ const PublishPage: React.FC = () => {
               options={options}
             />
           </div>
-          <div className='flex flex-col md:flex-row justify-between gap-2'>
+          <div className='flex flex-col flex-wrap md:flex-row justify-between gap-2'>
             <div className='flex flex-col gap-3'>
               <label className='text-lg font-medium'>{t('publishAds.contractDuration')}</label>
               <div className='flex flex-row gap-8 justify-evenly '>
@@ -266,23 +290,37 @@ const PublishPage: React.FC = () => {
             </div>
             <div className='flex flex-col gap-3'>
               <label className='text-lg font-medium'>{t('publishAds.experience')}</label>
-              <div className='flex flex-row gap-8 justify-evenly '>
-                <FormRadio
-                  name='experience'
-                  register={register('experience')}
-                  error={errors.experience}
-                  label={t('listing.noExperience')}
-                  value='noExperience'
-                  onChange={() => setValue('experience', 'noExperience')}
-                />
-                <FormRadio
-                  name='experience'
-                  register={register('experience')}
-                  error={errors.experience}
-                  label={t('listing.experience')}
-                  value='experience'
-                  onChange={() => setValue('experience', 'experience')}
-                />
+              <div className='flex flex-row flex-wrap gap-8  justify-evenly'>
+                <div className='flex gap-8 justify-evenly'>
+                  <FormRadio
+                    name='experience'
+                    register={register('experience')}
+                    error={errors.experience}
+                    label={t('listing.noExperience')}
+                    value='noExperience'
+                    onChange={() => setValue('experience', 'noExperience')}
+                  />
+                  <FormRadio
+                    name='experience'
+                    register={register('experience')}
+                    error={errors.experience}
+                    label={t('listing.experience')}
+                    value='experience'
+                    onChange={() => setValue('experience', 'experience')}
+                  />
+                </div>
+                <div className='flex gap-8 justify-evenly'>
+                  <FormCheckbox register={register('student')} error={errors.student} label='Student' />
+                  <FormCheckbox register={register('flexi')} error={errors.flexi} label='Flexi-Job' />
+                </div>
+              </div>
+            </div>
+            <div className='flex flex-col gap-3'>
+              <label className='text-lg font-medium'>Languages</label>
+              <div className='flex flex-row gap-8 justify-evenly'>
+                <FormCheckbox register={register('english')} error={errors.english} label='English' />
+                <FormCheckbox register={register('french')} error={errors.french} label='French' />
+                <FormCheckbox register={register('dutch')} error={errors.dutch} label='Dutch' />
               </div>
             </div>
           </div>
@@ -384,6 +422,16 @@ const PublishPage: React.FC = () => {
                   error={errors.contactName}
                   isRequiredMessage={t('publishAds.contactDetailsName') + t('error.isRequired')}
                   placeholder='Lenny De Wolf'
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.contactPhone')}
+                  type='tel'
+                  register={register('contactPhone')}
+                  error={errors.contactName}
+                  isRequiredMessage={t('publishAds.contactPhone') + t('error.isRequired')}
+                  placeholder='0412345678'
                 />
               </div>
               <div className='flex flex-col gap-3'>
