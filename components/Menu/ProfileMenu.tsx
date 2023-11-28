@@ -33,39 +33,39 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
             {t('sidebar.viewJobListing')}
           </Link>
         </li>
-        <li className=''>
+        {/* <li className=''>
           <Link href={`profile/${userData.id}`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
             <RiHomeSmileLine size={24} />
             {t('sidebar.editCompanyProfile')}
           </Link>
-        </li>
-        <li className=''>
+        </li> */}
+        {/* <li className=''>
           <Link href={`profile/${userData.id}`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
             <RiGroupLine size={24} />
             {t('sidebar.team')}
           </Link>
-        </li>
+        </li> */}
       </ul>
       <Divider />
       <ul className='text-base font-medium flex flex-col gap-2 rounded-lg list-none'>
-        <li className=''>
+        {/* <li className=''>
           <Link href={`profile/${userData.id}`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
             <RiMailLine size={24} />
             {t('sidebar.inbox')}
           </Link>
-        </li>
-        <li className=''>
+        </li> */}
+        {/* <li className=''>
           <Link href={`profile/${userData.id}`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
             <RiLifebuoyLine size={24} />
             {t('sidebar.support')}
           </Link>
-        </li>
-        <li className=''>
+        </li> */}
+        {/* <li className=''>
           <Link href={`profile/${userData.id}`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
             <RiSettings3Line size={24} />
             {t('sidebar.settings')}
           </Link>
-        </li>
+        </li> */}
         <li>
           <SignoutButton />
         </li>
