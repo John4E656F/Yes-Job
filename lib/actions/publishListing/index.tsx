@@ -30,7 +30,15 @@ export async function publishFirstListing(data: FirstPublishFormInputs) {
     let companyId = data.user_Id;
 
     if (companyId === '') {
-      const { resCompanyId, error } = await registerNewCompany(data.companyName, data.contactEmail, logo, data.contactName, data.contactPassword);
+      const { resUserId, resCompanyId, error } = await registerNewCompany(
+        data.companyName,
+        data.contactEmail,
+        logo,
+        data.companyWebsite,
+        data.companyPhone,
+        data.contactName,
+        data.contactPassword,
+      );
 
       if (error) {
         return {
