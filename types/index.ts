@@ -6,3 +6,4 @@ export type { UsersTypes } from './UsersTypes';
 export type { Database } from './public';
 export { ToastTitle, type ToastProps } from './ToastProps';
 export type { viewCounterDataType, viewCounterResponseType, dashboardViewCounterDisplayType } from './ViewCounterDataType';
+export type { CompanyTypes } from './CompanyTypes';

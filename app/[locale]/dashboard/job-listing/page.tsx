@@ -32,12 +32,13 @@ export default async function jobListing() {
   const currentUser = fetchedUserData as UsersTypes;
   const jobListing = fetchedJobPostData as ListingData[];
   const totalViewCount = viewCount as dashboardViewCounterDisplayType;
-  // console.log(jobListing);
-  // console.log(totalViewCount);
+  console.log(jobListing);
+  console.log(totalViewCount);
 
   // console.log(ownerId);
 
   const promotedListings: ListingData[] = jobListing.filter((listing) => listing.promoted === true);
+
   // console.log(currentUser);
   // console.log(currentUserJobListing);
   // console.log(promotedListings);
@@ -46,7 +47,7 @@ export default async function jobListing() {
     <section className='w-full bg-white flex flex-col py-4 px-5 gap-y-8'>
       <div className='flex flex-col gap-2'>
         <h1>
-          {t('jobListing.welcomeBack')} {currentUser.user_name}
+          {t('jobListing.welcomeBack')} {currentUser.contactName}
         </h1>
         <div className='flex p-1 px-2 gap-2 w-fit rounded border border-gray-300'>
           <div>
