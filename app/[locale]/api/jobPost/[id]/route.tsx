@@ -13,7 +13,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
       .select(
         `
   *,
-  companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) 
+  companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ),
+  company:company(*)
 `,
       )
       .eq('id', params.id)

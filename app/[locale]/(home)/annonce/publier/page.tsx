@@ -74,8 +74,8 @@ const PublishPage: React.FC = () => {
     },
   });
   const applicationMethod = watch('applicationMethod');
-  console.log(watch());
-  console.log(errors);
+  // console.log(watch());
+  // console.log(errors);
 
   useEffect(() => {
     if (applicationMethod === 'yesJob') {
@@ -181,7 +181,6 @@ const PublishPage: React.FC = () => {
     }
 
     const result = await publishFirstListing({ data: JSON.parse(JSON.stringify(data)), logoUrl });
-    console.log(result);
 
     if (result.type == 'success') {
       setIsSubmitSuccessful(true);

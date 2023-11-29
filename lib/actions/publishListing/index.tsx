@@ -14,7 +14,7 @@ interface FirstPublishProps {
   logoUrl: string;
 }
 export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) {
-  console.log(data);
+  // console.log(data);
 
   const supabase = createClient();
 
@@ -25,6 +25,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
       logoUrl,
       data.companyWebsite,
       data.companyPhone,
+      data.contactEmail,
       data.contactName,
       data.contactPhone,
       data.contactPassword,
@@ -63,14 +64,14 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
       .select();
 
     if (jobPostError || !jobPostData) {
-      console.log(jobPostError);
+      // console.log(jobPostError);
 
       return {
         type: 'error' as const,
         message: 'Unexpected error, please try again later.',
       };
     }
-    console.log('jobPostData', jobPostData);
+    // console.log('jobPostData', jobPostData);
 
     const { data: languageData, error: languageError } = await supabase
       .from('languages')
@@ -78,7 +79,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
       .select('*');
 
     if (languageError || !languageData) {
-      console.log('language', languageError.message);
+      // console.log('language', languageError.message);
 
       return {
         type: 'error' as const,
@@ -93,7 +94,8 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
       .select('*');
 
     if (companyError) {
-      console.log('companyerror', companyError.message);
+      // console.log('companyerror', companyError.message);
+      return { type: 'error' as const, message: companyError.message };
     }
 
     const { error: newJobPostError } = await supabase.from('jobPosting').update({ languages: languageData[0].id }).eq('id', jobPostData[0].id);
@@ -112,7 +114,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
       message: 'Your job offer has been published successfully.',
     };
   } catch (error: any) {
-    console.error('An error occurred:', error.message);
+    // console.error('An error occurred:', error.message);
     return {
       type: 'error' as const,
       message: 'Unexpected error, please try again later.',
