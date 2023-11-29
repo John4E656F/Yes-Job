@@ -22,7 +22,8 @@ export function Listing() {
           .select(
             `
           *,
-          companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) 
+          companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) ,
+          company:company(*)
         `,
           )
           .eq('published', true)
@@ -30,6 +31,7 @@ export function Listing() {
           .order('pinned', { ascending: false }) // Order pinned posts first
           .order('published_at', { ascending: false }) // Then order by most recent
           .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
+        console.log(data);
 
         if (error) {
           console.error('Error fetching job posts:', error.message);
