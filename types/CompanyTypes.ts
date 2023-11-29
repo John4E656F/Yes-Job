@@ -1,4 +1,5 @@
 export interface CompanyTypes {
+  id: string;
   owner_id: string | undefined;
   teamMembers: [string] | null;
   jobListings: [string] | null;

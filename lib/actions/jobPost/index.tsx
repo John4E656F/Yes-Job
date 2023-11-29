@@ -16,7 +16,11 @@ export async function getCurrentUserJobListing({ ownerId, path }: JobPostProps) 
     if (!ownerId) {
       return;
     }
-    const { data: fetchedUserListing, error: userError } = await supabase.from('jobPosting').select(`*`).eq('companyId', ownerId);
+    const { data: fetchedCompany, error: companyError } = await supabase.from('company').select('*').eq('owner_id', ownerId).single();
+    const { data: fetchedUserListing, error: userError } = await supabase
+      .from('jobPosting')
+      .select(`*, company(*)`)
+      .eq('company_id', fetchedCompany.id);
 
     if (userError) {
       throw new Error('Failed to fetch user data: ' + userError.message);

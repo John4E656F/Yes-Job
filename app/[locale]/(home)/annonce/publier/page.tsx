@@ -3,13 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
 import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { firstPublishFormResolver, type FirstPublishFormInputs } from './firstPublishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToggle } from '@/hooks';
 import { ToastTitle, UsersTypes } from '@/types';
 import { publishFirstListing } from '@/lib/actions';
 import { useTransition } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { removeSpaces } from '@/utils/';
+import { createClient } from '@/utils/supabase/client';
 
 const PublishPage: React.FC = () => {
   const t = useTranslations('app');
@@ -19,9 +22,8 @@ const PublishPage: React.FC = () => {
     user_email: '',
     user_logo: '',
     user_name: '',
-    user_total_request_count: undefined,
-    isCompany: false,
     contactName: '',
+    company_id: '',
     created_at: '',
     id: '',
     user_id: '',
@@ -53,12 +55,19 @@ const PublishPage: React.FC = () => {
       fullTime: false,
       partTime: false,
       experience: 'noExperience',
+      student: false,
+      flexi: false,
+      english: false,
+      french: false,
+      dutch: false,
       description: '',
       location: '',
       salaryMin: null,
       salaryMax: null,
       applicationMethod: 'yesJob',
       externalFormURL: '',
+      companyWebsite: '',
+      companyPhone: null,
       contactName: '',
       contactEmail: '',
       contactPassword: '',
@@ -66,6 +75,7 @@ const PublishPage: React.FC = () => {
   });
   const applicationMethod = watch('applicationMethod');
   // console.log(watch());
+  // console.log(errors);
 
   useEffect(() => {
     if (applicationMethod === 'yesJob') {
@@ -74,7 +84,7 @@ const PublishPage: React.FC = () => {
       register('externalFormURL', { required: true, pattern: /^(ftp|http|https):\/\/[^ "]+$/ });
       setValue('externalFormURL', '');
     }
-  }, [applicationMethod, register, unregister, setValue]);
+  }, [applicationMethod]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -107,7 +117,7 @@ const PublishPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (userData && userData.isCompany) {
+    if (userData && userData.company_id !== '') {
       setValue('user_Id', userData.id || '');
       setValue('contactName', userData.contactName || '');
       setValue('contactEmail', userData.user_email || '');
@@ -137,7 +147,40 @@ const PublishPage: React.FC = () => {
   ];
 
   const onSubmit = async (data: FirstPublishFormInputs) => {
-    const result = await publishFirstListing(data);
+    console.log(data);
+    let logo = data.logo[0];
+    let logoUrl = '';
+    if (logo) {
+      const supabase = createClient();
+      console.log('logo', logo);
+
+      const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
+
+      const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
+        cacheControl: '3600',
+        upsert: false,
+      });
+      if (uploadError || !uploadData) {
+        console.log(uploadError);
+
+        return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+      }
+
+      const { data: publicUrlData } = supabase.storage.from('logo').getPublicUrl(uploadData.path);
+      if (!publicUrlData) {
+        console.log(publicUrlData);
+
+        return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+      }
+      const publicUrl = publicUrlData.publicUrl;
+      logoUrl = publicUrl;
+    }
+
+    if (!logoUrl) {
+      return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+    }
+
+    const result = await publishFirstListing({ data: JSON.parse(JSON.stringify(data)), logoUrl });
 
     if (result.type == 'success') {
       setIsSubmitSuccessful(true);
@@ -151,6 +194,11 @@ const PublishPage: React.FC = () => {
       setTimeout(() => {
         toggleToast(false);
         router.push('/login');
+      }, 10000);
+    } else if (result.type == 'error') {
+      setToastErrorMessage(result.message);
+      setTimeout(() => {
+        toggleToast(false);
       }, 10000);
     } else {
       setToastErrorMessage('Unexpected error, please try again later.');
@@ -169,13 +217,21 @@ const PublishPage: React.FC = () => {
       fullTime: false,
       partTime: false,
       experience: 'noExperience',
+      student: false,
+      flexi: false,
+      english: false,
+      french: false,
+      dutch: false,
       description: '',
       location: '',
       salaryMin: null,
       salaryMax: null,
       applicationMethod: 'yesJob',
       externalFormURL: '',
+      companyWebsite: '',
+      companyPhone: null,
       contactName: '',
+      contactPhone: null,
       contactEmail: '',
     });
   };
@@ -184,6 +240,9 @@ const PublishPage: React.FC = () => {
     toggleToast(!isToastOpen);
   };
 
+  if (userData && userData.company_id) {
+    redirect('/');
+  }
   return (
     <header className='w-full flex justify-center bg-brand-lightbg'>
       <Toast
@@ -195,7 +254,7 @@ const PublishPage: React.FC = () => {
       <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-5' onSubmit={handleSubmit(onSubmit)}>
         <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>
         <div className='flex flex-col bg-white p-4 md:p-8 gap-6'>
-          {userData && userData.isCompany === true ? null : (
+          {userData && userData.company_id ? null : (
             <>
               <h3 className='text-2xl font-semibold'>{t('publishAds.infoCompany')}</h3>
               <div className='flex flex-col gap-3'>
@@ -214,6 +273,26 @@ const PublishPage: React.FC = () => {
                   register={register('logo')}
                   error={errors.logo}
                   initialPreview={userData.user_logo}
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.companyWebsite')}
+                  type='text'
+                  register={register('companyWebsite')}
+                  error={errors.companyName}
+                  isRequiredMessage={t('publishAds.companyWebsite') + t('error.isRequired')}
+                  placeholder='quick.be'
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.companyPhone')}
+                  type='tel'
+                  register={register('companyPhone')}
+                  error={errors.companyName}
+                  isRequiredMessage={t('publishAds.companyPhone') + t('error.isRequired')}
+                  placeholder='0491234567'
                 />
               </div>
               <div className='w-full h-px bg-slate-300 rounded' />
@@ -239,7 +318,7 @@ const PublishPage: React.FC = () => {
               options={options}
             />
           </div>
-          <div className='flex flex-col md:flex-row justify-between gap-2'>
+          <div className='flex flex-col flex-wrap md:flex-row justify-between gap-2'>
             <div className='flex flex-col gap-3'>
               <label className='text-lg font-medium'>{t('publishAds.contractDuration')}</label>
               <div className='flex flex-row gap-8 justify-evenly '>
@@ -256,23 +335,37 @@ const PublishPage: React.FC = () => {
             </div>
             <div className='flex flex-col gap-3'>
               <label className='text-lg font-medium'>{t('publishAds.experience')}</label>
-              <div className='flex flex-row gap-8 justify-evenly '>
-                <FormRadio
-                  name='experience'
-                  register={register('experience')}
-                  error={errors.experience}
-                  label={t('listing.noExperience')}
-                  value='noExperience'
-                  onChange={() => setValue('experience', 'noExperience')}
-                />
-                <FormRadio
-                  name='experience'
-                  register={register('experience')}
-                  error={errors.experience}
-                  label={t('listing.experience')}
-                  value='experience'
-                  onChange={() => setValue('experience', 'experience')}
-                />
+              <div className='flex flex-row flex-wrap gap-8  justify-evenly'>
+                <div className='flex gap-8 justify-evenly'>
+                  <FormRadio
+                    name='experience'
+                    register={register('experience')}
+                    error={errors.experience}
+                    label={t('listing.noExperience')}
+                    value='noExperience'
+                    onChange={() => setValue('experience', 'noExperience')}
+                  />
+                  <FormRadio
+                    name='experience'
+                    register={register('experience')}
+                    error={errors.experience}
+                    label={t('listing.experience')}
+                    value='experience'
+                    onChange={() => setValue('experience', 'experience')}
+                  />
+                </div>
+                <div className='flex gap-8 justify-evenly'>
+                  <FormCheckbox register={register('student')} error={errors.student} label='Student' />
+                  <FormCheckbox register={register('flexi')} error={errors.flexi} label='Flexi-Job' />
+                </div>
+              </div>
+            </div>
+            <div className='flex flex-col gap-3'>
+              <label className='text-lg font-medium'>Languages</label>
+              <div className='flex flex-row gap-8 justify-evenly'>
+                <FormCheckbox register={register('english')} error={errors.english} label='English' />
+                <FormCheckbox register={register('french')} error={errors.french} label='French' />
+                <FormCheckbox register={register('dutch')} error={errors.dutch} label='Dutch' />
               </div>
             </div>
           </div>
@@ -361,7 +454,7 @@ const PublishPage: React.FC = () => {
               />
             )}
           </div>
-          {userData && userData.isCompany === true ? null : (
+          {userData && userData.company_id ? null : (
             <>
               <div className='w-full h-px bg-slate-300 rounded' />
               <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>
@@ -374,6 +467,16 @@ const PublishPage: React.FC = () => {
                   error={errors.contactName}
                   isRequiredMessage={t('publishAds.contactDetailsName') + t('error.isRequired')}
                   placeholder='Lenny De Wolf'
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.contactPhone')}
+                  type='tel'
+                  register={register('contactPhone')}
+                  error={errors.contactName}
+                  isRequiredMessage={t('publishAds.contactPhone') + t('error.isRequired')}
+                  placeholder='0412345678'
                 />
               </div>
               <div className='flex flex-col gap-3'>
