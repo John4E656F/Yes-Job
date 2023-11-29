@@ -85,7 +85,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
         )}
       </div>
       <Image
-        src={jobPost.companyId?.user_logo as string}
+        src={jobPost.company?.logo as string}
         alt='Yes Job'
         className='w-20 m-5 h-20 md:w-24 md:h-24 object-contain bg-blue-200 rounded'
         unoptimized
@@ -94,7 +94,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
         <div className='flex justify-center md:justify-between items-center'>
           <div className='text-center md:text-left'>
             <h5 className='text-base font-semibold md:text-lg'>{jobPost.title}</h5>
-            <p className='text-base md:text-lg'>{jobPost.companyId?.user_name}</p>
+            <p className='text-base md:text-lg'>{jobPost.company?.name}</p>
           </div>
           <div className='hidden md:block'>
             {!jobPost.expired && jobPost.published ? (

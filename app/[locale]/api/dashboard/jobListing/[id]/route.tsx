@@ -1,6 +1,6 @@
 'use server';
 import { createClient } from '@/utils/supabase/server';
-import { UsersTypes, ListingData, viewCounterDataType, dashboardViewCounterDisplayType } from '@/types';
+import { UsersTypes, CompanyTypes, ListingData, viewCounterDataType, dashboardViewCounterDisplayType } from '@/types';
 import { NextResponse } from 'next/server';
 import { differenceInHours, differenceInDays, differenceInMonths } from 'date-fns';
 
@@ -18,16 +18,24 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
     const userData = fetchedUserData as UsersTypes;
 
+    // Fetch company data
+    const { data: fetchedCompanyData, error: companyError } = await supabase.from('company').select('*').eq('owner_id', userData.id).single();
+
+    if (companyError) {
+      throw new Error('Failed to fetch company data: ' + companyError.message);
+    }
+
+    const companyData = fetchedCompanyData as CompanyTypes;
     // Fetch job listing data
     const { data: fetchedJobPostData, error: jobError } = await supabase
       .from('jobPosting')
       .select(
         `
 *,
-companyId:users (*) 
+company:company (*) 
 `,
       )
-      .eq('companyId', userData.id);
+      .eq('company_id', companyData.id);
 
     if (jobError) {
       throw new Error('Failed to fetch job listing data: ' + jobError.message);

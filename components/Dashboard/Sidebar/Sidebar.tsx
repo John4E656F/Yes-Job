@@ -23,12 +23,11 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
     user_email: '',
     user_logo: '',
     user_name: '',
-    user_total_request_count: undefined,
-    isCompany: false,
     contactName: '',
     created_at: '',
     id: '',
     user_id: '',
+    company_id: '',
   });
   const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
   const t = useTranslations('app');
@@ -47,6 +46,8 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
+            console.log(fetchedUserData);
+
             setUserData(fetchedUserData);
           } else {
             console.error('Failed to fetch user data');
