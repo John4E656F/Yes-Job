@@ -3,13 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
 import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { firstPublishFormResolver, type FirstPublishFormInputs } from './firstPublishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToggle } from '@/hooks';
 import { ToastTitle, UsersTypes } from '@/types';
 import { publishFirstListing } from '@/lib/actions';
 import { useTransition } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { removeSpaces } from '@/utils/';
+import { createClient } from '@/utils/supabase/client';
 
 const PublishPage: React.FC = () => {
   const t = useTranslations('app');
@@ -145,8 +148,40 @@ const PublishPage: React.FC = () => {
 
   const onSubmit = async (data: FirstPublishFormInputs) => {
     console.log(data);
+    let logo = data.logo[0];
+    let logoUrl = '';
+    if (logo) {
+      const supabase = createClient();
+      console.log('logo', logo);
 
-    const result = await publishFirstListing(JSON.parse(JSON.stringify(data)));
+      const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
+
+      const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
+        cacheControl: '3600',
+        upsert: false,
+      });
+      if (uploadError || !uploadData) {
+        console.log(uploadError);
+
+        return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+      }
+
+      const { data: publicUrlData } = supabase.storage.from('logo').getPublicUrl(uploadData.path);
+      if (!publicUrlData) {
+        console.log(publicUrlData);
+
+        return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+      }
+      const publicUrl = publicUrlData.publicUrl;
+      logoUrl = publicUrl;
+    }
+
+    if (!logoUrl) {
+      return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+    }
+
+    const result = await publishFirstListing({ data: JSON.parse(JSON.stringify(data)), logoUrl });
+    console.log(result);
 
     if (result.type == 'success') {
       setIsSubmitSuccessful(true);
@@ -160,6 +195,11 @@ const PublishPage: React.FC = () => {
       setTimeout(() => {
         toggleToast(false);
         router.push('/login');
+      }, 10000);
+    } else if (result.type == 'error') {
+      setToastErrorMessage(result.message);
+      setTimeout(() => {
+        toggleToast(false);
       }, 10000);
     } else {
       setToastErrorMessage('Unexpected error, please try again later.');
@@ -201,6 +241,9 @@ const PublishPage: React.FC = () => {
     toggleToast(!isToastOpen);
   };
 
+  if (userData && userData.company_id) {
+    redirect('/');
+  }
   return (
     <header className='w-full flex justify-center bg-brand-lightbg'>
       <Toast

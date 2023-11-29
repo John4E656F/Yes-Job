@@ -66,30 +66,34 @@ export const registerNewCompany = async (
         user_logo: companyLogo,
         contactName: contactName,
         user_phone: contactPhone,
-        isCompany: true,
         user_id: userData.user.id,
       })
       .select();
 
     if (newUserError || !newUserData) {
-      console.log('Error inserting new company:', newUserError ? newUserError.message : 'No data returned');
-      throw newUserError ? newUserError.message : 'No data returned';
+      console.log('Error inserting new user:', newUserError ? newUserError.message : 'No data returned');
+      return { error: newUserError.message };
     }
-    const { data: newCompanyData, error: newCompanyError } = await supabase.from('company').insert({
-      owner_id: (newUserData[0] as User).id,
-      teamMembers: [(newUserData[0] as User).id],
-      name: companyName,
-      logo: companyLogo,
-      website: companyWebsite,
-      phone: companyPhone,
-    });
+    // console.log('New user inserted:', newUserData[0]);
+
+    const { data: newCompanyData, error: newCompanyError } = await supabase
+      .from('company')
+      .insert({
+        owner_id: newUserData[0].id,
+        teamMembers: [newUserData[0].id],
+        name: companyName,
+        logo: companyLogo,
+        website: companyWebsite,
+        phone: companyPhone,
+      })
+      .select('*');
 
     if (newCompanyError || !newCompanyData) {
       console.log('Error inserting new company:', newCompanyError ? newCompanyError.message : 'No data returned');
-      throw newCompanyError ? newCompanyError.message : 'No data returned';
+      return { error: newCompanyError.message };
     }
 
-    return { resUserId: (newUserData[0] as User).id, resCompanyId: (newCompanyData[0] as Company).id };
+    return { resUserId: newUserData[0].id, resCompanyId: newCompanyData[0].id };
   } else {
     if (userError) {
       console.log('Error signing up:', userError.message);
