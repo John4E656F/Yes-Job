@@ -53,7 +53,6 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
             const userId = fetchedUserData.id;
 
             const fetchedUserListing = await getCurrentUserJobListing({ ownerId: userId, path: pathname });
-            // console.log(fetchedUserListing);
 
             if (fetchedUserListing.length > 0) {
               setIsFirstPost(false);

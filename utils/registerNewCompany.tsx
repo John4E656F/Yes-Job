@@ -39,6 +39,7 @@ export const registerNewCompany = async (
   companyLogo: string,
   companyWebsite: string | undefined,
   companyPhone: string | null,
+  contactEmail: string,
   contactName: string,
   contactPhone: string | null,
   contactPassword: string,
@@ -53,7 +54,7 @@ export const registerNewCompany = async (
   }
   // If the company does not exist, create a new one
   const { data: userData, error: userError } = await supabase.auth.signUp({
-    email: companyEmail,
+    email: contactEmail,
     password: contactPassword,
   });
 
@@ -62,7 +63,7 @@ export const registerNewCompany = async (
       .from('users')
       .insert({
         user_name: companyName,
-        user_email: companyEmail,
+        user_email: contactEmail,
         user_logo: companyLogo,
         contactName: contactName,
         user_phone: contactPhone,
@@ -71,7 +72,7 @@ export const registerNewCompany = async (
       .select();
 
     if (newUserError || !newUserData) {
-      console.log('Error inserting new user:', newUserError ? newUserError.message : 'No data returned');
+      // console.log('Error inserting new user:', newUserError ? newUserError.message : 'No data returned');
       return { error: newUserError.message };
     }
     // console.log('New user inserted:', newUserData[0]);
@@ -89,14 +90,14 @@ export const registerNewCompany = async (
       .select('*');
 
     if (newCompanyError || !newCompanyData) {
-      console.log('Error inserting new company:', newCompanyError ? newCompanyError.message : 'No data returned');
+      // console.log('Error inserting new company:', newCompanyError ? newCompanyError.message : 'No data returned');
       return { error: newCompanyError.message };
     }
 
     return { resUserId: newUserData[0].id, resCompanyId: newCompanyData[0].id };
   } else {
     if (userError) {
-      console.log('Error signing up:', userError.message);
+      // console.log('Error signing up:', userError.message);
       return { error: userError.message };
     }
     return { error: 'Unexpected error' };
