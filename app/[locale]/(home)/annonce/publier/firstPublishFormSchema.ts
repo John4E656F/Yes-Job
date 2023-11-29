@@ -12,16 +12,24 @@ export const firstPublishFormSchema = z.object({
   fullTime: z.boolean(),
   partTime: z.boolean(),
   experience: z.string().min(1),
+  student: z.boolean(),
+  flexi: z.boolean(),
+  english: z.boolean(),
+  french: z.boolean(),
+  dutch: z.boolean(),
   description: z.string().min(1),
   location: z.string().min(1),
   salaryMin: z.number().nullable(),
   salaryMax: z.number().nullable(),
   applicationMethod: z.enum(['yesJob', 'externalForm', 'both']),
   externalFormURL: z.string().url().optional(),
+  companyWebsite: z.string().url().optional(),
+  companyPhone: z.string().nullable(),
   contactName: z
     .string()
     .min(1)
     .transform((val) => val.toLowerCase()),
+  contactPhone: z.string().nullable(),
   contactEmail: z
     .string()
     .trim()

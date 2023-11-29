@@ -22,8 +22,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
     user_email: '',
     user_logo: '',
     user_name: '',
-    user_total_request_count: undefined,
-    isCompany: false,
+    company_id: '',
     contactName: '',
     created_at: '',
     id: '',
@@ -54,7 +53,6 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
             const userId = fetchedUserData.id;
 
             const fetchedUserListing = await getCurrentUserJobListing({ ownerId: userId, path: pathname });
-            // console.log(fetchedUserListing);
 
             if (fetchedUserListing.length > 0) {
               setIsFirstPost(false);

@@ -35,6 +35,10 @@ export interface ListingData extends PublishData {
     availableJobListing?: number | null;
     availablePromotion?: number | null;
   };
+  company: {
+    name: string;
+    logo: string;
+  };
   created_at?: string;
   requestCount?: number;
   pageViewCount?: number;

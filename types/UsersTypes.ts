@@ -3,8 +3,7 @@ export interface UsersTypes {
   user_logo: string;
   user_name: string;
   contactName?: string;
-  user_total_request_count?: number;
-  isCompany: boolean;
+  company_id?: string;
   created_at: string;
   id: string;
   user_id: string | null;
