@@ -18,8 +18,6 @@ export function MobileNavbar({ currentLocale, session }: NavbarProps) {
     user_email: '',
     user_logo: '',
     user_name: '',
-    user_total_request_count: undefined,
-    isCompany: false,
     contactName: '',
     created_at: '',
     id: '',
