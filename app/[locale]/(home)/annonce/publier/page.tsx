@@ -66,16 +66,18 @@ const PublishPage: React.FC = () => {
       salaryMax: null,
       applicationMethod: 'yesJob',
       externalFormURL: '',
-      companyWebsite: '',
+      companyWebsite: undefined,
       companyPhone: null,
       contactName: '',
+      contactPhone: null,
       contactEmail: '',
       contactPassword: '',
     },
   });
   const applicationMethod = watch('applicationMethod');
-  // console.log(watch());
-  // console.log(errors);
+  const companyWebsite = watch('companyWebsite');
+  console.log(watch());
+  console.log(errors);
 
   useEffect(() => {
     if (applicationMethod === 'yesJob') {
@@ -85,6 +87,14 @@ const PublishPage: React.FC = () => {
       setValue('externalFormURL', '');
     }
   }, [applicationMethod]);
+
+  useEffect(() => {
+    if (companyWebsite) {
+      register('companyWebsite', { required: true, pattern: /^(ftp|http|https):\/\/[^ "]+$/ });
+    } else {
+      unregister('companyWebsite');
+    }
+  }, [companyWebsite]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -290,7 +300,7 @@ const PublishPage: React.FC = () => {
                   label={t('publishAds.companyPhone')}
                   type='tel'
                   register={register('companyPhone')}
-                  error={errors.companyName}
+                  error={errors.companyPhone}
                   isRequiredMessage={t('publishAds.companyPhone') + t('error.isRequired')}
                   placeholder='0491234567'
                 />

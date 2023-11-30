@@ -23,7 +23,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
       data.companyName,
       data.contactEmail,
       logoUrl,
-      data.companyWebsite,
+      data.companyWebsite || '',
       data.companyPhone,
       data.contactEmail,
       data.contactName,
