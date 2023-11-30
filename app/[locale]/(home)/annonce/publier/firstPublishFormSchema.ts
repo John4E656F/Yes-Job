@@ -23,7 +23,7 @@ export const firstPublishFormSchema = z.object({
   salaryMax: z.number().nullable(),
   applicationMethod: z.enum(['yesJob', 'externalForm', 'both']),
   externalFormURL: z.string().url().optional(),
-  companyWebsite: z.string().url().optional(),
+  companyWebsite: z.string().url().optional().or(z.literal('')),
   companyPhone: z.string().nullable(),
   contactName: z
     .string()
