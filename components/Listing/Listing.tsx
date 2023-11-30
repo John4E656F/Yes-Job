@@ -31,7 +31,7 @@ export function Listing() {
           .order('pinned', { ascending: false }) // Order pinned posts first
           .order('published_at', { ascending: false }) // Then order by most recent
           .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
-        console.log(data);
+        // console.log(data);
 
         if (error) {
           console.error('Error fetching job posts:', error.message);
