@@ -19,7 +19,7 @@ module.exports = {
         'brand-lightbg': '#F5FAFF',
         'brand-primary': '#0556B3',
         'brand-hover': '#076BCD',
-        'brand-secondary': '#40E0D0',
+        'brand-secondary': '#8505B3',
         'brand-accent': '#ff7f50',
         'brand-gray': '#f5f5f5',
         'brand-success': '#067647',
