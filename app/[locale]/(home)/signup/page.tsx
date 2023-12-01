@@ -1,79 +1,136 @@
+'use client';
+import { useState } from 'react';
 import Link from 'next/link';
-import { headers, cookies } from 'next/headers';
-import { createClient } from '@/utils/supabase/server';
+import { FormInput, InputError, Toast } from '@/components';
 import { redirect } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
+import { signupFormResolver, type SignupFormInputs } from './signupFormResolver';
+import { useForm } from 'react-hook-form';
+import { signup } from '@/lib/actions';
+import { useToggle } from '@/hooks';
+import { ToastTitle } from '@/types';
 
-export default async function Signup({ searchParams }: { searchParams: { message: string } }) {
-  const t = await getTranslations('app');
-  const signIn = async (formData: FormData) => {
-    'use server';
+export default function Signup() {
+  const t = useTranslations('app');
 
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
+  const {
+    register,
+    unregister,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    watch,
+  } = useForm<SignupFormInputs>({
+    resolver: signupFormResolver,
+    mode: 'onChange',
+    reValidateMode: 'onBlur',
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      isCompany: '',
+    },
+  });
 
-    const supabase = createClient();
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
+  const [toastMessage, setToastMessage] = useState<string>('');
+  const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+  // console.log(watch());
+  // console.log(errors);
+  const signUp = async (data: SignupFormInputs) => {
+    const result = await signup({ data });
+    console.log(result);
 
-    if (error) {
-      return redirect('/login?message=Could not authenticate user');
+    if (result.type === 'success') {
+      setToastMessage(t('auth.success'));
+      setIsSubmitSuccessful(true);
+      toggleToast(!isToastOpen);
+      setTimeout(() => {
+        toggleToast(false);
+        redirect('/');
+      }, 2000);
+      reset();
+    } else if (result.type === 'error' && result.message === 'User already registered') {
+      setToastMessage(t('error.userExist'));
+      toggleToast(true);
+      setTimeout(() => {
+        toggleToast(false);
+      }, 10000);
+    } else {
+      setToastMessage(t('auth.error'));
+      toggleToast(true);
+      setTimeout(() => {
+        toggleToast(false);
+      }, 10000);
     }
-
-    return redirect('/');
   };
 
-  const signUp = async (formData: FormData) => {
-    'use server';
-
-    const origin = headers().get('origin');
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    const supabase = createClient();
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-      },
-    });
-
-    if (error) {
-      return redirect('/login?message=Could not authenticate user');
-    }
-
-    return redirect('/login?message=Check email to continue sign in process');
+  const handleCloseToast = () => {
+    toggleToast(!isToastOpen);
   };
 
   return (
-    <div className='flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2'>
-      <form className='animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground' action={signIn}>
-        <label className='text-md' htmlFor='name'>
-          Name
-        </label>
-        <input className='rounded-md px-4 py-2 bg-inherit border mb-6' name='name' placeholder='Colonel Sander' required />
-        <label className='text-md' htmlFor='email'>
-          {t('login.email')}
-        </label>
-        <input className='rounded-md px-4 py-2 bg-inherit border mb-6' name='email' placeholder='you@example.com' required />
-        <label className='text-md' htmlFor='password'>
-          {t('login.password')}
-        </label>
-        <input className='rounded-md px-4 py-2 bg-inherit border mb-6' type='password' name='password' placeholder='••••••••' required />
-        <button className='bg-brand-primary text-white rounded-md px-4 py-2 text-foreground mb-2'>{t('login.signIn')}</button>
+    <div className='flex-1 flex flex-col w-full px-8 py-16 sm:max-w-md justify-center gap-2'>
+      <Toast
+        isOpen={isToastOpen}
+        onClose={handleCloseToast}
+        title={isSubmitSuccessful ? ToastTitle.Success : ToastTitle.Error}
+        message={toastMessage}
+      />
+      <div className='flex flex-col gap-2 mb-6'>
+        <h1 className='text-3xl font-bold text-center'>{t('auth.registerTitle')}</h1>
+        <p className='text-center'>{t('auth.registerSubTitle')}</p>
+      </div>
+      <form className='animate-in flex-1 flex flex-col w-full justify-center gap-5 text-foreground' onSubmit={handleSubmit(signUp)}>
+        <FormInput
+          label={t('auth.name') + ' *'}
+          type='text'
+          register={register('name', { required: true })}
+          error={errors.name}
+          isRequiredMessage={t('auth.name') + t('error.isRequired')}
+          placeholder='Colonel Sander'
+        />
+        <FormInput
+          label={t('auth.email') + ' *'}
+          type='text'
+          register={register('email', { required: true })}
+          error={errors.email}
+          isRequiredMessage={t('auth.email') + t('error.isRequired')}
+          invalidEmail={t('error.invalidEmail')}
+          placeholder='you@example.com'
+        />
+        <FormInput
+          label={t('auth.password') + ' *'}
+          type='password'
+          register={register('password', { required: true })}
+          error={errors.password}
+          isRequiredMessage={t('auth.password') + t('error.isRequired')}
+          placeholder='********'
+        />
+        <div className='py-2 mb-6'>
+          <p>What are you looking for?</p>
+          <div className='flex justify-evenly pt-2'>
+            <div className='flex gap-2 py-2'>
+              <input type='radio' {...register('isCompany')} value='false' />
+              <label className='text-md'>I'm looking for a job</label>
+            </div>
+            <div className='flex gap-2 py-2'>
+              <input type='radio' {...register('isCompany')} value='true' />
+              <label className='text-md'>I'm looking for a candidate</label>
+            </div>
+          </div>
+          {errors.isCompany && <InputError error={{ message: t('error.errorOption') }} />}
+        </div>
+        <button className='bg-brand-primary text-white rounded-md px-4 py-2 text-foreground mb-2'>{t('auth.signUp')}</button>
         <div className='flex justify-center gap-2'>
           <label className='text-md' htmlFor='signup'>
-            Already have an account?
+            {t('auth.alreadyHaveAccount')}
           </label>
           <Link href='/signup' className='text-brand-secondary'>
-            {t('login.signIn')}
+            {t('auth.signIn')}
           </Link>
         </div>
-        {searchParams?.message && <p className='mt-4 p-4 bg-foreground/10 text-foreground text-center'>{searchParams.message}</p>}
       </form>
     </div>
   );

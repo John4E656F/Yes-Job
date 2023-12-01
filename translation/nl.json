@@ -44,11 +44,22 @@
       "title": "Talen",
       "subTitle": "Deze website is beschikbaar in de volgende talen:"
     },
-    "login": {
+    "auth": {
+      "loginTitle": "Aanmelden bij je account",
+      "loginSubTitle": "Welkom terug! Voer uw gegevens in",
+      "registerTitle": "Maak een account aan",
+      "registerSubTitle": "Maak je account aan in een paar klikken!",
+      "name": "Naam en Voornaam",
       "signIn": "Login",
       "signUp": "Registreren",
       "email": "E-mailadres",
-      "password": "Wachtwoord"
+      "password": "Wachtwoord",
+      "alreadyHaveAccount": "Heb je al een account?",
+      "dontHaveAccount": "Geen account?",
+      "lookingForJob": "Op zoek naar een baan",
+      "lookingForEmployee": "Op zoek naar een werknemer",
+      "success": "Je account is succesvol aangemaakt!",
+      "error": "Er is iets fout gegaan, probeer het later nog eens."
     },
     "cta": {
       "publish": "Publiceer een advertentie",
@@ -172,7 +183,9 @@
     "error": {
       "isRequired": " is vereist",
       "invalidURL": "Ongeldige URL",
-      "invalidEmail": "Ongeldig e-mailadres"
+      "invalidEmail": "Ongeldig e-mailadres",
+      "errorOption": "Selecteer een optie.",
+      "userExist": "Gebruiker al geregistreerd, inloggen a.u.b."
     }
   },
   "dashboard": {
