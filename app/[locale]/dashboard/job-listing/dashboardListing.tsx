@@ -8,8 +8,8 @@ import { useTranslations } from 'next-intl';
 import { set } from 'date-fns';
 
 interface DashboardListingProps {
-  jobPost: ListingData[];
-  usedPromotion: number;
+  jobPost?: ListingData[];
+  usedPromotion?: number;
 }
 
 export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingProps) => {
@@ -40,7 +40,7 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
 
   return (
     <>
-      {jobPost ? (
+      {jobPost && usedPromotion ? (
         <div className='flex flex-col gap-4'>
           <Toast
             isOpen={isToastOpen}
