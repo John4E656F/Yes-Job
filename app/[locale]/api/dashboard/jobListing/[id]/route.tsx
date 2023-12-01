@@ -66,6 +66,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
           return NextResponse.json({
             fetchedUserData: fetchedUserData as UsersTypes,
+            fetchedCompanyData: fetchedCompanyData as CompanyTypes,
             fetchedJobPostData: fetchedJobPostData as ListingData[],
             viewCount,
           });

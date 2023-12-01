@@ -30,43 +30,15 @@ export default async function jobListing() {
       : process.env.NEXT_PRIVATE_URL + `/api/dashboard/jobListing/${sessionId}`,
   );
 
-  // const fetchUserData = await fetch(
-  //   process.env.NEXT_PRIVATE_PRODUCTION === 'true'
-  //     ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/user/${sessionId}`
-  //     : process.env.NEXT_PRIVATE_URL + `/api/user/${sessionId}`,
-  // );
-  // const { fetchedUserData, fetchedUserDataError } = await fetchUserData.json();
-  // if (fetchedUserDataError) {
-  //   redirect('/');
-  // } else {
-  //   console.log(fetchedUserData);
-  //   const fetchCompanyData = await fetch(
-  //     process.env.NEXT_PRIVATE_PRODUCTION === 'true'
-  //       ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/company/${fetchedUserData.id}`
-  //       : process.env.NEXT_PRIVATE_URL + `/api/company/${fetchedUserData.id}`,
-  //   );
-
-  //   const { fetchedCompanyData, fetchedCompanyError } = await fetchCompanyData.json();
-  //   console.log(fetchedCompanyData);
-
-  //   const fetchJobListingData = await fetch(
-  //     process.env.NEXT_PRIVATE_PRODUCTION === 'true'
-  //       ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/jobPost/${fetchedCompanyData.id}`
-  //       : process.env.NEXT_PRIVATE_URL + `/api/jobPost/${fetchedCompanyData.id}`,
-  //   );
-  //   const { fetchedJobPostData, fetchedJobPostError } = await fetchJobListingData.json();
-  //   console.log(fetchedJobPostData);
-
-  // }
   const { fetchedUserData, fetchedJobPostData, viewCount } = await response.json();
   const currentUser = fetchedUserData as UsersTypes;
   const jobListing = fetchedJobPostData as ListingData[];
   const totalViewCount = viewCount as dashboardViewCounterDisplayType;
-  console.log(currentUser);
+  // console.log(currentUser);
 
-  console.log(jobListing);
-  console.log(totalViewCount);
-  console.log(totalViewCount);
+  // console.log(jobListing);
+  // console.log(totalViewCount);
+  // console.log(totalViewCount);
 
   // console.log(ownerId);
   let promotedListings: ListingData[] = [];
