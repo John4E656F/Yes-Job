@@ -112,6 +112,8 @@ const PublishPage: React.FC = () => {
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
+            console.log(fetchedUserData);
+
             setUserData(fetchedUserData);
           } else {
             console.error('Failed to fetch user data');
@@ -131,7 +133,6 @@ const PublishPage: React.FC = () => {
       setValue('user_Id', userData.id || '');
       setValue('contactName', userData.contactName || '');
       setValue('contactEmail', userData.user_email || '');
-      setValue('companyName', userData.user_name || '');
       setValue('contactPassword', 'User_already_exists69');
       setValue('logo', userData.user_logo || null);
     }
