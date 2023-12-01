@@ -7,7 +7,7 @@ import { redirect, useRouter } from 'next/navigation';
 import { firstPublishFormResolver, type FirstPublishFormInputs } from './firstPublishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToggle } from '@/hooks';
-import { ToastTitle, UsersTypes } from '@/types';
+import { CompanyTypes, ToastTitle, UsersTypes } from '@/types';
 import { publishFirstListing } from '@/lib/actions';
 import { useTransition } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -27,6 +27,14 @@ const PublishPage: React.FC = () => {
     created_at: '',
     id: '',
     user_id: '',
+  });
+  const [companyData, setCompanyData] = useState<CompanyTypes>({
+    name: '',
+    logo: '',
+    website: '',
+    phone: '',
+    owner_id: '',
+    teamMembers: [''],
   });
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
@@ -113,7 +121,12 @@ const PublishPage: React.FC = () => {
           if (response.ok) {
             const { fetchedUserData } = await response.json();
             console.log(fetchedUserData);
-
+            if (!fetchedUserData.isCompany) {
+              return redirect('/');
+            }
+            if (fetchedUserData.company_id) {
+              //fetch company data then setState
+            }
             setUserData(fetchedUserData);
           } else {
             console.error('Failed to fetch user data');
