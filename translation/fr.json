@@ -44,11 +44,22 @@
       "title": "Langues",
       "subTitle": "Ce site est disponible dans les langues suivantes :"
     },
-    "login": {
+    "auth": {
+      "loginTitle": "Connectez-vous à votre compte",
+      "loginSubTitle": "Bienvenue à nouveau ! Veuillez entrer vos coordonnées",
+      "registerTitle": "Créer un compte",
+      "registerSubTitle": "Créez votre compte en quelques clics!",
+      "name": "Nom et Prénom",
       "signIn": "Se connecter",
       "signUp": "S'inscrire",
       "email": "Adresse email",
-      "password": "Mot de passe"
+      "password": "Mot de passe",
+      "alreadyHaveAccount": "Vous avez déjà un compte?",
+      "dontHaveAccount": "Don't have an account?",
+      "lookingForJob": "A la recherche d'un emploi",
+      "lookingForEmployee": "A la recherche d'un employé",
+      "success": "Votre compte a été créé avec succès !",
+      "error": "Quelque chose n'a pas fonctionné, veuillez réessayer plus tard."
     },
     "cta": {
       "publish": "Publier une annonce",
@@ -172,7 +183,9 @@
     "error": {
       "isRequired": " est obligatoire",
       "invalidURL": "URL invalide",
-      "invalidEmail": "Adresse e-mail invalide"
+      "invalidEmail": "Adresse e-mail invalide",
+      "errorOption": "Veuillez sélectionner une option.",
+      "userExist": "L'utilisateur déjà inscrit, veuillez vous connecter."
     }
   },
   "dashboard": {
