@@ -45,11 +45,22 @@
       "title": "Languages",
       "subTitle": "This website is available in the following languages:"
     },
-    "login": {
+    "auth": {
+      "loginTitle": "Log in to your account",
+      "loginSubTitle": "Welcome back! Please enter your details",
+      "registerTitle": "Create an account",
+      "registerSubTitle": "Create your account in a few clicks!",
+      "name": "Name",
       "signIn": "Sign in",
       "signUp": "Sign up",
       "email": "Email Address",
-      "password": "Password"
+      "password": "Password",
+      "alreadyHaveAccount": "Already have an account?",
+      "dontHaveAccount": "Don't have an account?",
+      "lookingForJob": "Looking for a job",
+      "lookingForEmployee": "Looking for an employee",
+      "success": "Your account has been created successfully!",
+      "error": "Something went wrong, please try again later."
     },
     "cta": {
       "publish": "Publish an ad",
@@ -176,7 +187,9 @@
     "error": {
       "isRequired": " is required",
       "invalidURL": "Invalid URL",
-      "invalidEmail": "Invalid email address"
+      "invalidEmail": "Invalid email address",
+      "errorOption": "Please select an option.",
+      "userExist": "User already registered, please signin."
     }
   },
   "dashboard": {

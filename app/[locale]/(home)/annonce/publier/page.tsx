@@ -76,8 +76,8 @@ const PublishPage: React.FC = () => {
   });
   const applicationMethod = watch('applicationMethod');
   const companyWebsite = watch('companyWebsite');
-  console.log(watch());
-  console.log(errors);
+  // console.log(watch());
+  // console.log(errors);
 
   useEffect(() => {
     if (applicationMethod === 'yesJob') {
@@ -157,12 +157,12 @@ const PublishPage: React.FC = () => {
   ];
 
   const onSubmit = async (data: FirstPublishFormInputs) => {
-    console.log(data);
+    // console.log(data);
     let logo = data.logo[0];
     let logoUrl = '';
     if (logo) {
       const supabase = createClient();
-      console.log('logo', logo);
+      // console.log('logo', logo);
 
       const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
 
@@ -171,14 +171,14 @@ const PublishPage: React.FC = () => {
         upsert: false,
       });
       if (uploadError || !uploadData) {
-        console.log(uploadError);
+        // console.log(uploadError);
 
         return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
       }
 
       const { data: publicUrlData } = supabase.storage.from('logo').getPublicUrl(uploadData.path);
       if (!publicUrlData) {
-        console.log(publicUrlData);
+        // console.log(publicUrlData);
 
         return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
       }
