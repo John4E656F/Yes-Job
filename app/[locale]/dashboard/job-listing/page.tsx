@@ -34,11 +34,10 @@ export default async function jobListing() {
   const currentUser = fetchedUserData as UsersTypes;
   const jobListing = fetchedJobPostData as ListingData[];
   const totalViewCount = viewCount as dashboardViewCounterDisplayType;
-  // console.log(currentUser);
+  console.log(currentUser);
 
-  // console.log(jobListing);
-  // console.log(totalViewCount);
-  // console.log(totalViewCount);
+  console.log(jobListing);
+  console.log(totalViewCount);
 
   // console.log(ownerId);
   let promotedListings: ListingData[] = [];
@@ -80,7 +79,7 @@ export default async function jobListing() {
             <p>{t('jobListing.subText')}</p>
           </div>
           <Link
-            href='/publier'
+            href={`${jobListing ? '/publier' : '/annonce/publier'}`}
             className='flex items-center justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
           >
             <button type='button' className='px-4 py-2 text-sm whitespace-nowrap'>

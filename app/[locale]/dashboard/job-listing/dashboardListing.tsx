@@ -84,7 +84,7 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
             <p className='text-sm'>{t('jobListing.firstJobListingSub')}</p>
           </div>
           <Link
-            href='/publier'
+            href='/annonce/publier'
             className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
           >
             <button type='button' className='px-4 h-11 text-sm'>

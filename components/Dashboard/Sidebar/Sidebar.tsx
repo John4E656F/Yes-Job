@@ -56,7 +56,7 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
   });
   const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
   const t = useTranslations('app');
-  console.log(session);
+  // console.log(session);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -73,7 +73,7 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
-            console.log(fetchedUserData);
+            // console.log(fetchedUserData);
             setUserData(fetchedUserData);
             const responseCompany = await fetch(`/api/company/${fetchedUserData.id}`);
             const { fetchedCompanyData } = await responseCompany.json();
@@ -86,13 +86,13 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
               setChecklistData((prevState) => prevState.map((item) => (item.tag === 'post' ? { ...item, boolean: true } : item)));
             }
           } else {
-            console.error('Failed to fetch user data');
+            // console.error('Failed to fetch user data');
           }
         } catch (error) {
-          console.error('Error fetching user data:', error);
+          // console.error('Error fetching user data:', error);
         }
       } else {
-        console.log('No owner ID found');
+        // console.log('No owner ID found');
       }
     };
     fetchUserData();
@@ -105,7 +105,6 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
 
     setCompletionPercentage(newCompletionPercentage);
   }, [checklistData]);
-  console.log(completionPercentage);
 
   return (
     <aside className='hidden fixed md:flex flex-col h-screen gap-5 p-5 w-64 min-w-fit border-r bg-brand-lightbg'>
@@ -153,14 +152,16 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
                 </div>
               ))}
             </div>
-            <Link
-              href='/publier'
-              className='flex items-center justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
-            >
-              <button type='button' className='px-4 py-2 text-sm whitespace-nowrap'>
-                {t('cta.postAJob')}
-              </button>
-            </Link>
+            {!checklistData[2].boolean && (
+              <Link
+                href='/annonce/publier'
+                className='flex items-center justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
+              >
+                <button type='button' className='px-4 py-2 text-sm whitespace-nowrap'>
+                  {t('cta.postAJob')}
+                </button>
+              </Link>
+            )}
           </div>
         )}
         <div className='flex gap-2 items-center'>
