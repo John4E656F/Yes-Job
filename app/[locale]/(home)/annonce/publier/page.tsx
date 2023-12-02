@@ -124,8 +124,13 @@ const PublishPage: React.FC = () => {
             if (!fetchedUserData.isCompany) {
               return redirect('/');
             }
-            if (fetchedUserData.company_id) {
-              //fetch company data then setState
+            if (fetchedUserData.id) {
+              const responseCompany = await fetch(`/api/company/${fetchedUserData.id}`);
+              const { fetchedCompanyData, fetchedCompanyError } = await responseCompany.json();
+
+              if (fetchedCompanyData) {
+                setCompanyData(fetchedCompanyData);
+              }
             }
             setUserData(fetchedUserData);
           } else {
@@ -150,6 +155,15 @@ const PublishPage: React.FC = () => {
       setValue('logo', userData.user_logo || null);
     }
   }, [userData]);
+
+  useEffect(() => {
+    if (companyData) {
+      setValue('companyName', companyData.name || '');
+      setValue('companyWebsite', companyData.website || '');
+      setValue('logo', companyData.logo || null);
+      setValue('companyPhone', companyData.phone || null);
+    }
+  }, [companyData]);
 
   const options = [
     { value: '', label: t('jobFonction.default'), disabled: true },
