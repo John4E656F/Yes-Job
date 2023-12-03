@@ -84,6 +84,8 @@ const PublishPage: React.FC = () => {
   });
   const applicationMethod = watch('applicationMethod');
   const companyWebsite = watch('companyWebsite');
+  const contactEmail = watch('contactEmail');
+  const contactPassword = watch('contactPassword');
   // console.log(watch());
   // console.log(errors);
 
@@ -492,7 +494,33 @@ const PublishPage: React.FC = () => {
               />
             )}
           </div>
-          {userData && userData.company_id ? null : (
+          {userData ? (
+            <>
+              <div className='w-full h-px bg-slate-300 rounded' />
+              <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>
+              <h3 className='text-md '>{t('publishAds.contactDetailsSub')}</h3>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.contactDetailsName') + ' *'}
+                  type='text'
+                  register={register('contactName', { required: true })}
+                  error={errors.contactName}
+                  isRequiredMessage={t('publishAds.contactDetailsName') + t('error.isRequired')}
+                  placeholder='Lenny De Wolf'
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.contactPhone')}
+                  type='tel'
+                  register={register('contactPhone')}
+                  error={errors.contactName}
+                  isRequiredMessage={t('publishAds.contactPhone') + t('error.isRequired')}
+                  placeholder='0412345678'
+                />
+              </div>
+            </>
+          ) : (
             <>
               <div className='w-full h-px bg-slate-300 rounded' />
               <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>
