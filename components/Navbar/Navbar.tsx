@@ -50,6 +50,9 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
           if (response.ok) {
             const { fetchedUserData } = await response.json();
             // console.log(pathname);
+            if (!fetchedUserData.company_id) {
+              return setIsFirstPost(true);
+            }
             const userId = fetchedUserData.id;
 
             const fetchedUserListing = await getCurrentUserJobListing({ ownerId: userId, path: pathname });

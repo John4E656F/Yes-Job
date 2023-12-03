@@ -22,11 +22,11 @@ export const SidebarList = ({ companyName, t }: SidebarProps) => {
       count: 0,
       link: '/dashboard/job-listing',
     },
-    // {
-    // icon: RiHomeSmileLine,
-    // text: t('sidebar.company'),
-    // link: '/dashboard/company',
-    // },
+    {
+      icon: RiHomeSmileLine,
+      text: t('sidebar.company'),
+      link: '/dashboard/company',
+    },
     // {
     //   icon: RiGroupLine,
     //   text: t('sidebar.team'),
