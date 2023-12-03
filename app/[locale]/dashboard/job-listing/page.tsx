@@ -11,6 +11,7 @@ import { refreshUserSession } from '@/lib/actions/refreshServerSession';
 import { ViewCountDisplay } from './viewCountDisplay';
 import { DashboardListing } from './dashboardListing';
 import { getTranslations } from 'next-intl/server';
+import { redirect } from 'next/navigation';
 
 export default async function jobListing() {
   const t = await getTranslations('dashboard');
@@ -28,16 +29,21 @@ export default async function jobListing() {
       ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/dashboard/jobListing/${sessionId}`
       : process.env.NEXT_PRIVATE_URL + `/api/dashboard/jobListing/${sessionId}`,
   );
+
   const { fetchedUserData, fetchedJobPostData, viewCount } = await response.json();
   const currentUser = fetchedUserData as UsersTypes;
   const jobListing = fetchedJobPostData as ListingData[];
   const totalViewCount = viewCount as dashboardViewCounterDisplayType;
+  console.log(currentUser);
+
   console.log(jobListing);
   console.log(totalViewCount);
 
   // console.log(ownerId);
-
-  const promotedListings: ListingData[] = jobListing.filter((listing) => listing.promoted === true);
+  let promotedListings: ListingData[] = [];
+  if (jobListing) {
+    promotedListings = jobListing.filter((listing) => listing.promoted === true);
+  }
 
   // console.log(currentUser);
   // console.log(currentUserJobListing);
@@ -51,14 +57,14 @@ export default async function jobListing() {
         </h1>
         <div className='flex p-1 px-2 gap-2 w-fit rounded border border-gray-300'>
           <div>
-            {jobListing.length}
+            {jobListing ? jobListing.length : 0}
             <span className='font-medium'>
               /{currentUser.availableJobListing} {t('jobListing.jobListing')}{' '}
             </span>
           </div>
           <hr className='w-px h-auto border bg-gray-300' />
           <div>
-            {promotedListings.length}
+            {jobListing ? promotedListings.length : 0}
             <span className='font-medium'>
               /{currentUser.availablePromotion} {t('jobListing.promotion')}
             </span>
@@ -73,7 +79,7 @@ export default async function jobListing() {
             <p>{t('jobListing.subText')}</p>
           </div>
           <Link
-            href='/publier'
+            href={`${jobListing ? '/publier' : '/annonce/publier'}`}
             className='flex items-center justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
           >
             <button type='button' className='px-4 py-2 text-sm whitespace-nowrap'>

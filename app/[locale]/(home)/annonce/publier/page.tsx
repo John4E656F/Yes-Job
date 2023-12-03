@@ -7,7 +7,7 @@ import { redirect, useRouter } from 'next/navigation';
 import { firstPublishFormResolver, type FirstPublishFormInputs } from './firstPublishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToggle } from '@/hooks';
-import { ToastTitle, UsersTypes } from '@/types';
+import { CompanyTypes, ToastTitle, UsersTypes } from '@/types';
 import { publishFirstListing } from '@/lib/actions';
 import { useTransition } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -27,6 +27,14 @@ const PublishPage: React.FC = () => {
     created_at: '',
     id: '',
     user_id: '',
+  });
+  const [companyData, setCompanyData] = useState<CompanyTypes>({
+    name: '',
+    logo: '',
+    website: '',
+    phone: '',
+    owner_id: '',
+    teamMembers: [''],
   });
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
@@ -76,6 +84,8 @@ const PublishPage: React.FC = () => {
   });
   const applicationMethod = watch('applicationMethod');
   const companyWebsite = watch('companyWebsite');
+  const contactEmail = watch('contactEmail');
+  const contactPassword = watch('contactPassword');
   // console.log(watch());
   // console.log(errors);
 
@@ -112,6 +122,18 @@ const PublishPage: React.FC = () => {
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
+            console.log(fetchedUserData);
+            if (!fetchedUserData.isCompany) {
+              return redirect('/');
+            }
+            if (fetchedUserData.id) {
+              const responseCompany = await fetch(`/api/company/${fetchedUserData.id}`);
+              const { fetchedCompanyData, fetchedCompanyError } = await responseCompany.json();
+
+              if (fetchedCompanyData) {
+                setCompanyData(fetchedCompanyData);
+              }
+            }
             setUserData(fetchedUserData);
           } else {
             console.error('Failed to fetch user data');
@@ -131,11 +153,19 @@ const PublishPage: React.FC = () => {
       setValue('user_Id', userData.id || '');
       setValue('contactName', userData.contactName || '');
       setValue('contactEmail', userData.user_email || '');
-      setValue('companyName', userData.user_name || '');
       setValue('contactPassword', 'User_already_exists69');
       setValue('logo', userData.user_logo || null);
     }
   }, [userData]);
+
+  useEffect(() => {
+    if (companyData) {
+      setValue('companyName', companyData.name || '');
+      setValue('companyWebsite', companyData.website || '');
+      setValue('logo', companyData.logo || null);
+      setValue('companyPhone', companyData.phone || null);
+    }
+  }, [companyData]);
 
   const options = [
     { value: '', label: t('jobFonction.default'), disabled: true },
@@ -464,7 +494,33 @@ const PublishPage: React.FC = () => {
               />
             )}
           </div>
-          {userData && userData.company_id ? null : (
+          {userData ? (
+            <>
+              <div className='w-full h-px bg-slate-300 rounded' />
+              <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>
+              <h3 className='text-md '>{t('publishAds.contactDetailsSub')}</h3>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.contactDetailsName') + ' *'}
+                  type='text'
+                  register={register('contactName', { required: true })}
+                  error={errors.contactName}
+                  isRequiredMessage={t('publishAds.contactDetailsName') + t('error.isRequired')}
+                  placeholder='Lenny De Wolf'
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.contactPhone')}
+                  type='tel'
+                  register={register('contactPhone')}
+                  error={errors.contactName}
+                  isRequiredMessage={t('publishAds.contactPhone') + t('error.isRequired')}
+                  placeholder='0412345678'
+                />
+              </div>
+            </>
+          ) : (
             <>
               <div className='w-full h-px bg-slate-300 rounded' />
               <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>
