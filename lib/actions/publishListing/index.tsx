@@ -199,7 +199,7 @@ export async function publishListing(data: PublishFormInputs) {
   const supabase = createClient();
 
   try {
-    let companyId = data.user_Id;
+    let companyId = data.company_Id;
 
     const { data: jobPostData, error: insertError } = await supabase.from('jobPosting').insert({
       company_id: companyId,
@@ -211,6 +211,8 @@ export async function publishListing(data: PublishFormInputs) {
       partTime: data.partTime,
       description: data.description,
       experience: data.experience === 'experience' ? true : false,
+      student: data.student,
+      flexi: data.flexi,
       location: data.location,
       salaryMin: data.salaryMin,
       salaryMax: data.salaryMax,
@@ -231,13 +233,24 @@ export async function publishListing(data: PublishFormInputs) {
     const { error: languageError } = await supabase
       .from('language')
       .insert({ english: data.english, french: data.french, dutch: data.dutch, jobPost_id: (jobPostData[0] as jobPost).id });
+    if (languageError) {
+      // console.log('language', languageError.message);
 
+      return {
+        type: 'error' as const,
+        message: 'Unexpected error, please try again later.',
+      };
+    }
     const { error: companyError } = await supabase
       .from('company')
       .update({ jobListings: [(jobPostData[0] as jobPost).id] })
       .eq('id', companyId)
       .single();
 
+    if (companyError) {
+      // console.log('companyerror', companyError.message);
+      return { type: 'error' as const, message: companyError.message };
+    }
     return {
       type: 'success' as const,
       message: 'Your job offer has been published successfully.',

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
 import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { publishFormResolver, type PublishFormInputs } from './publishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToggle } from '@/hooks';
@@ -36,6 +36,7 @@ const PublishPage: React.FC = () => {
     reValidateMode: 'onBlur',
     defaultValues: {
       user_Id: '',
+      company_Id: '',
       title: '',
       jobFunction: '',
       cdd: false,
@@ -43,6 +44,11 @@ const PublishPage: React.FC = () => {
       fullTime: false,
       partTime: false,
       experience: 'noExperience',
+      student: false,
+      flexi: false,
+      english: false,
+      french: false,
+      dutch: false,
       description: '',
       location: '',
       salaryMin: null,
@@ -52,7 +58,7 @@ const PublishPage: React.FC = () => {
     },
   });
   const applicationMethod = watch('applicationMethod');
-  // console.log(watch());
+  console.log(watch());
   // console.log(errors);
 
   useEffect(() => {
@@ -82,6 +88,19 @@ const PublishPage: React.FC = () => {
             const { fetchedUserData } = await response.json();
             console.log(fetchedUserData);
             setValue('user_Id', fetchedUserData.id || '');
+
+            const responseCompany = await fetch(`/api/company/${fetchedUserData.id}`);
+            const { fetchedCompanyData, fetchedCompanyError } = await responseCompany.json();
+
+            if (fetchedCompanyError) {
+              setToastErrorMessage('Please setup your company profile first.');
+              setTimeout(() => {
+                toggleToast(false);
+                redirect('/dashboard/company');
+              }, 2000);
+              console.error('Failed to fetch user data:', fetchedCompanyError);
+            }
+            setValue('company_Id', fetchedCompanyData.id || '');
           } else {
             console.error('Failed to fetch user data');
           }
@@ -219,27 +238,37 @@ const PublishPage: React.FC = () => {
             </div>
             <div className='flex flex-col gap-3'>
               <label className='text-lg font-medium'>{t('publishAds.experience')}</label>
-              <div className='flex flex-row gap-8 justify-evenly '>
-                {watch('experience') && (
-                  <>
-                    <FormRadio
-                      name='experience'
-                      register={register('experience')}
-                      error={errors.experience}
-                      label={t('listing.noExperience')}
-                      value='noExperience'
-                      onChange={() => setValue('experience', 'noExperience')}
-                    />
-                    <FormRadio
-                      name='experience'
-                      register={register('experience')}
-                      error={errors.experience}
-                      label={t('listing.experience')}
-                      value='experience'
-                      onChange={() => setValue('experience', 'experience')}
-                    />
-                  </>
-                )}
+              <div className='flex flex-row flex-wrap gap-8  justify-evenly'>
+                <div className='flex gap-8 justify-evenly'>
+                  <FormRadio
+                    name='experience'
+                    register={register('experience')}
+                    error={errors.experience}
+                    label={t('listing.noExperience')}
+                    value='noExperience'
+                    onChange={() => setValue('experience', 'noExperience')}
+                  />
+                  <FormRadio
+                    name='experience'
+                    register={register('experience')}
+                    error={errors.experience}
+                    label={t('listing.experience')}
+                    value='experience'
+                    onChange={() => setValue('experience', 'experience')}
+                  />
+                </div>
+                <div className='flex gap-8 justify-evenly'>
+                  <FormCheckbox register={register('student')} error={errors.student} label='Student' />
+                  <FormCheckbox register={register('flexi')} error={errors.flexi} label='Flexi-Job' />
+                </div>
+              </div>
+            </div>
+            <div className='flex flex-col gap-3'>
+              <label className='text-lg font-medium'>Languages</label>
+              <div className='flex flex-row gap-8 justify-evenly'>
+                <FormCheckbox register={register('english')} error={errors.english} label='English' />
+                <FormCheckbox register={register('french')} error={errors.french} label='French' />
+                <FormCheckbox register={register('dutch')} error={errors.dutch} label='Dutch' />
               </div>
             </div>
           </div>

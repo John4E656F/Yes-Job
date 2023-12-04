@@ -154,7 +154,7 @@ export async function saveNewListingAsDraft({ data, path }: NewListingProps) {
 
   try {
     const { error: insertError } = await supabase.from('jobPosting').insert({
-      companyId: data.user_Id,
+      company_id: data.company_Id,
       title: data.title,
       jobFunction: data.jobFunction,
       cdd: data.cdd,
@@ -171,8 +171,6 @@ export async function saveNewListingAsDraft({ data, path }: NewListingProps) {
     });
 
     if (insertError) {
-      console.log(insertError);
-
       return {
         type: 'error' as const,
         message: 'Unexpected error, please try again later.',
