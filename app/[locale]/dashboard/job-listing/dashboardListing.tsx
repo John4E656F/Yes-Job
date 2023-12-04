@@ -5,7 +5,6 @@ import { ToastTitle, UsersTypes, type ListingData, dashboardViewCounterDisplayTy
 import { RiFileList3Line } from 'react-icons/ri';
 import { useToggle } from '@/hooks';
 import { useTranslations } from 'next-intl';
-import { set } from 'date-fns';
 
 interface DashboardListingProps {
   jobPost?: ListingData[];
@@ -13,6 +12,9 @@ interface DashboardListingProps {
 }
 
 export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingProps) => {
+  console.log('dashboard joblisting', jobPost);
+  console.log('dashboard usedPromotion', usedPromotion);
+
   const t = useTranslations('dashboard');
   const [toastSuccessMessage, setToastSuccessMessage] = useState<string>('');
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
@@ -40,7 +42,7 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
 
   return (
     <>
-      {jobPost && usedPromotion ? (
+      {jobPost && jobPost.length > 0 && typeof usedPromotion === 'number' ? (
         <div className='flex flex-col gap-4'>
           <Toast
             isOpen={isToastOpen}
