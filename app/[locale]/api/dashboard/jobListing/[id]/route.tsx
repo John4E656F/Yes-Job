@@ -12,10 +12,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
     // Fetch user data
     const { data: fetchedUserData, error: userError } = await supabase.from('users').select('*').eq('user_id', ownerId).single();
 
-    if (userError || fetchedUserData) {
-      // throw new Error('Failed to fetch user data: ' + userError.message);
-      return NextResponse.json({ fetchedUserData: fetchedUserData as UsersTypes, error: 'Failed to fetch user data: ' + userError?.message });
-    } else if (fetchedUserData) {
+    if (fetchedUserData) {
       const userData = fetchedUserData as UsersTypes;
       const { data: fetchedCompanyData, error: companyError } = await supabase.from('company').select('*').eq('owner_id', userData.id).single();
 
@@ -25,7 +22,15 @@ export async function GET(request: Request, { params }: { params: { id: string }
       } else if (fetchedCompanyData) {
         const companyData = fetchedCompanyData as CompanyTypes;
         // Fetch job listing data
-        const { data: fetchedJobPostData, error: jobError } = await supabase.from('jobPosting').select(`*`).eq('company_id', companyData.id);
+        const { data: fetchedJobPostData, error: jobError } = await supabase
+          .from('jobPosting')
+          .select(
+            `
+        *,
+        company:company(*)
+      `,
+          )
+          .eq('company_id', companyData.id);
 
         if (jobError) {
           return NextResponse.json({ error: 'Failed to fetch job listing data: ' + jobError.message });

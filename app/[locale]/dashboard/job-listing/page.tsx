@@ -5,7 +5,7 @@
 import React from 'react';
 import { Link, Divider, DashboardListingCard } from '@/components';
 
-import type { UsersTypes, ListingData, dashboardViewCounterDisplayType } from '@/types';
+import type { UsersTypes, CompanyTypes, ListingData, dashboardViewCounterDisplayType } from '@/types';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 import { refreshUserSession } from '@/lib/actions/refreshServerSession';
 import { ViewCountDisplay } from './viewCountDisplay';
@@ -30,14 +30,15 @@ export default async function jobListing() {
       : process.env.NEXT_PRIVATE_URL + `/api/dashboard/jobListing/${sessionId}`,
   );
 
-  const { fetchedUserData, fetchedJobPostData, viewCount } = await response.json();
+  const { fetchedUserData, fetchedCompanyData, fetchedJobPostData, viewCount } = await response.json();
   const currentUser = fetchedUserData as UsersTypes;
+  const companyData = fetchedCompanyData as CompanyTypes;
   const jobListing = fetchedJobPostData as ListingData[];
   const totalViewCount = viewCount as dashboardViewCounterDisplayType;
-  console.log(currentUser);
+  console.log('dashboard user', currentUser);
 
-  console.log(jobListing);
-  console.log(totalViewCount);
+  console.log('dashboard joblisting', jobListing);
+  console.log('dashboard totalViewCount', totalViewCount);
 
   // console.log(ownerId);
   let promotedListings: ListingData[] = [];

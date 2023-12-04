@@ -12,6 +12,8 @@ interface ListingCardProps {
 
 export function ListingCard({ jobPost }: ListingCardProps) {
   const t = useTranslations('app');
+  console.log(jobPost);
+
   return (
     <Link href={`/annonce/${jobPost.id}`}>
       <Card className='flex flex-col relative items-center p-1 md:flex-row md:p-2' pinned={jobPost.pinned}>
