@@ -12,7 +12,7 @@ interface ListingCardProps {
 
 export function ListingCard({ jobPost }: ListingCardProps) {
   const t = useTranslations('app');
-  console.log(jobPost);
+  // console.log(jobPost);
 
   return (
     <Link href={`/annonce/${jobPost.id}`}>
