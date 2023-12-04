@@ -1,11 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { Image, Button, Logo, Link, LocaleSwitcher, MobileMenu, ProfileMenu } from '..';
+import { Image, Button, Logo, Link, LocaleSwitcher, MobileMenu, ProfileMenu, Toast } from '..';
 import { HiBars3, HiMiniLanguage, HiUser } from 'react-icons/hi2';
 import { useTranslations } from 'next-intl';
-import { UsersTypes, CompanyTypes } from '@/types';
-import { useToggleMenu } from '@/hooks';
+import { UsersTypes, CompanyTypes, ListingData, ToastTitle } from '@/types';
+import { useToggle, useToggleMenu } from '@/hooks';
 import type { Session } from '@supabase/supabase-js';
 import { getCurrentUserJobListing } from '@/lib/actions/jobPost';
 
@@ -37,7 +37,8 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
     teamMembers: [''],
   });
   const [isFirstPost, setIsFirstPost] = useState<boolean>(true);
-
+  const [usedListingCount, setUsedListingCount] = useState<number>(0);
+  const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
   const { menuRef: profileMenuRef, isMenuOpen: isProfileMenuOpen, toggleMenu: toggleProfileMenu } = useToggleMenu();
   const { menuRef: mobileMenuRef, isMenuOpen: isMobileMenuOpen, toggleMenu: toggleMobileMenu } = useToggleMenu();
   const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
@@ -67,8 +68,11 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               const companyId = fetchedCompanyData.id;
 
               const fetchedUserListing = await getCurrentUserJobListing({ company_Id: companyId, path: pathname });
+              console.log('fetchedUserListing', fetchedUserListing);
 
               if (fetchedUserListing.length > 0) {
+                const publishedListingCount = fetchedUserListing.filter((listing: ListingData) => listing.published === true).length;
+                setUsedListingCount(publishedListingCount);
                 setIsFirstPost(false);
               }
             }
@@ -88,10 +92,26 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   }, [session?.access_token]);
 
   // console.log('userData', userData);
-  // console.log('companyData', companyData);
+  console.log('companyData', companyData);
+  console.log(usedListingCount);
 
+  const onClickPost = () => {
+    if (usedListingCount === companyData.availableJobListing) {
+      toggleToast(true);
+      setTimeout(() => {
+        router.push(`/upgrade`);
+        toggleToast(false);
+      }, 3000);
+    } else {
+      router.push(`/publier`);
+    }
+  };
+  const handleCloseToast = () => {
+    toggleToast(!isToastOpen);
+  };
   return (
     <nav className='w-full flex justify-center h-auto relative'>
+      <Toast isOpen={isToastOpen} onClose={handleCloseToast} title={ToastTitle.Error} message='test' />
       <div className='container flex justify-between items-center py-3 text-sm relative'>
         <Link href='/' className='flex items-center' aria-label='YesJob Navbar Logo'>
           <Logo width={80} height={80} />
@@ -134,7 +154,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               <Button
                 text={t('cta.publish')}
                 btnType='button'
-                onClick={() => router.push('/publier')}
+                onClick={onClickPost}
                 className='hidden md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
               />
             )}
