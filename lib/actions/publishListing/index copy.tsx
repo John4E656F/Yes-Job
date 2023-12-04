@@ -123,12 +123,12 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
       const { data: newCompanyData, error: newCompanyError } = await supabase
         .from('company')
         .insert({
-          owner_id: data.user_Id,
-          teamMembers: [data.user_Id],
-          name: data.companyName,
-          logo: logoUrl,
-          website: data.companyWebsite,
-          phone: data.companyPhone,
+          owner_id: newUserData[0].id,
+          teamMembers: [newUserData[0].id],
+          name: companyName,
+          logo: companyLogo,
+          website: companyWebsite,
+          phone: companyPhone,
         })
         .select('*');
 
@@ -139,7 +139,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
       const { data: jobPostData, error: jobPostError } = await supabase
         .from('jobPosting')
         .insert({
-          company_id: newCompanyData[0].id,
+          company_id: companyData.id,
           title: data.title,
           jobFunction: data.jobFunction,
           cdd: data.cdd,
@@ -188,7 +188,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
       const { error: companyUpdateError } = await supabase
         .from('company')
         .update({ jobListings: [jobPostData[0].id] })
-        .eq('id', newCompanyData[0].id)
+        .eq('id', companyData.id)
         .select('*');
 
       if (companyUpdateError) {
@@ -207,10 +207,10 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
         };
       }
 
-      if (data.contactName !== usersData.contactName && data.contactPhone !== usersData.user_phone) {
+      if (data.contactName !== usersData.contactName && data.contactPhone !== usersData.contactPhone) {
         const { error: usersUpdateError } = await supabase
           .from('users')
-          .update({ contactName: data.contactName, user_phone: data.contactPhone })
+          .update({ contactName: data.contactName, contactPhone: data.contactPhone })
           .eq('id', usersData.id);
 
         if (usersUpdateError) {
@@ -226,8 +226,8 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
 
           return { type: 'error' as const, message: usersUpdateError.message };
         }
-      } else if (data.contactPhone !== usersData.user_phone) {
-        const { error: usersUpdateError } = await supabase.from('users').update({ user_phone: data.contactPhone }).eq('id', usersData.id);
+      } else if (data.contactPhone !== usersData.contactPhone) {
+        const { error: usersUpdateError } = await supabase.from('users').update({ contactPhone: data.contactPhone }).eq('id', usersData.id);
 
         if (usersUpdateError) {
           console.log('usersUpdateError phone', usersUpdateError.message);

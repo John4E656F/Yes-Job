@@ -13,6 +13,7 @@ import { useTransition } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { removeSpaces } from '@/utils/';
 import { createClient } from '@/utils/supabase/client';
+import { set } from 'date-fns';
 
 const PublishPage: React.FC = () => {
   const t = useTranslations('app');
@@ -29,6 +30,7 @@ const PublishPage: React.FC = () => {
     user_id: '',
   });
   const [companyData, setCompanyData] = useState<CompanyTypes>({
+    id: '',
     name: '',
     logo: '',
     website: '',
@@ -54,6 +56,7 @@ const PublishPage: React.FC = () => {
     reValidateMode: 'onBlur',
     defaultValues: {
       user_Id: '',
+      company_Id: '',
       companyName: '',
       logo: '',
       title: '',
@@ -86,7 +89,7 @@ const PublishPage: React.FC = () => {
   const companyWebsite = watch('companyWebsite');
   const contactEmail = watch('contactEmail');
   const contactPassword = watch('contactPassword');
-  // console.log(watch());
+  console.log(watch());
   // console.log(errors);
 
   useEffect(() => {
@@ -159,7 +162,8 @@ const PublishPage: React.FC = () => {
   }, [userData]);
 
   useEffect(() => {
-    if (companyData) {
+    if (companyData && companyData.id !== '') {
+      setValue('company_Id', companyData.id || '');
       setValue('companyName', companyData.name || '');
       setValue('companyWebsite', companyData.website || '');
       setValue('logo', companyData.logo || null);
