@@ -13,7 +13,7 @@ interface ListingCardProps {
 }
 
 export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPromotion }: ListingCardProps) {
-  console.log('dashboard joblisting card', jobPost);
+  // console.log('dashboard joblisting card', jobPost);
 
   const t = useTranslations('dashboard');
 
