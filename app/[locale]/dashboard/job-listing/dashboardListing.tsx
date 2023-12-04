@@ -12,8 +12,8 @@ interface DashboardListingProps {
 }
 
 export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingProps) => {
-  console.log('dashboard joblisting', jobPost);
-  console.log('dashboard usedPromotion', usedPromotion);
+  // console.log('dashboard joblisting', jobPost);
+  // console.log('dashboard usedPromotion', usedPromotion);
 
   const t = useTranslations('dashboard');
   const [toastSuccessMessage, setToastSuccessMessage] = useState<string>('');
