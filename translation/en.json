@@ -204,6 +204,7 @@
       "subText": "Manage your live and draft job listings here.",
       "promotionSuccess": "Job vacancy promoted successfully!",
       "promotionFailed": "No more promotion available, upgrade your account or buy to get more promotion",
+      "postError": "No more job listing available, upgrade your account or buy to get more job listing",
       "moreJobListing": "Need to list more job ?",
       "moreJobListingSub": "Upgrade your account and get to list more job vacancy",
       "firstJobListing": "Post your first job vacancy!",

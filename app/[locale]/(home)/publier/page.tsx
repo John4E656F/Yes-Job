@@ -86,7 +86,7 @@ const PublishPage: React.FC = () => {
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
-            console.log(fetchedUserData);
+            // console.log(fetchedUserData);
             setValue('user_Id', fetchedUserData.id || '');
 
             const responseCompany = await fetch(`/api/company/${fetchedUserData.id}`);
@@ -109,6 +109,7 @@ const PublishPage: React.FC = () => {
         }
       } else {
         console.log('No owner ID found');
+        router.push('/login');
       }
     };
     fetchUserData();

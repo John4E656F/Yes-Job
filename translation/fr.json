@@ -200,6 +200,7 @@
       "subText": "Gérez ici vos offres d'emploi en ligne et provisoires.",
       "promotionSuccess": "L'offre d'emploi a été promue avec succès !",
       "promotionFailed": "Vous n'avez plus de promotion disponible, passez à la version supérieure ou achetez pour obtenir plus de promotion.",
+      "postError": "Il n'y a plus d'offres d'emploi disponibles, mettez à jour votre compte ou achetez pour obtenir plus d'offres d'emploi.",
       "moreJobListing": "Besoin de répertorier plus d'offres d'emploi ?",
       "moreJobListingSub": "Passez à la version et obtenez plus d'offres d'emploi.",
       "firstJobListing": "Publiez votre première offre d'emploi !",

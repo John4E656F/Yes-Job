@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Link, Toast, DashboardListingCard } from '@/components';
+import { Link, Toast, DashboardListingCard, PostButton } from '@/components';
 import { ToastTitle, UsersTypes, type ListingData, dashboardViewCounterDisplayType } from '@/types';
 import { RiFileList3Line } from 'react-icons/ri';
 import { useToggle } from '@/hooks';
@@ -18,7 +18,8 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
   const t = useTranslations('dashboard');
   const [toastSuccessMessage, setToastSuccessMessage] = useState<string>('');
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
-  const [isPromotionSuccessful, setIsPromotionSuccessful] = useState<boolean>();
+  const [isPromotionSuccessful, setIsPromotionSuccessful] = useState<boolean | undefined>();
+  const [isPostError, setIsPostError] = useState<boolean | undefined>(false);
   const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
 
   const handleCloseToast = () => {
@@ -40,6 +41,16 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
     }
   }, [isPromotionSuccessful]);
 
+  useEffect(() => {
+    if (isPostError) {
+      setToastErrorMessage(t('jobListing.postError'));
+      toggleToast(true);
+      setTimeout(() => {
+        toggleToast(false);
+      }, 3000);
+    }
+  }, [isPostError]);
+
   return (
     <>
       {jobPost && jobPost.length > 0 && typeof usedPromotion === 'number' ? (
@@ -50,6 +61,7 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
             title={isPromotionSuccessful ? ToastTitle.Success : ToastTitle.Error}
             message={isPromotionSuccessful ? toastSuccessMessage : toastErrorMessage}
           />
+          <Toast isOpen={isToastOpen} onClose={handleCloseToast} title={ToastTitle.Error} message={t('jobListing.postError')} />
           {jobPost.map((jobPost) => (
             <DashboardListingCard
               key={jobPost.id}
@@ -85,6 +97,7 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
             <p className='text-sm font-medium'>{t('jobListing.firstJobListing')}</p>
             <p className='text-sm'>{t('jobListing.firstJobListingSub')}</p>
           </div>
+          {jobPost && jobPost.length > 0 && <PostButton jobPost={jobPost} setIsPostError={setIsPostError} />}
           <Link
             href='/annonce/publier'
             className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
