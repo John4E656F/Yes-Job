@@ -88,7 +88,7 @@ const PublishPage: React.FC = () => {
   const companyWebsite = watch('companyWebsite');
   const contactEmail = watch('contactEmail');
   const contactPassword = watch('contactPassword');
-  console.log(watch());
+  // console.log(watch());
   // console.log(errors);
 
   useEffect(() => {
@@ -190,7 +190,6 @@ const PublishPage: React.FC = () => {
 
   const onSubmit = async (data: FirstPublishFormInputs) => {
     console.log(data);
-    let logo;
     let logoUrl = '';
     if (typeof data.logo === 'string') {
       console.log('logo string');

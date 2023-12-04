@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const publishFormSchema = z.object({
   id: z.number().optional(),
   user_Id: z.string().optional(),
+  company_Id: z.string().optional(),
   title: z.string().min(1),
   jobFunction: z.string().min(1),
   cdd: z.boolean(),
@@ -10,6 +11,8 @@ export const publishFormSchema = z.object({
   fullTime: z.boolean(),
   partTime: z.boolean(),
   experience: z.string().min(1),
+  student: z.boolean(),
+  flexi: z.boolean(),
   english: z.boolean(),
   french: z.boolean(),
   dutch: z.boolean(),
