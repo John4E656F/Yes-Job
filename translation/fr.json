@@ -65,7 +65,8 @@
       "publish": "Publier une annonce",
       "add": "Ajoutez votre annonce gratuitement",
       "publishFree": "Publier votre annonce gratuitement",
-      "send": "Envoyer"
+      "send": "Envoyer",
+      "postAJob": "Publier une offre d'emploi"
     },
     "hero": {
       "title": "Trouver les meilleures offres d’emploi dans horeca",

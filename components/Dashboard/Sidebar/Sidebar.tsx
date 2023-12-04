@@ -86,7 +86,7 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
             const responseCompany = await fetch(`/api/company/${fetchedUserData.id}`);
             const { fetchedCompanyData } = await responseCompany.json();
             if (fetchedCompanyData) {
-              console.log(fetchedCompanyData);
+              // console.log(fetchedCompanyData);
 
               setCompanyData(fetchedCompanyData);
               setChecklistData((prevState) => prevState.map((item) => (item.tag === 'company' ? { ...item, boolean: true } : item)));
