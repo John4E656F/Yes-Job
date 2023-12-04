@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const firstPublishFormSchema = z.object({
   id: z.number().optional(),
   user_Id: z.string().optional(),
+  company_Id: z.string().optional(),
   companyName: z.string().min(1),
   logo: z.union([z.string(), z.any()]).nullable(),
   title: z.string().min(1),
