@@ -9,6 +9,6 @@ export interface CompanyTypes {
   phone?: string | null;
   total_request_count?: number;
   availableJobListing?: number | null;
-  availablePromotion?: number | null;
+  availableBoost?: number | null;
   created_at?: string;
 }

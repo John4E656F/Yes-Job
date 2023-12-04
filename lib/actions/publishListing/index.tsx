@@ -137,6 +137,7 @@ export async function registerJobPost({ data, resCompanyId }: RegisterJobPost) {
         pinned: true,
         pinned_at: new Date().toISOString(),
         published: true,
+        published_at: new Date().toISOString(),
       })
       .select();
 

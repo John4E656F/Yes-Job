@@ -13,7 +13,6 @@ import { useTransition } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { removeSpaces } from '@/utils/';
 import { createClient } from '@/utils/supabase/client';
-import { set } from 'date-fns';
 
 const PublishPage: React.FC = () => {
   const t = useTranslations('app');
