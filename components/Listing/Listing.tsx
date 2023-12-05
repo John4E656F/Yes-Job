@@ -22,7 +22,6 @@ export function Listing() {
           .select(
             `
           *,
-          companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) ,
           company:company(*)
         `,
           )

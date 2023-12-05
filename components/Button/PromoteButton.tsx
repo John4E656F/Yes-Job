@@ -4,6 +4,7 @@ import { Button } from '..';
 import { IoDiamondOutline } from 'react-icons/io5';
 import type { ListingData } from '@/types';
 import { promote } from '@/lib/actions';
+import { useTranslations } from 'next-intl';
 
 interface PromoteButtonProps {
   jobPost: ListingData;
@@ -11,20 +12,35 @@ interface PromoteButtonProps {
   usedPromotion: number;
 }
 export function PromoteButton({ jobPost, setIsPromotionSuccessful, usedPromotion }: PromoteButtonProps) {
+  const t = useTranslations('dashboard');
+
   const onClickPromote = async () => {
     if (jobPost.promoted) {
-      return setIsPromotionSuccessful(false);
+      setIsPromotionSuccessful(false);
+      setTimeout(() => {
+        setIsPromotionSuccessful(undefined);
+      }, 3000);
+      return;
     }
 
-    if (jobPost.companyId.availablePromotion === usedPromotion) {
+    if (jobPost.company.availableBoost === usedPromotion) {
       setIsPromotionSuccessful(false);
+      setTimeout(() => {
+        setIsPromotionSuccessful(undefined);
+      }, 3000);
     } else {
       const itemId = jobPost.id!;
       const reponse = await promote({ itemId: itemId, path: `/dashboard/job-listing` });
       if (reponse.type === 'error') {
         setIsPromotionSuccessful(false);
+        setTimeout(() => {
+          setIsPromotionSuccessful(undefined);
+        }, 3000);
       }
       setIsPromotionSuccessful(true);
+      setTimeout(() => {
+        setIsPromotionSuccessful(undefined);
+      }, 3000);
     }
   };
 
@@ -34,7 +50,7 @@ export function PromoteButton({ jobPost, setIsPromotionSuccessful, usedPromotion
       text={
         <div className='flex gap-2 justify-center items-center px-4 py-2 text-sm text-brand-primary'>
           <IoDiamondOutline size={15} />
-          <p>Promote</p>
+          <p>{t('button.promote')}</p>
         </div>
       }
       btnType='button'

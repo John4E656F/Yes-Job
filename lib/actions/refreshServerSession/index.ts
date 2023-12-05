@@ -7,7 +7,7 @@ export async function refreshUserSession() {
   const { data, error } = await supabase.auth.refreshSession();
   const { session, user } = data;
   if (!session) {
-    redirect('/');
+    redirect('/login');
   } else {
     return session;
   }
