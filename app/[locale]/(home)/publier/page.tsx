@@ -58,7 +58,7 @@ const PublishPage: React.FC = () => {
     },
   });
   const applicationMethod = watch('applicationMethod');
-  console.log(watch());
+  // console.log(watch());
   // console.log(errors);
 
   useEffect(() => {

@@ -190,7 +190,8 @@
       "invalidURL": "Invalid URL",
       "invalidEmail": "Invalid email address",
       "errorOption": "Please select an option.",
-      "userExist": "User already registered, please signin."
+      "userExist": "User already registered, please signin.",
+      "notEnoughListing": "You don't have any available listing, please upgrade your account."
     }
   },
   "dashboard": {

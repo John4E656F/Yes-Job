@@ -186,7 +186,8 @@
       "invalidURL": "URL invalide",
       "invalidEmail": "Adresse e-mail invalide",
       "errorOption": "Veuillez sélectionner une option.",
-      "userExist": "L'utilisateur déjà inscrit, veuillez vous connecter."
+      "userExist": "L'utilisateur déjà inscrit, veuillez vous connecter.",
+      "notEnoughListing": "Vous n'avez pas d'annonce disponible, veuillez mettre à jour votre compte."
     }
   },
   "dashboard": {

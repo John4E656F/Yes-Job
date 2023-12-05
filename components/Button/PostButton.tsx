@@ -1,41 +1,55 @@
 'use client';
 import React from 'react';
-import { Button } from '..';
+import { Button, Toast } from '..';
 import { useRouter } from 'next/navigation';
-import type { ListingData } from '@/types';
+import { ToastTitle, type ListingData, CompanyTypes } from '@/types';
 import { useTranslations } from 'next-intl';
+import { useToggle } from '@/hooks';
 
 interface PostButtonProps {
-  jobPost: ListingData[];
-  setIsPostError?: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+  jobPost?: ListingData[];
+  companyData?: CompanyTypes;
+  location: string;
 }
-export function PostButton({ jobPost, setIsPostError }: PostButtonProps) {
-  const t = useTranslations('dashboard');
+export function PostButton({ jobPost, companyData, location }: PostButtonProps) {
+  const t = useTranslations(location === 'app' ? 'app' : 'dashboard');
   const router = useRouter();
-  const onClickEdit = async () => {
-    let usedListing = [];
-    if (jobPost) {
-      usedListing = jobPost.filter((listing) => listing.published === true);
-    }
 
-    // Assuming all listings in jobPost are from the same company
-    const availableJobListing = jobPost.length > 0 ? jobPost[0].company.availableJobListing : null;
-    if (setIsPostError) {
-      if (availableJobListing === usedListing.length) {
-        setIsPostError(true);
+  const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
+
+  const onClickEdit = async () => {
+    if (jobPost && companyData) {
+      let usedListing = [];
+      if (jobPost) {
+        usedListing = jobPost.filter((listing) => listing.published === true);
+      }
+
+      if (companyData.availableJobListing === usedListing.length) {
+        toggleToast(true);
+        setTimeout(() => {
+          toggleToast(false);
+        }, 2000);
       } else {
         router.push(`/publier`);
-        setIsPostError(false);
       }
+    } else {
+      router.push(`/annonce/publier`);
     }
   };
 
+  const handleCloseToast = () => {
+    toggleToast(!isToastOpen);
+  };
+
   return (
-    <Button
-      className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
-      text={<p className='px-4 h-11 text-sm'>{t('button.postAJob')}</p>}
-      btnType='button'
-      onClick={onClickEdit}
-    />
+    <>
+      <Toast isOpen={isToastOpen} onClose={handleCloseToast} title={ToastTitle.Error} message={t('error.notEnoughListing')} />
+      <Button
+        className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+        text={<p className='px-4 h-11 text-sm flex items-center'>{t('cta.publish')}</p>}
+        btnType='button'
+        onClick={onClickEdit}
+      />
+    </>
   );
 }
