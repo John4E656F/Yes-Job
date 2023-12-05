@@ -13,8 +13,8 @@ export const Hero = async () => {
   if (session) {
     sessionId = session.user.id;
   } else {
-    const session = await refreshUserSession();
-    sessionId = session.user.id;
+    // const session = await refreshUserSession();
+    // sessionId = session.user.id;
   }
 
   const response = await fetch(
