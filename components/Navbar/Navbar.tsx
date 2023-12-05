@@ -68,7 +68,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               const companyId = fetchedCompanyData.id;
 
               const fetchedUserListing = await getCurrentUserJobListing({ company_Id: companyId, path: pathname });
-              console.log('fetchedUserListing', fetchedUserListing);
+              // console.log('fetchedUserListing', fetchedUserListing);
 
               if (fetchedUserListing.length > 0) {
                 const publishedListingCount = fetchedUserListing.filter((listing: ListingData) => listing.published === true).length;
@@ -92,14 +92,14 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   }, [session?.access_token]);
 
   // console.log('userData', userData);
-  console.log('companyData', companyData);
-  console.log(usedListingCount);
+  // console.log('companyData', companyData);
+  // console.log(usedListingCount);
 
   const onClickPost = () => {
     if (usedListingCount === companyData.availableJobListing) {
       toggleToast(true);
       setTimeout(() => {
-        router.push(`/upgrade`);
+        // router.push(`/upgrade`);
         toggleToast(false);
       }, 3000);
     } else {
@@ -111,7 +111,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   };
   return (
     <nav className='w-full flex justify-center h-auto relative'>
-      <Toast isOpen={isToastOpen} onClose={handleCloseToast} title={ToastTitle.Error} message='test' />
+      <Toast isOpen={isToastOpen} onClose={handleCloseToast} title={ToastTitle.Error} message={t('error.notEnoughListing')} />
       <div className='container flex justify-between items-center py-3 text-sm relative'>
         <Link href='/' className='flex items-center' aria-label='YesJob Navbar Logo'>
           <Logo width={80} height={80} />
