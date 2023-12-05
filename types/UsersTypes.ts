@@ -1,6 +1,5 @@
 export interface UsersTypes {
   user_email: string | undefined;
-  user_logo: string;
   user_name: string;
   contactName?: string;
   company_id?: string;

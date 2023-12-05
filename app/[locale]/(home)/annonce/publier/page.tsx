@@ -7,7 +7,7 @@ import { redirect, useRouter } from 'next/navigation';
 import { firstPublishFormResolver, type FirstPublishFormInputs } from './firstPublishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToggle } from '@/hooks';
-import { ToastTitle, UsersTypes } from '@/types';
+import { CompanyTypes, ToastTitle, UsersTypes } from '@/types';
 import { publishFirstListing } from '@/lib/actions';
 import { useTransition } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -20,13 +20,21 @@ const PublishPage: React.FC = () => {
   const router = useRouter();
   const [userData, setUserData] = useState<UsersTypes>({
     user_email: '',
-    user_logo: '',
     user_name: '',
     contactName: '',
     company_id: '',
     created_at: '',
     id: '',
     user_id: '',
+  });
+  const [companyData, setCompanyData] = useState<CompanyTypes>({
+    id: '',
+    name: '',
+    logo: '',
+    website: '',
+    phone: '',
+    owner_id: '',
+    teamMembers: [''],
   });
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
@@ -46,6 +54,7 @@ const PublishPage: React.FC = () => {
     reValidateMode: 'onBlur',
     defaultValues: {
       user_Id: '',
+      company_Id: '',
       companyName: '',
       logo: '',
       title: '',
@@ -76,8 +85,10 @@ const PublishPage: React.FC = () => {
   });
   const applicationMethod = watch('applicationMethod');
   const companyWebsite = watch('companyWebsite');
-  console.log(watch());
-  console.log(errors);
+  const contactEmail = watch('contactEmail');
+  const contactPassword = watch('contactPassword');
+  // console.log(watch());
+  // console.log(errors);
 
   useEffect(() => {
     if (applicationMethod === 'yesJob') {
@@ -112,6 +123,18 @@ const PublishPage: React.FC = () => {
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
+            // console.log(fetchedUserData);
+            if (!fetchedUserData.isCompany) {
+              return redirect('/');
+            }
+            if (fetchedUserData.id) {
+              const responseCompany = await fetch(`/api/company/${fetchedUserData.id}`);
+              const { fetchedCompanyData, fetchedCompanyError } = await responseCompany.json();
+
+              if (fetchedCompanyData) {
+                setCompanyData(fetchedCompanyData);
+              }
+            }
             setUserData(fetchedUserData);
           } else {
             console.error('Failed to fetch user data');
@@ -131,11 +154,19 @@ const PublishPage: React.FC = () => {
       setValue('user_Id', userData.id || '');
       setValue('contactName', userData.contactName || '');
       setValue('contactEmail', userData.user_email || '');
-      setValue('companyName', userData.user_name || '');
       setValue('contactPassword', 'User_already_exists69');
-      setValue('logo', userData.user_logo || null);
     }
   }, [userData]);
+
+  useEffect(() => {
+    if (companyData && companyData.id !== '') {
+      setValue('company_Id', companyData.id || '');
+      setValue('companyName', companyData.name || '');
+      setValue('companyWebsite', companyData.website || '');
+      setValue('logo', companyData.logo || null);
+      setValue('companyPhone', companyData.phone || null);
+    }
+  }, [companyData]);
 
   const options = [
     { value: '', label: t('jobFonction.default'), disabled: true },
@@ -158,32 +189,37 @@ const PublishPage: React.FC = () => {
 
   const onSubmit = async (data: FirstPublishFormInputs) => {
     console.log(data);
-    let logo = data.logo[0];
     let logoUrl = '';
-    if (logo) {
-      const supabase = createClient();
-      console.log('logo', logo);
+    if (typeof data.logo === 'string') {
+      console.log('logo string');
 
-      const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
+      logoUrl = data.logo;
+    } else {
+      if (data.logo[0]) {
+        const supabase = createClient();
+        // console.log('logo', logo);
 
-      const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
-        cacheControl: '3600',
-        upsert: false,
-      });
-      if (uploadError || !uploadData) {
-        console.log(uploadError);
+        const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
 
-        return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+        const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
+          cacheControl: '3600',
+          upsert: false,
+        });
+        if (uploadError || !uploadData) {
+          // console.log(uploadError);
+
+          return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+        }
+
+        const { data: publicUrlData } = supabase.storage.from('logo').getPublicUrl(uploadData.path);
+        if (!publicUrlData) {
+          // console.log(publicUrlData);
+
+          return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+        }
+        const publicUrl = publicUrlData.publicUrl;
+        logoUrl = publicUrl;
       }
-
-      const { data: publicUrlData } = supabase.storage.from('logo').getPublicUrl(uploadData.path);
-      if (!publicUrlData) {
-        console.log(publicUrlData);
-
-        return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
-      }
-      const publicUrl = publicUrlData.publicUrl;
-      logoUrl = publicUrl;
     }
 
     if (!logoUrl) {
@@ -191,30 +227,31 @@ const PublishPage: React.FC = () => {
     }
 
     const result = await publishFirstListing({ data: JSON.parse(JSON.stringify(data)), logoUrl });
-
-    if (result.type == 'success') {
-      setIsSubmitSuccessful(true);
-      toggleToast(!isToastOpen);
-      setTimeout(() => {
-        toggleToast(false);
-        router.push('/');
-      }, 2000);
-    } else if (result.type == 'error' && result.message === 'User already exists, please login first') {
-      setToastErrorMessage('User already exists, please login first');
-      setTimeout(() => {
-        toggleToast(false);
-        router.push('/login');
-      }, 10000);
-    } else if (result.type == 'error') {
-      setToastErrorMessage(result.message);
-      setTimeout(() => {
-        toggleToast(false);
-      }, 10000);
-    } else {
-      setToastErrorMessage('Unexpected error, please try again later.');
-      setTimeout(() => {
-        toggleToast(false);
-      }, 10000);
+    if (result) {
+      if (result.type == 'success') {
+        setIsSubmitSuccessful(true);
+        toggleToast(!isToastOpen);
+        setTimeout(() => {
+          toggleToast(false);
+          router.push('/');
+        }, 2000);
+      } else if (result.type == 'error' && result.message === 'User already exists, please login first') {
+        setToastErrorMessage('User already exists, please login first');
+        setTimeout(() => {
+          toggleToast(false);
+          router.push('/login');
+        }, 10000);
+      } else if (result.type == 'error') {
+        setToastErrorMessage(result.message);
+        setTimeout(() => {
+          toggleToast(false);
+        }, 10000);
+      } else {
+        setToastErrorMessage('Unexpected error, please try again later.');
+        setTimeout(() => {
+          toggleToast(false);
+        }, 10000);
+      }
     }
 
     reset({
@@ -278,12 +315,7 @@ const PublishPage: React.FC = () => {
                 />
               </div>
               <div className='flex flex-col gap-3'>
-                <ImageUpload
-                  label={t('publishAds.companyLogo')}
-                  register={register('logo')}
-                  error={errors.logo}
-                  initialPreview={userData.user_logo}
-                />
+                <ImageUpload label={t('publishAds.companyLogo')} register={register('logo')} error={errors.logo} initialPreview={companyData.logo} />
               </div>
               <div className='flex flex-col gap-3'>
                 <FormInput
@@ -464,7 +496,33 @@ const PublishPage: React.FC = () => {
               />
             )}
           </div>
-          {userData && userData.company_id ? null : (
+          {userData ? (
+            <>
+              <div className='w-full h-px bg-slate-300 rounded' />
+              <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>
+              <h3 className='text-md '>{t('publishAds.contactDetailsSub')}</h3>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.contactDetailsName') + ' *'}
+                  type='text'
+                  register={register('contactName', { required: true })}
+                  error={errors.contactName}
+                  isRequiredMessage={t('publishAds.contactDetailsName') + t('error.isRequired')}
+                  placeholder='Lenny De Wolf'
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <FormInput
+                  label={t('publishAds.contactPhone')}
+                  type='tel'
+                  register={register('contactPhone')}
+                  error={errors.contactName}
+                  isRequiredMessage={t('publishAds.contactPhone') + t('error.isRequired')}
+                  placeholder='0412345678'
+                />
+              </div>
+            </>
+          ) : (
             <>
               <div className='w-full h-px bg-slate-300 rounded' />
               <h2 className='text-2xl font-semibold'>{t('publishAds.contactDetails')}</h2>

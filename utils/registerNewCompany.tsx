@@ -64,7 +64,6 @@ export const registerNewCompany = async (
       .insert({
         user_name: companyName,
         user_email: contactEmail,
-        user_logo: companyLogo,
         contactName: contactName,
         user_phone: contactPhone,
         user_id: userData.user.id,
@@ -72,10 +71,10 @@ export const registerNewCompany = async (
       .select('*');
 
     if (newUserError || !newUserData) {
-      console.log('Error inserting new user:', newUserError ? newUserError.message : 'No data returned');
+      // console.log('Error inserting new user:', newUserError ? newUserError.message : 'No data returned');
       return { error: newUserError.message };
     }
-    console.log('New user inserted:', newUserData[0]);
+    // console.log('New user inserted:', newUserData[0]);
 
     const { data: newCompanyData, error: newCompanyError } = await supabase
       .from('company')
