@@ -23,21 +23,18 @@ export interface PublishData {
 }
 
 export interface ListingData extends PublishData {
-  companyId: {
-    user_name: string;
-    user_email: string;
-    user_logo: string;
-    isCompany?: boolean;
-    user_id: string | null;
-    phone?: string | number | null;
-    confirmed_at?: string;
-    countryCode?: string | null;
-    availableJobListing?: number | null;
-    availablePromotion?: number | null;
-  };
+  company_id: string;
   company: {
+    id: string;
     name: string;
+    website: string;
     logo: string;
+    owner_id: string | null;
+    teamMembers: string[];
+    phone?: string | number | null;
+    total_request_count?: number | null;
+    availableJobListing?: number | null;
+    availableBoost?: number | null;
   };
   created_at?: string;
   requestCount?: number;

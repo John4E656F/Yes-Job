@@ -5,18 +5,21 @@ import { ToastTitle, UsersTypes, type ListingData, dashboardViewCounterDisplayTy
 import { RiFileList3Line } from 'react-icons/ri';
 import { useToggle } from '@/hooks';
 import { useTranslations } from 'next-intl';
-import { set } from 'date-fns';
 
 interface DashboardListingProps {
-  jobPost: ListingData[];
-  usedPromotion: number;
+  jobPost?: ListingData[];
+  usedPromotion?: number;
 }
 
 export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingProps) => {
+  // console.log('dashboard joblisting', jobPost);
+  // console.log('dashboard usedPromotion', usedPromotion);
+
   const t = useTranslations('dashboard');
   const [toastSuccessMessage, setToastSuccessMessage] = useState<string>('');
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
-  const [isPromotionSuccessful, setIsPromotionSuccessful] = useState<boolean>();
+  const [isPromotionSuccessful, setIsPromotionSuccessful] = useState<boolean | undefined>();
+  const [isPostError, setIsPostError] = useState<boolean | undefined>(false);
   const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
 
   const handleCloseToast = () => {
@@ -38,9 +41,19 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
     }
   }, [isPromotionSuccessful]);
 
+  useEffect(() => {
+    if (isPostError) {
+      setToastErrorMessage(t('jobListing.postError'));
+      toggleToast(true);
+      setTimeout(() => {
+        toggleToast(false);
+      }, 3000);
+    }
+  }, [isPostError]);
+
   return (
     <>
-      {jobPost ? (
+      {jobPost && jobPost.length > 0 && typeof usedPromotion === 'number' ? (
         <div className='flex flex-col gap-4'>
           <Toast
             isOpen={isToastOpen}
@@ -48,6 +61,7 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
             title={isPromotionSuccessful ? ToastTitle.Success : ToastTitle.Error}
             message={isPromotionSuccessful ? toastSuccessMessage : toastErrorMessage}
           />
+          <Toast isOpen={isToastOpen} onClose={handleCloseToast} title={ToastTitle.Error} message={t('jobListing.postError')} />
           {jobPost.map((jobPost) => (
             <DashboardListingCard
               key={jobPost.id}
@@ -84,7 +98,7 @@ export const DashboardListing = ({ jobPost, usedPromotion }: DashboardListingPro
             <p className='text-sm'>{t('jobListing.firstJobListingSub')}</p>
           </div>
           <Link
-            href='/publier'
+            href='/annonce/publier'
             className='flex items-center justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
           >
             <button type='button' className='px-4 h-11 text-sm'>

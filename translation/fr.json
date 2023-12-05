@@ -44,17 +44,29 @@
       "title": "Langues",
       "subTitle": "Ce site est disponible dans les langues suivantes :"
     },
-    "login": {
+    "auth": {
+      "loginTitle": "Connectez-vous à votre compte",
+      "loginSubTitle": "Bienvenue à nouveau ! Veuillez entrer vos coordonnées",
+      "registerTitle": "Créer un compte",
+      "registerSubTitle": "Créez votre compte en quelques clics!",
+      "name": "Nom et Prénom",
       "signIn": "Se connecter",
       "signUp": "S'inscrire",
       "email": "Adresse email",
-      "password": "Mot de passe"
+      "password": "Mot de passe",
+      "alreadyHaveAccount": "Vous avez déjà un compte?",
+      "dontHaveAccount": "Don't have an account?",
+      "lookingForJob": "A la recherche d'un emploi",
+      "lookingForEmployee": "A la recherche d'un employé",
+      "success": "Votre compte a été créé avec succès !",
+      "error": "Quelque chose n'a pas fonctionné, veuillez réessayer plus tard."
     },
     "cta": {
       "publish": "Publier une annonce",
       "add": "Ajoutez votre annonce gratuitement",
       "publishFree": "Publier votre annonce gratuitement",
-      "send": "Envoyer"
+      "send": "Envoyer",
+      "postAJob": "Publier une offre d'emploi"
     },
     "hero": {
       "title": "Trouver les meilleures offres d’emploi dans horeca",
@@ -172,7 +184,10 @@
     "error": {
       "isRequired": " est obligatoire",
       "invalidURL": "URL invalide",
-      "invalidEmail": "Adresse e-mail invalide"
+      "invalidEmail": "Adresse e-mail invalide",
+      "errorOption": "Veuillez sélectionner une option.",
+      "userExist": "L'utilisateur déjà inscrit, veuillez vous connecter.",
+      "notEnoughListing": "Vous n'avez pas d'annonce disponible, veuillez mettre à jour votre compte."
     }
   },
   "dashboard": {
@@ -186,6 +201,7 @@
       "subText": "Gérez ici vos offres d'emploi en ligne et provisoires.",
       "promotionSuccess": "L'offre d'emploi a été promue avec succès !",
       "promotionFailed": "Vous n'avez plus de promotion disponible, passez à la version supérieure ou achetez pour obtenir plus de promotion.",
+      "postError": "Il n'y a plus d'offres d'emploi disponibles, mettez à jour votre compte ou achetez pour obtenir plus d'offres d'emploi.",
       "moreJobListing": "Besoin de répertorier plus d'offres d'emploi ?",
       "moreJobListingSub": "Passez à la version et obtenez plus d'offres d'emploi.",
       "firstJobListing": "Publiez votre première offre d'emploi !",

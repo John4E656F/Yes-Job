@@ -6,24 +6,23 @@ import { createClient } from '@/utils/supabase/server';
 import type { ListingData } from '@/types';
 
 interface JobPostProps {
-  ownerId: string;
+  company_Id: string;
   path?: string;
 }
 
-export async function getCurrentUserJobListing({ ownerId, path }: JobPostProps) {
+export async function getCurrentUserJobListing({ company_Id, path }: JobPostProps) {
   const supabase = createClient(); // const supabase = createClientComponentClient<Database>();
   try {
-    if (!ownerId) {
-      return;
+    if (!company_Id) {
+      return { type: 'error' as const, message: 'No company id provided' };
     }
-    const { data: fetchedCompany, error: companyError } = await supabase.from('company').select('*').eq('owner_id', ownerId).single();
-    const { data: fetchedUserListing, error: userError } = await supabase
-      .from('jobPosting')
-      .select(`*, company(*)`)
-      .eq('company_id', fetchedCompany.id);
+
+    const { data: fetchedUserListing, error: userError } = await supabase.from('jobPosting').select(`*, company(*)`).eq('company_id', company_Id);
 
     if (userError) {
-      throw new Error('Failed to fetch user data: ' + userError.message);
+      console.log('userError', userError.message);
+
+      return { type: 'error' as const, message: userError.message };
     }
 
     if (path) {
@@ -35,10 +34,11 @@ export async function getCurrentUserJobListing({ ownerId, path }: JobPostProps) 
   }
 }
 
-export async function getJobPostById({ ownerId, path }: JobPostProps) {
+//UNUSED
+export async function getJobPostById({ company_Id, path }: JobPostProps) {
   const supabase = createClient();
   try {
-    if (!ownerId) {
+    if (!company_Id) {
       return;
     }
 
@@ -50,7 +50,7 @@ export async function getJobPostById({ ownerId, path }: JobPostProps) {
       companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ) 
     `,
       )
-      .eq('id', ownerId)
+      .eq('company_id', company_Id)
       .single();
     if (fetchedJobPostError) {
       throw new Error('Failed to fetch user data: ' + fetchedJobPostError.message);

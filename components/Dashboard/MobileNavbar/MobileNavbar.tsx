@@ -6,7 +6,8 @@ import { HiBars3, HiMiniLanguage, HiUser } from 'react-icons/hi2';
 import { useTranslations } from 'next-intl';
 import type { Session } from '@supabase/supabase-js';
 import { useToggleMenu } from '@/hooks';
-import type { UsersTypes } from '@/types';
+import type { CompanyTypes, UsersTypes } from '@/types';
+import { set } from 'date-fns';
 
 interface NavbarProps {
   currentLocale: string;
@@ -16,12 +17,16 @@ export function MobileNavbar({ currentLocale, session }: NavbarProps) {
   const t = useTranslations('app');
   const [userData, setUserData] = useState<UsersTypes>({
     user_email: '',
-    user_logo: '',
     user_name: '',
     contactName: '',
     created_at: '',
     id: '',
     user_id: '',
+  });
+  const [companyData, setCompanyData] = useState<CompanyTypes>({
+    owner_id: '',
+    name: '',
+    logo: '',
   });
 
   const { menuRef: mobileMenuRef, isMenuOpen: isMobileMenuOpen, toggleMenu: toggleMobileMenu } = useToggleMenu();
@@ -40,6 +45,10 @@ export function MobileNavbar({ currentLocale, session }: NavbarProps) {
           if (response.ok) {
             const { fetchedUserData } = await response.json();
             setUserData(fetchedUserData);
+
+            const responseCompany = await fetch(`/api/company/${fetchedUserData.company_id}`);
+            const { fetchedCompanyData } = await responseCompany.json();
+            setCompanyData(fetchedCompanyData);
           } else {
             console.error('Failed to fetch user data');
           }
@@ -70,6 +79,7 @@ export function MobileNavbar({ currentLocale, session }: NavbarProps) {
           toggleMenu={toggleMobileMenu}
           menuRef={mobileMenuRef}
           userData={userData}
+          companyData={companyData}
           t={t}
           currentLocale={currentLocale}
         />

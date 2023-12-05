@@ -13,6 +13,8 @@ interface ListingCardProps {
 }
 
 export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPromotion }: ListingCardProps) {
+  // console.log('dashboard joblisting card', jobPost);
+
   const t = useTranslations('dashboard');
 
   return (
@@ -122,6 +124,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
                 ) : (
                   <div className='flex gap-2 justify-end'>
                     <PromoteButton jobPost={jobPost} setIsPromotionSuccessful={setIsPromotionSuccessful} usedPromotion={usedPromotion} />
+
                     <Link
                       href={`/dashboard/job-listing/edit/${jobPost.id}`}
                       className='flex items-center justify-center text-center border border-gray-500 bg-brand-gray rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200'

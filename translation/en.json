@@ -45,17 +45,29 @@
       "title": "Languages",
       "subTitle": "This website is available in the following languages:"
     },
-    "login": {
+    "auth": {
+      "loginTitle": "Log in to your account",
+      "loginSubTitle": "Welcome back! Please enter your details",
+      "registerTitle": "Create an account",
+      "registerSubTitle": "Create your account in a few clicks!",
+      "name": "Name",
       "signIn": "Sign in",
       "signUp": "Sign up",
       "email": "Email Address",
-      "password": "Password"
+      "password": "Password",
+      "alreadyHaveAccount": "Already have an account?",
+      "dontHaveAccount": "Don't have an account?",
+      "lookingForJob": "Looking for a job",
+      "lookingForEmployee": "Looking for an employee",
+      "success": "Your account has been created successfully!",
+      "error": "Something went wrong, please try again later."
     },
     "cta": {
       "publish": "Publish an ad",
       "add": "Add your ad for free",
       "publishFree": "Publish your ad for free",
-      "send": "Send"
+      "send": "Send",
+      "postAJob": "Post a job"
     },
     "hero": {
       "title": "Find the best job offers in horeca",
@@ -176,7 +188,10 @@
     "error": {
       "isRequired": " is required",
       "invalidURL": "Invalid URL",
-      "invalidEmail": "Invalid email address"
+      "invalidEmail": "Invalid email address",
+      "errorOption": "Please select an option.",
+      "userExist": "User already registered, please signin.",
+      "notEnoughListing": "You don't have any available listing, please upgrade your account."
     }
   },
   "dashboard": {
@@ -190,6 +205,7 @@
       "subText": "Manage your live and draft job listings here.",
       "promotionSuccess": "Job vacancy promoted successfully!",
       "promotionFailed": "No more promotion available, upgrade your account or buy to get more promotion",
+      "postError": "No more job listing available, upgrade your account or buy to get more job listing",
       "moreJobListing": "Need to list more job ?",
       "moreJobListingSub": "Upgrade your account and get to list more job vacancy",
       "firstJobListing": "Post your first job vacancy!",
