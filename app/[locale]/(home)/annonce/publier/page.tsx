@@ -20,7 +20,6 @@ const PublishPage: React.FC = () => {
   const router = useRouter();
   const [userData, setUserData] = useState<UsersTypes>({
     user_email: '',
-    user_logo: '',
     user_name: '',
     contactName: '',
     company_id: '',
@@ -29,6 +28,7 @@ const PublishPage: React.FC = () => {
     user_id: '',
   });
   const [companyData, setCompanyData] = useState<CompanyTypes>({
+    id: '',
     name: '',
     logo: '',
     website: '',
@@ -54,6 +54,7 @@ const PublishPage: React.FC = () => {
     reValidateMode: 'onBlur',
     defaultValues: {
       user_Id: '',
+      company_Id: '',
       companyName: '',
       logo: '',
       title: '',
@@ -122,7 +123,7 @@ const PublishPage: React.FC = () => {
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
-            console.log(fetchedUserData);
+            // console.log(fetchedUserData);
             if (!fetchedUserData.isCompany) {
               return redirect('/');
             }
@@ -154,12 +155,12 @@ const PublishPage: React.FC = () => {
       setValue('contactName', userData.contactName || '');
       setValue('contactEmail', userData.user_email || '');
       setValue('contactPassword', 'User_already_exists69');
-      setValue('logo', userData.user_logo || null);
     }
   }, [userData]);
 
   useEffect(() => {
-    if (companyData) {
+    if (companyData && companyData.id !== '') {
+      setValue('company_Id', companyData.id || '');
       setValue('companyName', companyData.name || '');
       setValue('companyWebsite', companyData.website || '');
       setValue('logo', companyData.logo || null);
@@ -187,33 +188,38 @@ const PublishPage: React.FC = () => {
   ];
 
   const onSubmit = async (data: FirstPublishFormInputs) => {
-    // console.log(data);
-    let logo = data.logo[0];
+    console.log(data);
     let logoUrl = '';
-    if (logo) {
-      const supabase = createClient();
-      // console.log('logo', logo);
+    if (typeof data.logo === 'string') {
+      console.log('logo string');
 
-      const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
+      logoUrl = data.logo;
+    } else {
+      if (data.logo[0]) {
+        const supabase = createClient();
+        // console.log('logo', logo);
 
-      const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
-        cacheControl: '3600',
-        upsert: false,
-      });
-      if (uploadError || !uploadData) {
-        // console.log(uploadError);
+        const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
 
-        return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+        const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
+          cacheControl: '3600',
+          upsert: false,
+        });
+        if (uploadError || !uploadData) {
+          // console.log(uploadError);
+
+          return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+        }
+
+        const { data: publicUrlData } = supabase.storage.from('logo').getPublicUrl(uploadData.path);
+        if (!publicUrlData) {
+          // console.log(publicUrlData);
+
+          return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+        }
+        const publicUrl = publicUrlData.publicUrl;
+        logoUrl = publicUrl;
       }
-
-      const { data: publicUrlData } = supabase.storage.from('logo').getPublicUrl(uploadData.path);
-      if (!publicUrlData) {
-        // console.log(publicUrlData);
-
-        return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
-      }
-      const publicUrl = publicUrlData.publicUrl;
-      logoUrl = publicUrl;
     }
 
     if (!logoUrl) {
@@ -221,30 +227,31 @@ const PublishPage: React.FC = () => {
     }
 
     const result = await publishFirstListing({ data: JSON.parse(JSON.stringify(data)), logoUrl });
-
-    if (result.type == 'success') {
-      setIsSubmitSuccessful(true);
-      toggleToast(!isToastOpen);
-      setTimeout(() => {
-        toggleToast(false);
-        router.push('/');
-      }, 2000);
-    } else if (result.type == 'error' && result.message === 'User already exists, please login first') {
-      setToastErrorMessage('User already exists, please login first');
-      setTimeout(() => {
-        toggleToast(false);
-        router.push('/login');
-      }, 10000);
-    } else if (result.type == 'error') {
-      setToastErrorMessage(result.message);
-      setTimeout(() => {
-        toggleToast(false);
-      }, 10000);
-    } else {
-      setToastErrorMessage('Unexpected error, please try again later.');
-      setTimeout(() => {
-        toggleToast(false);
-      }, 10000);
+    if (result) {
+      if (result.type == 'success') {
+        setIsSubmitSuccessful(true);
+        toggleToast(!isToastOpen);
+        setTimeout(() => {
+          toggleToast(false);
+          router.push('/');
+        }, 2000);
+      } else if (result.type == 'error' && result.message === 'User already exists, please login first') {
+        setToastErrorMessage('User already exists, please login first');
+        setTimeout(() => {
+          toggleToast(false);
+          router.push('/login');
+        }, 10000);
+      } else if (result.type == 'error') {
+        setToastErrorMessage(result.message);
+        setTimeout(() => {
+          toggleToast(false);
+        }, 10000);
+      } else {
+        setToastErrorMessage('Unexpected error, please try again later.');
+        setTimeout(() => {
+          toggleToast(false);
+        }, 10000);
+      }
     }
 
     reset({
@@ -308,12 +315,7 @@ const PublishPage: React.FC = () => {
                 />
               </div>
               <div className='flex flex-col gap-3'>
-                <ImageUpload
-                  label={t('publishAds.companyLogo')}
-                  register={register('logo')}
-                  error={errors.logo}
-                  initialPreview={userData.user_logo}
-                />
+                <ImageUpload label={t('publishAds.companyLogo')} register={register('logo')} error={errors.logo} initialPreview={companyData.logo} />
               </div>
               <div className='flex flex-col gap-3'>
                 <FormInput

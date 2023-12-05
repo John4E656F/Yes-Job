@@ -14,7 +14,7 @@ interface FormRadioProps {
 
 export function FormRadio({ name, register, error, label, subText, value, onChange }: FormRadioProps) {
   return (
-    <div className='form-control flex-col flex mb-4'>
+    <div className='form-control flex mb-4'>
       <input
         {...register}
         id={`radio-${name}-${label}`}

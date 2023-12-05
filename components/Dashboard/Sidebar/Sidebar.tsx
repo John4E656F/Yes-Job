@@ -9,7 +9,7 @@ import { HiBars3, HiMiniLanguage, HiUser } from 'react-icons/hi2';
 import { FaRegCircle, FaRegCircleCheck } from 'react-icons/fa6';
 import { SidebarList } from './SidebarList';
 import { useToggleMenu } from '@/hooks';
-import { UsersTypes } from '@/types';
+import { UsersTypes, CompanyTypes } from '@/types';
 import type { Session } from '@supabase/supabase-js';
 import { set } from 'date-fns';
 
@@ -46,13 +46,21 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
 
   const [userData, setUserData] = useState<UsersTypes>({
     user_email: '',
-    user_logo: '',
     user_name: '',
     contactName: '',
     created_at: '',
     id: '',
     user_id: '',
     company_id: '',
+  });
+  const [companyData, setCompanyData] = useState<CompanyTypes>({
+    id: '',
+    name: '',
+    logo: '',
+    website: '',
+    phone: '',
+    owner_id: '',
+    teamMembers: [''],
   });
   const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
   const t = useTranslations('app');
@@ -78,12 +86,13 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
             const responseCompany = await fetch(`/api/company/${fetchedUserData.id}`);
             const { fetchedCompanyData } = await responseCompany.json();
             if (fetchedCompanyData) {
+              // console.log(fetchedCompanyData);
+
+              setCompanyData(fetchedCompanyData);
               setChecklistData((prevState) => prevState.map((item) => (item.tag === 'company' ? { ...item, boolean: true } : item)));
-            }
-            const responseJobListing = await fetch(`/api/jobPost/${fetchedUserData.id}`);
-            const { fetchedJobPostData } = await responseJobListing.json();
-            if (fetchedJobPostData) {
-              setChecklistData((prevState) => prevState.map((item) => (item.tag === 'post' ? { ...item, boolean: true } : item)));
+              if (fetchedCompanyData.jobListings.length > 0) {
+                setChecklistData((prevState) => prevState.map((item) => (item.tag === 'post' ? { ...item, boolean: true } : item)));
+              }
             }
           } else {
             // console.error('Failed to fetch user data');
@@ -165,9 +174,9 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
           </div>
         )}
         <div className='flex gap-2 items-center'>
-          {userData.user_logo ? (
+          {companyData.logo ? (
             <Button
-              text={<Image src={userData.user_logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
+              text={<Image src={companyData.logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
               btnType='button'
             />
           ) : (

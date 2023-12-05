@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { BiUpload } from 'react-icons/bi';
 import { Image } from '@/components';
@@ -30,6 +30,10 @@ export function ImageUpload({ register, error, label, initialPreview }: ImageUpl
       defaultOnChange(e);
     }
   };
+
+  useEffect(() => {
+    setPreview(initialPreview);
+  }, [initialPreview]);
 
   return (
     <div className='form-control '>

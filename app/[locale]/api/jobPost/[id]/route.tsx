@@ -13,7 +13,6 @@ export async function GET(request: Request, { params }: { params: { id: string }
       .select(
         `
   *,
-  companyId:users ( user_name, user_email, user_logo, user_total_request_count, isCompany ),
   company:company(*)
 `,
       )
@@ -21,7 +20,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
       .single();
 
     if (fetchedJobPostError) {
-      return NextResponse.json({ fetchedJobPostErrorr: 'Failed to fetch user data ' + fetchedJobPostError.message });
+      return NextResponse.json({ fetchedJobPostError: 'Failed to fetch user data ' + fetchedJobPostError.message });
     }
 
     return NextResponse.json({ fetchedJobPostData: fetchedJobPostData as ListingData });

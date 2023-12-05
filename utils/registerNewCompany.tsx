@@ -64,7 +64,6 @@ export const registerNewCompany = async (
       .insert({
         user_name: companyName,
         user_email: contactEmail,
-        user_logo: companyLogo,
         contactName: contactName,
         user_phone: contactPhone,
         user_id: userData.user.id,

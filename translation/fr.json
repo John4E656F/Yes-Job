@@ -65,7 +65,8 @@
       "publish": "Publier une annonce",
       "add": "Ajoutez votre annonce gratuitement",
       "publishFree": "Publier votre annonce gratuitement",
-      "send": "Envoyer"
+      "send": "Envoyer",
+      "postAJob": "Publier une offre d'emploi"
     },
     "hero": {
       "title": "Trouver les meilleures offres d’emploi dans horeca",
@@ -185,7 +186,8 @@
       "invalidURL": "URL invalide",
       "invalidEmail": "Adresse e-mail invalide",
       "errorOption": "Veuillez sélectionner une option.",
-      "userExist": "L'utilisateur déjà inscrit, veuillez vous connecter."
+      "userExist": "L'utilisateur déjà inscrit, veuillez vous connecter.",
+      "notEnoughListing": "Vous n'avez pas d'annonce disponible, veuillez mettre à jour votre compte."
     }
   },
   "dashboard": {
@@ -199,6 +201,7 @@
       "subText": "Gérez ici vos offres d'emploi en ligne et provisoires.",
       "promotionSuccess": "L'offre d'emploi a été promue avec succès !",
       "promotionFailed": "Vous n'avez plus de promotion disponible, passez à la version supérieure ou achetez pour obtenir plus de promotion.",
+      "postError": "Il n'y a plus d'offres d'emploi disponibles, mettez à jour votre compte ou achetez pour obtenir plus d'offres d'emploi.",
       "moreJobListing": "Besoin de répertorier plus d'offres d'emploi ?",
       "moreJobListingSub": "Passez à la version et obtenez plus d'offres d'emploi.",
       "firstJobListing": "Publiez votre première offre d'emploi !",

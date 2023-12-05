@@ -1,11 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { Image, Button, Logo, Link, LocaleSwitcher, MobileMenu, ProfileMenu } from '..';
+import { Image, Button, Logo, Link, LocaleSwitcher, MobileMenu, ProfileMenu, Toast } from '..';
 import { HiBars3, HiMiniLanguage, HiUser } from 'react-icons/hi2';
 import { useTranslations } from 'next-intl';
-import { UsersTypes } from '@/types';
-import { useToggleMenu } from '@/hooks';
+import { UsersTypes, CompanyTypes, ListingData, ToastTitle } from '@/types';
+import { useToggle, useToggleMenu } from '@/hooks';
 import type { Session } from '@supabase/supabase-js';
 import { getCurrentUserJobListing } from '@/lib/actions/jobPost';
 
@@ -20,7 +20,6 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
 
   const [userData, setUserData] = useState<UsersTypes>({
     user_email: '',
-    user_logo: '',
     user_name: '',
     company_id: '',
     contactName: '',
@@ -28,8 +27,18 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
     id: '',
     user_id: '',
   });
+  const [companyData, setCompanyData] = useState<CompanyTypes>({
+    id: '',
+    name: '',
+    logo: '',
+    website: '',
+    phone: '',
+    owner_id: '',
+    teamMembers: [''],
+  });
   const [isFirstPost, setIsFirstPost] = useState<boolean>(true);
-
+  const [usedListingCount, setUsedListingCount] = useState<number>(0);
+  const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
   const { menuRef: profileMenuRef, isMenuOpen: isProfileMenuOpen, toggleMenu: toggleProfileMenu } = useToggleMenu();
   const { menuRef: mobileMenuRef, isMenuOpen: isMobileMenuOpen, toggleMenu: toggleMobileMenu } = useToggleMenu();
   const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
@@ -49,17 +58,25 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
-            // console.log(pathname);
-            if (!fetchedUserData.company_id) {
-              return setIsFirstPost(true);
-            }
-            const userId = fetchedUserData.id;
+            // console.log(fetchedUserData);
 
-            const fetchedUserListing = await getCurrentUserJobListing({ ownerId: userId, path: pathname });
+            const responseCompany = await fetch(`/api/company/${fetchedUserData.id}`);
+            const { fetchedCompanyData } = await responseCompany.json();
+            if (fetchedCompanyData) {
+              // console.log(fetchedCompanyData);
+              setCompanyData(fetchedCompanyData);
+              const companyId = fetchedCompanyData.id;
 
-            if (fetchedUserListing.length > 0) {
-              setIsFirstPost(false);
+              const fetchedUserListing = await getCurrentUserJobListing({ company_Id: companyId, path: pathname });
+              // console.log('fetchedUserListing', fetchedUserListing);
+
+              if (fetchedUserListing.length > 0) {
+                const publishedListingCount = fetchedUserListing.filter((listing: ListingData) => listing.published === true).length;
+                setUsedListingCount(publishedListingCount);
+                setIsFirstPost(false);
+              }
             }
+
             setUserData(fetchedUserData);
           } else {
             console.error('Failed to fetch user data');
@@ -74,8 +91,27 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
     fetchUserData();
   }, [session?.access_token]);
 
+  // console.log('userData', userData);
+  // console.log('companyData', companyData);
+  // console.log(usedListingCount);
+
+  const onClickPost = () => {
+    if (usedListingCount === companyData.availableJobListing) {
+      toggleToast(true);
+      setTimeout(() => {
+        // router.push(`/upgrade`);
+        toggleToast(false);
+      }, 3000);
+    } else {
+      router.push(`/publier`);
+    }
+  };
+  const handleCloseToast = () => {
+    toggleToast(!isToastOpen);
+  };
   return (
     <nav className='w-full flex justify-center h-auto relative'>
+      <Toast isOpen={isToastOpen} onClose={handleCloseToast} title={ToastTitle.Error} message={t('error.notEnoughListing')} />
       <div className='container flex justify-between items-center py-3 text-sm relative'>
         <Link href='/' className='flex items-center' aria-label='YesJob Navbar Logo'>
           <Logo width={80} height={80} />
@@ -118,16 +154,16 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               <Button
                 text={t('cta.publish')}
                 btnType='button'
-                onClick={() => router.push('/publier')}
+                onClick={onClickPost}
                 className='hidden md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
               />
             )}
           </div>
           <div className='flex gap-2 cursor-pointer'>
             {session &&
-              (userData.user_logo ? (
+              (companyData.logo ? (
                 <Button
-                  text={<Image src={userData.user_logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
+                  text={<Image src={companyData.logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
                   btnType='button'
                   onClick={toggleProfileMenu}
                 />

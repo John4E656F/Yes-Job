@@ -14,30 +14,107 @@ interface FirstPublishProps {
   logoUrl: string;
 }
 export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) {
-  console.log(data);
+  console.log('publish', data);
 
   const supabase = createClient();
 
   try {
-    const { resUserId, resCompanyId, error } = await registerNewCompany(
-      data.companyName,
-      data.contactEmail,
-      logoUrl,
-      data.companyWebsite || '',
-      data.companyPhone,
-      data.contactEmail,
-      data.contactName,
-      data.contactPhone,
-      data.contactPassword,
-    );
+    if (!data.user_Id) {
+      const { resUserId, resCompanyId, error } = await registerNewCompany(
+        data.companyName,
+        data.contactEmail,
+        logoUrl,
+        data.companyWebsite || '',
+        data.companyPhone,
+        data.contactEmail,
+        data.contactName,
+        data.contactPhone,
+        data.contactPassword,
+      );
 
-    if (error) {
-      return {
-        type: 'error' as const,
-        message: error,
-      };
+      if (error) {
+        return {
+          type: 'error' as const,
+          message: error,
+        };
+      }
+
+      const { type, message } = await registerJobPost({ data, resCompanyId: resCompanyId as string });
+      return { type, message };
+    } else if (data.user_Id && !data.company_Id) {
+      const { error: usersUpdateError } = await supabase
+        .from('users')
+        .update({ contactName: data.contactName, user_phone: data.contactPhone })
+        .eq('id', data.user_Id);
+      if (usersUpdateError) {
+        console.log('usersUpdateError', usersUpdateError.message);
+
+        return { type: 'error' as const, message: usersUpdateError.message };
+      }
+
+      const { data: newCompanyData, error: newCompanyError } = await supabase
+        .from('company')
+        .insert({
+          owner_id: data.user_Id,
+          teamMembers: [data.user_Id],
+          name: data.companyName,
+          logo: logoUrl,
+          website: data.companyWebsite,
+          phone: data.companyPhone,
+        })
+        .select('*');
+
+      if (newCompanyError || !newCompanyData) {
+        // console.log('Error inserting new company:', newCompanyError ? newCompanyError.message : 'No data returned');
+        return { error: newCompanyError.message };
+      }
+
+      const { type, message } = await registerJobPost({ data, resCompanyId: newCompanyData[0].id as string });
+      return { type, message };
+    } else if (data.user_Id && data.company_Id) {
+      const { error: usersUpdateError } = await supabase
+        .from('users')
+        .update({ contactName: data.contactName, user_phone: data.contactPhone })
+        .eq('id', data.user_Id);
+      if (usersUpdateError) {
+        console.log('usersUpdateError', usersUpdateError.message);
+
+        return { type: 'error' as const, message: usersUpdateError.message };
+      }
+
+      const { error: companyUpdateError } = await supabase
+        .from('company')
+        .update({ name: data.companyName, logo: logoUrl, website: data.companyWebsite, phone: data.companyPhone })
+        .eq('id', data.company_Id);
+
+      if (companyUpdateError) {
+        console.log('companyUpdateError', companyUpdateError);
+        return {
+          type: 'error' as const,
+          message: 'Unexpected error, please try again later.',
+        };
+      }
+      const { type, message } = await registerJobPost({ data, resCompanyId: data.company_Id as string });
+      return { type, message };
     }
+  } catch (error: any) {
+    console.error('An error occurred:', error.message);
+    return {
+      type: 'error' as const,
+      message: 'Unexpected error, please try again later.',
+    };
+  }
+}
 
+interface RegisterJobPost {
+  data: FirstPublishFormInputs;
+  resCompanyId: string;
+}
+
+export async function registerJobPost({ data, resCompanyId }: RegisterJobPost) {
+  const supabase = createClient();
+
+  try {
     const { data: jobPostData, error: jobPostError } = await supabase
       .from('jobPosting')
       .insert({
@@ -60,6 +137,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
         pinned: true,
         pinned_at: new Date().toISOString(),
         published: true,
+        published_at: new Date().toISOString(),
       })
       .select();
 
@@ -108,13 +186,9 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
         message: 'Unexpected error, please try again later.',
       };
     }
-
-    return {
-      type: 'success' as const,
-      message: 'Your job offer has been published successfully.',
-    };
+    return { type: 'success' as const, message: 'Your job offer has been published successfully.' };
   } catch (error: any) {
-    // console.error('An error occurred:', error.message);
+    console.error('An error occurred:', error.message);
     return {
       type: 'error' as const,
       message: 'Unexpected error, please try again later.',
@@ -126,7 +200,7 @@ export async function publishListing(data: PublishFormInputs) {
   const supabase = createClient();
 
   try {
-    let companyId = data.user_Id;
+    let companyId = data.company_Id;
 
     const { data: jobPostData, error: insertError } = await supabase.from('jobPosting').insert({
       company_id: companyId,
@@ -138,6 +212,8 @@ export async function publishListing(data: PublishFormInputs) {
       partTime: data.partTime,
       description: data.description,
       experience: data.experience === 'experience' ? true : false,
+      student: data.student,
+      flexi: data.flexi,
       location: data.location,
       salaryMin: data.salaryMin,
       salaryMax: data.salaryMax,
@@ -158,13 +234,24 @@ export async function publishListing(data: PublishFormInputs) {
     const { error: languageError } = await supabase
       .from('language')
       .insert({ english: data.english, french: data.french, dutch: data.dutch, jobPost_id: (jobPostData[0] as jobPost).id });
+    if (languageError) {
+      // console.log('language', languageError.message);
 
+      return {
+        type: 'error' as const,
+        message: 'Unexpected error, please try again later.',
+      };
+    }
     const { error: companyError } = await supabase
       .from('company')
       .update({ jobListings: [(jobPostData[0] as jobPost).id] })
       .eq('id', companyId)
       .single();
 
+    if (companyError) {
+      // console.log('companyerror', companyError.message);
+      return { type: 'error' as const, message: companyError.message };
+    }
     return {
       type: 'success' as const,
       message: 'Your job offer has been published successfully.',
