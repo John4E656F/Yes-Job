@@ -1,7 +1,7 @@
 'use client';
 import React, { FC, RefObject } from 'react';
 import { Image, Button, Logo, Link, SidebarList, LocaleSwitcher, ProfileMenu } from '@/components';
-import type { TranslationProps } from '@/types';
+import type { CompanyTypes, TranslationProps } from '@/types';
 import { FaArrowLeft } from 'react-icons/fa';
 import { HiXMark, HiMiniLanguage, HiUser } from 'react-icons/hi2';
 import { useToggleMenu } from '@/hooks';
@@ -12,10 +12,11 @@ interface MobileMenuProps extends TranslationProps {
   toggleMenu: () => void;
   menuRef: RefObject<HTMLDivElement>;
   userData: UsersTypes;
+  companyData: CompanyTypes;
   currentLocale: string;
 }
 
-export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRef, userData, t, currentLocale }) => {
+export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRef, userData, companyData, t, currentLocale }) => {
   const { menuRef: localeModalRef, isMenuOpen: isLocaleModalOpen, toggleMenu: toggleLocaleModal } = useToggleMenu();
 
   if (!isMenuOpen) return null;
@@ -55,9 +56,9 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRe
       </div>
       <SidebarList t={t} companyName={userData.user_name} />
       <div className='flex gap-2 p-2 mt-auto'>
-        {userData.user_logo ? (
+        {companyData.logo ? (
           <Button
-            text={<Image src={userData.user_logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
+            text={<Image src={companyData.logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
             btnType='button'
           />
         ) : (
