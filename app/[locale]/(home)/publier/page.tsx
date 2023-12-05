@@ -89,18 +89,19 @@ const PublishPage: React.FC = () => {
           if (response.ok) {
             const { fetchedUserData, fetchedCompanyData, fetchedJobPostData, fetchedCompanyError } = await response.json();
             // console.log('publish fetchedUserData', fetchedUserData);
-            // console.log('publish fetchedCompanyData', fetchedCompanyData);
+            console.log('publish fetchedCompanyData', fetchedCompanyData);
             // console.log('publish fetchedJobPostData', fetchedJobPostData);
 
             let usedListing = [];
             if (fetchedJobPostData) {
               usedListing = fetchedJobPostData.filter((listing: ListingData) => listing.published === true);
             }
-            if (fetchedCompanyData.availableJobListing === usedListing) {
+
+            if (fetchedCompanyData.availableJobListing === usedListing.length) {
               setToastErrorMessage('You have reached your maximum job listing limit.');
               setTimeout(() => {
                 toggleToast(false);
-                redirect('/dashboard');
+                router.push('/dashboard/job-listing');
               }, 2000);
             }
             setValue('user_Id', fetchedUserData.id || '');
