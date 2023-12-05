@@ -89,7 +89,7 @@ const PublishPage: React.FC = () => {
           if (response.ok) {
             const { fetchedUserData, fetchedCompanyData, fetchedJobPostData, fetchedCompanyError } = await response.json();
             // console.log('publish fetchedUserData', fetchedUserData);
-            console.log('publish fetchedCompanyData', fetchedCompanyData);
+            // console.log('publish fetchedCompanyData', fetchedCompanyData);
             // console.log('publish fetchedJobPostData', fetchedJobPostData);
 
             let usedListing = [];
