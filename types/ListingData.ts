@@ -25,6 +25,7 @@ export interface PublishData {
 export interface ListingData extends PublishData {
   company_id: string;
   company: {
+    id: string;
     name: string;
     website: string;
     logo: string;
