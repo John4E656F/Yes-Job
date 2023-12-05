@@ -7,7 +7,7 @@ import { redirect, useRouter } from 'next/navigation';
 import { publishFormResolver, type PublishFormInputs } from './publishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToggle } from '@/hooks';
-import { ToastTitle, UsersTypes } from '@/types';
+import { ListingData, ToastTitle, UsersTypes } from '@/types';
 import { publishListing } from '@/lib/actions';
 import { useTransition } from 'react';
 import { saveNewListingAsDraft } from '@/lib/actions';
@@ -74,23 +74,36 @@ const PublishPage: React.FC = () => {
     const fetchUserData = async () => {
       const session = await getClientUserSession();
 
-      let ownerID;
+      let sessionId;
 
-      if (session && session.user) {
-        ownerID = session.user.id;
+      if (!session) {
+        redirect('/login');
+      } else {
+        sessionId = session.user.id;
       }
 
-      if (ownerID) {
+      if (sessionId) {
         try {
-          const response = await fetch(`/api/user/${ownerID}`);
+          const response = await fetch(`/api/company/jobListing/${sessionId}`);
 
           if (response.ok) {
-            const { fetchedUserData } = await response.json();
-            // console.log(fetchedUserData);
-            setValue('user_Id', fetchedUserData.id || '');
+            const { fetchedUserData, fetchedCompanyData, fetchedJobPostData, fetchedCompanyError } = await response.json();
+            // console.log('publish fetchedUserData', fetchedUserData);
+            // console.log('publish fetchedCompanyData', fetchedCompanyData);
+            // console.log('publish fetchedJobPostData', fetchedJobPostData);
 
-            const responseCompany = await fetch(`/api/company/${fetchedUserData.id}`);
-            const { fetchedCompanyData, fetchedCompanyError } = await responseCompany.json();
+            let usedListing = [];
+            if (fetchedJobPostData) {
+              usedListing = fetchedJobPostData.filter((listing: ListingData) => listing.published === true);
+            }
+            if (fetchedCompanyData.availableJobListing === usedListing) {
+              setToastErrorMessage('You have reached your maximum job listing limit.');
+              setTimeout(() => {
+                toggleToast(false);
+                redirect('/dashboard');
+              }, 2000);
+            }
+            setValue('user_Id', fetchedUserData.id || '');
 
             if (fetchedCompanyError) {
               setToastErrorMessage('Please setup your company profile first.');
