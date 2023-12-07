@@ -5,10 +5,13 @@ export interface CompanyTypes {
   jobListings?: [string] | null;
   name: string;
   logo: string;
-  website?: string | null;
+  website?: string;
   phone?: string | null;
   total_request_count?: number;
   availableJobListing?: number | null;
   availableBoost?: number | null;
   created_at?: string;
+  address?: string;
+  about?: string;
+  slug?: string;
 }

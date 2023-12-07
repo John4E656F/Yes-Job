@@ -1,21 +1,21 @@
 import React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { FormLabel, Input, InputError } from '@/components';
-import { HiOutlineEyeSlash, HiOutlineEye } from 'react-icons/hi2';
+import { HiOutlineLockClosed, HiOutlineEye } from 'react-icons/hi2';
 
 interface FormInputProps {
   register: UseFormRegisterReturn;
   error: any;
-  show?: boolean;
-  setShow?: React.Dispatch<React.SetStateAction<boolean>>;
-  type: string;
+  disabled?: boolean;
   label?: string;
   placeholder?: string;
-  isPasswordField?: boolean;
+  isLocked?: boolean;
   isRequiredMessage?: string;
   invalidURL?: string;
   invalidEmail?: string;
   className?: string;
+  slug?: string;
+  supportText?: React.ReactNode | string;
 }
 
 export function DashboardFormInput({
@@ -24,13 +24,12 @@ export function DashboardFormInput({
   isRequiredMessage,
   invalidURL,
   invalidEmail,
-  show,
-  setShow,
-  type,
-  label,
+  disabled = false,
   placeholder,
   className,
-  isPasswordField = false,
+  isLocked = false,
+  slug,
+  supportText,
 }: FormInputProps) {
   let errorMessage;
   if (error && error.message === 'String must contain at least 1 character(s)') {
@@ -44,29 +43,26 @@ export function DashboardFormInput({
   }
 
   return (
-    <div
-      className={`form-control flex items-center content-start self-stretch flex-wrap gap-8  ${
-        type == 'number' && 'flex items-center gap-2 w-full'
-      } ${className}`}
-    >
-      {label && <FormLabel htmlFor={`input${label}`} labelText={label} className='whitespace-nowrap text-lg font-medium w-52 min-w-min max-w-sm' />}
-
+    <div className={`form-control flex items-center content-start flex-wrap w-min ${className}`}>
       <div
-        className={`shadow appearance-none border rounded w-96 h-9 text-gray-700 leading-tight focus:outline-none focus:shadow-outline 
-          } ${error ? 'border-red-500' : ''} ${isPasswordField ? 'flex items-center' : ''}`}
+        className={` flex  items-center shadow appearance-none border rounded w-96 h-9 text-gray-700 leading-tight focus:outline-none focus:shadow-outline 
+        ${isLocked && !slug && 'bg-gray-300'} ${error ? 'border-red-500' : ''}`}
       >
+        {slug && <p className='px-3 bg-gray-300 h-full flex items-center'>{slug}</p>}
         <Input
-          className='w-full h-full pl-3 grow self-stretch '
-          type={show !== undefined ? (show ? 'text' : type) : type}
+          className={`w-full h-full pl-3 grow self-stretch ${isLocked && !slug && 'bg-gray-300'}`}
+          type='text'
           {...register}
           placeholder={placeholder}
+          disabled={disabled}
         />
-        {isPasswordField && setShow && (
-          <span className='cursor-pointer self-center pr-2 text-brand-gray' onClick={() => setShow(!show)}>
-            {show ? <HiOutlineEye size={20} /> : <HiOutlineEyeSlash size={20} />}
+        {isLocked && (
+          <span className='pr-2 '>
+            <HiOutlineLockClosed size={20} />
           </span>
         )}
       </div>
+      {supportText && <div className='text-sm text-gray-500'>{supportText}</div>}
       {error && <InputError error={{ message: errorMessage }} />}
     </div>
   );

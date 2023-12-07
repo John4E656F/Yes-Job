@@ -31,7 +31,6 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
     id: '',
     name: '',
     logo: '',
-    website: '',
     phone: '',
     owner_id: '',
     teamMembers: [''],

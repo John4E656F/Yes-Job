@@ -14,7 +14,7 @@ interface FirstPublishProps {
   logoUrl: string;
 }
 export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) {
-  console.log('publish', data);
+  // console.log('publish', data);
 
   const supabase = createClient();
 
@@ -24,7 +24,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
         data.companyName,
         data.contactEmail,
         logoUrl,
-        data.companyWebsite || '',
+        data.companyWebsite || null,
         data.companyPhone,
         data.contactEmail,
         data.contactName,
