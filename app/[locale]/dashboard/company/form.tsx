@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { companyFormResolver, type CompanyFormInputs } from './companyFormResolver';
 import { Link, Input, FormLabel, DashboardFormInput, DashboardImageUpload, DashboardFormTextarea, Divider } from '@/components';
 import { CompanyTypes } from '@/types';
+import { registerNewCompany, updateCompany } from '@/lib/actions';
 
 interface CompanyFormProps {
   companyData: CompanyTypes;
@@ -49,7 +50,13 @@ export const CompanyForm = ({ companyData }: CompanyFormProps) => {
     }
   }, [companyData]);
 
-  const onSubmit = async (data: CompanyFormInputs) => {};
+  const onSubmit = async (data: CompanyFormInputs) => {
+    if (!companyData) {
+      await registerNewCompany({ companyData: data, path: '/dashboard/company' });
+    } else {
+      await updateCompany({ companyData: data, path: '/dashboard/company' });
+    }
+  };
 
   return (
     <form className='flex flex-col pt-2 w-full gap-5' onSubmit={handleSubmit(onSubmit)}>
@@ -67,6 +74,7 @@ export const CompanyForm = ({ companyData }: CompanyFormProps) => {
           </button>
         </div>
       </div>
+      <Divider />
       <div className='flex'>
         <FormLabel htmlFor='input Company Name' labelText='Company Name *' className='whitespace-nowrap w-52 min-w-min max-w-sm' />
         <div className='flex flex-col gap-5'>
@@ -87,6 +95,7 @@ export const CompanyForm = ({ companyData }: CompanyFormProps) => {
             isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
             placeholder='quick'
             slug='yesjob.be/companies/'
+            supportText={<p>Please contact us if you'd like to change your company name.</p>}
           />
         </div>
       </div>
