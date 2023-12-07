@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { companyFormResolver, type CompanyFormInputs } from './companyFormResolver';
+import { Link, Input, FormLabel, DashboardFormInput, Divider } from '@/components';
 
 export const CompanyForm = () => {
   const t = useTranslations('app');
@@ -31,8 +32,59 @@ export const CompanyForm = () => {
   const onSubmit = async (data: CompanyFormInputs) => {};
 
   return (
-    <form className='flex flex-col w-full gap-5' onSubmit={handleSubmit(onSubmit)}>
-      <div>Hello Worlds</div>
+    <form className='flex flex-col pt-2 w-full gap-5' onSubmit={handleSubmit(onSubmit)}>
+      <div className='flex justify-between items-center'>
+        <div>
+          <h2>Overview</h2>
+          <p className='text-brand-text-secondary text-sm'>This information will be displayed publicly so be careful what you share.</p>
+        </div>
+        <div>
+          <Link
+            href='/annonce/publier'
+            className='flex items-center h-11 justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+          >
+            <button type='button' className='px-4 h-11 text-sm'>
+              Save changes
+            </button>
+          </Link>
+        </div>
+      </div>
+      <div className='flex'>
+        <FormLabel htmlFor='inputCompanyName' labelText='Company Name' className='whitespace-nowrap text-lg font-medium w-52 min-w-min max-w-sm' />
+        <div className='flex flex-col gap-5'>
+          <DashboardFormInput
+            // label='Company Name*'
+            type='text'
+            register={register('name', { required: true })}
+            error={errors.name}
+            isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
+            placeholder='Quick, McDonald ...'
+          />
+          {/* <input className='w-full h-full pl-3 grow self-stretch ' type='text' {...register('slug')} placeholder='hello world' /> */}
+          <DashboardFormInput
+            // label='Company Name*'
+            type='text'
+            register={register('name', { required: true })}
+            error={errors.name}
+            isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
+            placeholder='Quick, McDonald ...'
+          />
+        </div>
+      </div>
+      <Divider />
+      <div className='flex'>
+        <FormLabel htmlFor='inputCompanyName' labelText='Website *' className='whitespace-nowrap text-lg font-medium w-52 min-w-min max-w-sm' />
+        <div className='flex flex-col gap-5'>
+          <DashboardFormInput
+            // label='Company Name*'
+            type='text'
+            register={register('name', { required: true })}
+            error={errors.name}
+            isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
+            placeholder='Quick, McDonald ...'
+          />
+        </div>
+      </div>
     </form>
   );
 };
