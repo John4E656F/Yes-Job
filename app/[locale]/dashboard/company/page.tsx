@@ -32,7 +32,7 @@ export default async function CompanyPage() {
   console.log('fetchedCompanyData', fetchedCompanyData);
 
   return (
-    <section className='w-full bg-white flex flex-col py-4 pt-10 px-5 gap-y-8'>
+    <section className='w-full bg-white flex flex-col py-4 pt-10 px-10 gap-y-8'>
       <div className='flex flex-col gap-2'>
         <div className='flex justify-between items-center'>
           <div>
