@@ -4,6 +4,8 @@ import { CompanyForm } from './form';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 import { refreshUserSession } from '@/lib/actions/refreshServerSession';
 import { getTranslations } from 'next-intl/server';
+import { RiShareBoxFill } from 'react-icons/ri';
+
 export default async function CompanyPage() {
   const t = await getTranslations('dashboard');
   const session = await getServerUserSession();
@@ -37,9 +39,15 @@ export default async function CompanyPage() {
         <div className='flex justify-between items-center'>
           <div>
             <h1>Company</h1>
-            <Link href='/annonce/publier' className='flex items-center justify-center text-center'>
-              <p>yesjob.be/companies/{fetchedCompanyData && fetchedCompanyData.name}</p>
-            </Link>
+            {fetchedCompanyData && fetchedCompanyData.slug ? (
+              <Link href={`/companies/${fetchedCompanyData.slug}`} className='flex items-center justify-center text-center gap-2'>
+                <p>yesjob.be/companies/{fetchedCompanyData && fetchedCompanyData.slug}</p> <RiShareBoxFill />
+              </Link>
+            ) : (
+              <div className='flex items-center justify-center text-center'>
+                <p>yesjob.be/companies/your company slug</p>
+              </div>
+            )}
           </div>
           <Link
             href='/annonce/publier'
