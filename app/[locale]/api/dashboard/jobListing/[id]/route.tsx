@@ -11,14 +11,18 @@ export async function GET(request: Request, { params }: { params: { id: string }
   try {
     // Fetch user data
     const { data: fetchedUserData, error: userError } = await supabase.from('users').select('*').eq('user_id', ownerId).single();
+    // console.log('fetchedUserData', fetchedUserData);
 
     if (fetchedUserData) {
       const userData = fetchedUserData as UsersTypes;
       const { data: fetchedCompanyData, error: companyError } = await supabase.from('company').select('*').eq('owner_id', userData.id).single();
+      // console.log('fetchedCompanyData', fetchedCompanyData);
 
       if (companyError) {
         // throw new Error('Failed to fetch company data: ' + companyError.message);
-        return NextResponse.json({ error: 'Failed to fetch company data: ' + companyError.message });
+        // console.log('Failed to fetch company data: ' + companyError.message);
+
+        return NextResponse.json({ fetchedUserData: fetchedUserData as UsersTypes, error: 'Failed to fetch company data: ' + companyError.message });
       } else if (fetchedCompanyData) {
         const companyData = fetchedCompanyData as CompanyTypes;
         // Fetch job listing data
