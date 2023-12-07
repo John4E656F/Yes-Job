@@ -1,13 +1,19 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { companyFormResolver, type CompanyFormInputs } from './companyFormResolver';
 import { Link, Input, FormLabel, DashboardFormInput, DashboardImageUpload, DashboardFormTextarea, Divider } from '@/components';
+import { CompanyTypes } from '@/types';
 
-export const CompanyForm = () => {
+interface CompanyFormProps {
+  companyData: CompanyTypes;
+}
+export const CompanyForm = ({ companyData }: CompanyFormProps) => {
   const t = useTranslations('app');
+  console.log('company form', companyData);
 
+  const [isLocked, setIsLocked] = useState<boolean>(false);
   const {
     register,
     unregister,
@@ -29,6 +35,19 @@ export const CompanyForm = () => {
       address: '',
     },
   });
+  console.log(watch());
+
+  useEffect(() => {
+    if (companyData) {
+      setIsLocked(true);
+      setValue('name', companyData.name);
+      setValue('slug', companyData.slug);
+      setValue('website', companyData.website);
+      setValue('logo', companyData.logo);
+      setValue('about', companyData.about);
+      setValue('address', companyData.address);
+    }
+  }, [companyData]);
 
   const onSubmit = async (data: CompanyFormInputs) => {};
 
@@ -40,49 +59,47 @@ export const CompanyForm = () => {
           <p className='text-brand-text-secondary text-sm'>This information will be displayed publicly so be careful what you share.</p>
         </div>
         <div>
-          <Link
-            href='/annonce/publier'
-            className='flex items-center h-11 justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+          <button
+            type='submit'
+            className='flex items-center px-4 h-11 justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
           >
-            <button type='button' className='px-4 h-11 text-sm'>
-              Save changes
-            </button>
-          </Link>
+            Save changes
+          </button>
         </div>
       </div>
       <div className='flex'>
-        <FormLabel htmlFor='inputCompanyName' labelText='Company Name' className='whitespace-nowrap text-lg font-medium w-52 min-w-min max-w-sm' />
+        <FormLabel htmlFor='input Company Name' labelText='Company Name *' className='whitespace-nowrap w-52 min-w-min max-w-sm' />
         <div className='flex flex-col gap-5'>
           <DashboardFormInput
-            // label='Company Name*'
-            type='text'
+            isLocked={isLocked}
+            disabled={isLocked}
             register={register('name', { required: true })}
             error={errors.name}
             isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
-            placeholder='Quick, McDonald ...'
+            placeholder='Quick'
+            supportText={<p>Please contact us if you'd like to change your company name.</p>}
           />
-          {/* <input className='w-full h-full pl-3 grow self-stretch ' type='text' {...register('slug')} placeholder='hello world' /> */}
           <DashboardFormInput
-            // label='Company Name*'
-            type='text'
-            register={register('name', { required: true })}
-            error={errors.name}
+            isLocked={isLocked}
+            disabled={isLocked}
+            register={register('slug', { required: true })}
+            error={errors.slug}
             isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
-            placeholder='Quick, McDonald ...'
+            placeholder='quick'
+            slug='yesjob.be/companies/'
           />
         </div>
       </div>
       <Divider />
       <div className='flex'>
-        <FormLabel htmlFor='inputCompanyName' labelText='Website *' className='whitespace-nowrap text-lg font-medium w-52 min-w-min max-w-sm' />
+        <FormLabel htmlFor='input Company Website' labelText='Website *' className='whitespace-nowrap w-52 min-w-min max-w-sm' />
         <div className='flex flex-col gap-5'>
           <DashboardFormInput
-            // label='Company Name*'
-            type='text'
             register={register('name', { required: true })}
             error={errors.name}
             isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
-            placeholder='Quick, McDonald ...'
+            placeholder='quick.be'
+            slug='https://'
           />
         </div>
       </div>
@@ -98,8 +115,6 @@ export const CompanyForm = () => {
         <FormLabel htmlFor='inputCompanyName' labelText='Address *' className='whitespace-nowrap text-lg font-medium w-52 min-w-min max-w-sm' />
         <div className='flex flex-col gap-5'>
           <DashboardFormInput
-            // label='Company Name*'
-            type='text'
             register={register('name', { required: true })}
             error={errors.name}
             isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
@@ -109,14 +124,12 @@ export const CompanyForm = () => {
       </div>
       <Divider />
       <div className='flex justify-end'>
-        <Link
-          href='/annonce/publier'
-          className='flex items-center h-11 justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+        <button
+          type='submit'
+          className='flex items-center px-4 h-11 justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
         >
-          <button type='button' className='px-4 h-11 text-sm'>
-            Save changes
-          </button>
-        </Link>
+          Save changes
+        </button>
       </div>
     </form>
   );

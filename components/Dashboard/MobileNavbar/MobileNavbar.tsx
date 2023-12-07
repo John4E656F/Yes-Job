@@ -27,6 +27,7 @@ export function MobileNavbar({ currentLocale, session }: NavbarProps) {
     owner_id: '',
     name: '',
     logo: '',
+    website: null,
   });
 
   const { menuRef: mobileMenuRef, isMenuOpen: isMobileMenuOpen, toggleMenu: toggleMobileMenu } = useToggleMenu();

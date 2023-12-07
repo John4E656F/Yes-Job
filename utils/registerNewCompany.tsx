@@ -37,7 +37,7 @@ export const registerNewCompany = async (
   companyName: string,
   companyEmail: string,
   companyLogo: string,
-  companyWebsite: string | undefined,
+  companyWebsite: string | null,
   companyPhone: string | null,
   contactEmail: string,
   contactName: string,

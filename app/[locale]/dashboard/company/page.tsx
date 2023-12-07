@@ -38,7 +38,7 @@ export default async function CompanyPage() {
           <div>
             <h1>Company</h1>
             <Link href='/annonce/publier' className='flex items-center justify-center text-center'>
-              <p>yesjob.be/companies/{fetchedCompanyData.name}</p>
+              <p>yesjob.be/companies/{fetchedCompanyData && fetchedCompanyData.name}</p>
             </Link>
           </div>
           <Link
@@ -51,7 +51,7 @@ export default async function CompanyPage() {
           </Link>
         </div>
       </div>
-      <CompanyForm />
+      <CompanyForm companyData={fetchedCompanyData} />
     </section>
   );
 }
