@@ -36,23 +36,25 @@ export function DashboardImageUpload({ register, error, label, initialPreview }:
   }, [initialPreview]);
 
   return (
-    <div className='form-control '>
-      <FormLabel htmlFor={`input${label}`} labelText={label} className='text-lg font-medium' />
-      <div className='flex flex-col items-center justify-center w-full gap-4'>
-        {preview ? <Image src={preview as string} alt='Preview' className='w-24 h-24 p-1 object-contain bg-blue-200 rounded-xl' /> : null}
-        <label
-          htmlFor={`input${label}`}
-          className='flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100'
-        >
-          <div className='flex flex-col items-center justify-center pt-5 pb-6'>
-            <BiUpload />
-            <p className='mb-2 text-sm text-gray-500'>
-              <span className='font-semibold'>Upload</span> Drag 'n' drop some files here, or click to select files
-            </p>
-            <p className='text-xs text-gray-500'>Upload Details</p>
-          </div>
-          <input id={`input${label}`} type='file' accept='image/*' onChange={handleImageChange} ref={ref} className='hidden' {...rest} />
-        </label>
+    <div className='form-control flex '>
+      <FormLabel htmlFor={`input${label}`} labelText={label} className='text-lg font-medium w-52 min-w-min max-w-sm' />
+      <div className='flex items-center w-full gap-4 '>
+        <Image src={preview ? (preview as string) : ''} alt='Preview' className='w-24 h-24 p-1 object-contain border border-gray-300 rounded-xl' />
+        <div>
+          <label
+            htmlFor={`input${label}`}
+            className='flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100'
+          >
+            <div className='flex flex-col items-center justify-center pt-5 pb-6'>
+              <BiUpload />
+              <p className='mb-2 text-sm text-gray-500'>
+                <span className='font-semibold'>Upload</span> Drag 'n' drop some files here, or click to select files
+              </p>
+              <p className='text-xs text-gray-500'>Upload Details</p>
+            </div>
+            <input id={`input${label}`} type='file' accept='image/*' onChange={handleImageChange} ref={ref} className='hidden' {...rest} />
+          </label>
+        </div>
       </div>
       {error && <InputError error={error} />}
     </div>
