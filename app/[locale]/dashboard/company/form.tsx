@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { companyFormResolver, type CompanyFormInputs } from './companyFormResolver';
-import { Link, Input, FormLabel, DashboardFormInput, Divider } from '@/components';
+import { Link, Input, FormLabel, DashboardFormInput, DashboardImageUpload, DashboardFormTextarea, Divider } from '@/components';
 
 export const CompanyForm = () => {
   const t = useTranslations('app');
@@ -25,6 +25,7 @@ export const CompanyForm = () => {
       slug: '',
       website: '',
       logo: '',
+      about: '',
       address: '',
     },
   });
@@ -85,6 +86,16 @@ export const CompanyForm = () => {
           />
         </div>
       </div>
+      <Divider />
+      <DashboardImageUpload label='Company logo*' register={register('logo')} error={errors.logo} initialPreview='' />
+      <Divider />
+      <DashboardFormTextarea
+        label='About the company'
+        register={register('about')}
+        error={errors.about}
+        isRequiredMessage={'' + t('error.isRequired')}
+        placeholder=''
+      />
     </form>
   );
 };
