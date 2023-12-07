@@ -89,13 +89,35 @@ export const CompanyForm = () => {
       <Divider />
       <DashboardImageUpload label='Company logo*' register={register('logo')} error={errors.logo} initialPreview='' />
       <Divider />
-      <DashboardFormTextarea
-        label='About the company'
-        register={register('about')}
-        error={errors.about}
-        isRequiredMessage={'' + t('error.isRequired')}
-        placeholder=''
-      />
+      <div className='flex'>
+        <FormLabel htmlFor={`input-about`} labelText='About the company' className='w-52 min-w-min max-w-sm' />
+        <DashboardFormTextarea register={register('about')} error={errors.about} isRequiredMessage={'' + t('error.isRequired')} placeholder='' />
+      </div>
+      <Divider />
+      <div className='flex'>
+        <FormLabel htmlFor='inputCompanyName' labelText='Address *' className='whitespace-nowrap text-lg font-medium w-52 min-w-min max-w-sm' />
+        <div className='flex flex-col gap-5'>
+          <DashboardFormInput
+            // label='Company Name*'
+            type='text'
+            register={register('name', { required: true })}
+            error={errors.name}
+            isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
+            placeholder='Quick, McDonald ...'
+          />
+        </div>
+      </div>
+      <Divider />
+      <div className='flex justify-end'>
+        <Link
+          href='/annonce/publier'
+          className='flex items-center h-11 justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+        >
+          <button type='button' className='px-4 h-11 text-sm'>
+            Save changes
+          </button>
+        </Link>
+      </div>
     </form>
   );
 };
