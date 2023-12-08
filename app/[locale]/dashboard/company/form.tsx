@@ -4,16 +4,12 @@ import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { companyFormResolver, type CompanyFormInputs } from './companyFormResolver';
 import { Link, Input, FormLabel, DashboardFormInput, DashboardImageUpload, DashboardFormTextarea, Divider } from '@/components';
-import { CompanyTypes, UsersTypes } from '@/types';
 import { registerNewCompany, updateCompany } from '@/lib/actions';
 import { v4 as uuidv4 } from 'uuid';
 import { removeSpaces } from '@/utils/';
 import { createClient } from '@/utils/supabase/client';
+import type { CompanyFormProps } from '@/types';
 
-interface CompanyFormProps {
-  companyData: CompanyTypes;
-  userData: UsersTypes;
-}
 export const CompanyForm = ({ companyData, userData }: CompanyFormProps) => {
   const t = useTranslations('app');
   console.log('company form', companyData);

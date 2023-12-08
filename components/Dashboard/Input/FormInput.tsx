@@ -16,6 +16,7 @@ interface FormInputProps {
   className?: string;
   slug?: string;
   supportText?: React.ReactNode | string;
+  type?: string;
 }
 
 export function DashboardFormInput({
@@ -30,6 +31,7 @@ export function DashboardFormInput({
   isLocked = false,
   slug,
   supportText,
+  type,
 }: FormInputProps) {
   let errorMessage;
   if (error && error.message === 'String must contain at least 1 character(s)') {
@@ -45,7 +47,8 @@ export function DashboardFormInput({
   return (
     <div className={`form-control flex items-center content-start flex-wrap w-min ${className}`}>
       <div
-        className={` flex  items-center shadow appearance-none border rounded w-96 h-9 text-gray-700 leading-tight focus:outline-none focus:shadow-outline 
+        className={` flex  items-center shadow appearance-none border rounded h-9 text-gray-700 leading-tight focus:outline-none focus:shadow-outline 
+        ${type === 'name' ? 'w-48' : 'w-96'}
         ${isLocked && !slug && 'bg-gray-300'} ${error ? 'border-red-500' : ''}`}
       >
         {slug && <p className='px-3 bg-gray-300 h-full flex items-center'>{slug}</p>}
