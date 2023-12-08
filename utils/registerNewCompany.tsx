@@ -67,6 +67,7 @@ export const registerNewCompany = async (
         contactName: contactName,
         user_phone: contactPhone,
         user_id: userData.user.id,
+        isCompany: true,
       })
       .select('*');
 
