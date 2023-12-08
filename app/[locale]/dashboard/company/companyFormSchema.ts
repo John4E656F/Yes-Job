@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const companyFormSchema = z.object({
+  owner_id: z.string(),
   name: z
     .string()
     .min(1)

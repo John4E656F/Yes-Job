@@ -4,13 +4,17 @@ import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { companyFormResolver, type CompanyFormInputs } from './companyFormResolver';
 import { Link, Input, FormLabel, DashboardFormInput, DashboardImageUpload, DashboardFormTextarea, Divider } from '@/components';
-import { CompanyTypes } from '@/types';
+import { CompanyTypes, UsersTypes } from '@/types';
 import { registerNewCompany, updateCompany } from '@/lib/actions';
+import { v4 as uuidv4 } from 'uuid';
+import { removeSpaces } from '@/utils/';
+import { createClient } from '@/utils/supabase/client';
 
 interface CompanyFormProps {
   companyData: CompanyTypes;
+  userData: UsersTypes;
 }
-export const CompanyForm = ({ companyData }: CompanyFormProps) => {
+export const CompanyForm = ({ companyData, userData }: CompanyFormProps) => {
   const t = useTranslations('app');
   console.log('company form', companyData);
 
@@ -28,6 +32,7 @@ export const CompanyForm = ({ companyData }: CompanyFormProps) => {
     mode: 'onChange',
     reValidateMode: 'onBlur',
     defaultValues: {
+      owner_id: '',
       name: '',
       slug: '',
       website: '',
@@ -37,8 +42,10 @@ export const CompanyForm = ({ companyData }: CompanyFormProps) => {
     },
   });
   console.log(watch());
+  console.log(companyData);
 
   useEffect(() => {
+    setValue('owner_id', userData.id);
     if (companyData) {
       setIsLocked(true);
       setValue('name', companyData.name);
@@ -51,10 +58,47 @@ export const CompanyForm = ({ companyData }: CompanyFormProps) => {
   }, [companyData]);
 
   const onSubmit = async (data: CompanyFormInputs) => {
-    if (!companyData) {
-      await registerNewCompany({ companyData: data, path: '/dashboard/company' });
+    let logoUrl = '';
+    if (typeof data.logo === 'string') {
+      console.log('logo string');
+
+      logoUrl = data.logo;
     } else {
-      await updateCompany({ companyData: data, path: '/dashboard/company' });
+      if (data.logo[0]) {
+        const supabase = createClient();
+        // console.log('logo', logo);
+
+        const filename = `${uuidv4()}-${removeSpaces(data.logo[0].name)}`;
+
+        const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.logo[0], {
+          cacheControl: '3600',
+          upsert: false,
+        });
+        if (uploadError || !uploadData) {
+          // console.log(uploadError);
+
+          return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+        }
+
+        const { data: publicUrlData } = supabase.storage.from('logo').getPublicUrl(uploadData.path);
+        if (!publicUrlData) {
+          // console.log(publicUrlData);
+
+          return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+        }
+        const publicUrl = publicUrlData.publicUrl;
+        logoUrl = publicUrl;
+      }
+    }
+
+    if (!logoUrl) {
+      return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
+    }
+    if (!companyData) {
+      const response = await registerNewCompany({ companyData: JSON.parse(JSON.stringify(data)), logoUrl, path: '/dashboard/company' });
+      console.log('response', response);
+    } else {
+      await updateCompany({ companyData: JSON.parse(JSON.stringify(data)), logoUrl, path: '/dashboard/company' });
     }
   };
 
@@ -101,11 +145,11 @@ export const CompanyForm = ({ companyData }: CompanyFormProps) => {
       </div>
       <Divider />
       <div className='flex'>
-        <FormLabel htmlFor='input Company Website' labelText='Website *' className='whitespace-nowrap w-52 min-w-min max-w-sm' />
+        <FormLabel htmlFor='input Company Website' labelText='Website' className='whitespace-nowrap w-52 min-w-min max-w-sm' />
         <div className='flex flex-col gap-5'>
           <DashboardFormInput
-            register={register('name', { required: true })}
-            error={errors.name}
+            register={register('website')}
+            error={errors.website}
             isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
             placeholder='quick.be'
             slug='https://'
@@ -113,7 +157,7 @@ export const CompanyForm = ({ companyData }: CompanyFormProps) => {
         </div>
       </div>
       <Divider />
-      <DashboardImageUpload label='Company logo*' register={register('logo')} error={errors.logo} initialPreview='' />
+      <DashboardImageUpload label='Company logo*' register={register('logo')} error={errors.logo} initialPreview={companyData.logo} />
       <Divider />
       <div className='flex'>
         <FormLabel htmlFor={`input-about`} labelText='About the company' className='w-52 min-w-min max-w-sm' />
@@ -124,8 +168,8 @@ export const CompanyForm = ({ companyData }: CompanyFormProps) => {
         <FormLabel htmlFor='inputCompanyName' labelText='Address *' className='whitespace-nowrap text-lg font-medium w-52 min-w-min max-w-sm' />
         <div className='flex flex-col gap-5'>
           <DashboardFormInput
-            register={register('name', { required: true })}
-            error={errors.name}
+            register={register('address', { required: true })}
+            error={errors.address}
             isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
             placeholder='Quick, McDonald ...'
           />

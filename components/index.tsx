@@ -30,4 +30,4 @@ export { InputError } from './Input/InputError';
 export { ImageUpload } from './Input/ImageUpload';
 export { FileUpload } from './Input/FileUpload';
 export { Tiptap } from './TipTap/TipTap';
-export { Sidebar, SidebarList, MobileNavbar, DashboardFormInput, DashboardImageUpload, DashboardFormTextarea } from './Dashboard';
+export { Sidebar, SidebarList, MobileNavbar, DashboardFormInput, DashboardImageUpload, DashboardFormTextarea, SettingsNavbar } from './Dashboard';
