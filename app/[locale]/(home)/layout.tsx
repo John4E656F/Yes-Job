@@ -38,6 +38,7 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
   }
 
   const session = await getServerUserSession();
+  // console.log('layout session', session);
 
   return (
     <html lang={locale}>

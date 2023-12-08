@@ -59,7 +59,7 @@ export default async function CompanyPage() {
           </Link>
         </div>
       </div>
-      <CompanyForm companyData={fetchedCompanyData} />
+      <CompanyForm companyData={fetchedCompanyData} userData={fetchedUserData} />
     </section>
   );
 }

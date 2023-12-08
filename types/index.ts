@@ -8,3 +8,4 @@ export { ToastTitle, type ToastProps } from './ToastProps';
 export type { viewCounterDataType, viewCounterResponseType, dashboardViewCounterDisplayType } from './ViewCounterDataType';
 export type { CompanyTypes } from './CompanyTypes';
 export type { SessionTypes } from './SessionTypes';
+export type { SettingsNavbarProps } from './DashboardSettingsTypes';

@@ -4,3 +4,4 @@ export { MobileNavbar } from './MobileNavbar/MobileNavbar';
 export { DashboardFormInput } from './Input/FormInput';
 export { DashboardImageUpload } from './Input/ImageUpload';
 export { DashboardFormTextarea } from './Input/FormTextarea';
+export { SettingsNavbar } from './Settings/Navbar/SettingsNavbar';

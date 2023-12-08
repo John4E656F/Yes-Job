@@ -39,6 +39,8 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
   if (!session) {
     redirect('/');
   }
+  // console.log('layout dashboard session', session);
+
   return (
     <html lang={locale}>
       <body className='flex flex-col'>
