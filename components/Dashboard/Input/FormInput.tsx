@@ -13,6 +13,7 @@ interface FormInputProps {
   isRequiredMessage?: string;
   invalidURL?: string;
   invalidEmail?: string;
+  invalidPhone?: string;
   className?: string;
   slug?: string;
   supportText?: React.ReactNode | string;
@@ -25,6 +26,7 @@ export function DashboardFormInput({
   isRequiredMessage,
   invalidURL,
   invalidEmail,
+  invalidPhone,
   disabled = false,
   placeholder,
   className,
@@ -40,6 +42,8 @@ export function DashboardFormInput({
     errorMessage = invalidURL;
   } else if (error && error.message === 'Invalid email') {
     errorMessage = invalidEmail;
+  } else if (error && error.message === 'Number must be less than or equal to 9') {
+    errorMessage = invalidPhone;
   } else if (error) {
     errorMessage = error.message;
   }

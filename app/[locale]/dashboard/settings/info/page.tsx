@@ -89,7 +89,7 @@ export default function SettingsInfoPage() {
 
         const filename = `${uuidv4()}-${removeSpaces(data.profile_picture[0].name)}`;
 
-        const { data: uploadData, error: uploadError } = await supabase.storage.from('logo').upload(filename, data.profile_picture[0], {
+        const { data: uploadData, error: uploadError } = await supabase.storage.from('profile_picture').upload(filename, data.profile_picture[0], {
           cacheControl: '3600',
           upsert: false,
         });
@@ -99,7 +99,7 @@ export default function SettingsInfoPage() {
           return { type: 'error' as const, message: 'Error uploading logo please try again later.' };
         }
 
-        const { data: publicUrlData } = supabase.storage.from('logo').getPublicUrl(uploadData.path);
+        const { data: publicUrlData } = supabase.storage.from('profile_picture').getPublicUrl(uploadData.path);
         if (!publicUrlData) {
           // console.log(publicUrlData);
 
@@ -175,11 +175,12 @@ export default function SettingsInfoPage() {
         <FormLabel htmlFor='input Profile Phone Number' labelText='Phone number' className='whitespace-nowrap w-52 min-w-min max-w-sm' />
         <div className='flex flex-col gap-5'>
           <DashboardFormInput
-            register={register('user_phone')}
+            register={register('user_phone', { valueAsNumber: true })}
             error={errors.user_phone}
             isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
             placeholder='491234567'
             slug='+32'
+            invalidPhone='Phone number must be 9 digits long.'
           />
         </div>
       </div>
