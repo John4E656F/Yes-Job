@@ -1,7 +1,8 @@
 export interface UsersTypes {
   user_email: string;
   user_name: string;
-  contactName: string;
+  firstname: string;
+  lastname: string;
   company_id?: string;
   created_at: string;
   id: string;

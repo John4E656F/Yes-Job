@@ -9,10 +9,10 @@ export const SettingsNavbar = () => {
       text: 'Personal Info',
       link: '/dashboard/settings/info',
     },
-    {
-      text: 'Password',
-      link: '/dashboard/settings/password',
-    },
+    // {
+    //   text: 'Password',
+    //   link: '/dashboard/settings/password',
+    // },
     {
       text: 'Billing',
       link: '/dashboard/settings/billing',
