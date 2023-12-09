@@ -15,14 +15,7 @@ interface NavbarProps {
 }
 export function MobileNavbar({ currentLocale, session }: NavbarProps) {
   const t = useTranslations('app');
-  const [userData, setUserData] = useState<UsersTypes>({
-    user_email: '',
-    user_name: '',
-    contactName: '',
-    created_at: '',
-    id: '',
-    user_id: '',
-  });
+  const [userData, setUserData] = useState<UsersTypes>();
   const [companyData, setCompanyData] = useState<CompanyTypes>({
     owner_id: '',
     name: '',

@@ -1,7 +1,8 @@
 import { z } from 'zod';
 
 export const signupFormSchema = z.object({
-  name: z.string().min(1),
+  firstname: z.string().min(1),
+  lastname: z.string().min(1),
   email: z
     .string()
     .trim()
