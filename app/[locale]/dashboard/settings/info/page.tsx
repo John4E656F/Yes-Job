@@ -68,7 +68,6 @@ export default function SettingsInfoPage() {
               setValue('user_id', fetchedUserData.id);
               setValue('firstname', fetchedUserData.firstname);
               setValue('lastname', fetchedUserData.lastname);
-              setValue('contactname', fetchedUserData.contactName);
               setValue('user_email', fetchedUserData.user_email);
               setUserEmail(fetchedUserData.user_email);
               setValue('user_phone', fetchedUserData.user_phone);
