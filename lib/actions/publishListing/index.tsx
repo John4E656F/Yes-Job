@@ -25,9 +25,10 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
         data.contactEmail,
         logoUrl,
         data.companyWebsite || null,
-        data.companyPhone,
+        data.companyPhone || null,
         data.contactEmail,
-        data.contactName,
+        data.firstname,
+        data.lastname,
         data.contactPhone,
         data.contactPassword,
       );
@@ -44,7 +45,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
     } else if (data.user_Id && !data.company_Id) {
       const { error: usersUpdateError } = await supabase
         .from('users')
-        .update({ contactName: data.contactName, user_phone: data.contactPhone })
+        .update({ firstname: data.firstname, lastname: data.lastname, user_phone: data.contactPhone })
         .eq('id', data.user_Id);
       if (usersUpdateError) {
         console.log('usersUpdateError', usersUpdateError.message);
@@ -74,7 +75,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
     } else if (data.user_Id && data.company_Id) {
       const { error: usersUpdateError } = await supabase
         .from('users')
-        .update({ contactName: data.contactName, user_phone: data.contactPhone })
+        .update({ firstname: data.firstname, lastname: data.lastname, user_phone: data.contactPhone })
         .eq('id', data.user_Id);
       if (usersUpdateError) {
         console.log('usersUpdateError', usersUpdateError.message);

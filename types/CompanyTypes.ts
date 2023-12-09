@@ -6,7 +6,7 @@ export interface CompanyTypes {
   name: string;
   logo: string;
   website?: string;
-  phone?: string | null;
+  phone?: number | null;
   total_request_count?: number;
   availableJobListing?: number | null;
   availableBoost?: number | null;
