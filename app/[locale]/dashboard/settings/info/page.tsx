@@ -61,7 +61,7 @@ export default function SettingsInfoPage({ companyData, userData }: CompanyFormP
       <Divider />
       <div className='flex'>
         <FormLabel htmlFor='input Fullname' labelText='Fullname *' className='whitespace-nowrap w-52 min-w-min max-w-sm' />
-        <div className='flex gap-5 '>
+        <div className='flex gap-8 '>
           <DashboardFormInput
             register={register('firstname', { required: true })}
             error={errors.firstname}
@@ -80,16 +80,46 @@ export default function SettingsInfoPage({ companyData, userData }: CompanyFormP
       </div>
       <Divider />
       <div className='flex'>
-        <FormLabel htmlFor='input Company Website' labelText='Website' className='whitespace-nowrap w-52 min-w-min max-w-sm' />
+        <FormLabel htmlFor='input Company Website' labelText='Email address' className='whitespace-nowrap w-52 min-w-min max-w-sm' />
         <div className='flex flex-col gap-5'>
           <DashboardFormInput
             register={register('user_email')}
             error={errors.user_email}
             isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
             placeholder='quick.be'
-            slug='https://'
           />
         </div>
+      </div>
+      <Divider />
+      <div className='flex'>
+        <FormLabel htmlFor='input Profile Phone Number' labelText='Phone number' className='whitespace-nowrap w-52 min-w-min max-w-sm' />
+        <div className='flex flex-col gap-5'>
+          <DashboardFormInput
+            register={register('user_phone')}
+            error={errors.user_phone}
+            isRequiredMessage={t('publishAds.companyName') + t('error.isRequired')}
+            placeholder='491234567'
+            slug='+32'
+          />
+        </div>
+      </div>
+      <Divider />
+      <div className='flex'>
+        <DashboardImageUpload
+          label='Company logo*'
+          register={register('profile_picture')}
+          error={errors.profile_picture}
+          // initialPreview={userData.profile_picture}
+        />
+      </div>
+      <Divider />
+      <div className='flex justify-end'>
+        <button
+          type='submit'
+          className='flex items-center px-4 h-11 justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200'
+        >
+          Save changes
+        </button>
       </div>
     </form>
   );

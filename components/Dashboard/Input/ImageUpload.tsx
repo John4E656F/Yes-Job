@@ -9,11 +9,11 @@ interface ImageUploadProps {
   register: UseFormRegisterReturn;
   error: any;
   label: string;
-  initialPreview: string;
+  initialPreview?: string;
 }
 
 export function DashboardImageUpload({ register, error, label, initialPreview }: ImageUploadProps) {
-  const [preview, setPreview] = useState<string | ArrayBuffer | null>(initialPreview);
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>(initialPreview ? initialPreview : null);
 
   const { ref, onChange: defaultOnChange, ...rest } = register;
 
@@ -32,12 +32,14 @@ export function DashboardImageUpload({ register, error, label, initialPreview }:
   };
 
   useEffect(() => {
-    setPreview(initialPreview);
+    if (initialPreview) {
+      setPreview(initialPreview);
+    }
   }, [initialPreview]);
 
   return (
     <div className='form-control flex '>
-      <FormLabel htmlFor={`input${label}`} labelText={label} className='text-lg font-medium w-52 min-w-min max-w-sm' />
+      <FormLabel htmlFor={`input${label}`} labelText={label} className='w-52 min-w-min max-w-sm' />
       <div className='flex items-center w-full gap-4 '>
         {preview ? (
           <Image src={preview as string} alt='Preview' className='w-24 h-24 p-1 object-contain border border-gray-300 rounded-xl' />

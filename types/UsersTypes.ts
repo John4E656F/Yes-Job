@@ -11,5 +11,5 @@ export interface UsersTypes {
   countryCode?: string | null;
   availableJobListing?: number | null;
   availablePromotion?: number | null;
-  profile_picture?: string | null;
+  profile_picture: string;
 }
