@@ -26,6 +26,7 @@ const PublishPage: React.FC = () => {
     created_at: '',
     id: '',
     user_id: '',
+    profile_picture: '',
   });
   const [companyData, setCompanyData] = useState<CompanyTypes>({
     id: '',
