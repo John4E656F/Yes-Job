@@ -1,11 +1,9 @@
 import React from 'react';
 
-const PasswordPage = () => {
+export default function PasswordPage() {
   return (
     <div>
       <div>hello World</div>
     </div>
   );
-};
-
-export default PasswordPage;
+}
