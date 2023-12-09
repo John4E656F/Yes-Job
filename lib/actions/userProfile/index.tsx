@@ -13,7 +13,7 @@ interface UserProps {
 export async function updateUser({ userData, profilePictureUrl, path }: UserProps) {
   const supabase = createClient();
   const { data: insertedUserData, error: insertedUserDataError } = await supabase
-    .from('user')
+    .from('users')
     .update({
       firstname: userData.firstname,
       lastname: userData.lastname,
@@ -24,6 +24,8 @@ export async function updateUser({ userData, profilePictureUrl, path }: UserProp
     .eq('id', userData.user_id);
 
   if (insertedUserDataError) {
+    console.log('error', insertedUserDataError);
+
     return { type: 'error' as const, message: insertedUserDataError.message };
   } else {
     revalidatePath(path!);
