@@ -36,9 +36,12 @@ export default function SettingsInfoPage() {
       profile_picture: '',
     },
   });
-  console.log(watch());
+  // console.log(watch());
 
+  const [profilePicturePreview, setProfilePicturePreview] = useState<string>();
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [toastSuccessMessage, setToastSuccesMessage] = useState<string>('');
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
   const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
 
@@ -58,7 +61,7 @@ export default function SettingsInfoPage() {
 
           if (response.ok) {
             const { fetchedUserData } = await response.json();
-            console.log(fetchedUserData);
+            // console.log(fetchedUserData);
             if (!fetchedUserData.isCompany) {
               // return redirect('/');
             } else {
@@ -67,8 +70,10 @@ export default function SettingsInfoPage() {
               setValue('lastname', fetchedUserData.lastname);
               setValue('contactname', fetchedUserData.contactName);
               setValue('user_email', fetchedUserData.user_email);
+              setUserEmail(fetchedUserData.user_email);
               setValue('user_phone', fetchedUserData.user_phone);
               setValue('profile_picture', fetchedUserData.profile_picture);
+              setProfilePicturePreview(fetchedUserData.profile_picture);
             }
           } else {
             console.error('Failed to fetch user data');
@@ -121,20 +126,30 @@ export default function SettingsInfoPage() {
     }
 
     const response = await updateUser({ userData: JSON.parse(JSON.stringify(data)), profilePictureUrl, path: '/dashboard/settings/info' });
-    console.log('response', response);
+    // console.log('response', response);
     if (response.type === 'error') {
       setToastErrorMessage(response.message);
       setIsSubmitSuccessful(false);
       toggleToast(true);
       setTimeout(() => {
         toggleToast(false);
-      });
-    } else {
-      setIsSubmitSuccessful(true);
-      toggleToast(!true);
-      setTimeout(() => {
-        toggleToast(false);
       }, 2000);
+    } else {
+      if (userEmail !== data.user_email) {
+        setToastSuccesMessage('Please check your email to confirm your new email address.');
+        setIsSubmitSuccessful(true);
+        toggleToast(!true);
+        setTimeout(() => {
+          toggleToast(false);
+        }, 5000);
+      } else {
+        setToastSuccesMessage('Your profile has been updated successfully.');
+        setIsSubmitSuccessful(true);
+        toggleToast(!true);
+        setTimeout(() => {
+          toggleToast(false);
+        }, 5000);
+      }
     }
   };
 
@@ -148,7 +163,7 @@ export default function SettingsInfoPage() {
         isOpen={isToastOpen}
         onClose={handleCloseToast}
         title={isSubmitSuccessful ? ToastTitle.Success : ToastTitle.Error}
-        message={isSubmitSuccessful ? 'Personal info updated successfully' : toastErrorMessage}
+        message={isSubmitSuccessful ? toastSuccessMessage : toastErrorMessage}
       />
       <div className='flex justify-between items-center'>
         <div>
@@ -220,7 +235,7 @@ export default function SettingsInfoPage() {
           label='Profile Picture'
           register={register('profile_picture')}
           error={errors.profile_picture}
-          // initialPreview={userData.profile_picture}
+          initialPreview={profilePicturePreview}
         />
       </div>
       <Divider />
