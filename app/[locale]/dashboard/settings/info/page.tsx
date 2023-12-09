@@ -1,15 +1,17 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useForm } from 'react-hook-form';
 import { infoFormResolver, type InfoFormInputs } from './infoFormResolver';
 
-import { Link, Input, FormLabel, DashboardFormInput, DashboardImageUpload, DashboardFormTextarea, Divider } from '@/components';
+import { Toast, FormLabel, DashboardFormInput, DashboardImageUpload, DashboardFormTextarea, Divider } from '@/components';
 import { updateUser } from '@/lib/actions';
 import { v4 as uuidv4 } from 'uuid';
 import { removeSpaces } from '@/utils/';
 import { createClient } from '@/utils/supabase/client';
+import { useToggle } from '@/hooks';
+import { ToastTitle } from '@/types';
 
 export default function SettingsInfoPage() {
   const t = useTranslations('app');
@@ -27,7 +29,6 @@ export default function SettingsInfoPage() {
     reValidateMode: 'onBlur',
     defaultValues: {
       user_id: '',
-      user_name: '',
       firstname: '',
       lastname: '',
       user_email: '',
@@ -36,6 +37,10 @@ export default function SettingsInfoPage() {
     },
   });
   console.log(watch());
+
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
+  const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
+  const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,10 +63,11 @@ export default function SettingsInfoPage() {
               // return redirect('/');
             } else {
               setValue('user_id', fetchedUserData.id);
-              setValue('user_name', fetchedUserData.user_name);
+              setValue('firstname', fetchedUserData.firstname);
+              setValue('lastname', fetchedUserData.lastname);
               setValue('contactname', fetchedUserData.contactName);
               setValue('user_email', fetchedUserData.user_email);
-              setValue('user_phone', fetchedUserData.phone);
+              setValue('user_phone', fetchedUserData.user_phone);
               setValue('profile_picture', fetchedUserData.profile_picture);
             }
           } else {
@@ -116,10 +122,34 @@ export default function SettingsInfoPage() {
 
     const response = await updateUser({ userData: JSON.parse(JSON.stringify(data)), profilePictureUrl, path: '/dashboard/settings/info' });
     console.log('response', response);
+    if (response.type === 'error') {
+      setToastErrorMessage(response.message);
+      setIsSubmitSuccessful(false);
+      toggleToast(true);
+      setTimeout(() => {
+        toggleToast(false);
+      });
+    } else {
+      setIsSubmitSuccessful(true);
+      toggleToast(!true);
+      setTimeout(() => {
+        toggleToast(false);
+      }, 2000);
+    }
+  };
+
+  const handleCloseToast = () => {
+    toggleToast(!isToastOpen);
   };
 
   return (
     <form className='flex flex-col py-2 w-full gap-5' onSubmit={handleSubmit(onSubmit)}>
+      <Toast
+        isOpen={isToastOpen}
+        onClose={handleCloseToast}
+        title={isSubmitSuccessful ? ToastTitle.Success : ToastTitle.Error}
+        message={isSubmitSuccessful ? 'Personal info updated successfully' : toastErrorMessage}
+      />
       <div className='flex justify-between items-center'>
         <div>
           <h2>Personal Info</h2>
