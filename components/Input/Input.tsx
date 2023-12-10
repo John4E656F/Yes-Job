@@ -7,10 +7,11 @@ interface InputProps extends UseFormRegisterReturn {
   showPassword?: boolean;
   className?: string;
   placeholder?: string;
+  disabled?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ type = 'text', showPassword, defaultValue, className, placeholder, ...props }, ref) => {
+  ({ type = 'text', showPassword, defaultValue, className, placeholder, disabled, ...props }, ref) => {
     return (
       <input
         {...props}
@@ -19,6 +20,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         defaultValue={defaultValue}
         ref={ref}
         placeholder={placeholder}
+        disabled={disabled}
       />
     );
   },

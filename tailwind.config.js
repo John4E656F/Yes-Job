@@ -22,6 +22,7 @@ module.exports = {
         'brand-secondary': '#8505B3',
         'brand-accent': '#ff7f50',
         'brand-gray': '#f5f5f5',
+        'brand-text-secondary': '#787878',
         'brand-success': '#067647',
         'brand-failed': '#B42318',
       },

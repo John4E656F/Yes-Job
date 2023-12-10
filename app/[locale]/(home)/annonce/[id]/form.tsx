@@ -13,15 +13,7 @@ export const ContactForm = ({ jobPost }: { jobPost: ListingData }) => {
   const t = useTranslations('app');
   // console.log('jobPost', jobPost);
 
-  const [userData, setUserData] = useState<UsersTypes>({
-    user_email: '',
-    user_name: '',
-    company_id: '',
-    contactName: '',
-    created_at: '',
-    id: '',
-    user_id: '',
-  });
+  const [userData, setUserData] = useState<UsersTypes>();
   const {
     register,
     handleSubmit,
@@ -69,7 +61,7 @@ export const ContactForm = ({ jobPost }: { jobPost: ListingData }) => {
     try {
       const { name, email, phoneNumber, cvFile } = data;
 
-      if (!jobPost || !jobPost.company.id || !userData.user_email) {
+      if (!jobPost || !jobPost.company.id || !userData || !userData.user_email) {
         console.error('Recruiter email is not available');
         return;
       }

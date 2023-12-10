@@ -47,11 +47,11 @@ export const SidebarList = ({ companyName, t }: SidebarProps) => {
     //   text: t('sidebar.support'),
     //   // link: '/dashboard/support',
     // },
-    // {
-    //   icon: RiSettings3Line,
-    //   text: t('sidebar.settings'),
-    //   // link: '/dashboard/settings',
-    // },
+    {
+      icon: RiSettings3Line,
+      text: t('sidebar.settings'),
+      link: '/dashboard/settings/info',
+    },
   ];
 
   return (
