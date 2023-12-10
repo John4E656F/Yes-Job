@@ -61,7 +61,7 @@ export default async function jobListing() {
     <section className='w-full bg-white flex flex-col py-4 px-5 gap-y-8'>
       <div className='flex flex-col gap-2'>
         <h1>
-          {t('jobListing.welcomeBack')} {currentUser.contactName}
+          {t('jobListing.welcomeBack')} {currentUser.firstname}
         </h1>
         {companyData && (
           <div className='flex p-1 px-2 gap-2 w-fit rounded border border-gray-300'>

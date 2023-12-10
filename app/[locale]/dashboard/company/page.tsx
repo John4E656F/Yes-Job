@@ -4,6 +4,8 @@ import { CompanyForm } from './form';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 import { refreshUserSession } from '@/lib/actions/refreshServerSession';
 import { getTranslations } from 'next-intl/server';
+import { RiShareBoxFill } from 'react-icons/ri';
+
 export default async function CompanyPage() {
   const t = await getTranslations('dashboard');
   const session = await getServerUserSession();
@@ -32,14 +34,20 @@ export default async function CompanyPage() {
   console.log('fetchedCompanyData', fetchedCompanyData);
 
   return (
-    <section className='w-full bg-white flex flex-col py-4 pt-10 px-5 gap-y-8'>
+    <section className='w-full bg-white flex flex-col py-4 pt-10 px-10 gap-y-8'>
       <div className='flex flex-col gap-2'>
         <div className='flex justify-between items-center'>
           <div>
             <h1>Company</h1>
-            <Link href='/annonce/publier' className='flex items-center justify-center text-center'>
-              <p>yesjob.be/companies/{fetchedCompanyData.name}</p>
-            </Link>
+            {fetchedCompanyData && fetchedCompanyData.slug ? (
+              <Link href={`/companies/${fetchedCompanyData.slug}`} className='flex items-center justify-center text-center gap-2'>
+                <p>yesjob.be/companies/{fetchedCompanyData && fetchedCompanyData.slug}</p> <RiShareBoxFill />
+              </Link>
+            ) : (
+              <div className='flex items-center justify-center text-center'>
+                <p>yesjob.be/companies/your company slug</p>
+              </div>
+            )}
           </div>
           <Link
             href='/annonce/publier'
@@ -51,7 +59,7 @@ export default async function CompanyPage() {
           </Link>
         </div>
       </div>
-      <CompanyForm />
+      <CompanyForm companyData={fetchedCompanyData} userData={fetchedUserData} />
     </section>
   );
 }

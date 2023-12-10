@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const companyFormSchema = z.object({
+  owner_id: z.string(),
   name: z
     .string()
     .min(1)
@@ -8,11 +9,14 @@ export const companyFormSchema = z.object({
   slug: z
     .string()
     .min(1)
-    .transform((val) => val.toLowerCase().replace(/\s/g, '')),
+    .transform((val) => val.toLowerCase().replace(/\s/g, ''))
+    .optional(),
   website: z.string().url().optional().or(z.literal('')),
   logo: z.union([z.string(), z.any()]).nullable(),
+  about: z.string().max(275).optional(),
   address: z
     .string()
     .min(1)
-    .transform((val) => val.toLowerCase()),
+    .transform((val) => val.toLowerCase())
+    .optional(),
 });

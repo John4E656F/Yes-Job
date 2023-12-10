@@ -19,9 +19,9 @@ export async function signup({ data }: { data: SignupFormInputs }) {
   const { data: createdUser, error: createdUserError } = await supabase
     .from('users')
     .insert({
-      user_name: data.name,
       user_email: data.email,
-      contactName: data.name,
+      firstname: data.firstname,
+      lastname: data.lastname,
       isCompany: data.isCompany === 'true' ? true : false,
       user_id: signedUpUser.user.id,
     })
