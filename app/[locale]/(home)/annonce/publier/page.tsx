@@ -1,5 +1,6 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
 import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useTranslations } from 'next-intl';
@@ -13,6 +14,9 @@ import { useTransition } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { removeSpaces } from '@/utils/';
 import { createClient } from '@/utils/supabase/client';
+const Map = dynamic(() => import('@/components/Map/Map'), {
+  ssr: false,
+});
 
 const PublishPage: React.FC = () => {
   const t = useTranslations('app');
@@ -434,6 +438,9 @@ const PublishPage: React.FC = () => {
               isRequiredMessage={t('publishAds.placeOfWorkPlaceholder') + t('error.isRequired')}
               placeholder={t('publishAds.placeOfWorkPlaceholder')}
             />
+            <div>
+              <Map searchQuery='brussels' />
+            </div>
           </div>
           <div className='w-full h-px bg-slate-300 rounded' />
           <h2 className='text-2xl font-semibold'>{t('publishAds.application')}</h2>

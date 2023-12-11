@@ -1,34 +1,15 @@
 'use server';
 import React from 'react';
-import { Image, Link, PostButton } from '..';
 import { useTranslations } from 'next-intl';
-import type { UsersTypes, CompanyTypes, ListingData, SessionTypes } from '@/types';
-import { getServerUserSession } from '@/lib/actions/getServerUserSession';
-import { refreshUserSession } from '@/lib/actions/refreshServerSession';
+import { Image, Link, PostButton } from '..';
+import type { CompanyTypes, ListingData } from '@/types';
 
-export const Hero = async () => {
+interface HeroProps {
+  jobListing: ListingData[];
+  companyData: CompanyTypes;
+}
+export const Hero = ({ jobListing, companyData }: HeroProps) => {
   const t = useTranslations('app');
-  const session = await getServerUserSession();
-  let sessionId;
-  if (session) {
-    sessionId = session.user.id;
-  } else {
-    // const session = await refreshUserSession();
-    // sessionId = session.user.id;
-  }
-
-  const response = await fetch(
-    process.env.NEXT_PRIVATE_PRODUCTION === 'true'
-      ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/company/jobListing/${sessionId}`
-      : process.env.NEXT_PRIVATE_URL + `/api/company/jobListing/${sessionId}`,
-  );
-
-  const { fetchedCompanyData, fetchedJobPostData } = await response.json();
-  const companyData = fetchedCompanyData as CompanyTypes;
-  const jobListing = fetchedJobPostData as ListingData[];
-  // console.log('hero companyData', companyData);
-  // console.log('hero jobListing', jobListing);
-
   return (
     <header className='w-full flex justify-center'>
       <div className='flex flex-col container justify-center py-4 md:py-16 '>

@@ -32,3 +32,4 @@ export { FileUpload } from './Input/FileUpload';
 export { Tiptap } from './TipTap/TipTap';
 export { Sidebar, SidebarList, MobileNavbar, DashboardFormInput, DashboardImageUpload, DashboardFormTextarea, SettingsNavbar } from './Dashboard';
 export { Modal } from './Modal/Modal';
+// export { Map } from './Map/Map';
