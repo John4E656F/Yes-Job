@@ -33,3 +33,4 @@ export { Tiptap } from './TipTap/TipTap';
 export { Sidebar, SidebarList, MobileNavbar, DashboardFormInput, DashboardImageUpload, DashboardFormTextarea, SettingsNavbar } from './Dashboard';
 export { Modal } from './Modal/Modal';
 export { PricingCard } from './Card/PricingCard';
+export { BasicPlanCard } from './Card/BasicPlanCard';

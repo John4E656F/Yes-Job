@@ -3,7 +3,7 @@ import { Link } from '../';
 
 export const PricingCard = () => {
   return (
-    <div className='border rounded bg-brand-lightbg flex flex-col justify-center items-center '>
+    <div className='border rounded w-4/5 bg-brand-lightbg flex flex-col justify-center items-center '>
       <div className='text-center px-8 pt-8'>
         <p>Free plan</p>
         <h2>Free</h2>
