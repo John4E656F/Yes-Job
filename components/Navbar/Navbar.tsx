@@ -122,6 +122,11 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
                 </Link>
               </li>
               <li>
+                <Link href='/pricing' className='block py-2 text-gray-900 rounded hover:text-gray-400 md:border-0'>
+                  {t('nav.pricing')}
+                </Link>
+              </li>
+              <li>
                 <Link href='/contact' className='block py-2 text-gray-900 rounded hover:text-gray-400 md:border-0'>
                   {t('nav.contact')}
                 </Link>

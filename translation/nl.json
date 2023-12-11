@@ -5,7 +5,8 @@
   "app": {
     "nav": {
       "home": "Thuis",
-      "contact": "Contact"
+      "contact": "Contact",
+      "pricing": "Prijsstelling"
     },
     "sidebar": {
       "back": "Terug naar de hoofdpagina",

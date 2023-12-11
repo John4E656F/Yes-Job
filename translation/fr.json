@@ -5,7 +5,8 @@
   "app": {
     "nav": {
       "home": "Accueil",
-      "contact": "Contact"
+      "contact": "Contact",
+      "pricing": "Nos tarifs"
     },
     "sidebar": {
       "back": "Retour au site principal",
