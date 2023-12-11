@@ -9,3 +9,4 @@ export type { viewCounterDataType, viewCounterResponseType, dashboardViewCounter
 export type { CompanyTypes } from './CompanyTypes';
 export type { SessionTypes } from './SessionTypes';
 export type { CompanyFormProps, SettingsNavbarProps } from './DashboardTypes';
+export type { subDataTypes, boostDataTypes } from './PricingTypes';

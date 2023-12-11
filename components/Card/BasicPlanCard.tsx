@@ -10,19 +10,19 @@ type PriceDetail = {
 
 const priceDetails: PriceDetail[] = [
   {
-    price: 49,
+    price: 69,
     buttonText: '1 post',
     totalPrice: 49,
   },
   {
-    price: 46,
+    price: 66,
     buttonText: '5 posts',
-    totalPrice: 230,
+    totalPrice: 330,
   },
   {
-    price: 40,
+    price: 63,
     buttonText: '10 posts',
-    totalPrice: 400,
+    totalPrice: 630,
   },
 ];
 
@@ -50,9 +50,10 @@ export const BasicPlanCard: React.FC = () => {
             />
           ))}
         </div>
-        <h2>€ {currentPriceDetail.totalPrice}</h2>
+        <h2>€ {currentPriceDetail.price} /job post</h2>
         <p>{`One-time payment: € ${currentPriceDetail.totalPrice}`}</p>
       </div>
+      <hr className='my-4 w-4/5 h-px border-t-0 bg-gray-500 ' />
       <ul className='p-8'>
         <li>1 job listing</li>
         <li>Dashboard</li>
