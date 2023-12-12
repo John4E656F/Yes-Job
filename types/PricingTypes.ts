@@ -4,6 +4,7 @@ export interface subDataTypes {
   saves: string;
   details: string[];
   buttonText: string;
+  link: string;
 }
 
 export interface boostDataTypes {
@@ -12,4 +13,5 @@ export interface boostDataTypes {
   subText: string;
   details: string[];
   buttonText: string;
+  link: string;
 }

@@ -19,6 +19,7 @@ const pricingPage = async () => {
         t('pricing.detailsApplication'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
+      link: 'https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
     },
     {
       title: t('pricing.premiumTitle'),
@@ -33,6 +34,7 @@ const pricingPage = async () => {
         t('pricing.detailsApplication'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
+      link: 'https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
     },
     {
       title: t('pricing.platinumTitle'),
@@ -48,6 +50,7 @@ const pricingPage = async () => {
         t('pricing.detailsGetFeatured'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
+      link: 'https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
     },
   ];
 
@@ -63,6 +66,7 @@ const pricingPage = async () => {
         t('pricing.boost.detailsMoreAppearance'),
       ],
       buttonText: t('pricing.buttonOrderNow'),
+      link: 'https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
     },
     {
       title: t('pricing.boost.title', { number: '5' }),
@@ -75,6 +79,7 @@ const pricingPage = async () => {
         t('pricing.boost.detailsMoreAppearance'),
       ],
       buttonText: t('pricing.buttonOrderNow'),
+      link: 'https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
     },
     {
       title: t('pricing.boost.companyBoost'),
@@ -82,6 +87,7 @@ const pricingPage = async () => {
       subText: t('pricing.boost.companySubTitle'),
       details: [t('pricing.boost.detailsCompanyBanner'), t('pricing.boost.detailsCompanySponsored')],
       buttonText: t('pricing.buttonOrderNow'),
+      link: 'https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
     },
   ];
 
@@ -116,6 +122,7 @@ const pricingPage = async () => {
               t('pricing.detailsApplication'),
             ]}
             buttonText={t('pricing.buttonFirstListing')}
+            link='https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA'
           />
           <BasicPlanCard />
         </div>
@@ -131,6 +138,7 @@ const pricingPage = async () => {
                 price={data.price}
                 details={data.details}
                 buttonText={data.buttonText}
+                link={data.link}
               />
             ))}
           </div>
@@ -147,6 +155,7 @@ const pricingPage = async () => {
                 price={data.price}
                 details={data.details}
                 buttonText={data.buttonText}
+                link={data.link}
               />
             ))}
           </div>
