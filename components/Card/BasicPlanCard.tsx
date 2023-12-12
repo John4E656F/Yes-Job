@@ -7,6 +7,7 @@ type PriceDetail = {
   price: number;
   buttonText: string;
   totalPrice: number;
+  link: string;
 };
 
 const priceDetails: PriceDetail[] = [
@@ -14,16 +15,19 @@ const priceDetails: PriceDetail[] = [
     price: 69,
     buttonText: '1 post',
     totalPrice: 49,
+    link: ' https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
   },
   {
     price: 66,
     buttonText: '5 posts',
     totalPrice: 330,
+    link: ' https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
   },
   {
     price: 63,
     buttonText: '10 posts',
     totalPrice: 630,
+    link: ' https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
   },
 ];
 
