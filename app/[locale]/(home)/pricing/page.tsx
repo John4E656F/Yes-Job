@@ -1,51 +1,133 @@
 import React from 'react';
 import { Link, Button, PricingCard, BasicPlanCard } from '@/components';
-import { subData, boostData } from './pricingData';
+import type { subDataTypes, boostDataTypes } from '@/types';
+import { getTranslations } from 'next-intl/server';
 
-const pricingPage = () => {
+const pricingPage = async () => {
+  const t = await getTranslations('app');
+
+  const subData: subDataTypes[] = [
+    {
+      title: t('pricing.standardTitle'),
+      price: t('pricing.price', { number: '150' }),
+      saves: t('pricing.saves', { number: '180' }),
+      details: [
+        t('pricing.detailsListing', { number: '5', s: 's' }),
+        t('pricing.detailsDashboardBasic'),
+        t('pricing.detailsOptimization'),
+        t('pricing.detailsBasicSupport'),
+        t('pricing.detailsApplication'),
+      ],
+      buttonText: t('pricing.buttonSubscribe'),
+    },
+    {
+      title: t('pricing.premiumTitle'),
+      price: t('pricing.price', { number: '400' }),
+      saves: t('pricing.saves', { number: '230' }),
+      details: [
+        t('pricing.detailsListing', { number: '10', s: 's' }),
+        t('pricing.detailsBoostPerMonth', { number: '2' }),
+        t('pricing.detailsSpecializeDashboard'),
+        t('pricing.detailsOptimization'),
+        t('pricing.detailsBasicSupport'),
+        t('pricing.detailsApplication'),
+      ],
+      buttonText: t('pricing.buttonSubscribe'),
+    },
+    {
+      title: t('pricing.platinumTitle'),
+      price: t('pricing.price', { number: '900' }),
+      saves: t('pricing.saves', { number: '310' }),
+      details: [
+        t('pricing.detailsListing', { number: '15', s: 's' }),
+        t('pricing.detailsBoostPerMonth', { number: '5' }),
+        t('pricing.detailsSpecializeDashboard'),
+        t('pricing.detailsOptimization'),
+        t('pricing.detailsBasicSupport'),
+        t('pricing.detailsApplication'),
+        t('pricing.detailsGetFeatured'),
+      ],
+      buttonText: t('pricing.buttonSubscribe'),
+    },
+  ];
+
+  const boostData: boostDataTypes[] = [
+    {
+      title: t('pricing.boost.title', { number: '1' }),
+      price: t('pricing.price', { number: '50' }),
+      subText: t('pricing.boost.1subTitle'),
+      details: [
+        t('pricing.boost.detailsBoost', { number: '1' }),
+        t('pricing.boost.detailsSponsored'),
+        t('pricing.boost.detailsDistinguish'),
+        t('pricing.boost.detailsMoreAppearance'),
+      ],
+      buttonText: t('pricing.buttonOrderNow'),
+    },
+    {
+      title: t('pricing.boost.title', { number: '5' }),
+      price: t('pricing.price', { number: '250' }),
+      subText: t('pricing.boost.5subTitle'),
+      details: [
+        t('pricing.boost.detailsBoost', { number: '5' }),
+        t('pricing.boost.detailsSponsored'),
+        t('pricing.boost.detailsDistinguish'),
+        t('pricing.boost.detailsMoreAppearance'),
+      ],
+      buttonText: t('pricing.buttonOrderNow'),
+    },
+    {
+      title: t('pricing.boost.companyBoost'),
+      price: t('pricing.price', { number: '250' }),
+      subText: t('pricing.boost.companySubTitle'),
+      details: [t('pricing.boost.detailsCompanyBanner'), t('pricing.boost.detailsCompanySponsored')],
+      buttonText: t('pricing.buttonOrderNow'),
+    },
+  ];
+
   return (
     <section className='flex flex-col gap-10 container'>
       <div className='flex flex-col items-center gap-8'>
         <div className='text-center'>
-          <p>Pricing</p>
-          <h1>Flexible Plans and Pricing</h1>
-          <p>Simple, transpararent pricing that grows with you.</p>
+          <p>{t('pricing.headerTitle')}</p>
+          <h1>{t('pricing.headerSubTitle')}</h1>
+          <p>{t('pricing.headerSubTitle2')}</p>
         </div>
         <Link
           href={`/contact`}
           className='flex items-center w-36 justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
         >
           <button type='button' className='px-4 py-2 text-sm whitespace-nowrap'>
-            Chat to sales
+            {t('pricing.headerCTA')}
           </button>
         </Link>
       </div>
       <div className='flex flex-col gap-16'>
         <div className=' flex justify-center gap-8'>
           <PricingCard
-            title='Free plan'
-            price='Free'
-            subTitle='Your first job listing is free'
+            title={t('pricing.free.title')}
+            price={t('pricing.free.price')}
+            subTitle={t('pricing.free.subTitle')}
             details={[
-              '1 job listing',
-              'Dashboard',
-              'Offer optimization',
-              'Basic chat and email support',
-              'Job application sent directly to your email',
+              t('pricing.detailsListing', { number: '1', s: '' }),
+              t('pricing.detailsDashboardBasic'),
+              t('pricing.detailsOptimization'),
+              t('pricing.detailsBasicSupport'),
+              t('pricing.detailsApplication'),
             ]}
-            buttonText='Publish your first job offer'
+            buttonText={t('pricing.buttonFirstListing')}
           />
           <BasicPlanCard />
         </div>
         <div className='flex flex-col gap-2 text-center'>
-          <h3>Monthly Subscription</h3>
-          <p>Additional job listing will cost €59 per job post.</p>
+          <h3>{t('pricing.headerSubscriptionTitle')}</h3>
+          <p>{t('pricing.headerSubscriptionSubTitle')}</p>
           <div className='flex gap-8 mt-5'>
             {subData.map((data, index) => (
               <PricingCard
                 key={index}
                 title={data.title}
-                subTitle={`You saves ${data.saves}`}
+                subTitle={data.saves}
                 price={data.price}
                 details={data.details}
                 buttonText={data.buttonText}
@@ -54,7 +136,8 @@ const pricingPage = () => {
           </div>
         </div>
         <div className='flex flex-col gap-2 text-center'>
-          <h3>Extra options</h3>
+          <h3>{t('pricing.headerExtraTitle')}</h3>
+          <p>{t('pricing.headerExtraSubTitle')}</p>
           <div className='flex gap-8 mt-5'>
             {boostData.map((data, index) => (
               <PricingCard

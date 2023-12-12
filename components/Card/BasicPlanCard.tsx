@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { Button, Link } from '..';
+import { AiOutlineCheckCircle } from 'react-icons/ai';
 
 type PriceDetail = {
   price: number;
@@ -42,8 +43,8 @@ export const BasicPlanCard: React.FC = () => {
             <Button
               key={index}
               className={`flex items-center justify-center text-center ${
-                currentPriceDetail.price === detail.price ? 'bg-blue-600 text-white' : 'bg-brand-primary text-white'
-              } rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 px-4 py-2 m-2`}
+                currentPriceDetail.price === detail.price ? 'bg-blue-600 text-white' : 'border bg-white hover:bg-gray-100'
+              } rounded-lg  focus:outline-none focus:ring-2 focus:ring-gray-200 px-4 py-2 m-2`}
               text={detail.buttonText}
               btnType='button'
               onClick={() => handlePriceChange(detail)}
@@ -53,13 +54,37 @@ export const BasicPlanCard: React.FC = () => {
         <h2>€ {currentPriceDetail.price} /job post</h2>
         <p>{`One-time payment: € ${currentPriceDetail.totalPrice}`}</p>
       </div>
-      <hr className='my-4 w-4/5 h-px border-t-0 bg-gray-500 ' />
-      <ul className='p-8'>
-        <li>1 job listing</li>
-        <li>Dashboard</li>
-        <li>Offer optimization</li>
-        <li>Basic chat and email support</li>
-        <li>Job application sent directly to your email</li>
+      <ul className='flex flex-col gap-3 p-8 basis-full text-left list-none'>
+        <li className='flex items-start gap-2'>
+          <div>
+            <AiOutlineCheckCircle size={20} className='text-brand-secondary' />
+          </div>
+          <p>1 job listing</p>
+        </li>
+        <li className='flex items-start gap-2'>
+          <div>
+            <AiOutlineCheckCircle size={20} className='text-brand-secondary' />
+          </div>
+          <p> Dashboard</p>
+        </li>
+        <li className='flex items-start gap-2'>
+          <div>
+            <AiOutlineCheckCircle size={20} className='text-brand-secondary' />
+          </div>
+          <p> Offer optimization</p>
+        </li>
+        <li className='flex items-start gap-2'>
+          <div>
+            <AiOutlineCheckCircle size={20} className='text-brand-secondary' />
+          </div>
+          <p> Basic chat and email support</p>
+        </li>
+        <li className='flex items-start gap-2'>
+          <div>
+            <AiOutlineCheckCircle size={20} className='text-brand-secondary' />
+          </div>
+          <p> Job application sent directly to your email</p>
+        </li>
       </ul>
       <Link
         href={`/publier`}
