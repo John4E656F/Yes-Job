@@ -2,17 +2,41 @@ import Stripe from 'stripe';
 import { headers } from 'next/headers';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { typescript: true, apiVersion: '2023-10-16' });
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const body = await req.text();
-  const endpointSecret = process.env.STRIPE_SECRET_WEBHOOK_KEY!;
-  const sig = headers().get('stripe-signature') as string;
+  const sig = headers().get('Stripe-Signature') as string;
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
   let event: Stripe.Event;
+
   try {
-    event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
-  } catch (err) {
-    return new Response(`Webhook Error: ${err}`, {
+    if (!sig || !webhookSecret) return;
+    event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
+  } catch (err: any) {
+    console.log(`❌ Error message: ${err.message}`);
+    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
+  }
+
+  try {
+    switch (event.type) {
+      case 'product.created':
+        break;
+      case 'product.updated':
+        break;
+      default:
+        throw new Error('Unhandled relevant event!');
+    }
+  } catch (error) {
+    console.log(error);
+    return new Response('Webhook handler failed. View logs.', {
       status: 400,
     });
   }
-  console.log('event', event);
+
+  return new Response(JSON.stringify({ received: true }));
 }
+
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
