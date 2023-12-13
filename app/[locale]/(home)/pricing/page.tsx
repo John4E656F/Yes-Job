@@ -2,9 +2,32 @@ import React from 'react';
 import { Link, Button, PricingCard, BasicPlanCard } from '@/components';
 import type { subDataTypes, boostDataTypes } from '@/types';
 import { getTranslations } from 'next-intl/server';
+import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 
-const pricingPage = async () => {
+export default async function pricingPage() {
   const t = await getTranslations('app');
+  const session = await getServerUserSession();
+  let sessionId;
+  if (session) {
+    sessionId = session.user.id;
+  }
+  const userResponse = await fetch(
+    process.env.NEXT_PRIVATE_PRODUCTION === 'true'
+      ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/user/${sessionId}`
+      : process.env.NEXT_PRIVATE_URL + `/api/user/${sessionId}`,
+  );
+  if (!userResponse.ok) {
+    console.error('Error fetching user data:', userResponse.statusText);
+    return; // handle the error appropriately
+  }
+
+  if (!userResponse.headers.get('content-type')?.includes('application/json')) {
+    console.error('Received non-JSON response');
+    return; // handle the error appropriately
+  }
+  // console.log('userResponse', userResponse);
+
+  const { fetchedUserData } = await userResponse.json();
 
   const subData: subDataTypes[] = [
     {
@@ -124,7 +147,7 @@ const pricingPage = async () => {
             buttonText={t('pricing.buttonFirstListing')}
             link='https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA?prefilled_email=jenny%40example.com'
           />
-          <BasicPlanCard />
+          <BasicPlanCard userData={fetchedUserData} />
         </div>
         <div className='flex flex-col gap-2 text-center'>
           <h3>{t('pricing.headerSubscriptionTitle')}</h3>
@@ -163,6 +186,4 @@ const pricingPage = async () => {
       </div>
     </section>
   );
-};
-
-export default pricingPage;
+}

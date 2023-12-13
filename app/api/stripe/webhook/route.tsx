@@ -1,5 +1,6 @@
 // app/api/stripe/webhook.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@/utils/supabase/server';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -14,6 +15,7 @@ const webhookSecret = process.env.STRIPE_SECRET_WEBHOOK_KEY!;
 // };
 
 export async function POST(req: NextRequest) {
+  const supabase = createClient();
   const sig = req.headers.get('stripe-signature');
 
   let event: Stripe.Event;
@@ -33,13 +35,40 @@ export async function POST(req: NextRequest) {
 
   try {
     // console.log(event);
-
+    let userData;
     switch (event.type) {
-      case 'customer.created':
-        // console.log(event.data.object.email);
+      case 'checkout.session.completed':
+        const session = event.data.object;
+        const { data: fetchedUserByEmail, error: fetchedUserByEmailError } = await supabase
+          .from('users')
+          .select(`*`)
+          .eq('user_email', event.data.object.customer_details?.email)
+          .single();
+        if (fetchedUserByEmailError) {
+          const { data: fetchedUserById, error: fetchedUserByIdError } = await supabase
+            .from('users')
+            .select(`*`)
+            .eq('id', event.data.object.client_reference_id)
+            .single();
+          if (fetchedUserById) {
+            userData = fetchedUserById;
+          }
+        } else {
+          userData = fetchedUserByEmail;
+        }
+        const { line_items } = await stripe.checkout.sessions.retrieve(session.id, {
+          expand: ['line_items'],
+        });
 
-        break;
-      case 'product.created':
+        if (line_items) {
+          const { description } = line_items.data[0];
+          console.log(description);
+        }
+        console.log(line_items);
+
+        console.log(event.data.object.customer_details?.email);
+        console.log(event.data.object.client_reference_id);
+
         // Handle product created event
         break;
       case 'product.updated':

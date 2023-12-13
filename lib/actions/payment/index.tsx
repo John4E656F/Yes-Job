@@ -1,15 +1,17 @@
 'use server';
 import Stripe from 'stripe';
 import { createClient } from '@/utils/supabase/server';
+import { UsersTypes } from '@/types';
 
 interface paymentProps {
   priceId: string;
+  userData: UsersTypes;
 }
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
 });
 
-export async function payment({ priceId }: paymentProps) {
+export async function payment({ priceId, userData }: paymentProps) {
   const supabase = createClient();
 
   //   const session = await stripe.checkout.sessions.create({
@@ -33,6 +35,7 @@ export async function payment({ priceId }: paymentProps) {
     automatic_tax: { enabled: true },
     tax_id_collection: { enabled: true },
     customer_creation: 'always',
+    // invoice_creation { enabled: true, },
     after_completion: {
       type: 'redirect',
       redirect: {
@@ -40,7 +43,7 @@ export async function payment({ priceId }: paymentProps) {
       },
     },
   });
-  console.log(paymentLink.url + `?client_reference_id=${'test'}?prefilled_email=${'test@test.com'}`);
-  const paymentUrl = paymentLink.url + `?prefilled_email=test@test.com&?client_reference_id=${'test'}`;
+  console.log(paymentLink.url + `?client_reference_id=${userData.id}?prefilled_email=${userData.user_email}`);
+  const paymentUrl = paymentLink.url + `?client_reference_id=${userData.id}&prefilled_email=${userData.user_email}`;
   return paymentUrl;
 }
