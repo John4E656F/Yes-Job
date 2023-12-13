@@ -97,7 +97,7 @@ const PublishPage: React.FC = () => {
               usedListing = fetchedJobPostData.filter((listing: ListingData) => listing.published === true);
             }
 
-            if (fetchedCompanyData.availableJobListing === usedListing.length) {
+            if (fetchedCompanyData.available_jobListing === usedListing.length) {
               setToastErrorMessage('You have reached your maximum job listing limit.');
               setTimeout(() => {
                 toggleToast(false);
