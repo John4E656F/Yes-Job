@@ -11,10 +11,11 @@ interface NavItemsProps {
 }
 
 interface SidebarProps extends TranslationProps {
-  companyName: string;
+  firstname?: string;
+  lastname?: string;
 }
 
-export const SidebarList = ({ companyName, t }: SidebarProps) => {
+export const SidebarList = ({ firstname, lastname, t }: SidebarProps) => {
   const upperNavItems: NavItemsProps[] = [
     {
       icon: RiFileList3Line,
@@ -57,7 +58,9 @@ export const SidebarList = ({ companyName, t }: SidebarProps) => {
   return (
     <div className='flex flex-col gap-5'>
       <div className='flex flex-col gap-2'>
-        <p className='text-lg'>{companyName}</p>
+        <p className='text-lg'>
+          {firstname} {lastname}
+        </p>
         <ul className='pl-2 cursor-pointer list-none'>
           {upperNavItems.map((item, index) => (
             <SidebarItems key={index} icon={item.icon} text={item.text} count={item.count} link={item.link} />

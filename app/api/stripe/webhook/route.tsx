@@ -1,6 +1,7 @@
 // app/api/stripe/webhook.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
+import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -15,6 +16,7 @@ const webhookSecret = process.env.STRIPE_SECRET_WEBHOOK_KEY!;
 // };
 
 export async function POST(req: NextRequest) {
+  const session = await getServerUserSession();
   const supabase = createClient();
   const sig = req.headers.get('stripe-signature');
 
@@ -36,33 +38,72 @@ export async function POST(req: NextRequest) {
   try {
     // console.log(event);
     let userData;
+    let companyData;
     switch (event.type) {
       case 'checkout.session.completed':
         const session = event.data.object;
-        const { data: fetchedUserByEmail, error: fetchedUserByEmailError } = await supabase
+        const { data: fetchedCompanyData, error: fetchedCompanyDataError } = await supabase
+          .from('company')
+          .select(`*`)
+          .eq('owner_id', event.data.object.client_reference_id)
+          .single();
+        if (fetchedCompanyData) {
+          companyData = fetchedCompanyData;
+        } else {
+          console.log('Error fetching company data:', fetchedCompanyDataError);
+        }
+
+        const { data: fetchedUserById, error: fetchedUserByIdError } = await supabase
           .from('users')
           .select(`*`)
-          .eq('user_email', event.data.object.customer_details?.email)
+          .eq('id', event.data.object.client_reference_id)
           .single();
-        if (fetchedUserByEmailError) {
-          const { data: fetchedUserById, error: fetchedUserByIdError } = await supabase
-            .from('users')
-            .select(`*`)
-            .eq('id', event.data.object.client_reference_id)
-            .single();
-          if (fetchedUserById) {
-            userData = fetchedUserById;
-          }
-        } else {
-          userData = fetchedUserByEmail;
+        if (fetchedUserById) {
+          userData = fetchedUserById;
         }
+
         const { line_items } = await stripe.checkout.sessions.retrieve(session.id, {
           expand: ['line_items'],
         });
 
         if (line_items) {
           const { description } = line_items.data[0];
-          console.log(description);
+          console.log('Updating user with ID:', userData.id);
+          console.log('Company Data', companyData);
+          console.log('Current availableJobListing:', companyData.availableJobListing);
+
+          switch (description) {
+            case 'Basic plan 1 job post':
+              const { data, error: addOnePostError } = await supabase
+                .from('company')
+                .update({ availableJobListing: companyData.availableJobListing + 1 })
+                .eq('owner_id', userData.id);
+
+              if (addOnePostError) {
+                console.log('Error adding one post:', addOnePostError.message);
+              }
+              break;
+            case 'Basic plan 5 job posts':
+              const { error: addFivePostError } = await supabase
+                .from('company')
+                .update({ availableJobListing: companyData.availableJobListing + 5 })
+                .eq('owner_id', userData.id);
+
+              if (addFivePostError) {
+                console.log('Error adding one post:', addFivePostError.message);
+              }
+              break;
+            case 'Basic plan 10 job posts':
+              const { error: addTenPostError } = await supabase
+                .from('company')
+                .update({ availableJobListing: companyData.availableJobListing + 10 })
+                .eq('owner_id', userData.id);
+
+              if (addTenPostError) {
+                console.log('Error adding one post:', addTenPostError.message);
+              }
+              break;
+          }
         }
         console.log(line_items);
 

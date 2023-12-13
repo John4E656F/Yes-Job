@@ -35,7 +35,7 @@ export default async function jobListing() {
   const companyData = fetchedCompanyData as CompanyTypes;
   const jobListing = fetchedJobPostData as ListingData[];
   const totalViewCount = viewCount as dashboardViewCounterDisplayType;
-  // console.log('dashboard user', currentUser);
+  console.log('dashboard user', currentUser);
   // console.log('dashboard company', companyData);
 
   // console.log('dashboard joblisting', jobListing);
@@ -51,7 +51,7 @@ export default async function jobListing() {
   if (jobListing) {
     usedListing = jobListing.filter((listing) => listing.published === true);
   }
-  console.log('usedListing', usedListing.length);
+  // console.log('usedListing', usedListing.length);
 
   // console.log(currentUser);
   // console.log(currentUserJobListing);
