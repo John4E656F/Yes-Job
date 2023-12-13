@@ -2,32 +2,33 @@
 import React, { useState } from 'react';
 import { Button, Link } from '..';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
+import { payment } from '@/lib/actions/';
 
 type PriceDetail = {
   price: number;
   buttonText: string;
   totalPrice: number;
-  link: string;
+  priceId: string;
 };
 
 const priceDetails: PriceDetail[] = [
   {
     price: 69,
     buttonText: '1 post',
-    totalPrice: 49,
-    link: ' https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
+    totalPrice: 69,
+    priceId: 'price_1OMWnpElNHG3WsnfgUBuZZPT',
   },
   {
     price: 66,
     buttonText: '5 posts',
     totalPrice: 330,
-    link: ' https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
+    priceId: 'price_1OMWoYElNHG3WsnfBgKEyn8T',
   },
   {
     price: 63,
     buttonText: '10 posts',
     totalPrice: 630,
-    link: ' https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
+    priceId: 'price_1OMWp3ElNHG3WsnfCGKwwM5Y',
   },
 ];
 
@@ -36,6 +37,15 @@ export const BasicPlanCard: React.FC = () => {
 
   const handlePriceChange = (priceDetail: PriceDetail) => {
     setCurrentPriceDetail(priceDetail);
+  };
+
+  const onClick = async () => {
+    const paymentLink = await payment({ priceId: currentPriceDetail.priceId });
+
+    if (paymentLink) {
+      window.open(paymentLink, '_blank');
+    }
+    console.log('paymentlink', paymentLink);
   };
 
   return (
@@ -48,7 +58,7 @@ export const BasicPlanCard: React.FC = () => {
               key={index}
               className={`flex items-center justify-center text-center ${
                 currentPriceDetail.price === detail.price ? 'bg-blue-600 text-white' : 'border bg-white hover:bg-gray-100'
-              } rounded-lg  focus:outline-none focus:ring-2 focus:ring-gray-200 px-4 py-2 m-2`}
+              } rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 px-4 py-2 m-2`}
               text={detail.buttonText}
               btnType='button'
               onClick={() => handlePriceChange(detail)}
@@ -90,14 +100,13 @@ export const BasicPlanCard: React.FC = () => {
           <p> Job application sent directly to your email</p>
         </li>
       </ul>
-      <Link
-        href={`/publier`}
+      <ul className='flex flex-col gap-3 p-8 basis-full text-left list-none'>{/* ... List items ... */}</ul>
+      <Button
+        onClick={onClick}
+        btnType='button'
+        text='Publish your first job offer'
         className='flex items-center px-8 mb-8 justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
-      >
-        <button type='button' className='px-4 py-2 text-sm whitespace-nowrap'>
-          Publish your first job offer
-        </button>
-      </Link>
+      />
     </div>
   );
 };
