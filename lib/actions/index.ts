@@ -7,3 +7,4 @@ export { signout } from './signout';
 export { signup } from './signup';
 export { registerNewCompany, updateCompany } from './company';
 export { updateUser } from './userProfile';
+export { payment } from './payment';

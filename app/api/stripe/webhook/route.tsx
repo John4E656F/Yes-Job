@@ -5,19 +5,17 @@ import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
 });
-
+const webhookSecret = process.env.STRIPE_SECRET_WEBHOOK_KEY!;
 // Middleware to disable body parsing
-export const config = {
-  runtime: 'experimental-edge',
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
 export async function POST(req: NextRequest) {
-  console.log('POST');
   const sig = req.headers.get('stripe-signature');
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+
   let event: Stripe.Event;
 
   try {
@@ -34,12 +32,21 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    // console.log(event);
+
     switch (event.type) {
+      case 'customer.created':
+        // console.log(event.data.object.email);
+
+        break;
       case 'product.created':
         // Handle product created event
         break;
       case 'product.updated':
         // Handle product updated event
+        break;
+      case 'payment_intent.succeeded':
+        console.log('PaymentIntent was successful!');
         break;
       default:
         throw new Error('Unhandled relevant event!');

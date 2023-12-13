@@ -122,7 +122,7 @@ const pricingPage = async () => {
               t('pricing.detailsApplication'),
             ]}
             buttonText={t('pricing.buttonFirstListing')}
-            link='https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA'
+            link='https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA?prefilled_email=jenny%40example.com'
           />
           <BasicPlanCard />
         </div>
