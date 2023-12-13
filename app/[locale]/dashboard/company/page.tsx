@@ -23,7 +23,7 @@ export default async function CompanyPage() {
       : process.env.NEXT_PRIVATE_URL + `/api/user/${sessionId}`,
   );
   const { fetchedUserData } = await userResponse.json();
-  console.log('fetchedUserData', fetchedUserData);
+  // console.log('fetchedUserData', fetchedUserData);
 
   const companyResponse = await fetch(
     process.env.NEXT_PRIVATE_PRODUCTION === 'true'
@@ -31,7 +31,7 @@ export default async function CompanyPage() {
       : process.env.NEXT_PRIVATE_URL + `/api/company/${fetchedUserData.id}`,
   );
   const { fetchedCompanyData } = await companyResponse.json();
-  console.log('fetchedCompanyData', fetchedCompanyData);
+  // console.log('fetchedCompanyData', fetchedCompanyData);
 
   return (
     <section className='w-full bg-white flex flex-col py-4 pt-10 px-10 gap-y-8'>
