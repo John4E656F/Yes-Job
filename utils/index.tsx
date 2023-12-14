@@ -7,4 +7,4 @@ export { buyJoblisting } from './stripe/buyJoblisting';
 export { subscribe } from './stripe/subscribe';
 export { subscribeRebill } from './stripe/subscriptionRebill';
 export { createInvoice } from './stripe/createInvoice';
-export { updateInvoice } from './stripe/updateInvoice';
+export { addInvoiceIdToCompany } from './stripe/addInvoiceIdToCompany';

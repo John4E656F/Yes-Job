@@ -1,6 +1,5 @@
 'use server';
 import Stripe from 'stripe';
-import { createClient } from '@/utils/supabase/server';
 import { UsersTypes } from '@/types';
 
 interface paymentProps {
@@ -13,18 +12,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 });
 
 export async function payment({ priceId, userData, paymentType }: paymentProps) {
-  const supabase = createClient();
-
-  //   const session = await stripe.checkout.sessions.create({
-  //     success_url: 'https://example.com/success',
-  //     line_items: [
-  //       {
-  //         price: 'price_1MotwRLkdIwHu7ixYcPLm5upriceId',
-  //         quantity: 1,
-  //       },
-  //     ],
-  //     mode: 'payment',
-  //   });
   let paymentLink;
   if (paymentType === 'subscription') {
     paymentLink = await stripe.paymentLinks.create({

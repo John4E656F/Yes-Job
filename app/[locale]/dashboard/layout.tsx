@@ -43,6 +43,7 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
 
   return (
     <html lang={locale}>
+      <script async src='https://js.stripe.com/v3/pricing-table.js'></script>
       <body className='flex flex-col'>
         <NextIntlClientProvider locale={locale} messages={translation}>
           <Sidebar currentLocale={locale} session={session} />

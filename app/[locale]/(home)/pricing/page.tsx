@@ -3,8 +3,14 @@ import { Link, Button, PricingCard, BasicPlanCard } from '@/components';
 import type { subDataTypes, boostDataTypes } from '@/types';
 import { getTranslations } from 'next-intl/server';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
-import { subscribe } from 'diagnostics_channel';
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'stripe-pricing-table': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+    }
+  }
+}
 export default async function pricingPage() {
   const t = await getTranslations('app');
   const session = await getServerUserSession();
@@ -156,8 +162,12 @@ export default async function pricingPage() {
         <div className='flex flex-col gap-2 text-center'>
           <h3>{t('pricing.headerSubscriptionTitle')}</h3>
           <p>{t('pricing.headerSubscriptionSubTitle')}</p>
+          <stripe-pricing-table
+            pricing-table-id='prctbl_1ONJifElNHG3WsnfhScHMBjL'
+            publishable-key='pk_live_51OMVXUElNHG3WsnfQzn4NNI79QcsvenIO0OMv9EPDu7tNKVRjl5e35dsygCsSwJi0R2Cwk2w1UetqRKuihLQsPfR004IOTARwQ'
+          ></stripe-pricing-table>
           <div className='flex gap-8 mt-5'>
-            {subData.map((data, index) => (
+            {/* {subData.map((data, index) => (
               <PricingCard
                 key={index}
                 title={data.title}
@@ -170,7 +180,11 @@ export default async function pricingPage() {
                 subscription={data.subscription}
                 paymentType='subscription'
               />
-            ))}
+            ))} */}
+            <stripe-pricing-table
+              pricing-table-id='prctbl_1ONJifElNHG3WsnfhScHMBjL'
+              publishable-key='pk_live_51OMVXUElNHG3WsnfQzn4NNI79QcsvenIO0OMv9EPDu7tNKVRjl5e35dsygCsSwJi0R2Cwk2w1UetqRKuihLQsPfR004IOTARwQ'
+            ></stripe-pricing-table>
           </div>
         </div>
         <div className='flex flex-col gap-2 text-center'>

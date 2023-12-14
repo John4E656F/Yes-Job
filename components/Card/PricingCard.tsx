@@ -3,7 +3,7 @@ import React from 'react';
 import { Divider, Link, Button } from '../';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { payment } from '@/lib/actions/';
-import { UsersTypes } from '@/types';
+import { CompanyTypes, UsersTypes } from '@/types';
 
 interface PricingCardProps {
   title: string;
@@ -13,6 +13,7 @@ interface PricingCardProps {
   buttonText: string;
   priceId?: string;
   userData?: UsersTypes;
+  companyData?: CompanyTypes;
   subscription?: boolean;
   companyBoost?: boolean;
   paymentType?: string;
@@ -25,6 +26,7 @@ export const PricingCard = async ({
   buttonText,
   priceId,
   userData,
+  companyData,
   subscription,
   companyBoost,
   paymentType,
