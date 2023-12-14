@@ -3,6 +3,7 @@ import { Link, Button, PricingCard, BasicPlanCard } from '@/components';
 import type { subDataTypes, boostDataTypes } from '@/types';
 import { getTranslations } from 'next-intl/server';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
+import { subscribe } from 'diagnostics_channel';
 
 export default async function pricingPage() {
   const t = await getTranslations('app');
@@ -16,18 +17,16 @@ export default async function pricingPage() {
       ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/user/${sessionId}`
       : process.env.NEXT_PRIVATE_URL + `/api/user/${sessionId}`,
   );
-  if (!userResponse.ok) {
-    console.error('Error fetching user data:', userResponse.statusText);
-    return; // handle the error appropriately
-  }
-
-  if (!userResponse.headers.get('content-type')?.includes('application/json')) {
-    console.error('Received non-JSON response');
-    return; // handle the error appropriately
-  }
-  // console.log('userResponse', userResponse);
 
   const { fetchedUserData } = await userResponse.json();
+
+  const companyResponse = await fetch(
+    process.env.NEXT_PRIVATE_PRODUCTION === 'true'
+      ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/company/${fetchedUserData.id}`
+      : process.env.NEXT_PRIVATE_URL + `/api/company/${fetchedUserData.id}`,
+  );
+  const { fetchedCompanyData } = await companyResponse.json();
+  // console.log('fetchedCompanyData', fetchedCompanyData);
 
   const subData: subDataTypes[] = [
     {
@@ -42,7 +41,8 @@ export default async function pricingPage() {
         t('pricing.detailsApplication'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
-      link: 'https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
+      priceId: 'price_1OMWpzElNHG3WsnfdWTcv2Pk',
+      subscription: fetchedCompanyData.subscription === 'Standard plan' ? true : false,
     },
     {
       title: t('pricing.premiumTitle'),
@@ -57,7 +57,8 @@ export default async function pricingPage() {
         t('pricing.detailsApplication'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
-      link: 'https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
+      priceId: 'price_1OMWqOElNHG3WsnfyydUmdZZ',
+      subscription: fetchedCompanyData.subscription === 'Premium plan' ? true : false,
     },
     {
       title: t('pricing.platinumTitle'),
@@ -73,7 +74,8 @@ export default async function pricingPage() {
         t('pricing.detailsGetFeatured'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
-      link: 'https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
+      priceId: 'price_1OMWqmElNHG3WsnfX1r2vPjI',
+      subscription: fetchedCompanyData.subscription === 'Platinum plan' ? true : false,
     },
   ];
 
@@ -89,7 +91,7 @@ export default async function pricingPage() {
         t('pricing.boost.detailsMoreAppearance'),
       ],
       buttonText: t('pricing.buttonOrderNow'),
-      link: 'https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
+      priceId: 'price_1OMWrIElNHG3WsnfJdsFJ7jJ',
     },
     {
       title: t('pricing.boost.title', { number: '5' }),
@@ -102,15 +104,15 @@ export default async function pricingPage() {
         t('pricing.boost.detailsMoreAppearance'),
       ],
       buttonText: t('pricing.buttonOrderNow'),
-      link: 'https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
+      priceId: 'price_1OMWrkElNHG3Wsnfvq6ukxDQ',
     },
     {
       title: t('pricing.boost.companyBoost'),
-      price: t('pricing.price', { number: '250' }),
+      price: t('pricing.price', { number: '500' }),
       subText: t('pricing.boost.companySubTitle'),
       details: [t('pricing.boost.detailsCompanyBanner'), t('pricing.boost.detailsCompanySponsored')],
       buttonText: t('pricing.buttonOrderNow'),
-      link: 'https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA',
+      priceId: 'price_1OMWsTElNHG3WsnfcQNLD4rL',
     },
   ];
 
@@ -145,7 +147,6 @@ export default async function pricingPage() {
               t('pricing.detailsApplication'),
             ]}
             buttonText={t('pricing.buttonFirstListing')}
-            link='https://buy.stripe.com/test_4gw6rncNx4DJaSk9AA?prefilled_email=jenny%40example.com'
           />
           <BasicPlanCard userData={fetchedUserData} />
         </div>
@@ -161,7 +162,9 @@ export default async function pricingPage() {
                 price={data.price}
                 details={data.details}
                 buttonText={data.buttonText}
-                link={data.link}
+                priceId={data.priceId}
+                userData={fetchedUserData}
+                subscription={data.subscription}
               />
             ))}
           </div>
@@ -178,7 +181,8 @@ export default async function pricingPage() {
                 price={data.price}
                 details={data.details}
                 buttonText={data.buttonText}
-                link={data.link}
+                priceId={data.priceId}
+                userData={fetchedUserData}
               />
             ))}
           </div>
