@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/server';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 import Stripe from 'stripe';
 import { fetchCompanyAndUser } from '@/lib/actions';
-import { buyJoblisting, subscribe, subscribeRebill } from '@/utils';
+import { buyJoblisting, subscribe, subscribeRebill, createInvoice, updateInvoice } from '@/utils';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
@@ -41,6 +41,7 @@ export async function POST(req: NextRequest) {
     console.log(event);
     let userData;
     let companyData;
+    let invoice_id;
     switch (event.type) {
       case 'payment_link.created':
         break;
@@ -67,9 +68,10 @@ export async function POST(req: NextRequest) {
           switch (description) {
             case 'Basic plan 1 job post':
               buyJoblisting({ userData, companyData, amount: 1 });
-              console.log(event.data.object.invoice);
-              console.log(event.data.object.invoice_creation);
-
+              const oneJobPostInvoice = await createInvoice({ companyData: companyData, name: 'Basic plan 1 job post' });
+              if (oneJobPostInvoice) {
+                invoice_id = oneJobPostInvoice.invoiceId;
+              }
               break;
             case 'Basic plan 5 job posts':
               buyJoblisting({ userData, companyData, amount: 5 });
@@ -118,6 +120,7 @@ export async function POST(req: NextRequest) {
                 console.log('Error adding one post:', addFiveBoostError.message);
               }
               break;
+
             // case 'Company Boost':
             //   const { error: addCompanyBoostError } = await supabase
             //   .from('company')
@@ -136,6 +139,17 @@ export async function POST(req: NextRequest) {
         // console.log(event.data.object.client_reference_id);
 
         // Handle product created event
+        break;
+      case 'invoice.payment_succeeded':
+        // console.log(invoice_id);
+        // console.log(companyData);
+
+        // updateInvoice({
+        //   companyData: companyData!,
+        //   invoice_url: event.data.object.hosted_invoice_url!,
+        //   invoice_pdf: event.data.object.invoice_pdf!,
+        //   invoice_id: invoice_id!,
+        // });
         break;
       // case 'product.updated':
       //   // Handle product updated event
