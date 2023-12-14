@@ -15,4 +15,5 @@ export interface boostDataTypes {
   details: string[];
   buttonText: string;
   priceId: string;
+  companyBoost: boolean;
 }

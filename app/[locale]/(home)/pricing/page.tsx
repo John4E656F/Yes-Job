@@ -92,6 +92,7 @@ export default async function pricingPage() {
       ],
       buttonText: t('pricing.buttonOrderNow'),
       priceId: 'price_1OMWrIElNHG3WsnfJdsFJ7jJ',
+      companyBoost: false,
     },
     {
       title: t('pricing.boost.title', { number: '5' }),
@@ -105,14 +106,16 @@ export default async function pricingPage() {
       ],
       buttonText: t('pricing.buttonOrderNow'),
       priceId: 'price_1OMWrkElNHG3Wsnfvq6ukxDQ',
+      companyBoost: false,
     },
     {
       title: t('pricing.boost.companyBoost'),
       price: t('pricing.price', { number: '500' }),
       subText: t('pricing.boost.companySubTitle'),
       details: [t('pricing.boost.detailsCompanyBanner'), t('pricing.boost.detailsCompanySponsored')],
-      buttonText: t('pricing.buttonOrderNow'),
+      buttonText: t('pricing.buttonComingSoon'),
       priceId: 'price_1OMWsTElNHG3WsnfcQNLD4rL',
+      companyBoost: true,
     },
   ];
 
@@ -183,6 +186,7 @@ export default async function pricingPage() {
                 buttonText={data.buttonText}
                 priceId={data.priceId}
                 userData={fetchedUserData}
+                companyBoost={data.companyBoost}
               />
             ))}
           </div>
