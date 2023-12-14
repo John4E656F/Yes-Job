@@ -14,8 +14,19 @@ interface PricingCardProps {
   priceId?: string;
   userData?: UsersTypes;
   subscription?: boolean;
+  companyBoost?: boolean;
 }
-export const PricingCard = async ({ title, price, subTitle, details, buttonText, priceId, userData, subscription }: PricingCardProps) => {
+export const PricingCard = async ({
+  title,
+  price,
+  subTitle,
+  details,
+  buttonText,
+  priceId,
+  userData,
+  subscription,
+  companyBoost,
+}: PricingCardProps) => {
   let paymentLink;
   if (userData && priceId) {
     paymentLink = await payment({ priceId: priceId, userData: userData });
@@ -39,7 +50,11 @@ export const PricingCard = async ({ title, price, subTitle, details, buttonText,
         ))}
       </ul>
       <div className=''>
-        {subscription ? (
+        {companyBoost ? (
+          <div className='flex items-center px-8 mb-8 justify-center h-fit text-center bg-white rounded '>
+            <p className='px-4 py-2 whitespace-nowrap'>{buttonText}</p>
+          </div>
+        ) : subscription ? (
           <div className='flex flex-col gap-1'>
             <div className='flex items-center px-8  justify-center h-fit text-center bg-white rounded '>
               <p className='px-4 py-2 whitespace-nowrap'>Already subscribe</p>

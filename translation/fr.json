@@ -242,7 +242,8 @@
       "buttonFirstListing": "Publier votre première offre d'emploi",
       "buttonPostAJob": "Publier une annonce",
       "buttonSubscribe": "S'abonner",
-      "buttonOrderNow": "Commander"
+      "buttonOrderNow": "Commander",
+      "buttonComingSoon": "Prochainement"
     }
   },
   "dashboard": {
