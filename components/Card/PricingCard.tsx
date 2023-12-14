@@ -32,9 +32,10 @@ export const PricingCard = async ({
   paymentType,
 }: PricingCardProps) => {
   let paymentLink;
-  if (userData && priceId && paymentType) {
-    paymentLink = await payment({ priceId: priceId, userData: userData, paymentType: paymentType });
-  }
+  //Update payment reuse payment link
+  // if (userData && priceId && paymentType) {
+  //   paymentLink = await payment({ priceId: priceId, userData: userData, paymentType: paymentType });
+  // }
 
   return (
     <div className='border rounded w-4/5 bg-brand-lightbg flex flex-col justify-center items-center '>
@@ -54,7 +55,16 @@ export const PricingCard = async ({
         ))}
       </ul>
       <div className=''>
-        {companyBoost ? (
+        {userData && !companyData ? (
+          <Link
+            href='/dashboard/company'
+            className='flex items-center px-2 mb-8 justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
+          >
+            <button type='button' className='px-4 py-2  whitespace-nowrap'>
+              Finish setting up your company
+            </button>
+          </Link>
+        ) : companyBoost ? (
           <div className='flex items-center px-8 mb-8 justify-center h-fit text-center bg-white rounded '>
             <p className='px-4 py-2 whitespace-nowrap'>{buttonText}</p>
           </div>
