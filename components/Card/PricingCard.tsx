@@ -15,6 +15,7 @@ interface PricingCardProps {
   userData?: UsersTypes;
   subscription?: boolean;
   companyBoost?: boolean;
+  paymentType?: string;
 }
 export const PricingCard = async ({
   title,
@@ -26,10 +27,11 @@ export const PricingCard = async ({
   userData,
   subscription,
   companyBoost,
+  paymentType,
 }: PricingCardProps) => {
   let paymentLink;
-  if (userData && priceId) {
-    paymentLink = await payment({ priceId: priceId, userData: userData });
+  if (userData && priceId && paymentType) {
+    paymentLink = await payment({ priceId: priceId, userData: userData, paymentType: paymentType });
   }
 
   return (

@@ -41,7 +41,7 @@ export const BasicPlanCard = ({ userData }: { userData?: UsersTypes }) => {
   };
 
   const onClick = async () => {
-    const paymentLink = await payment({ priceId: currentPriceDetail.priceId, userData: userData! });
+    const paymentLink = await payment({ priceId: currentPriceDetail.priceId, userData: userData!, paymentType: 'One Time' });
 
     if (paymentLink) {
       window.location.href = paymentLink;

@@ -168,6 +168,7 @@ export default async function pricingPage() {
                 priceId={data.priceId}
                 userData={fetchedUserData}
                 subscription={data.subscription}
+                paymentType='subscription'
               />
             ))}
           </div>
