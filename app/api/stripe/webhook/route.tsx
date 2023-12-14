@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/server';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 import Stripe from 'stripe';
 import { fetchCompanyAndUser } from '@/lib/actions';
-import { buyJoblisting, subscribe, subscribeRebill, createInvoice, updateInvoice } from '@/utils';
+import { buyJoblisting, subscribe, subscribeRebill, createInvoice, addInvoiceIdToCompany } from '@/utils';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
@@ -41,7 +41,6 @@ export async function POST(req: NextRequest) {
     console.log(event);
     let userData;
     let companyData;
-    let invoice_id;
     switch (event.type) {
       case 'payment_link.created':
         break;
@@ -54,6 +53,8 @@ export async function POST(req: NextRequest) {
             userData = fetchedUserById;
           }
         }
+        const invoice_id = event.data.object.invoice;
+        const invoice = await stripe.invoices.retrieve(invoice_id as string);
 
         const { line_items } = await stripe.checkout.sessions.retrieve(session.id, {
           expand: ['line_items'],
@@ -68,22 +69,68 @@ export async function POST(req: NextRequest) {
           switch (description) {
             case 'Basic plan 1 job post':
               buyJoblisting({ userData, companyData, amount: 1 });
-              const oneJobPostInvoice = await createInvoice({ companyData: companyData, name: 'Basic plan 1 job post' });
+              const oneJobPostInvoice = await createInvoice({
+                companyData: companyData,
+                name: 'Basic plan 1 job post',
+                invoice_url: invoice.hosted_invoice_url!,
+                invoice_pdf: invoice.invoice_pdf!,
+              });
+
               if (oneJobPostInvoice) {
-                invoice_id = oneJobPostInvoice.invoiceId;
+                addInvoiceIdToCompany({ companyData: companyData, invoice_id: oneJobPostInvoice.invoiceId });
               }
               break;
             case 'Basic plan 5 job posts':
               buyJoblisting({ userData, companyData, amount: 5 });
+              const fiveJobPostInvoice = await createInvoice({
+                companyData: companyData,
+                name: 'Basic plan 5 job post',
+                invoice_url: invoice.hosted_invoice_url!,
+                invoice_pdf: invoice.invoice_pdf!,
+              });
+
+              if (fiveJobPostInvoice) {
+                addInvoiceIdToCompany({ companyData: companyData, invoice_id: fiveJobPostInvoice.invoiceId });
+              }
               break;
             case 'Basic plan 10 job posts':
               buyJoblisting({ userData, companyData, amount: 10 });
+              const tenJobPostInvoice = await createInvoice({
+                companyData: companyData,
+                name: 'Basic plan 10 job post',
+                invoice_url: invoice.hosted_invoice_url!,
+                invoice_pdf: invoice.invoice_pdf!,
+              });
+
+              if (tenJobPostInvoice) {
+                addInvoiceIdToCompany({ companyData: companyData, invoice_id: tenJobPostInvoice.invoiceId });
+              }
               break;
             case 'Standard plan':
               if (companyData.subscription === 'Standard plan') {
                 subscribeRebill({ userData, companyData, amount: 5, plan: 'Standard plan' });
+                const standardRebillJobPostInvoice = await createInvoice({
+                  companyData: companyData,
+                  name: 'Basic plan 10 job post',
+                  invoice_url: invoice.hosted_invoice_url!,
+                  invoice_pdf: invoice.invoice_pdf!,
+                });
+
+                if (standardRebillJobPostInvoice) {
+                  addInvoiceIdToCompany({ companyData: companyData, invoice_id: standardRebillJobPostInvoice.invoiceId });
+                }
               } else if (companyData.subscription === null) {
                 subscribe({ userData, companyData, amount: 5, plan: 'Standard plan' });
+                const standardJobPostInvoice = await createInvoice({
+                  companyData: companyData,
+                  name: 'Basic plan 10 job post',
+                  invoice_url: invoice.hosted_invoice_url!,
+                  invoice_pdf: invoice.invoice_pdf!,
+                });
+
+                if (standardJobPostInvoice) {
+                  addInvoiceIdToCompany({ companyData: companyData, invoice_id: standardJobPostInvoice.invoiceId });
+                }
               }
               break;
             case 'Premium plan':
