@@ -34,7 +34,7 @@ export async function payment({ priceId, userData }: paymentProps) {
     ],
     automatic_tax: { enabled: true },
     tax_id_collection: { enabled: true },
-    customer_creation: 'always',
+    // customer_creation: 'if_required',
     // invoice_creation { enabled: true, },
     after_completion: {
       type: 'redirect',
@@ -43,7 +43,7 @@ export async function payment({ priceId, userData }: paymentProps) {
       },
     },
   });
-  console.log(paymentLink.url + `?client_reference_id=${userData.id}?prefilled_email=${userData.user_email}`);
+  // console.log(paymentLink.url + `?client_reference_id=${userData.id}?prefilled_email=${userData.user_email}`);
   const paymentUrl = paymentLink.url + `?client_reference_id=${userData.id}&prefilled_email=${userData.user_email}`;
   return paymentUrl;
 }

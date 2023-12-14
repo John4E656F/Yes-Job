@@ -40,6 +40,8 @@ export async function POST(req: NextRequest) {
     let userData;
     let companyData;
     switch (event.type) {
+      case 'payment_link.created':
+        break;
       case 'checkout.session.completed':
         const session = event.data.object;
         const { data: fetchedCompanyData, error: fetchedCompanyDataError } = await supabase
@@ -68,9 +70,9 @@ export async function POST(req: NextRequest) {
 
         if (line_items) {
           const { description } = line_items.data[0];
-          console.log('Updating user with ID:', userData.id);
-          console.log('Company Data', companyData);
-          console.log('Current availableJobListing:', companyData.availableJobListing);
+          // console.log('Updating user with ID:', userData.id);
+          // console.log('Company Data', companyData);
+          // console.log('Current availableJobListing:', companyData.availableJobListing);
 
           switch (description) {
             case 'Basic plan 1 job post':
@@ -103,21 +105,102 @@ export async function POST(req: NextRequest) {
                 console.log('Error adding one post:', addTenPostError.message);
               }
               break;
+            case 'Standard plan':
+              if (companyData.subscription === 'Standard plan') {
+                const { error: addStandardPlanError } = await supabase
+                  .from('company')
+                  .update({ availableJobListing: companyData.availableJobListing + 5, rebilled_at: new Date() })
+                  .eq('owner_id', userData.id);
+
+                if (addStandardPlanError) {
+                  console.log('Error adding one post:', addStandardPlanError.message);
+                }
+              } else if (companyData.subscription === null) {
+                const { error: addStandardPlanError } = await supabase
+                  .from('company')
+                  .update({ availableJobListing: companyData.availableJobListing + 5, subscription: 'Standard plan', subscribe_at: new Date() })
+                  .eq('owner_id', userData.id);
+
+                if (addStandardPlanError) {
+                  console.log('Error adding one post:', addStandardPlanError.message);
+                }
+              }
+              break;
+            case 'Premium plan':
+              if (companyData.subscription === 'Premium plan') {
+                const { error: addPremiumPlanError } = await supabase
+                  .from('company')
+                  .update({
+                    availableJobListing: companyData.availableJobListing + 10,
+                    availableBoost: companyData.availableBoost + 2,
+                    rebilled_at: new Date(),
+                  })
+                  .eq('owner_id', userData.id);
+
+                if (addPremiumPlanError) {
+                  console.log('Error adding one post:', addPremiumPlanError.message);
+                }
+              } else if (companyData.subscription === null) {
+                const { error: addPremiumPlanError } = await supabase
+                  .from('company')
+                  .update({
+                    availableJobListing: companyData.availableJobListing + 10,
+                    availableBoost: companyData.availableBoost + 2,
+                    subscription: 'Premium plan',
+                    subscribe_at: new Date(),
+                  })
+                  .eq('owner_id', userData.id);
+
+                if (addPremiumPlanError) {
+                  console.log('Error adding one post:', addPremiumPlanError.message);
+                }
+              }
+              break;
+            case 'Platinum plan':
+              if (companyData.subscription === 'Platinum plan') {
+                const { error: addPlatinumPlanError } = await supabase
+                  .from('company')
+                  .update({
+                    availableJobListing: companyData.availableJobListing + 15,
+                    availableBoost: companyData.availableBoost + 5,
+                    rebilled_at: new Date(),
+                  })
+                  .eq('owner_id', userData.id);
+
+                if (addPlatinumPlanError) {
+                  console.log('Error adding one post:', addPlatinumPlanError.message);
+                }
+              } else if (companyData.subscription === null) {
+                const { error: addPlatinumPlanError } = await supabase
+                  .from('company')
+                  .update({
+                    availableJobListing: companyData.availableJobListing + 15,
+                    availableBoost: companyData.availableBoost + 5,
+                    subscription: 'Platinum plan',
+                    subscribe_at: new Date(),
+                  })
+                  .eq('owner_id', userData.id);
+
+                if (addPlatinumPlanError) {
+                  console.log('Error adding one post:', addPlatinumPlanError.message);
+                }
+              }
+              break;
           }
         }
-        console.log(line_items);
+        // console.log(line_items);
 
-        console.log(event.data.object.customer_details?.email);
-        console.log(event.data.object.client_reference_id);
+        // console.log(event.data.object.customer_details?.email);
+        // console.log(event.data.object.client_reference_id);
 
         // Handle product created event
         break;
-      case 'product.updated':
-        // Handle product updated event
-        break;
-      case 'payment_intent.succeeded':
-        console.log('PaymentIntent was successful!');
-        break;
+      // case 'product.updated':
+      //   // Handle product updated event
+      //   break;
+      // case 'payment_intent.succeeded':
+      //   console.log('PaymentIntent was successful!');
+      //   break;
       default:
         throw new Error('Unhandled relevant event!');
     }
@@ -134,8 +217,4 @@ export async function POST(req: NextRequest) {
       'Content-Type': 'application/json',
     },
   });
-}
-
-export function GET() {
-  return new Response('HI');
 }
