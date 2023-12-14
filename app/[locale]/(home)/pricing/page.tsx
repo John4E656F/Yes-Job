@@ -157,16 +157,21 @@ export default async function pricingPage() {
             ]}
             buttonText={t('pricing.buttonFirstListing')}
           />
-          <BasicPlanCard userData={fetchedUserData} />
+          {/* <BasicPlanCard userData={fetchedUserData} /> */}
         </div>
+        <stripe-pricing-table
+          pricing-table-id='prctbl_1ONKH5ElNHG3WsnfvnvOVfk8'
+          publishable-key='pk_live_51OMVXUElNHG3WsnfQzn4NNI79QcsvenIO0OMv9EPDu7tNKVRjl5e35dsygCsSwJi0R2Cwk2w1UetqRKuihLQsPfR004IOTARwQ'
+        ></stripe-pricing-table>
         <div className='flex flex-col gap-2 text-center'>
           <h3>{t('pricing.headerSubscriptionTitle')}</h3>
           <p>{t('pricing.headerSubscriptionSubTitle')}</p>
-          <stripe-pricing-table
-            pricing-table-id='prctbl_1ONJifElNHG3WsnfhScHMBjL'
-            publishable-key='pk_live_51OMVXUElNHG3WsnfQzn4NNI79QcsvenIO0OMv9EPDu7tNKVRjl5e35dsygCsSwJi0R2Cwk2w1UetqRKuihLQsPfR004IOTARwQ'
-          ></stripe-pricing-table>
-          <div className='flex gap-8 mt-5'>
+
+          <div className='flex flex-col gap-8 mt-5'>
+            <stripe-pricing-table
+              pricing-table-id='prctbl_1ONJifElNHG3WsnfhScHMBjL'
+              publishable-key='pk_live_51OMVXUElNHG3WsnfQzn4NNI79QcsvenIO0OMv9EPDu7tNKVRjl5e35dsygCsSwJi0R2Cwk2w1UetqRKuihLQsPfR004IOTARwQ'
+            ></stripe-pricing-table>
             {/* {subData.map((data, index) => (
               <PricingCard
                 key={index}
@@ -181,17 +186,17 @@ export default async function pricingPage() {
                 paymentType='subscription'
               />
             ))} */}
-            <stripe-pricing-table
-              pricing-table-id='prctbl_1ONJifElNHG3WsnfhScHMBjL'
-              publishable-key='pk_live_51OMVXUElNHG3WsnfQzn4NNI79QcsvenIO0OMv9EPDu7tNKVRjl5e35dsygCsSwJi0R2Cwk2w1UetqRKuihLQsPfR004IOTARwQ'
-            ></stripe-pricing-table>
           </div>
         </div>
         <div className='flex flex-col gap-2 text-center'>
           <h3>{t('pricing.headerExtraTitle')}</h3>
           <p>{t('pricing.headerExtraSubTitle')}</p>
-          <div className='flex gap-8 mt-5'>
-            {boostData.map((data, index) => (
+          <div className='flex flex-col gap-8 mt-5 '>
+            <stripe-pricing-table
+              pricing-table-id='prctbl_1ONKKtElNHG3Wsnf8LoSolPV'
+              publishable-key='pk_live_51OMVXUElNHG3WsnfQzn4NNI79QcsvenIO0OMv9EPDu7tNKVRjl5e35dsygCsSwJi0R2Cwk2w1UetqRKuihLQsPfR004IOTARwQ'
+            ></stripe-pricing-table>
+            {/* {boostData.map((data, index) => (
               <PricingCard
                 key={index}
                 title={data.title}
@@ -203,7 +208,7 @@ export default async function pricingPage() {
                 userData={fetchedUserData}
                 companyBoost={data.companyBoost}
               />
-            ))}
+            ))} */}
           </div>
         </div>
       </div>
