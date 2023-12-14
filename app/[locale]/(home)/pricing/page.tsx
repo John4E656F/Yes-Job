@@ -4,13 +4,6 @@ import type { subDataTypes, boostDataTypes } from '@/types';
 import { getTranslations } from 'next-intl/server';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'stripe-pricing-table': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-    }
-  }
-}
 export default async function pricingPage() {
   const t = await getTranslations('app');
   const session = await getServerUserSession();
@@ -48,7 +41,7 @@ export default async function pricingPage() {
       ],
       buttonText: t('pricing.buttonSubscribe'),
       priceId: 'price_1OMWpzElNHG3WsnfdWTcv2Pk',
-      subscription: fetchedCompanyData.subscription === 'Standard plan' ? true : false,
+      subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Standard plan' ? true : false) : false,
     },
     {
       title: t('pricing.premiumTitle'),
@@ -64,7 +57,7 @@ export default async function pricingPage() {
       ],
       buttonText: t('pricing.buttonSubscribe'),
       priceId: 'price_1OMWqOElNHG3WsnfyydUmdZZ',
-      subscription: fetchedCompanyData.subscription === 'Premium plan' ? true : false,
+      subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Premium plan' ? true : false) : false,
     },
     {
       title: t('pricing.platinumTitle'),
@@ -81,7 +74,7 @@ export default async function pricingPage() {
       ],
       buttonText: t('pricing.buttonSubscribe'),
       priceId: 'price_1OMWqmElNHG3WsnfX1r2vPjI',
-      subscription: fetchedCompanyData.subscription === 'Platinum plan' ? true : false,
+      subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Platinum plan' ? true : false) : false,
     },
   ];
 
@@ -157,22 +150,14 @@ export default async function pricingPage() {
             ]}
             buttonText={t('pricing.buttonFirstListing')}
           />
-          {/* <BasicPlanCard userData={fetchedUserData} /> */}
+          <BasicPlanCard userData={fetchedUserData} />
         </div>
-        <stripe-pricing-table
-          pricing-table-id='prctbl_1ONKH5ElNHG3WsnfvnvOVfk8'
-          publishable-key='pk_live_51OMVXUElNHG3WsnfQzn4NNI79QcsvenIO0OMv9EPDu7tNKVRjl5e35dsygCsSwJi0R2Cwk2w1UetqRKuihLQsPfR004IOTARwQ'
-        ></stripe-pricing-table>
         <div className='flex flex-col gap-2 text-center'>
           <h3>{t('pricing.headerSubscriptionTitle')}</h3>
           <p>{t('pricing.headerSubscriptionSubTitle')}</p>
 
-          <div className='flex flex-col gap-8 mt-5'>
-            <stripe-pricing-table
-              pricing-table-id='prctbl_1ONJifElNHG3WsnfhScHMBjL'
-              publishable-key='pk_live_51OMVXUElNHG3WsnfQzn4NNI79QcsvenIO0OMv9EPDu7tNKVRjl5e35dsygCsSwJi0R2Cwk2w1UetqRKuihLQsPfR004IOTARwQ'
-            ></stripe-pricing-table>
-            {/* {subData.map((data, index) => (
+          <div className='flex gap-8 mt-5'>
+            {subData.map((data, index) => (
               <PricingCard
                 key={index}
                 title={data.title}
@@ -185,18 +170,14 @@ export default async function pricingPage() {
                 subscription={data.subscription}
                 paymentType='subscription'
               />
-            ))} */}
+            ))}
           </div>
         </div>
         <div className='flex flex-col gap-2 text-center'>
           <h3>{t('pricing.headerExtraTitle')}</h3>
           <p>{t('pricing.headerExtraSubTitle')}</p>
-          <div className='flex flex-col gap-8 mt-5 '>
-            <stripe-pricing-table
-              pricing-table-id='prctbl_1ONKKtElNHG3Wsnf8LoSolPV'
-              publishable-key='pk_live_51OMVXUElNHG3WsnfQzn4NNI79QcsvenIO0OMv9EPDu7tNKVRjl5e35dsygCsSwJi0R2Cwk2w1UetqRKuihLQsPfR004IOTARwQ'
-            ></stripe-pricing-table>
-            {/* {boostData.map((data, index) => (
+          <div className='flex gap-8 mt-5 '>
+            {boostData.map((data, index) => (
               <PricingCard
                 key={index}
                 title={data.title}
@@ -208,7 +189,7 @@ export default async function pricingPage() {
                 userData={fetchedUserData}
                 companyBoost={data.companyBoost}
               />
-            ))} */}
+            ))}
           </div>
         </div>
       </div>
