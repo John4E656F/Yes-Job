@@ -17,7 +17,7 @@ export const subscribe = async ({ userData, companyData, amount, boostAmount, pl
       .update({ availableJobListing: companyData.availableJobListing! + amount, boost: boostAmount, subscription: plan, subscribe_at: new Date() })
       .eq('owner_id', userData.id);
     if (subscribeError) {
-      console.log('Error adding one post:', subscribeError.message);
+      console.log('Error adding subscription with boost:', subscribeError.message);
     }
   } else {
     const { data, error: subscribeError } = await supabase
@@ -25,7 +25,7 @@ export const subscribe = async ({ userData, companyData, amount, boostAmount, pl
       .update({ availableJobListing: companyData.availableJobListing! + amount, subscription: plan, subscribe_at: new Date() })
       .eq('owner_id', userData.id);
     if (subscribeError) {
-      console.log('Error adding one post:', subscribeError.message);
+      console.log('Error adding subscription:', subscribeError.message);
     }
   }
 };
