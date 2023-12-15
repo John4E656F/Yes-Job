@@ -31,6 +31,11 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRe
           </Link>
         </li>
         <li>
+          <Link href='/pricing' className='block py-2 text-gray-900 rounded hover:text-gray-400 md:border-0'>
+            {t('nav.pricing')}
+          </Link>
+        </li>
+        <li>
           {!session && (
             <Link href='/login' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200' onClick={toggleMenu}>
               Login
