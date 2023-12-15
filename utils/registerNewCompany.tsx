@@ -37,11 +37,12 @@ export const registerNewCompany = async (
   companyName: string,
   companyEmail: string,
   companyLogo: string,
-  companyWebsite: string | undefined,
-  companyPhone: string | null,
+  companyWebsite: string | null,
+  companyPhone: number | null,
   contactEmail: string,
-  contactName: string,
-  contactPhone: string | null,
+  firstname: string,
+  lastname: string,
+  contactPhone: number | null,
   contactPassword: string,
 ): Promise<Result> => {
   // Try to fetch the company from the database
@@ -62,11 +63,12 @@ export const registerNewCompany = async (
     const { data: newUserData, error: newUserError } = await supabase
       .from('users')
       .insert({
-        user_name: companyName,
         user_email: contactEmail,
-        contactName: contactName,
+        firstname: firstname,
+        lastname: lastname,
         user_phone: contactPhone,
         user_id: userData.user.id,
+        isCompany: true,
       })
       .select('*');
 

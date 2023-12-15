@@ -25,7 +25,8 @@ export default function Signup() {
     mode: 'onChange',
     reValidateMode: 'onBlur',
     defaultValues: {
-      name: '',
+      firstname: '',
+      lastname: '',
       email: '',
       password: '',
       isCompany: '',
@@ -84,12 +85,20 @@ export default function Signup() {
       </div>
       <form className='animate-in flex-1 flex flex-col w-full justify-center gap-5 text-foreground' onSubmit={handleSubmit(signUp)}>
         <FormInput
-          label={t('auth.name') + ' *'}
+          label={t('auth.firstname') + ' *'}
           type='text'
-          register={register('name', { required: true })}
-          error={errors.name}
-          isRequiredMessage={t('auth.name') + t('error.isRequired')}
-          placeholder='Colonel Sander'
+          register={register('firstname', { required: true })}
+          error={errors.firstname}
+          isRequiredMessage={t('auth.firstname') + t('error.isRequired')}
+          placeholder='Colonel'
+        />
+        <FormInput
+          label={t('auth.lastname') + ' *'}
+          type='text'
+          register={register('lastname', { required: true })}
+          error={errors.firstname}
+          isRequiredMessage={t('auth.lastname') + t('error.isRequired')}
+          placeholder='Sander'
         />
         <FormInput
           label={t('auth.email') + ' *'}

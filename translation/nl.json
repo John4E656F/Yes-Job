@@ -5,7 +5,8 @@
   "app": {
     "nav": {
       "home": "Thuis",
-      "contact": "Contact"
+      "contact": "Contact",
+      "pricing": "Prijsstelling"
     },
     "sidebar": {
       "back": "Terug naar de hoofdpagina",
@@ -49,7 +50,8 @@
       "loginSubTitle": "Welkom terug! Voer uw gegevens in",
       "registerTitle": "Maak een account aan",
       "registerSubTitle": "Maak je account aan in een paar klikken!",
-      "name": "Naam en Voornaam",
+      "firstname": "Voornaam",
+      "lastname": "Achternaam",
       "signIn": "Login",
       "signUp": "Registreren",
       "email": "E-mailadres",
@@ -134,7 +136,8 @@
       "viaBothSub": "De kandidaat kan een sollicitatie indienen via Yes Job of u kunt hem doorsturen naar een extern formulier.",
       "contactDetails": "Contactgegevens",
       "contactDetailsSub": "Deze gegevens zijn alleen bedoeld om contact met u op te nemen in geval van vragen over de advertentie. Ze worden nergens weergegeven.",
-      "contactDetailsName": "Voor- en achternaam",
+      "contactDetailsFirstname": "Voornaam",
+      "contactDetailsLastname": "Achternaam",
       "contactDetailsEmail": "E-mailadres",
       "contactDetailsEmailValidation": "Voer een geldig e-mailadres in.",
       "contactDetailsPassword": "Wachtwoord",
@@ -188,6 +191,59 @@
       "errorOption": "Selecteer een optie.",
       "userExist": "Gebruiker al geregistreerd, inloggen a.u.b.",
       "notEnoughListing": "Je hebt geen beschikbare listing, upgrade alsjeblieft je account."
+    },
+    "pricing": {
+      "headerTitle": "Prijzen",
+      "headerSubTitle": "Flexibele plannen en prijzen",
+      "headerSubTitle2": "Eenvoudige, transparante prijzen voor iedereen. Kies een plan dat bij je past.",
+      "headerCTA": "Chat met sales",
+      "headerSubscriptionTitle": "Maandabonnement",
+      "headerSubscriptionSubTitle": "Een extra vacature kost 59€ per vacature.",
+      "headerExtraTitle": "Extra opties",
+      "headerExtraSubTitle": "Krijg meer zichtbaarheid voor je vacature en bedrijf.",
+      "free": {
+        "title": "Gratis plan",
+        "price": "Gratis",
+        "subTitle": "Je eerste vacature is gratis"
+      },
+      "basic": {
+        "title": "Basis plan",
+        "1Post": "1 vacature",
+        "5Post": "5 vacatures",
+        "10Post": "10 vacatures",
+        "oneTimePayment": "Eenmalige betaling: "
+      },
+      "boost": {
+        "title": "Boost {number}",
+        "1subTitle": "Verhoog de zichtbaarheid van vacatures",
+        "5subTitle": "Verhoog de zichtbaarheid van vacatures met 5 boost",
+        "detailsBoost": "{number} boost",
+        "detailsSponsored": "Gesponsorde tag",
+        "detailsDistinguish": "Onderscheidbare vacature",
+        "detailsMoreAppearance": "De vacature zal meer verschijnen in de zoekresultaten",
+        "companyBoost": "Bedrijfsboost",
+        "companySubTitle": "Vergroot de promotie en zichtbaarheid van uw bedrijf",
+        "detailsCompanyBanner": "Aangepaste bedrijfsbanner op startpagina en listingpagina's gedurende 14 dagen",
+        "detailsCompanySponsored": "Uitgelicht op onze Facebook- en Instagram-advertenties"
+      },
+      "standardTitle": "Standaard plan",
+      "premiumTitle": "Premium plan",
+      "platinumTitle": "Platina plan",
+      "price": "{number}€ /vacature",
+      "saves": "Je bespaart {number}€",
+      "detailsListing": "{number} vacature{s}",
+      "detailsBoostPerMonth": "{number} boost per maand",
+      "detailsDashboardBasic": "Dashboard",
+      "detailsSpecializeDashboard": "Gespecialiseerd dashboard",
+      "detailsOptimization": "Aanbod optimalisatie",
+      "detailsBasicSupport": "Basisondersteuning",
+      "detailsApplication": "Sollicitatie direct naar je e-mailadres gestuurd",
+      "detailsGetFeatured": "Word opgenomen in onze sociale promoties",
+      "buttonFirstListing": "Publiceer je eerste vacature",
+      "buttonPostAJob": "Een vacature plaatsen",
+      "buttonSubscribe": "Inschrijven",
+      "buttonOrderNow": "Nu bestellen",
+      "buttonComingSoon": "Binnenkort beschikbaar"
     }
   },
   "dashboard": {

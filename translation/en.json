@@ -6,7 +6,8 @@
   "app": {
     "nav": {
       "home": "Home",
-      "contact": "Contact"
+      "contact": "Contact",
+      "pricing": "Pricing"
     },
     "sidebar": {
       "back": "Back to the main site",
@@ -50,7 +51,8 @@
       "loginSubTitle": "Welcome back! Please enter your details",
       "registerTitle": "Create an account",
       "registerSubTitle": "Create your account in a few clicks!",
-      "name": "Name",
+      "firstname": "First name",
+      "lastname": "Last name",
       "signIn": "Sign in",
       "signUp": "Sign up",
       "email": "Email Address",
@@ -137,7 +139,8 @@
       "viaBothSub": "The candidate can submit their application via Yes Job or you can redirect them to an external form.",
       "contactDetails": "Contact details",
       "contactDetailsSub": "These data are only for contacting you in case of ad questions. They will not be displayed anywhere.",
-      "contactDetailsName": "First and Last name",
+      "contactDetailsFirstname": "First name",
+      "contactDetailsLastname": "Last name",
       "contactPhone": "Phone number",
       "contactDetailsEmail": "Email address",
       "contactDetailsEmailValidation": "Please enter a valid e-mail address.",
@@ -192,6 +195,59 @@
       "errorOption": "Please select an option.",
       "userExist": "User already registered, please signin.",
       "notEnoughListing": "You don't have any available listing, please upgrade your account."
+    },
+    "pricing": {
+      "headerTitle": "Pricing",
+      "headerSubTitle": "Flexible Plans and Pricing",
+      "headerSubTitle2": "Simple, transparent pricing for everyone. Choose a plan that fits your needs.",
+      "headerCTA": "Chat with sales",
+      "headerSubscriptionTitle": "Monthly Subscription",
+      "headerSubscriptionSubTitle": "Additional job listing will cost 59€ per job post.",
+      "headerExtraTitle": "Extra options",
+      "headerExtraSubTitle": "Get more visibility for your job post and company",
+      "free": {
+        "title": "Free plan",
+        "price": "Free",
+        "subTitle": "Your first job listing is free"
+      },
+      "basic": {
+        "title": "Basic plan",
+        "1Post": "1 post",
+        "5Post": "5 post",
+        "10Post": "10 post",
+        "oneTimePayment": "One time payment: "
+      },
+      "boost": {
+        "title": "Boost {number}",
+        "1subTitle": "Increase job post visibility",
+        "5subTitle": "Increase job post visibility with 5 boost",
+        "detailsBoost": "{number} boost",
+        "detailsSponsored": "Sponsored tag",
+        "detailsDistinguish": "Distinguishable job post",
+        "detailsMoreAppearance": "Job post will appear more in search results",
+        "companyBoost": "Company boost",
+        "companySubTitle": "Increase your company promotion and visibility",
+        "detailsCompanyBanner": "Company custom banner on homepage and listing pages for 14 days",
+        "detailsCompanySponsored": "Featured on our facebook and instagram ads"
+      },
+      "standardTitle": "Standard plan",
+      "premiumTitle": "Premium plan",
+      "platinumTitle": "Platinum plan",
+      "price": "{number}€ /job post",
+      "saves": "You save {number}€",
+      "detailsListing": "{number} job listing{s}",
+      "detailsBoostPerMonth": "{number} boost per month",
+      "detailsDashboardBasic": "Dashboard",
+      "detailsSpecializeDashboard": "Specialized dashboard",
+      "detailsOptimization": "Offer Optimization",
+      "detailsBasicSupport": "Basic support",
+      "detailsApplication": "Job application sent directly to your email address",
+      "detailsGetFeatured": "Get featured to our social promotions",
+      "buttonFirstListing": "Publish your first job offer",
+      "buttonPostAJob": "Post a job",
+      "buttonSubscribe": "Subscribe",
+      "buttonOrderNow": "Order now",
+      "buttonComingSoon": "Coming soon"
     }
   },
   "dashboard": {
