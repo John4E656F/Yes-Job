@@ -21,17 +21,17 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRe
     >
       <ul className='font-medium flex flex-col p-4 md:p-0 rounded-lg list-none'>
         <li>
-          <Link href='/' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200' onClick={toggleMenu} aria-current='page'>
+          <Link href='/' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200' aria-current='page'>
             {t('nav.home')}
           </Link>
         </li>
         <li>
-          <Link href='/contact' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200' onClick={toggleMenu}>
+          <Link href='/contact' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200'>
             {t('nav.contact')}
           </Link>
         </li>
         <li>
-          <Link href='/pricing' className='block py-2 text-gray-900 rounded hover:text-gray-400 md:border-0'>
+          <Link href='/pricing' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-blue-200'>
             {t('nav.pricing')}
           </Link>
         </li>
