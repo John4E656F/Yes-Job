@@ -21,19 +21,19 @@ const priceDetails: PriceDetail[] = [
     price: 69,
     buttonText: '1 post',
     totalPrice: 69,
-    priceId: process.env.NEXT_PUBLIC_ONE_POST!,
+    priceId: process.env.NEXT_PUBLIC_PRODUCTION ? 'price_1ONK8xElNHG3Wsnfi6Iga8WL' : 'price_1OMWnpElNHG3WsnfgUBuZZPT',
   },
   {
     price: 66,
     buttonText: '5 posts',
     totalPrice: 330,
-    priceId: process.env.NEXT_PUBLIC_FIVE_POST!,
+    priceId: process.env.NEXT_PUBLIC_PRODUCTION ? 'price_1ONKCXElNHG3WsnfNW65U4ZR' : 'price_1OMWoYElNHG3WsnfBgKEyn8T',
   },
   {
     price: 63,
     buttonText: '10 posts',
     totalPrice: 630,
-    priceId: process.env.NEXT_PUBLIC_TEN_POST!,
+    priceId: process.env.NEXT_PUBLIC_PRODUCTION ? 'price_1ONKCXElNHG3WsnfNW65U4ZR' : 'price_1OMWp3ElNHG3WsnfCGKwwM5Y',
   },
 ];
 
@@ -125,12 +125,12 @@ export const BasicPlanCard = ({ userData, companyData }: BasicPlaProps) => {
         <Button
           onClick={onClick}
           btnType='button'
-          text='Order'
+          text='Publish your first job offer'
           className='flex items-center px-8 py-2 mb-8 justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
         />
       ) : (
         <Link
-          href='/login'
+          href='/auth/login'
           className='flex items-center px-8 mb-8 justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
         >
           <button type='button' className='px-4 py-2 text-sm whitespace-nowrap'>
