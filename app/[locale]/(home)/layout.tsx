@@ -1,10 +1,10 @@
-import { Analytics } from '@vercel/analytics/react';
 import { notFound } from 'next/navigation';
 import { Navbar, Footer } from '@/components';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { locales } from '@/navigation';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import '../../globals.css';
 
@@ -48,7 +48,7 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
           <section>
             <main className='flex flex-col items-center'>
               {children}
-              <Analytics />
+              <SpeedInsights />
             </main>
           </section>
           <Footer />
