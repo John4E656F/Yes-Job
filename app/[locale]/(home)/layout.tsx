@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/react';
 import { notFound } from 'next/navigation';
 import { Navbar, Footer } from '@/components';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
