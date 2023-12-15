@@ -11,12 +11,12 @@ interface PricingCardProps {
   subTitle: string;
   details: string[];
   buttonText: string;
-  pLink?: string;
+  priceId?: string;
   userData?: UsersTypes;
   companyData?: CompanyTypes;
   subscription?: boolean;
   companyBoost?: boolean;
-  paymentType?: string;
+  paymentType?: 'payment' | 'subscription';
 }
 export const PricingCard = async ({
   title,
@@ -24,7 +24,7 @@ export const PricingCard = async ({
   subTitle,
   details,
   buttonText,
-  pLink,
+  priceId,
   userData,
   companyData,
   subscription,
@@ -32,8 +32,8 @@ export const PricingCard = async ({
   paymentType,
 }: PricingCardProps) => {
   let paymentLink;
-  if (userData && pLink) {
-    paymentLink = await payment({ pLink: pLink, userData: userData });
+  if (userData && paymentType) {
+    paymentLink = await payment({ priceId: priceId!, userData: userData, companyData: companyData!, paymentType: paymentType });
   }
   // console.log('paymentLink', paymentType, paymentLink);
   // console.log(companyData);

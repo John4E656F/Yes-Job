@@ -40,7 +40,7 @@ export default async function pricingPage() {
         t('pricing.detailsApplication'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
-      pLink: 'plink_1ONaPQElNHG3WsnfcadB2Jjg',
+      priceId: 'price_1OMWpzElNHG3WsnfdWTcv2Pk',
       subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Standard plan' ? true : false) : false,
     },
     {
@@ -56,7 +56,7 @@ export default async function pricingPage() {
         t('pricing.detailsApplication'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
-      pLink: 'plink_1ONaQLElNHG3Wsnf9unB3V7j',
+      priceId: 'price_1OMWqOElNHG3WsnfyydUmdZZ',
       subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Premium plan' ? true : false) : false,
     },
     {
@@ -73,7 +73,7 @@ export default async function pricingPage() {
         t('pricing.detailsGetFeatured'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
-      pLink: 'plink_1ONaRPElNHG3WsnfhUlsl0FV',
+      priceId: 'price_1OMWqmElNHG3WsnfX1r2vPjI',
       subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Platinum plan' ? true : false) : false,
     },
   ];
@@ -90,7 +90,7 @@ export default async function pricingPage() {
         t('pricing.boost.detailsMoreAppearance'),
       ],
       buttonText: t('pricing.buttonOrderNow'),
-      pLink: 'plink_1ONaypElNHG3WsnfvuoEsU4J',
+      priceId: 'price_1OMWrIElNHG3WsnfJdsFJ7jJ',
       companyBoost: false,
     },
     {
@@ -104,7 +104,7 @@ export default async function pricingPage() {
         t('pricing.boost.detailsMoreAppearance'),
       ],
       buttonText: t('pricing.buttonOrderNow'),
-      pLink: 'plink_1ONb0NElNHG3WsnfsPtIbPEC',
+      priceId: 'price_1OMWrkElNHG3Wsnfvq6ukxDQ',
       companyBoost: false,
     },
     {
@@ -113,7 +113,7 @@ export default async function pricingPage() {
       subText: t('pricing.boost.companySubTitle'),
       details: [t('pricing.boost.detailsCompanyBanner'), t('pricing.boost.detailsCompanySponsored')],
       buttonText: t('pricing.buttonComingSoon'),
-      pLink: 'plink_1ONb1IElNHG3Wsnf7kWsqxIC',
+      priceId: 'price_1OMWsTElNHG3WsnfcQNLD4rL',
       companyBoost: true,
     },
   ];
@@ -150,7 +150,7 @@ export default async function pricingPage() {
             ]}
             buttonText={t('pricing.buttonFirstListing')}
           />
-          <BasicPlanCard userData={fetchedUserData} />
+          <BasicPlanCard userData={fetchedUserData} companyData={fetchedCompanyData} />
         </div>
         <div className='flex flex-col gap-2 text-center'>
           <h3>{t('pricing.headerSubscriptionTitle')}</h3>
@@ -165,7 +165,7 @@ export default async function pricingPage() {
                 price={data.price}
                 details={data.details}
                 buttonText={data.buttonText}
-                pLink={data.pLink}
+                priceId={data.priceId}
                 userData={fetchedUserData}
                 companyData={fetchedCompanyData}
                 subscription={data.subscription}
@@ -186,10 +186,11 @@ export default async function pricingPage() {
                 price={data.price}
                 details={data.details}
                 buttonText={data.buttonText}
-                pLink={data.pLink}
+                priceId={data.priceId}
                 userData={fetchedUserData}
                 companyData={fetchedCompanyData}
                 companyBoost={data.companyBoost}
+                paymentType='payment'
               />
             ))}
           </div>
