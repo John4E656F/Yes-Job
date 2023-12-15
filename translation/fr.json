@@ -5,7 +5,8 @@
   "app": {
     "nav": {
       "home": "Accueil",
-      "contact": "Contact"
+      "contact": "Contact",
+      "pricing": "Nos tarifs"
     },
     "sidebar": {
       "back": "Retour au site principal",
@@ -49,7 +50,8 @@
       "loginSubTitle": "Bienvenue à nouveau ! Veuillez entrer vos coordonnées",
       "registerTitle": "Créer un compte",
       "registerSubTitle": "Créez votre compte en quelques clics!",
-      "name": "Nom et Prénom",
+      "firstname": "Prénom",
+      "lastname": "Nom",
       "signIn": "Se connecter",
       "signUp": "S'inscrire",
       "email": "Adresse email",
@@ -134,7 +136,8 @@
       "viaBothSub": "Le candidat peut envoyer sa candidature via Yes Job ou vous pouvez le rediriger vers un formulaire externe.",
       "contactDetails": "Coordonnées",
       "contactDetailsSub": "Ces données sont uniquement à vous contacter en cas d'annonce de questions. Ils ne seront affichés nulle part.",
-      "contactDetailsName": "Nom et prénom",
+      "contactDetailsFirstname": "Prénom",
+      "contactDetailsLastname": "Nom",
       "contactDetailsEmail": "Adresse e-mail",
       "contactDetailsEmailValidation": "Veuillez entrer une adresse e-mail valide.",
       "contactDetailsPassword": "Mot de passe",
@@ -188,6 +191,59 @@
       "errorOption": "Veuillez sélectionner une option.",
       "userExist": "L'utilisateur déjà inscrit, veuillez vous connecter.",
       "notEnoughListing": "Vous n'avez pas d'annonce disponible, veuillez mettre à jour votre compte."
+    },
+    "pricing": {
+      "headerTitle": "Nos tarifs",
+      "headerSubTitle": "Plans et tarifs flexibles",
+      "headerSubTitle2": "Des tarifs simples et transparents pour tous. Choisissez un plan qui correspond à vos besoins.",
+      "headerCTA": "Chat avec les ventes",
+      "headerSubscriptionTitle": "Abonnement mensuel",
+      "headerSubscriptionSubTitle": "Les offres d'emploi supplémentaires coûtent 59€ par offre d'emploi.",
+      "headerExtraTitle": "Options supplémentaires",
+      "headerExtraSubTitle": "Obtenez plus de visibilité pour votre offre d'emploi et votre entreprise.",
+      "free": {
+        "title": "Plan gratuit",
+        "price": "Gratuit",
+        "subTitle": "Votre première offre d'emploi est gratuite"
+      },
+      "basic": {
+        "title": "Plan de base",
+        "1Post": "1 poste",
+        "5Post": "5 postes",
+        "10Post": "10 postes",
+        "oneTimePayment": "Paiement unique : "
+      },
+      "boost": {
+        "title": "Boost {number}",
+        "1subTitle": "Augmenter la visibilité des offres d'emploi",
+        "5subTitle": "Augmenter la visibilité des offres d'emploi avec 5 boost",
+        "detailsBoost": "{number} boost",
+        "detailsSponsored": "Tag sponsorisé",
+        "detailsDistinguish": "Offre d'emploi distincte",
+        "detailsMoreAppearance": "L'offre d'emploi apparaîtra davantage dans les résultats de recherche",
+        "companyBoost": "Boost de l'entreprise",
+        "companySubTitle": "Augmentez la promotion et la visibilité de votre entreprise",
+        "detailsCompanyBanner": "Bannière personnalisée de l'entreprise sur la page d'accueil et les pages d'inscription pendant 14 jours",
+        "detailsCompanySponsored": "Mise en avant sur nos publicités facebook et instagram"
+      },
+      "standardTitle": "Plan standard",
+      "premiumTitle": "Plan premium",
+      "platinumTitle": "Plan platine",
+      "price": "{number}€ /annonce",
+      "saves": "Vous économisez {number}€",
+      "detailsListing": "{number} annonce{s}",
+      "detailsBoostPerMonth": "{number} boost par mois",
+      "detailsDashboardBasic": "Tableau de bord",
+      "detailsSpecializeDashboard": "Tableau de bord spécialisé",
+      "detailsOptimization": "Optimisation de l'offre",
+      "detailsBasicSupport": "Support de base",
+      "detailsApplication": "Demande d'emploi envoyée directement à votre adresse e-mail",
+      "detailsGetFeatured": "Soyez mis en avant dans nos promotions sociales",
+      "buttonFirstListing": "Publier votre première offre d'emploi",
+      "buttonPostAJob": "Publier une annonce",
+      "buttonSubscribe": "S'abonner",
+      "buttonOrderNow": "Commander",
+      "buttonComingSoon": "Prochainement"
     }
   },
   "dashboard": {

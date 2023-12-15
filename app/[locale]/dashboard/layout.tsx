@@ -39,13 +39,15 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
   if (!session) {
     redirect('/');
   }
+  // console.log('layout dashboard session', session);
+
   return (
     <html lang={locale}>
       <body className='flex flex-col'>
         <NextIntlClientProvider locale={locale} messages={translation}>
           <Sidebar currentLocale={locale} session={session} />
           <MobileNavbar currentLocale={locale} session={session} />
-          <main className='flex flex-grow flex-col items-center bg-blue-200 md:ml-72'>{children}</main>
+          <main className='flex flex-grow flex-col items-center md:ml-72'>{children}</main>
         </NextIntlClientProvider>
       </body>
     </html>

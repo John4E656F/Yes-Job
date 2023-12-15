@@ -18,21 +18,13 @@ const PublishPage: React.FC = () => {
   const t = useTranslations('app');
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  const [userData, setUserData] = useState<UsersTypes>({
-    user_email: '',
-    user_name: '',
-    contactName: '',
-    company_id: '',
-    created_at: '',
-    id: '',
-    user_id: '',
-  });
+  const [userData, setUserData] = useState<UsersTypes>();
   const [companyData, setCompanyData] = useState<CompanyTypes>({
     id: '',
     name: '',
     logo: '',
     website: '',
-    phone: '',
+    phone: null,
     owner_id: '',
     teamMembers: [''],
   });
@@ -77,7 +69,8 @@ const PublishPage: React.FC = () => {
       externalFormURL: '',
       companyWebsite: undefined,
       companyPhone: null,
-      contactName: '',
+      firstname: '',
+      lastname: '',
       contactPhone: null,
       contactEmail: '',
       contactPassword: '',
@@ -87,7 +80,7 @@ const PublishPage: React.FC = () => {
   const companyWebsite = watch('companyWebsite');
   const contactEmail = watch('contactEmail');
   const contactPassword = watch('contactPassword');
-  // console.log(watch());
+  console.log(watch());
   // console.log(errors);
 
   useEffect(() => {
@@ -152,7 +145,8 @@ const PublishPage: React.FC = () => {
   useEffect(() => {
     if (userData && userData.company_id !== '') {
       setValue('user_Id', userData.id || '');
-      setValue('contactName', userData.contactName || '');
+      setValue('firstname', userData.firstname || '');
+      setValue('lastname', userData.lastname || '');
       setValue('contactEmail', userData.user_email || '');
       setValue('contactPassword', 'User_already_exists69');
     }
@@ -277,7 +271,8 @@ const PublishPage: React.FC = () => {
       externalFormURL: '',
       companyWebsite: '',
       companyPhone: null,
-      contactName: '',
+      firstname: '',
+      lastname: '',
       contactPhone: null,
       contactEmail: '',
     });
@@ -331,7 +326,7 @@ const PublishPage: React.FC = () => {
                 <FormInput
                   label={t('publishAds.companyPhone')}
                   type='tel'
-                  register={register('companyPhone')}
+                  register={register('companyPhone', { valueAsNumber: true })}
                   error={errors.companyPhone}
                   isRequiredMessage={t('publishAds.companyPhone') + t('error.isRequired')}
                   placeholder='0491234567'
@@ -503,20 +498,28 @@ const PublishPage: React.FC = () => {
               <h3 className='text-md '>{t('publishAds.contactDetailsSub')}</h3>
               <div className='flex flex-col gap-3'>
                 <FormInput
-                  label={t('publishAds.contactDetailsName') + ' *'}
+                  label={t('publishAds.contactDetailsFirstname') + ' *'}
                   type='text'
-                  register={register('contactName', { required: true })}
-                  error={errors.contactName}
-                  isRequiredMessage={t('publishAds.contactDetailsName') + t('error.isRequired')}
-                  placeholder='Lenny De Wolf'
+                  register={register('firstname', { required: true })}
+                  error={errors.firstname}
+                  isRequiredMessage={t('publishAds.contactDetailsFirstname') + t('error.isRequired')}
+                  placeholder='Lenny'
+                />
+                <FormInput
+                  label={t('publishAds.contactDetailsLastname') + ' *'}
+                  type='text'
+                  register={register('lastname', { required: true })}
+                  error={errors.lastname}
+                  isRequiredMessage={t('publishAds.contactDetailsLastname') + t('error.isRequired')}
+                  placeholder='Lenny'
                 />
               </div>
               <div className='flex flex-col gap-3'>
                 <FormInput
                   label={t('publishAds.contactPhone')}
                   type='tel'
-                  register={register('contactPhone')}
-                  error={errors.contactName}
+                  register={register('contactPhone', { valueAsNumber: true })}
+                  error={errors.contactPhone}
                   isRequiredMessage={t('publishAds.contactPhone') + t('error.isRequired')}
                   placeholder='0412345678'
                 />
@@ -529,20 +532,28 @@ const PublishPage: React.FC = () => {
               <h3 className='text-md '>{t('publishAds.contactDetailsSub')}</h3>
               <div className='flex flex-col gap-3'>
                 <FormInput
-                  label={t('publishAds.contactDetailsName') + ' *'}
+                  label={t('publishAds.contactDetailsFirstname') + ' *'}
                   type='text'
-                  register={register('contactName', { required: true })}
-                  error={errors.contactName}
-                  isRequiredMessage={t('publishAds.contactDetailsName') + t('error.isRequired')}
-                  placeholder='Lenny De Wolf'
+                  register={register('firstname', { required: true })}
+                  error={errors.firstname}
+                  isRequiredMessage={t('publishAds.contactDetailsFirstname') + t('error.isRequired')}
+                  placeholder='Lenny'
+                />
+                <FormInput
+                  label={t('publishAds.contactDetailsLastname') + ' *'}
+                  type='text'
+                  register={register('lastname', { required: true })}
+                  error={errors.lastname}
+                  isRequiredMessage={t('publishAds.contactDetailsLastname') + t('error.isRequired')}
+                  placeholder='De Wolf'
                 />
               </div>
               <div className='flex flex-col gap-3'>
                 <FormInput
                   label={t('publishAds.contactPhone')}
                   type='tel'
-                  register={register('contactPhone')}
-                  error={errors.contactName}
+                  register={register('contactPhone', { valueAsNumber: true })}
+                  error={errors.contactPhone}
                   isRequiredMessage={t('publishAds.contactPhone') + t('error.isRequired')}
                   placeholder='0412345678'
                 />

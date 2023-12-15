@@ -5,10 +5,15 @@ export interface CompanyTypes {
   jobListings?: [string] | null;
   name: string;
   logo: string;
-  website?: string | null;
-  phone?: string | null;
+  website?: string;
+  phone?: number | null;
   total_request_count?: number;
   availableJobListing?: number | null;
   availableBoost?: number | null;
   created_at?: string;
+  address?: string;
+  about?: string;
+  slug?: string;
+  subscription?: string;
+  stripe_customer_id?: string;
 }

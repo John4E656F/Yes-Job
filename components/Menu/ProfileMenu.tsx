@@ -20,7 +20,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
       id='navbar-menu'
     >
       <p className='flex gap-5 items-center justify-between px-5 py-2 text-base font-medium whitespace-nowrap'>
-        {userData.user_name}
+        {userData.firstname} {userData.lastname}
         <Link href={`/profile/${userData.id}`} className=' block text-brand-primary rounded ' onClick={toggleMenu}>
           {t('sidebar.viewProfile')}
         </Link>
@@ -33,12 +33,12 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
             {t('sidebar.viewJobListing')}
           </Link>
         </li>
-        {/* <li className=''>
-          <Link href={`profile/${userData.id}`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
+        <li className=''>
+          <Link href={`/dashboard/company`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
             <RiHomeSmileLine size={24} />
             {t('sidebar.editCompanyProfile')}
           </Link>
-        </li> */}
+        </li>
         {/* <li className=''>
           <Link href={`profile/${userData.id}`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
             <RiGroupLine size={24} />
@@ -60,12 +60,12 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
             {t('sidebar.support')}
           </Link>
         </li> */}
-        {/* <li className=''>
-          <Link href={`profile/${userData.id}`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
+        <li className=''>
+          <Link href={`/dashboard/settings/info`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
             <RiSettings3Line size={24} />
             {t('sidebar.settings')}
           </Link>
-        </li> */}
+        </li>
         <li>
           <SignoutButton />
         </li>

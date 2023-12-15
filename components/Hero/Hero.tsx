@@ -6,8 +6,7 @@ import type { UsersTypes, CompanyTypes, ListingData, SessionTypes } from '@/type
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 import { refreshUserSession } from '@/lib/actions/refreshServerSession';
 
-export const Hero = async () => {
-  const t = useTranslations('app');
+async function Button() {
   const session = await getServerUserSession();
   let sessionId;
   if (session) {
@@ -26,6 +25,12 @@ export const Hero = async () => {
   const { fetchedCompanyData, fetchedJobPostData } = await response.json();
   const companyData = fetchedCompanyData as CompanyTypes;
   const jobListing = fetchedJobPostData as ListingData[];
+  return <PostButton jobPost={jobListing} companyData={companyData} location='app' />;
+}
+
+export const Hero = () => {
+  const t = useTranslations('app');
+
   // console.log('hero companyData', companyData);
   // console.log('hero jobListing', jobListing);
 
@@ -36,7 +41,7 @@ export const Hero = async () => {
           <div className=' w-auto flex flex-col gap-4'>
             <h1 className='text-4xl font-semibold'>{t('hero.title')}</h1>
             <h2 className='text-sm font-normal'>{t('hero.sub')}</h2>
-            <PostButton jobPost={jobListing} companyData={companyData} location='app' />
+            <Button />
           </div>
           <Image src='/images/svg/hero.svg' alt='Yes Job' className='w-auto max-w-sm h-auto max-h-lg object-fill rounded-2xl' />
         </div>

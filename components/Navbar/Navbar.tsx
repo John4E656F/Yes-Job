@@ -18,21 +18,12 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const [userData, setUserData] = useState<UsersTypes>({
-    user_email: '',
-    user_name: '',
-    company_id: '',
-    contactName: '',
-    created_at: '',
-    id: '',
-    user_id: '',
-  });
+  const [userData, setUserData] = useState<UsersTypes>();
   const [companyData, setCompanyData] = useState<CompanyTypes>({
     id: '',
     name: '',
     logo: '',
-    website: '',
-    phone: '',
+    phone: null,
     owner_id: '',
     teamMembers: [''],
   });
@@ -131,6 +122,11 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
                 </Link>
               </li>
               <li>
+                <Link href='/pricing' className='block py-2 text-gray-900 rounded hover:text-gray-400 md:border-0'>
+                  {t('nav.pricing')}
+                </Link>
+              </li>
+              <li>
                 <Link href='/contact' className='block py-2 text-gray-900 rounded hover:text-gray-400 md:border-0'>
                   {t('nav.contact')}
                 </Link>
@@ -178,7 +174,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
             <Button text={<HiMiniLanguage className='text-xl text-gray-400 hover:text-gray-200' />} btnType='button' onClick={toggleLocaleModal} />
           </div>
           <MobileMenu isMenuOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} menuRef={mobileMenuRef} session={session} t={t} />
-          <ProfileMenu isMenuOpen={isProfileMenuOpen} toggleMenu={toggleProfileMenu} menuRef={profileMenuRef} t={t} userData={userData} />
+          <ProfileMenu isMenuOpen={isProfileMenuOpen} toggleMenu={toggleProfileMenu} menuRef={profileMenuRef} t={t} userData={userData!} />
         </div>
       </div>
       <LocaleSwitcher isOpen={isLocaleModalOpen} closeModal={toggleLocaleModal} onClose={toggleLocaleModal} currentLocale={currentLocale} />

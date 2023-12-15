@@ -11,7 +11,7 @@ interface MobileMenuProps extends TranslationProps {
   isMenuOpen: boolean;
   toggleMenu: () => void;
   menuRef: RefObject<HTMLDivElement>;
-  userData: UsersTypes;
+  userData?: UsersTypes;
   companyData: CompanyTypes;
   currentLocale: string;
 }
@@ -54,7 +54,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRe
           />
         </div>
       </div>
-      <SidebarList t={t} companyName={userData.user_name} />
+      <SidebarList t={t} firstname={userData?.firstname} lastname={userData?.lastname} />
       <div className='flex gap-2 p-2 mt-auto'>
         {companyData.logo ? (
           <Button
@@ -65,8 +65,8 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRe
           <HiUser size={40} className='rounded-full p-1 ring-2 ring-gray-300 text-gray-400' aria-label='user avatar' />
         )}
         <div>
-          <p>{userData.contactName}</p>
-          <p>{userData.user_email}</p>
+          <p>{userData!.firstname}</p>
+          <p>{userData!.user_email}</p>
         </div>
       </div>
       <LocaleSwitcher isOpen={isLocaleModalOpen} closeModal={toggleLocaleModal} onClose={toggleLocaleModal} currentLocale={currentLocale} />
