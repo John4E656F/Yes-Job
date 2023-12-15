@@ -38,16 +38,35 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    console.log(event);
+    console.log(event.type);
     let userData;
     let companyData;
+
     switch (event.type) {
-      case 'payment_link.created':
+      case 'payment_method.attached':
+        console.log(event);
+        console.log(companyData);
+
+        break;
+      case 'payment_intent.created':
+        console.log(event);
+        console.log(companyData);
+
+        // const paymentIntentSession = event.data.object;
+        // if (paymentIntentSession.client_reference_id) {
+        //   const { fetchedCompanyData, fetchedUserById } = await fetchCompanyAndUser({ userId: session.client_reference_id });
+        //   if (fetchedCompanyData && fetchedUserById) {
+        //     companyData = fetchedCompanyData;
+        //     userData = fetchedUserById;
+        //   }
+        // }
         break;
       case 'checkout.session.completed':
-        const session = event.data.object;
-        if (session.client_reference_id) {
-          const { fetchedCompanyData, fetchedUserById } = await fetchCompanyAndUser({ userId: session.client_reference_id });
+        console.log('CHECKOUT SESSIONS COMPLETED', event);
+
+        const checkoutSession = event.data.object;
+        if (checkoutSession.client_reference_id) {
+          const { fetchedCompanyData, fetchedUserById } = await fetchCompanyAndUser({ userId: checkoutSession.client_reference_id });
           if (fetchedCompanyData && fetchedUserById) {
             companyData = fetchedCompanyData;
             userData = fetchedUserById;
@@ -57,7 +76,7 @@ export async function POST(req: NextRequest) {
         const invoice_id = event.data.object.invoice;
         const invoice = await stripe.invoices.retrieve(invoice_id as string);
 
-        const { line_items } = await stripe.checkout.sessions.retrieve(session.id, {
+        const { line_items } = await stripe.checkout.sessions.retrieve(checkoutSession.id, {
           expand: ['line_items'],
         });
 

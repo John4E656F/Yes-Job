@@ -3,8 +3,12 @@ import React, { useState } from 'react';
 import { Button, Link } from '..';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { payment } from '@/lib/actions/';
-import { UsersTypes } from '@/types';
+import { CompanyTypes, UsersTypes } from '@/types';
 
+interface BasicPlaProps {
+  userData: UsersTypes;
+  companyData: CompanyTypes;
+}
 type PriceDetail = {
   price: number;
   buttonText: string;
@@ -37,7 +41,7 @@ const priceDetails: PriceDetail[] = [
   },
 ];
 
-export const BasicPlanCard = ({ userData }: { userData?: UsersTypes }) => {
+export const BasicPlanCard = ({ userData, companyData }: BasicPlaProps) => {
   const [currentPriceDetail, setCurrentPriceDetail] = useState<PriceDetail>(priceDetails[0]);
 
   const handlePriceChange = (priceDetail: PriceDetail) => {
@@ -46,8 +50,10 @@ export const BasicPlanCard = ({ userData }: { userData?: UsersTypes }) => {
 
   const onClick = async () => {
     const paymentLink = await payment({
-      pLink: currentPriceDetail.pLink,
+      priceId: currentPriceDetail.priceId,
       userData: userData!,
+      companyData: companyData,
+      paymentType: 'payment',
     });
 
     if (paymentLink) {
