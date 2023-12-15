@@ -220,7 +220,7 @@ export async function POST(req: NextRequest) {
                 .eq('owner_id', userData.id);
 
               if (addOneBoostError) {
-                console.log('Error adding one post:', addOneBoostError.message);
+                console.log('Error adding one boost:', addOneBoostError.message);
               }
               break;
             case 'Boost 5':
@@ -230,13 +230,15 @@ export async function POST(req: NextRequest) {
                 .eq('owner_id', userData.id);
 
               if (addFiveBoostError) {
-                console.log('Error adding one post:', addFiveBoostError.message);
+                console.log('Error adding five boost:', addFiveBoostError.message);
               }
               break;
           }
         }
         break;
       case 'customer.subscription.updated':
+        console.log(event);
+
         const price_id = event.data.object.items.data[0].plan.id;
         // console.log('PRICE ID: ' + price_id);
         // const { fetchedCompanyData, fetchedUserById } = await fetchCompanyAndUser({ userId: session.client_reference_id });

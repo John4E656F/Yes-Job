@@ -120,7 +120,7 @@ export const BasicPlanCard = ({ userData, companyData }: BasicPlaProps) => {
           onClick={onClick}
           btnType='button'
           text='Publish your first job offer'
-          className='flex items-center px-8 mb-8 justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
+          className='flex items-center px-8 py-2 mb-8 justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
         />
       ) : (
         <Link

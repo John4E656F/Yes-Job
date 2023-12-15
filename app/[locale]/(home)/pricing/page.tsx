@@ -152,10 +152,9 @@ export default async function pricingPage() {
           />
           <BasicPlanCard userData={fetchedUserData} companyData={fetchedCompanyData} />
         </div>
-        <div className='flex flex-col gap-2 text-center'>
+        {/* <div className='flex flex-col gap-2 text-center'>
           <h3>{t('pricing.headerSubscriptionTitle')}</h3>
           <p>{t('pricing.headerSubscriptionSubTitle')}</p>
-
           <div className='flex gap-8 mt-5'>
             {subData.map((data, index) => (
               <PricingCard
@@ -173,7 +172,7 @@ export default async function pricingPage() {
               />
             ))}
           </div>
-        </div>
+        </div> */}
         <div className='flex flex-col gap-2 text-center'>
           <h3>{t('pricing.headerExtraTitle')}</h3>
           <p>{t('pricing.headerExtraSubTitle')}</p>
