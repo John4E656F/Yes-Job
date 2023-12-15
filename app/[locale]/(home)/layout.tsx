@@ -50,7 +50,6 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
             <main className='flex flex-col items-center'>
               {children}
               <SpeedInsights />
-              <Analytics />
             </main>
           </section>
           <Footer />
