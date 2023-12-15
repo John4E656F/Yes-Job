@@ -25,7 +25,7 @@ export default async function pricingPage() {
       : process.env.NEXT_PRIVATE_URL + `/api/company/${fetchedUserData.id}`,
   );
   const { fetchedCompanyData } = await companyResponse.json();
-  // console.log('fetchedCompanyData', fetchedCompanyData);
+  console.log('fetchedCompanyData', fetchedCompanyData);
 
   const subData: subDataTypes[] = [
     {
@@ -167,6 +167,7 @@ export default async function pricingPage() {
                 buttonText={data.buttonText}
                 priceId={data.priceId}
                 userData={fetchedUserData}
+                companyData={fetchedCompanyData}
                 subscription={data.subscription}
                 paymentType='subscription'
               />
@@ -187,6 +188,7 @@ export default async function pricingPage() {
                 buttonText={data.buttonText}
                 priceId={data.priceId}
                 userData={fetchedUserData}
+                companyData={fetchedCompanyData}
                 companyBoost={data.companyBoost}
               />
             ))}

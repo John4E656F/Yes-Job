@@ -111,7 +111,7 @@ export async function POST(req: NextRequest) {
                 subscribeRebill({ userData, companyData, amount: 5, plan: 'Standard plan' });
                 const standardRebillJobPostInvoice = await createInvoice({
                   companyData: companyData,
-                  name: 'Basic plan 10 job post',
+                  name: 'Standard plan',
                   invoice_url: invoice.hosted_invoice_url!,
                   invoice_pdf: invoice.invoice_pdf!,
                 });
@@ -123,7 +123,7 @@ export async function POST(req: NextRequest) {
                 subscribe({ userData, companyData, amount: 5, plan: 'Standard plan' });
                 const standardJobPostInvoice = await createInvoice({
                   companyData: companyData,
-                  name: 'Basic plan 10 job post',
+                  name: 'Standard plan',
                   invoice_url: invoice.hosted_invoice_url!,
                   invoice_pdf: invoice.invoice_pdf!,
                 });
@@ -136,15 +136,55 @@ export async function POST(req: NextRequest) {
             case 'Premium plan':
               if (companyData.subscription === 'Premium plan') {
                 subscribeRebill({ userData, companyData, amount: 10, boostAmount: 2, plan: 'Premium plan' });
+                const premiumRebillJobPostInvoice = await createInvoice({
+                  companyData: companyData,
+                  name: 'Premium plan',
+                  invoice_url: invoice.hosted_invoice_url!,
+                  invoice_pdf: invoice.invoice_pdf!,
+                });
+
+                if (premiumRebillJobPostInvoice) {
+                  addInvoiceIdToCompany({ companyData: companyData, invoice_id: premiumRebillJobPostInvoice.invoiceId });
+                }
               } else if (companyData.subscription === null) {
                 subscribe({ userData, companyData, amount: 10, boostAmount: 2, plan: 'Premium plan' });
+                const premiumJobPostInvoice = await createInvoice({
+                  companyData: companyData,
+                  name: 'Premium plan',
+                  invoice_url: invoice.hosted_invoice_url!,
+                  invoice_pdf: invoice.invoice_pdf!,
+                });
+
+                if (premiumJobPostInvoice) {
+                  addInvoiceIdToCompany({ companyData: companyData, invoice_id: premiumJobPostInvoice.invoiceId });
+                }
               }
               break;
             case 'Platinum plan':
               if (companyData.subscription === 'Platinum plan') {
                 subscribeRebill({ userData, companyData, amount: 15, boostAmount: 5, plan: 'Platinum plan' });
+                const platinumRebillJobPostInvoice = await createInvoice({
+                  companyData: companyData,
+                  name: 'Premium plan',
+                  invoice_url: invoice.hosted_invoice_url!,
+                  invoice_pdf: invoice.invoice_pdf!,
+                });
+
+                if (platinumRebillJobPostInvoice) {
+                  addInvoiceIdToCompany({ companyData: companyData, invoice_id: platinumRebillJobPostInvoice.invoiceId });
+                }
               } else if (companyData.subscription === null) {
                 subscribe({ userData, companyData, amount: 15, boostAmount: 5, plan: 'Platinum plan' });
+                const platinumJobPostInvoice = await createInvoice({
+                  companyData: companyData,
+                  name: 'Premium plan',
+                  invoice_url: invoice.hosted_invoice_url!,
+                  invoice_pdf: invoice.invoice_pdf!,
+                });
+
+                if (platinumJobPostInvoice) {
+                  addInvoiceIdToCompany({ companyData: companyData, invoice_id: platinumJobPostInvoice.invoiceId });
+                }
               }
               break;
             case 'Boost 1':
