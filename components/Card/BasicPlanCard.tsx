@@ -6,8 +6,8 @@ import { payment } from '@/lib/actions/';
 import { CompanyTypes, UsersTypes } from '@/types';
 
 interface BasicPlaProps {
-  userData: UsersTypes;
-  companyData: CompanyTypes;
+  userData?: UsersTypes;
+  companyData?: CompanyTypes;
 }
 type PriceDetail = {
   price: number;
@@ -49,18 +49,19 @@ export const BasicPlanCard = ({ userData, companyData }: BasicPlaProps) => {
   };
 
   const onClick = async () => {
-    const paymentLink = await payment({
-      priceId: currentPriceDetail.priceId,
-      userData: userData!,
-      companyData: companyData,
-      paymentType: 'payment',
-    });
+    if (userData && companyData) {
+      const paymentLink = await payment({
+        priceId: currentPriceDetail.priceId,
+        userData: userData!,
+        companyData: companyData,
+        paymentType: 'payment',
+      });
 
-    if (paymentLink) {
-      window.location.href = paymentLink;
-      // window.open(paymentLink, '_blank');
+      if (paymentLink) {
+        window.location.href = paymentLink;
+        // window.open(paymentLink, '_blank');
+      }
     }
-    console.log('paymentlink', paymentLink);
   };
 
   return (

@@ -57,7 +57,7 @@ export const PricingCard = async ({
         ))}
       </ul>
       <div className=''>
-        {!companyData ? (
+        {!companyData && userData ? (
           <Link
             href='/dashboard/company'
             className='flex items-center px-2 mb-8 justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '

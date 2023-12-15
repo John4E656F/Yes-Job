@@ -21,6 +21,7 @@
     "@tiptap/starter-kit": "^2.1.13",
     "@types/uuid": "^9.0.7",
     "@vercel/analytics": "^1.1.1",
+    "@vercel/speed-insights": "^1.0.2",
     "autoprefixer": "10.4.15",
     "date-fns": "^2.30.0",
     "next": "latest",

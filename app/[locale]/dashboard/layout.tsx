@@ -5,6 +5,7 @@ import { locales } from '@/navigation';
 import { Sidebar, MobileNavbar, Footer } from '@/components';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 import '../../globals.css';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 interface HomeLayoutProps {
   children: React.ReactNode;
@@ -47,7 +48,10 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
         <NextIntlClientProvider locale={locale} messages={translation}>
           <Sidebar currentLocale={locale} session={session} />
           <MobileNavbar currentLocale={locale} session={session} />
-          <main className='flex flex-grow flex-col items-center md:ml-72'>{children}</main>
+          <main className='flex flex-grow flex-col items-center md:ml-72'>
+            {children}
+            <SpeedInsights />
+          </main>
         </NextIntlClientProvider>
       </body>
     </html>
