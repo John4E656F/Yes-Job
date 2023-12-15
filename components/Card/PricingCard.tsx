@@ -33,9 +33,10 @@ export const PricingCard = async ({
 }: PricingCardProps) => {
   let paymentLink;
   //Update payment reuse payment link
-  // if (userData && priceId && paymentType) {
-  //   paymentLink = await payment({ priceId: priceId, userData: userData, paymentType: paymentType });
-  // }
+  if (userData && priceId && paymentType) {
+    paymentLink = await payment({ priceId: priceId, userData: userData, paymentType: paymentType });
+  }
+  console.log(companyData);
 
   return (
     <div className='border rounded w-4/5 bg-brand-lightbg flex flex-col justify-center items-center '>

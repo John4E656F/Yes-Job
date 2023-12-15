@@ -97,7 +97,7 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
       }
     };
     fetchUserData();
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     const totalItems = checklistData.length;
