@@ -10,6 +10,7 @@ type PriceDetail = {
   buttonText: string;
   totalPrice: number;
   priceId: string;
+  pLink: string;
 };
 
 const priceDetails: PriceDetail[] = [
@@ -18,18 +19,21 @@ const priceDetails: PriceDetail[] = [
     buttonText: '1 post',
     totalPrice: 69,
     priceId: 'price_1OMWnpElNHG3WsnfgUBuZZPT',
+    pLink: 'plink_1ONaNLElNHG3WsnftYS8wNyr',
   },
   {
     price: 66,
     buttonText: '5 posts',
     totalPrice: 330,
     priceId: 'price_1OMWoYElNHG3WsnfBgKEyn8T',
+    pLink: 'plink_1ONaXrElNHG3WsnfpURy8fuS',
   },
   {
     price: 63,
     buttonText: '10 posts',
     totalPrice: 630,
     priceId: 'price_1OMWp3ElNHG3WsnfCGKwwM5Y',
+    pLink: 'plink_1ONaYhElNHG3WsnfsPeWO6T1',
   },
 ];
 
@@ -41,7 +45,11 @@ export const BasicPlanCard = ({ userData }: { userData?: UsersTypes }) => {
   };
 
   const onClick = async () => {
-    const paymentLink = await payment({ priceId: currentPriceDetail.priceId, userData: userData!, paymentType: 'One Time' });
+    const paymentLink = await payment({
+      pLink: currentPriceDetail.pLink,
+      userData: userData!,
+      paymentType: 'One Time',
+    });
 
     if (paymentLink) {
       window.location.href = paymentLink;

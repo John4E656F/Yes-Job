@@ -4,7 +4,7 @@ export interface subDataTypes {
   saves: string;
   details: string[];
   buttonText: string;
-  priceId: string;
+  pLink: string;
   subscription: boolean;
 }
 
@@ -14,6 +14,6 @@ export interface boostDataTypes {
   subText: string;
   details: string[];
   buttonText: string;
-  priceId: string;
+  pLink: string;
   companyBoost: boolean;
 }

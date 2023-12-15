@@ -227,7 +227,18 @@ export async function POST(req: NextRequest) {
 
         // Handle product created event
         break;
-      case 'invoice.payment_succeeded':
+      case 'customer.subscription.updated':
+        // const price_id = event.data.object.items.data[0].plan.id;
+        // console.log('PRICE ID: ' + price_id);
+
+        // const price = await stripe.prices.retrieve(price_id);
+        // console.log('PRICE: ', price);
+
+        // const sub_id = event.data.object.id;
+
+        // const subscription = await stripe.subscriptions.retrieve(sub_id);
+        // console.log(subscription);
+
         // console.log(invoice_id);
         // console.log(companyData);
 

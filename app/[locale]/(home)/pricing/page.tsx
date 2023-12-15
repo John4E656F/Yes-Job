@@ -25,7 +25,7 @@ export default async function pricingPage() {
       : process.env.NEXT_PRIVATE_URL + `/api/company/${fetchedUserData.id}`,
   );
   const { fetchedCompanyData } = await companyResponse.json();
-  console.log('fetchedCompanyData', fetchedCompanyData);
+  // console.log('fetchedCompanyData', fetchedCompanyData);
 
   const subData: subDataTypes[] = [
     {
@@ -40,7 +40,7 @@ export default async function pricingPage() {
         t('pricing.detailsApplication'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
-      priceId: 'price_1OMWpzElNHG3WsnfdWTcv2Pk',
+      pLink: 'plink_1ONaPQElNHG3WsnfcadB2Jjg',
       subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Standard plan' ? true : false) : false,
     },
     {
@@ -56,7 +56,7 @@ export default async function pricingPage() {
         t('pricing.detailsApplication'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
-      priceId: 'price_1OMWqOElNHG3WsnfyydUmdZZ',
+      pLink: 'plink_1ONaQLElNHG3Wsnf9unB3V7j',
       subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Premium plan' ? true : false) : false,
     },
     {
@@ -73,7 +73,7 @@ export default async function pricingPage() {
         t('pricing.detailsGetFeatured'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
-      priceId: 'price_1OMWqmElNHG3WsnfX1r2vPjI',
+      pLink: 'plink_1ONaRPElNHG3WsnfhUlsl0FV',
       subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Platinum plan' ? true : false) : false,
     },
   ];
@@ -90,7 +90,7 @@ export default async function pricingPage() {
         t('pricing.boost.detailsMoreAppearance'),
       ],
       buttonText: t('pricing.buttonOrderNow'),
-      priceId: 'price_1OMWrIElNHG3WsnfJdsFJ7jJ',
+      pLink: 'plink_1ONaypElNHG3WsnfvuoEsU4J',
       companyBoost: false,
     },
     {
@@ -104,7 +104,7 @@ export default async function pricingPage() {
         t('pricing.boost.detailsMoreAppearance'),
       ],
       buttonText: t('pricing.buttonOrderNow'),
-      priceId: 'price_1OMWrkElNHG3Wsnfvq6ukxDQ',
+      pLink: 'plink_1ONb0NElNHG3WsnfsPtIbPEC',
       companyBoost: false,
     },
     {
@@ -113,7 +113,7 @@ export default async function pricingPage() {
       subText: t('pricing.boost.companySubTitle'),
       details: [t('pricing.boost.detailsCompanyBanner'), t('pricing.boost.detailsCompanySponsored')],
       buttonText: t('pricing.buttonComingSoon'),
-      priceId: 'price_1OMWsTElNHG3WsnfcQNLD4rL',
+      pLink: 'plink_1ONb1IElNHG3Wsnf7kWsqxIC',
       companyBoost: true,
     },
   ];
@@ -165,7 +165,7 @@ export default async function pricingPage() {
                 price={data.price}
                 details={data.details}
                 buttonText={data.buttonText}
-                priceId={data.priceId}
+                pLink={data.pLink}
                 userData={fetchedUserData}
                 companyData={fetchedCompanyData}
                 subscription={data.subscription}
@@ -186,7 +186,7 @@ export default async function pricingPage() {
                 price={data.price}
                 details={data.details}
                 buttonText={data.buttonText}
-                priceId={data.priceId}
+                pLink={data.pLink}
                 userData={fetchedUserData}
                 companyData={fetchedCompanyData}
                 companyBoost={data.companyBoost}
