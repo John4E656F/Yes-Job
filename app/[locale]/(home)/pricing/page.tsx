@@ -99,7 +99,7 @@ export default async function pricingPage() {
         t('pricing.boost.detailsMoreAppearance'),
       ],
       buttonText: t('pricing.buttonOrderNow'),
-      priceId: 'price_1ONKKDElNHG3WsnfWc8KTVfH',
+      priceId: process.env.NEXT_PUBLIC_ONE_BOOST!,
       companyBoost: false,
     },
     {
@@ -113,7 +113,7 @@ export default async function pricingPage() {
         t('pricing.boost.detailsMoreAppearance'),
       ],
       buttonText: t('pricing.buttonOrderNow'),
-      priceId: 'price_1ONKJVElNHG3WsnfK5hKYUJq',
+      priceId: process.env.NEXT_PUBLIC_FIVE_BOOST!,
       companyBoost: false,
     },
     {
