@@ -97,7 +97,7 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
       }
     };
     fetchUserData();
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     const totalItems = checklistData.length;
@@ -128,7 +128,7 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
           />
         </div>
       </div>
-      <SidebarList t={t} companyName={userData!.user_name} />
+      <SidebarList t={t} firstname={userData?.firstname} lastname={userData?.lastname} />
       <div className='flex flex-col gap-2 mt-auto w-64 min-w-fit'>
         {checklistData.every((item) => item.boolean) ? null : (
           <div className='flex flex-col bg-gray-100 px-3 py-5 gap-3 rounded'>
@@ -174,10 +174,13 @@ export function Sidebar({ currentLocale, session }: SidebarProps) {
           ) : (
             <HiUser size={40} className='rounded-full p-1 ring-2 ring-gray-300 text-gray-400' aria-label='user avatar' />
           )}
-          <div>
-            <p>{userData!.firstname}</p>
-            <p>{userData!.user_email}</p>
-          </div>
+
+          {userData && (
+            <div>
+              <p>{userData!.firstname}</p>
+              <p>{userData!.user_email}</p>
+            </div>
+          )}
         </div>
       </div>
       <LocaleSwitcher isOpen={isLocaleModalOpen} closeModal={toggleLocaleModal} onClose={toggleLocaleModal} currentLocale={currentLocale} />

@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { default as NextLink, type LinkProps as NextLinkProps } from 'next/link';
 

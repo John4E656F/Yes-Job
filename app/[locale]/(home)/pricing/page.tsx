@@ -2,9 +2,30 @@ import React from 'react';
 import { Link, Button, PricingCard, BasicPlanCard } from '@/components';
 import type { subDataTypes, boostDataTypes } from '@/types';
 import { getTranslations } from 'next-intl/server';
+import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 
-const pricingPage = async () => {
+export default async function pricingPage() {
   const t = await getTranslations('app');
+  const session = await getServerUserSession();
+  let sessionId;
+  if (session) {
+    sessionId = session.user.id;
+  }
+  const userResponse = await fetch(
+    process.env.NEXT_PRIVATE_PRODUCTION === 'true'
+      ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/user/${sessionId}`
+      : process.env.NEXT_PRIVATE_URL + `/api/user/${sessionId}`,
+  );
+
+  const { fetchedUserData } = await userResponse.json();
+
+  const companyResponse = await fetch(
+    process.env.NEXT_PRIVATE_PRODUCTION === 'true'
+      ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/company/${fetchedUserData.id}`
+      : process.env.NEXT_PRIVATE_URL + `/api/company/${fetchedUserData.id}`,
+  );
+  const { fetchedCompanyData } = await companyResponse.json();
+  // console.log('fetchedCompanyData', fetchedCompanyData);
 
   const subData: subDataTypes[] = [
     {
@@ -19,6 +40,8 @@ const pricingPage = async () => {
         t('pricing.detailsApplication'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
+      priceId: 'price_1OMWpzElNHG3WsnfdWTcv2Pk',
+      subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Standard plan' ? true : false) : false,
     },
     {
       title: t('pricing.premiumTitle'),
@@ -33,6 +56,8 @@ const pricingPage = async () => {
         t('pricing.detailsApplication'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
+      priceId: 'price_1OMWqOElNHG3WsnfyydUmdZZ',
+      subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Premium plan' ? true : false) : false,
     },
     {
       title: t('pricing.platinumTitle'),
@@ -48,6 +73,8 @@ const pricingPage = async () => {
         t('pricing.detailsGetFeatured'),
       ],
       buttonText: t('pricing.buttonSubscribe'),
+      priceId: 'price_1OMWqmElNHG3WsnfX1r2vPjI',
+      subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Platinum plan' ? true : false) : false,
     },
   ];
 
@@ -63,6 +90,8 @@ const pricingPage = async () => {
         t('pricing.boost.detailsMoreAppearance'),
       ],
       buttonText: t('pricing.buttonOrderNow'),
+      priceId: 'price_1OMWrIElNHG3WsnfJdsFJ7jJ',
+      companyBoost: false,
     },
     {
       title: t('pricing.boost.title', { number: '5' }),
@@ -75,13 +104,17 @@ const pricingPage = async () => {
         t('pricing.boost.detailsMoreAppearance'),
       ],
       buttonText: t('pricing.buttonOrderNow'),
+      priceId: 'price_1OMWrkElNHG3Wsnfvq6ukxDQ',
+      companyBoost: false,
     },
     {
       title: t('pricing.boost.companyBoost'),
-      price: t('pricing.price', { number: '250' }),
+      price: t('pricing.price', { number: '500' }),
       subText: t('pricing.boost.companySubTitle'),
       details: [t('pricing.boost.detailsCompanyBanner'), t('pricing.boost.detailsCompanySponsored')],
-      buttonText: t('pricing.buttonOrderNow'),
+      buttonText: t('pricing.buttonComingSoon'),
+      priceId: 'price_1OMWsTElNHG3WsnfcQNLD4rL',
+      companyBoost: true,
     },
   ];
 
@@ -117,9 +150,9 @@ const pricingPage = async () => {
             ]}
             buttonText={t('pricing.buttonFirstListing')}
           />
-          <BasicPlanCard />
+          <BasicPlanCard userData={fetchedUserData} companyData={fetchedCompanyData} />
         </div>
-        <div className='flex flex-col gap-2 text-center'>
+        {/* <div className='flex flex-col gap-2 text-center'>
           <h3>{t('pricing.headerSubscriptionTitle')}</h3>
           <p>{t('pricing.headerSubscriptionSubTitle')}</p>
           <div className='flex gap-8 mt-5'>
@@ -131,14 +164,19 @@ const pricingPage = async () => {
                 price={data.price}
                 details={data.details}
                 buttonText={data.buttonText}
+                priceId={data.priceId}
+                userData={fetchedUserData}
+                companyData={fetchedCompanyData}
+                subscription={data.subscription}
+                paymentType='subscription'
               />
             ))}
           </div>
-        </div>
+        </div> */}
         <div className='flex flex-col gap-2 text-center'>
           <h3>{t('pricing.headerExtraTitle')}</h3>
           <p>{t('pricing.headerExtraSubTitle')}</p>
-          <div className='flex gap-8 mt-5'>
+          <div className='flex gap-8 mt-5 '>
             {boostData.map((data, index) => (
               <PricingCard
                 key={index}
@@ -147,6 +185,11 @@ const pricingPage = async () => {
                 price={data.price}
                 details={data.details}
                 buttonText={data.buttonText}
+                priceId={data.priceId}
+                userData={fetchedUserData}
+                companyData={fetchedCompanyData}
+                companyBoost={data.companyBoost}
+                paymentType='payment'
               />
             ))}
           </div>
@@ -154,6 +197,4 @@ const pricingPage = async () => {
       </div>
     </section>
   );
-};
-
-export default pricingPage;
+}

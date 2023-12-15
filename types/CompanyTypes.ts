@@ -14,4 +14,6 @@ export interface CompanyTypes {
   address?: string;
   about?: string;
   slug?: string;
+  subscription?: string;
+  stripe_customer_id?: string;
 }
