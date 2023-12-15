@@ -38,18 +38,20 @@ export const CompanyForm = ({ companyData, userData }: CompanyFormProps) => {
     },
   });
   console.log(watch());
+  console.log(errors);
+
   console.log(companyData);
 
   useEffect(() => {
     setValue('owner_id', userData.id);
     if (companyData) {
       setIsLocked(true);
-      setValue('name', companyData.name);
-      setValue('slug', companyData.slug);
-      setValue('website', companyData.website);
-      setValue('logo', companyData.logo);
-      setValue('about', companyData.about);
-      setValue('address', companyData.address);
+      setValue('name', companyData.name ?? '');
+      setValue('slug', companyData.slug ?? '');
+      setValue('website', companyData.website ?? '');
+      setValue('logo', companyData.logo ?? '');
+      setValue('about', companyData.about ?? '');
+      setValue('address', companyData.address ?? '');
     }
   }, [companyData]);
 
@@ -153,7 +155,7 @@ export const CompanyForm = ({ companyData, userData }: CompanyFormProps) => {
         </div>
       </div>
       <Divider />
-      <DashboardImageUpload label='Company logo*' register={register('logo')} error={errors.logo} initialPreview={companyData.logo} />
+      <DashboardImageUpload label='Company logo*' register={register('logo')} error={errors.logo} initialPreview={companyData?.logo} />
       <Divider />
       <div className='flex'>
         <FormLabel htmlFor={`input-about`} labelText='About the company' className='w-52 min-w-min max-w-sm' />

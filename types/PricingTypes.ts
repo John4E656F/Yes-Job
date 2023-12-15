@@ -4,6 +4,8 @@ export interface subDataTypes {
   saves: string;
   details: string[];
   buttonText: string;
+  priceId: string;
+  subscription: boolean;
 }
 
 export interface boostDataTypes {
@@ -12,4 +14,6 @@ export interface boostDataTypes {
   subText: string;
   details: string[];
   buttonText: string;
+  priceId: string;
+  companyBoost: boolean;
 }

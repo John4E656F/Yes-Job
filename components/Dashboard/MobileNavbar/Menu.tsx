@@ -54,7 +54,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRe
           />
         </div>
       </div>
-      <SidebarList t={t} companyName={userData!.user_name} />
+      <SidebarList t={t} firstname={userData?.firstname} lastname={userData?.lastname} />
       <div className='flex gap-2 p-2 mt-auto'>
         {companyData.logo ? (
           <Button
