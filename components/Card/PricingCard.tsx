@@ -11,7 +11,7 @@ interface PricingCardProps {
   subTitle: string;
   details: string[];
   buttonText: string;
-  priceId?: string;
+  pLink?: string;
   userData?: UsersTypes;
   companyData?: CompanyTypes;
   subscription?: boolean;
@@ -24,7 +24,7 @@ export const PricingCard = async ({
   subTitle,
   details,
   buttonText,
-  priceId,
+  pLink,
   userData,
   companyData,
   subscription,
@@ -33,10 +33,13 @@ export const PricingCard = async ({
 }: PricingCardProps) => {
   let paymentLink;
   //Update payment reuse payment link
-  if (userData && priceId && paymentType) {
-    paymentLink = await payment({ priceId: priceId, userData: userData, paymentType: paymentType });
+  if (userData && pLink && paymentType) {
+    paymentLink = await payment({ pLink: pLink, userData: userData, paymentType: paymentType });
+    console.log('paymentLink', paymentType, paymentLink);
   }
-  console.log(companyData);
+  // console.log('paymentLink', paymentType, paymentLink);
+  // console.log(companyData);
+  // console.log(userData);
 
   return (
     <div className='border rounded w-4/5 bg-brand-lightbg flex flex-col justify-center items-center '>
@@ -56,7 +59,7 @@ export const PricingCard = async ({
         ))}
       </ul>
       <div className=''>
-        {userData && !companyData ? (
+        {!companyData ? (
           <Link
             href='/dashboard/company'
             className='flex items-center px-2 mb-8 justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
