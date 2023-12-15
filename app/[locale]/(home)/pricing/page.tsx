@@ -144,8 +144,8 @@ export default async function pricingPage() {
           </button>
         </Link>
       </div>
-      <div className='flex flex-col gap-16'>
-        <div className=' flex justify-center gap-8'>
+      <div className='flex flex-col gap-16 '>
+        <div className=' flex flex-col md:flex-row items-center justify-center gap-8'>
           <PricingCard
             title={t('pricing.free.title')}
             price={t('pricing.free.price')}
@@ -182,10 +182,10 @@ export default async function pricingPage() {
             ))}
           </div>
         </div> */}
-        <div className='flex flex-col gap-2 text-center'>
+        <div className='flex flex-col gap-2  text-center'>
           <h3>{t('pricing.headerExtraTitle')}</h3>
           <p>{t('pricing.headerExtraSubTitle')}</p>
-          <div className='flex gap-8 mt-5 '>
+          <div className='flex gap-8 mt-5 flex-col md:flex-row items-center '>
             {boostData.map((data, index) => (
               <PricingCard
                 key={index}
