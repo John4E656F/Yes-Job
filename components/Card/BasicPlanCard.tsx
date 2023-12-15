@@ -14,7 +14,6 @@ type PriceDetail = {
   buttonText: string;
   totalPrice: number;
   priceId: string;
-  pLink: string;
 };
 
 const priceDetails: PriceDetail[] = [
@@ -22,22 +21,19 @@ const priceDetails: PriceDetail[] = [
     price: 69,
     buttonText: '1 post',
     totalPrice: 69,
-    priceId: 'price_1OMWnpElNHG3WsnfgUBuZZPT',
-    pLink: 'plink_1ONaNLElNHG3WsnftYS8wNyr',
+    priceId: process.env.NEXT_PUBLIC_ONE_POST!,
   },
   {
     price: 66,
     buttonText: '5 posts',
     totalPrice: 330,
-    priceId: 'price_1OMWoYElNHG3WsnfBgKEyn8T',
-    pLink: 'plink_1ONaXrElNHG3WsnfpURy8fuS',
+    priceId: process.env.NEXT_PUBLIC_FIVE_POST!,
   },
   {
     price: 63,
     buttonText: '10 posts',
     totalPrice: 630,
-    priceId: 'price_1OMWp3ElNHG3WsnfCGKwwM5Y',
-    pLink: 'plink_1ONaYhElNHG3WsnfsPeWO6T1',
+    priceId: process.env.NEXT_PUBLIC_TEN_POST!,
   },
 ];
 
@@ -116,11 +112,20 @@ export const BasicPlanCard = ({ userData, companyData }: BasicPlaProps) => {
           <p> Job application sent directly to your email</p>
         </li>
       </ul>
-      {userData ? (
+      {!companyData && userData ? (
+        <Link
+          href='/dashboard/company'
+          className='flex items-center px-2 mb-8 justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
+        >
+          <button type='button' className='px-4 py-2  whitespace-nowrap'>
+            Finish setting up your company
+          </button>
+        </Link>
+      ) : userData ? (
         <Button
           onClick={onClick}
           btnType='button'
-          text='Publish your first job offer'
+          text='Order'
           className='flex items-center px-8 py-2 mb-8 justify-center text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
         />
       ) : (

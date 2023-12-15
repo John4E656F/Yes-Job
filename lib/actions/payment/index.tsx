@@ -109,7 +109,7 @@ export async function payment({ priceId, userData, companyData, paymentType }: p
         success_url: 'http://localhost:3000',
         automatic_tax: { enabled: true },
         billing_address_collection: 'required',
-        consent_collection: { terms_of_service: 'required' },
+        // consent_collection: { terms_of_service: 'required' },
         customer_creation: 'always',
         allow_promotion_codes: true,
         // discounts: [{ promotion_code: 'true' }],
