@@ -1,30 +1,39 @@
 import React from 'react';
 import { Link, Button, PricingCard, BasicPlanCard } from '@/components';
-import type { subDataTypes, boostDataTypes } from '@/types';
+import type { subDataTypes, boostDataTypes, CompanyTypes, UsersTypes } from '@/types';
 import { getTranslations } from 'next-intl/server';
 import { getServerUserSession } from '@/lib/actions/getServerUserSession';
 
 export default async function pricingPage() {
   const t = await getTranslations('app');
   const session = await getServerUserSession();
+  let userData: UsersTypes | undefined;
+  let companyData: CompanyTypes | undefined;
   let sessionId;
+
   if (session) {
     sessionId = session.user.id;
+    const userResponse = await fetch(
+      process.env.NEXT_PRIVATE_PRODUCTION === 'true'
+        ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/user/${sessionId}`
+        : process.env.NEXT_PRIVATE_URL + `/api/user/${sessionId}`,
+    );
+    const { fetchedUserData } = await userResponse.json();
+
+    if (fetchedUserData) {
+      userData = fetchedUserData;
+
+      const companyResponse = await fetch(
+        process.env.NEXT_PRIVATE_PRODUCTION === 'true'
+          ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/company/${fetchedUserData.id}`
+          : process.env.NEXT_PRIVATE_URL + `/api/company/${fetchedUserData.id}`,
+      );
+      const { fetchedCompanyData } = await companyResponse.json();
+      if (fetchedCompanyData) {
+        companyData = fetchedCompanyData;
+      }
+    }
   }
-  const userResponse = await fetch(
-    process.env.NEXT_PRIVATE_PRODUCTION === 'true'
-      ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/user/${sessionId}`
-      : process.env.NEXT_PRIVATE_URL + `/api/user/${sessionId}`,
-  );
-
-  const { fetchedUserData } = await userResponse.json();
-
-  const companyResponse = await fetch(
-    process.env.NEXT_PRIVATE_PRODUCTION === 'true'
-      ? process.env.NEXT_PRIVATE_PRODUCTION_URL + `/api/company/${fetchedUserData.id}`
-      : process.env.NEXT_PRIVATE_URL + `/api/company/${fetchedUserData.id}`,
-  );
-  const { fetchedCompanyData } = await companyResponse.json();
   // console.log('fetchedCompanyData', fetchedCompanyData);
 
   const subData: subDataTypes[] = [
@@ -41,7 +50,7 @@ export default async function pricingPage() {
       ],
       buttonText: t('pricing.buttonSubscribe'),
       priceId: 'price_1OMWpzElNHG3WsnfdWTcv2Pk',
-      subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Standard plan' ? true : false) : false,
+      subscription: companyData ? (companyData.subscription === 'Standard plan' ? true : false) : false,
     },
     {
       title: t('pricing.premiumTitle'),
@@ -57,7 +66,7 @@ export default async function pricingPage() {
       ],
       buttonText: t('pricing.buttonSubscribe'),
       priceId: 'price_1OMWqOElNHG3WsnfyydUmdZZ',
-      subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Premium plan' ? true : false) : false,
+      subscription: companyData ? (companyData.subscription === 'Premium plan' ? true : false) : false,
     },
     {
       title: t('pricing.platinumTitle'),
@@ -74,7 +83,7 @@ export default async function pricingPage() {
       ],
       buttonText: t('pricing.buttonSubscribe'),
       priceId: 'price_1OMWqmElNHG3WsnfX1r2vPjI',
-      subscription: fetchedCompanyData ? (fetchedCompanyData.subscription === 'Platinum plan' ? true : false) : false,
+      subscription: companyData ? (companyData.subscription === 'Platinum plan' ? true : false) : false,
     },
   ];
 
@@ -150,7 +159,7 @@ export default async function pricingPage() {
             ]}
             buttonText={t('pricing.buttonFirstListing')}
           />
-          <BasicPlanCard userData={fetchedUserData} companyData={fetchedCompanyData} />
+          <BasicPlanCard userData={userData} companyData={companyData} />
         </div>
         {/* <div className='flex flex-col gap-2 text-center'>
           <h3>{t('pricing.headerSubscriptionTitle')}</h3>
@@ -186,8 +195,8 @@ export default async function pricingPage() {
                 details={data.details}
                 buttonText={data.buttonText}
                 priceId={data.priceId}
-                userData={fetchedUserData}
-                companyData={fetchedCompanyData}
+                userData={userData}
+                companyData={companyData}
                 companyBoost={data.companyBoost}
                 paymentType='payment'
               />
