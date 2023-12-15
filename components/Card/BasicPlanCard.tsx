@@ -130,7 +130,7 @@ export const BasicPlanCard = ({ userData, companyData }: BasicPlaProps) => {
         />
       ) : (
         <Link
-          href='/auth/login'
+          href='/login'
           className='flex items-center px-8 mb-8 justify-center h-fit text-center bg-brand-primary text-white rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-gray-200 '
         >
           <button type='button' className='px-4 py-2 text-sm whitespace-nowrap'>
