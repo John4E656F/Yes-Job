@@ -21,19 +21,19 @@ const priceDetails: PriceDetail[] = [
     price: 69,
     buttonText: '1 post',
     totalPrice: 69,
-    priceId: process.env.NEXT_PUBLIC_PRODUCTION ? 'price_1ONK8xElNHG3Wsnfi6Iga8WL' : 'price_1OMWnpElNHG3WsnfgUBuZZPT',
+    priceId: 'price_1ONK8xElNHG3Wsnfi6Iga8WL',
   },
   {
     price: 66,
     buttonText: '5 posts',
     totalPrice: 330,
-    priceId: process.env.NEXT_PUBLIC_PRODUCTION ? 'price_1ONKCXElNHG3WsnfNW65U4ZR' : 'price_1OMWoYElNHG3WsnfBgKEyn8T',
+    priceId: 'price_1ONKCXElNHG3WsnfNW65U4ZR',
   },
   {
     price: 63,
     buttonText: '10 posts',
     totalPrice: 630,
-    priceId: process.env.NEXT_PUBLIC_PRODUCTION ? 'price_1ONKCXElNHG3WsnfNW65U4ZR' : 'price_1OMWp3ElNHG3WsnfCGKwwM5Y',
+    priceId: 'price_1ONKCXElNHG3WsnfNW65U4ZR',
   },
 ];
 
