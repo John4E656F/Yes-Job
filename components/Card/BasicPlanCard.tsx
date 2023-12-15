@@ -21,19 +21,19 @@ const priceDetails: PriceDetail[] = [
     price: 69,
     buttonText: '1 post',
     totalPrice: 69,
-    priceId: 'price_1ONK8xElNHG3Wsnfi6Iga8WL',
+    priceId: process.env.NEXT_PUBLIC_ONE_POST!,
   },
   {
     price: 66,
     buttonText: '5 posts',
     totalPrice: 330,
-    priceId: 'price_1ONKCXElNHG3WsnfNW65U4ZR',
+    priceId: process.env.NEXT_PUBLIC_FIVE_POST!,
   },
   {
     price: 63,
     buttonText: '10 posts',
     totalPrice: 630,
-    priceId: 'price_1ONKCXElNHG3WsnfNW65U4ZR',
+    priceId: process.env.NEXT_PUBLIC_TEN_POST!,
   },
 ];
 
