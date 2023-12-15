@@ -48,7 +48,6 @@ export const BasicPlanCard = ({ userData }: { userData?: UsersTypes }) => {
     const paymentLink = await payment({
       pLink: currentPriceDetail.pLink,
       userData: userData!,
-      paymentType: 'One Time',
     });
 
     if (paymentLink) {

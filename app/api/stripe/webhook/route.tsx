@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
             userData = fetchedUserById;
           }
         }
+        const customer_id = event.data.object.customer;
         const invoice_id = event.data.object.invoice;
         const invoice = await stripe.invoices.retrieve(invoice_id as string);
 
@@ -68,42 +69,48 @@ export async function POST(req: NextRequest) {
 
           switch (description) {
             case 'Basic plan 1 job post':
-              buyJoblisting({ userData, companyData, amount: 1 });
-              const oneJobPostInvoice = await createInvoice({
-                companyData: companyData,
-                name: 'Basic plan 1 job post',
-                invoice_url: invoice.hosted_invoice_url!,
-                invoice_pdf: invoice.invoice_pdf!,
-              });
+              if (typeof customer_id === 'string') {
+                buyJoblisting({ userData, companyData, amount: 1, customer_id: customer_id });
+                const oneJobPostInvoice = await createInvoice({
+                  companyData: companyData,
+                  name: 'Basic plan 1 job post',
+                  invoice_url: invoice.hosted_invoice_url!,
+                  invoice_pdf: invoice.invoice_pdf!,
+                });
 
-              if (oneJobPostInvoice) {
-                addInvoiceIdToCompany({ companyData: companyData, invoice_id: oneJobPostInvoice.invoiceId });
+                if (oneJobPostInvoice) {
+                  addInvoiceIdToCompany({ companyData: companyData, invoice_id: oneJobPostInvoice.invoiceId });
+                }
               }
               break;
             case 'Basic plan 5 job posts':
-              buyJoblisting({ userData, companyData, amount: 5 });
-              const fiveJobPostInvoice = await createInvoice({
-                companyData: companyData,
-                name: 'Basic plan 5 job post',
-                invoice_url: invoice.hosted_invoice_url!,
-                invoice_pdf: invoice.invoice_pdf!,
-              });
+              if (typeof customer_id === 'string') {
+                buyJoblisting({ userData, companyData, amount: 5, customer_id: customer_id });
+                const fiveJobPostInvoice = await createInvoice({
+                  companyData: companyData,
+                  name: 'Basic plan 5 job post',
+                  invoice_url: invoice.hosted_invoice_url!,
+                  invoice_pdf: invoice.invoice_pdf!,
+                });
 
-              if (fiveJobPostInvoice) {
-                addInvoiceIdToCompany({ companyData: companyData, invoice_id: fiveJobPostInvoice.invoiceId });
+                if (fiveJobPostInvoice) {
+                  addInvoiceIdToCompany({ companyData: companyData, invoice_id: fiveJobPostInvoice.invoiceId });
+                }
               }
               break;
             case 'Basic plan 10 job posts':
-              buyJoblisting({ userData, companyData, amount: 10 });
-              const tenJobPostInvoice = await createInvoice({
-                companyData: companyData,
-                name: 'Basic plan 10 job post',
-                invoice_url: invoice.hosted_invoice_url!,
-                invoice_pdf: invoice.invoice_pdf!,
-              });
+              if (typeof customer_id === 'string') {
+                buyJoblisting({ userData, companyData, amount: 10, customer_id: customer_id });
+                const tenJobPostInvoice = await createInvoice({
+                  companyData: companyData,
+                  name: 'Basic plan 10 job post',
+                  invoice_url: invoice.hosted_invoice_url!,
+                  invoice_pdf: invoice.invoice_pdf!,
+                });
 
-              if (tenJobPostInvoice) {
-                addInvoiceIdToCompany({ companyData: companyData, invoice_id: tenJobPostInvoice.invoiceId });
+                if (tenJobPostInvoice) {
+                  addInvoiceIdToCompany({ companyData: companyData, invoice_id: tenJobPostInvoice.invoiceId });
+                }
               }
               break;
             case 'Standard plan':
@@ -207,29 +214,29 @@ export async function POST(req: NextRequest) {
                 console.log('Error adding one post:', addFiveBoostError.message);
               }
               break;
-
-            // case 'Company Boost':
-            //   const { error: addCompanyBoostError } = await supabase
-            //   .from('company')
-            //   .update({ companyBoost: true })
-            //   .eq('owner_id', userData.id);
-
-            // if (addCompanyBoostError) {
-            //   console.log('Error adding one post:', addCompanyBoostError.message);
-            // }
-            // break;
           }
         }
-        // console.log(line_items);
-
-        // console.log(event.data.object.customer_details?.email);
-        // console.log(event.data.object.client_reference_id);
-
-        // Handle product created event
         break;
       case 'customer.subscription.updated':
-        // const price_id = event.data.object.items.data[0].plan.id;
+        const price_id = event.data.object.items.data[0].plan.id;
         // console.log('PRICE ID: ' + price_id);
+        // const { fetchedCompanyData, fetchedUserById } = await fetchCompanyAndUser({ userId: session.client_reference_id });
+        // if (fetchedCompanyData && fetchedUserById) {
+        //   companyData = fetchedCompanyData;
+        //   userData = fetchedUserById;
+        // }
+        switch (price_id) {
+          case 'price_1OMWpzElNHG3WsnfdWTcv2Pk':
+            console.log('Standard plan');
+
+            break;
+          case 'price_1OMWqOElNHG3WsnfyydUmdZZ':
+            console.log('Premium plan');
+            break;
+          case 'price_1OMWqmElNHG3WsnfX1r2vPjI':
+            console.log('Platinum plan');
+            break;
+        }
 
         // const price = await stripe.prices.retrieve(price_id);
         // console.log('PRICE: ', price);

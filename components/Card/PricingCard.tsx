@@ -32,10 +32,8 @@ export const PricingCard = async ({
   paymentType,
 }: PricingCardProps) => {
   let paymentLink;
-  //Update payment reuse payment link
-  if (userData && pLink && paymentType) {
-    paymentLink = await payment({ pLink: pLink, userData: userData, paymentType: paymentType });
-    console.log('paymentLink', paymentType, paymentLink);
+  if (userData && pLink) {
+    paymentLink = await payment({ pLink: pLink, userData: userData });
   }
   // console.log('paymentLink', paymentType, paymentLink);
   // console.log(companyData);
