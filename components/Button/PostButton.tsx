@@ -28,7 +28,7 @@ export function PostButton({ jobPost, companyData, location }: PostButtonProps) 
         toggleToast(true);
         setTimeout(() => {
           toggleToast(false);
-        }, 2000);
+        }, 10000);
       } else {
         router.push(`/publier`);
       }
