@@ -14,6 +14,6 @@ export const addInvoiceIdToCompany = async ({ companyData, invoice_id }: addInvo
     .eq('company_id', companyData.id);
 
   if (addInvoiceIdToCompanyError) {
-    console.log('Error adding one post:', addInvoiceIdToCompanyError.message);
+    // console.log('Error adding one post:', addInvoiceIdToCompanyError.message);
   }
 };

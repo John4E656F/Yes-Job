@@ -48,7 +48,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
         .update({ firstname: data.firstname, lastname: data.lastname, user_phone: data.contactPhone })
         .eq('id', data.user_Id);
       if (usersUpdateError) {
-        console.log('usersUpdateError', usersUpdateError.message);
+        // console.log('usersUpdateError', usersUpdateError.message);
 
         return { type: 'error' as const, message: usersUpdateError.message };
       }
@@ -78,7 +78,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
         .update({ firstname: data.firstname, lastname: data.lastname, user_phone: data.contactPhone })
         .eq('id', data.user_Id);
       if (usersUpdateError) {
-        console.log('usersUpdateError', usersUpdateError.message);
+        // console.log('usersUpdateError', usersUpdateError.message);
 
         return { type: 'error' as const, message: usersUpdateError.message };
       }
@@ -89,7 +89,7 @@ export async function publishFirstListing({ data, logoUrl }: FirstPublishProps) 
         .eq('id', data.company_Id);
 
       if (companyUpdateError) {
-        console.log('companyUpdateError', companyUpdateError);
+        // console.log('companyUpdateError', companyUpdateError);
         return {
           type: 'error' as const,
           message: 'Unexpected error, please try again later.',
@@ -180,7 +180,7 @@ export async function registerJobPost({ data, resCompanyId }: RegisterJobPost) {
     const { error: newJobPostError } = await supabase.from('jobPosting').update({ languages: languageData[0].id }).eq('id', jobPostData[0].id);
 
     if (newJobPostError) {
-      console.log('add lang:', newJobPostError.message);
+      // console.log('add lang:', newJobPostError.message);
 
       return {
         type: 'error' as const,

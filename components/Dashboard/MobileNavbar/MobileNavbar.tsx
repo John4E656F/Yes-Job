@@ -44,13 +44,13 @@ export function MobileNavbar({ currentLocale, session }: NavbarProps) {
           console.error('Error fetching user data:', error);
         }
       } else {
-        console.log('No owner ID found');
+        // console.log('No owner ID found');
       }
     };
     fetchUserData();
   }, []);
-  console.log('user data:', userData);
-  console.log('company data:', companyData);
+  // console.log('user data:', userData);
+  // console.log('company data:', companyData);
 
   return (
     <nav className='md:hidden w-full flex justify-center h-auto'>

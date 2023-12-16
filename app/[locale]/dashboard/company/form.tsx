@@ -12,7 +12,7 @@ import type { CompanyFormProps } from '@/types';
 
 export const CompanyForm = ({ companyData, userData }: CompanyFormProps) => {
   const t = useTranslations('app');
-  console.log('company form', companyData);
+  // console.log('company form', companyData);
 
   const [isLocked, setIsLocked] = useState<boolean>(false);
   const {
@@ -37,10 +37,9 @@ export const CompanyForm = ({ companyData, userData }: CompanyFormProps) => {
       address: '',
     },
   });
-  console.log(watch());
-  console.log(errors);
-
-  console.log(companyData);
+  // console.log(watch());
+  // console.log(errors);
+  // console.log(companyData);
 
   useEffect(() => {
     setValue('owner_id', userData.id);
@@ -58,8 +57,6 @@ export const CompanyForm = ({ companyData, userData }: CompanyFormProps) => {
   const onSubmit = async (data: CompanyFormInputs) => {
     let logoUrl = '';
     if (typeof data.logo === 'string') {
-      console.log('logo string');
-
       logoUrl = data.logo;
     } else {
       if (data.logo[0]) {
@@ -94,7 +91,7 @@ export const CompanyForm = ({ companyData, userData }: CompanyFormProps) => {
     }
     if (!companyData) {
       const response = await registerNewCompany({ companyData: JSON.parse(JSON.stringify(data)), logoUrl, path: '/dashboard/company' });
-      console.log('response', response);
+      // console.log('response', response);
     } else {
       await updateCompany({ companyData: JSON.parse(JSON.stringify(data)), logoUrl, path: '/dashboard/company' });
     }
