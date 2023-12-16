@@ -80,7 +80,7 @@ const PublishPage: React.FC = () => {
   const companyWebsite = watch('companyWebsite');
   const contactEmail = watch('contactEmail');
   const contactPassword = watch('contactPassword');
-  console.log(watch());
+  // console.log(watch());
   // console.log(errors);
 
   useEffect(() => {
@@ -136,7 +136,7 @@ const PublishPage: React.FC = () => {
           console.error('Error fetching user data:', error);
         }
       } else {
-        console.log('No owner ID found');
+        // console.log('No owner ID found');
       }
     };
     fetchUserData();
@@ -182,11 +182,9 @@ const PublishPage: React.FC = () => {
   ];
 
   const onSubmit = async (data: FirstPublishFormInputs) => {
-    console.log(data);
+    // console.log(data);
     let logoUrl = '';
     if (typeof data.logo === 'string') {
-      console.log('logo string');
-
       logoUrl = data.logo;
     } else {
       if (data.logo[0]) {

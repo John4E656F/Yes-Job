@@ -7,7 +7,6 @@ import { useTranslations } from 'next-intl';
 import type { Session } from '@supabase/supabase-js';
 import { useToggleMenu } from '@/hooks';
 import type { CompanyTypes, UsersTypes } from '@/types';
-import { set } from 'date-fns';
 
 interface NavbarProps {
   currentLocale: string;
@@ -16,11 +15,7 @@ interface NavbarProps {
 export function MobileNavbar({ currentLocale, session }: NavbarProps) {
   const t = useTranslations('app');
   const [userData, setUserData] = useState<UsersTypes>();
-  const [companyData, setCompanyData] = useState<CompanyTypes>({
-    owner_id: '',
-    name: '',
-    logo: '',
-  });
+  const [companyData, setCompanyData] = useState<CompanyTypes>();
 
   const { menuRef: mobileMenuRef, isMenuOpen: isMobileMenuOpen, toggleMenu: toggleMobileMenu } = useToggleMenu();
 
@@ -39,7 +34,7 @@ export function MobileNavbar({ currentLocale, session }: NavbarProps) {
             const { fetchedUserData } = await response.json();
             setUserData(fetchedUserData);
 
-            const responseCompany = await fetch(`/api/company/${fetchedUserData.company_id}`);
+            const responseCompany = await fetch(`/api/company/${fetchedUserData.id}`);
             const { fetchedCompanyData } = await responseCompany.json();
             setCompanyData(fetchedCompanyData);
           } else {
@@ -49,11 +44,13 @@ export function MobileNavbar({ currentLocale, session }: NavbarProps) {
           console.error('Error fetching user data:', error);
         }
       } else {
-        console.log('No owner ID found');
+        // console.log('No owner ID found');
       }
     };
     fetchUserData();
   }, []);
+  // console.log('user data:', userData);
+  // console.log('company data:', companyData);
 
   return (
     <nav className='md:hidden w-full flex justify-center h-auto'>

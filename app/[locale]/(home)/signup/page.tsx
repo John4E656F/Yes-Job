@@ -41,7 +41,7 @@ export default function Signup() {
   // console.log(errors);
   const signUp = async (data: SignupFormInputs) => {
     const result = await signup({ data });
-    console.log(result);
+    // console.log(result);
 
     if (result.type === 'success') {
       setToastMessage(t('auth.success'));

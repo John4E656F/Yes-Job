@@ -81,7 +81,7 @@ export default function SettingsInfoPage() {
           console.error('Error fetching user data:', error);
         }
       } else {
-        console.log('No owner ID found');
+        // console.log('No owner ID found');
       }
     };
     fetchData();
@@ -89,8 +89,6 @@ export default function SettingsInfoPage() {
   const onSubmit = async (data: InfoFormInputs) => {
     let profilePictureUrl = '';
     if (typeof data.profile_picture === 'string') {
-      console.log('logo string');
-
       profilePictureUrl = data.profile_picture;
     } else {
       if (data.profile_picture[0]) {

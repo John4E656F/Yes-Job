@@ -35,7 +35,7 @@ export default async function jobListing() {
   const companyData = fetchedCompanyData as CompanyTypes;
   const jobListing = fetchedJobPostData as ListingData[];
   const totalViewCount = viewCount as dashboardViewCounterDisplayType;
-  console.log('dashboard user', currentUser);
+  // console.log('dashboard user', currentUser);
   // console.log('dashboard company', companyData);
 
   // console.log('dashboard joblisting', jobListing);
