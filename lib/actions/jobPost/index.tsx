@@ -20,7 +20,7 @@ export async function getCurrentUserJobListing({ company_Id, path }: JobPostProp
     const { data: fetchedUserListing, error: userError } = await supabase.from('jobPosting').select(`*, company(*)`).eq('company_id', company_Id);
 
     if (userError) {
-      console.log('userError', userError.message);
+      // console.log('userError', userError.message);
 
       return { type: 'error' as const, message: userError.message };
     }

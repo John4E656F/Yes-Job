@@ -38,19 +38,19 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    console.log(event.type);
+    // console.log(event.type);
     let userData;
     let companyData;
 
     switch (event.type) {
       case 'payment_method.attached':
-        console.log(event);
-        console.log(companyData);
+        // console.log(event);
+        // console.log(companyData);
 
         break;
       case 'payment_intent.created':
-        console.log(event);
-        console.log(companyData);
+        // console.log(event);
+        // console.log(companyData);
 
         // const paymentIntentSession = event.data.object;
         // if (paymentIntentSession.client_reference_id) {
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
         // }
         break;
       case 'checkout.session.completed':
-        console.log('CHECKOUT SESSIONS COMPLETED', event);
+        // console.log('CHECKOUT SESSIONS COMPLETED', event);
 
         const checkoutSession = event.data.object;
         if (checkoutSession.client_reference_id) {
@@ -237,7 +237,7 @@ export async function POST(req: NextRequest) {
         }
         break;
       case 'customer.subscription.updated':
-        console.log(event);
+        // console.log(event);
 
         const price_id = event.data.object.items.data[0].plan.id;
         // console.log('PRICE ID: ' + price_id);
@@ -248,14 +248,14 @@ export async function POST(req: NextRequest) {
         // }
         switch (price_id) {
           case 'price_1OMWpzElNHG3WsnfdWTcv2Pk':
-            console.log('Standard plan');
+            // console.log('Standard plan');
 
             break;
           case 'price_1OMWqOElNHG3WsnfyydUmdZZ':
-            console.log('Premium plan');
+            // console.log('Premium plan');
             break;
           case 'price_1OMWqmElNHG3WsnfX1r2vPjI':
-            console.log('Platinum plan');
+            // console.log('Platinum plan');
             break;
         }
 

@@ -17,7 +17,7 @@ export const subscribeRebill = async ({ userData, companyData, amount, boostAmou
       .update({ availableJobListing: companyData.availableJobListing! + amount, boost: boostAmount, subscription: plan, srebilled_at: new Date() })
       .eq('owner_id', userData.id);
     if (subscribeError) {
-      console.log('Error adding subscription rebill with boost:', subscribeError.message);
+      // console.log('Error adding subscription rebill with boost:', subscribeError.message);
     }
   } else {
     const { data, error: subscribeError } = await supabase
@@ -25,7 +25,7 @@ export const subscribeRebill = async ({ userData, companyData, amount, boostAmou
       .update({ availableJobListing: companyData.availableJobListing! + amount, subscription: plan, rebilled_at: new Date() })
       .eq('owner_id', userData.id);
     if (subscribeError) {
-      console.log('Error adding subscription rebill:', subscribeError.message);
+      // console.log('Error adding subscription rebill:', subscribeError.message);
     }
   }
 };

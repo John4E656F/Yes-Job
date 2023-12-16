@@ -16,6 +16,6 @@ export const buyJoblisting = async ({ userData, companyData, amount, customer_id
     .eq('owner_id', userData.id);
 
   if (addJobListingError) {
-    console.log('Error adding post:', addJobListingError.message);
+    // console.log('Error adding post:', addJobListingError.message);
   }
 };

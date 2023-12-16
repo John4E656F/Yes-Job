@@ -82,7 +82,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
           console.error('Error fetching user data:', error);
         }
       } else {
-        console.log('No owner ID found');
+        // console.log('No owner ID found');
       }
     };
     fetchUserData();
