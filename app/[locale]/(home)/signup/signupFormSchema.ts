@@ -19,5 +19,5 @@ export const signupFormSchema = z.object({
       message: 'Password must contain at least two numbers',
       path: ['password'],
     }),
-  isCompany: z.string({ required_error: 'Please select an option' }),
+  isCompany: z.string({ required_error: 'Please select an option' }).min(1, 'Please select an option'),
 });

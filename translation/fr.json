@@ -58,6 +58,7 @@
       "password": "Mot de passe",
       "alreadyHaveAccount": "Vous avez déjà un compte?",
       "dontHaveAccount": "Don't have an account?",
+      "accountType": "Que recherchez-vous ?",
       "lookingForJob": "A la recherche d'un emploi",
       "lookingForEmployee": "A la recherche d'un employé",
       "success": "Votre compte a été créé avec succès !",
