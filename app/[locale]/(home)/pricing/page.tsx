@@ -122,7 +122,7 @@ export default async function pricingPage() {
       subText: t('pricing.boost.companySubTitle'),
       details: [t('pricing.boost.detailsCompanyBanner'), t('pricing.boost.detailsCompanySponsored')],
       buttonText: t('pricing.buttonComingSoon'),
-      priceId: 'price_1OMWsTElNHG3WsnfcQNLD4rL',
+      priceId: '',
       companyBoost: true,
     },
   ];
