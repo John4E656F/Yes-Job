@@ -11,6 +11,7 @@ interface paymentProps {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
 });
+console.log(process.env.STRIPE_SECRET_KEY!);
 
 export async function payment({ priceId, userData, companyData, paymentType }: paymentProps) {
   // const paymentLink = await stripe.paymentLinks.retrieve(pLink);
