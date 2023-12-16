@@ -58,6 +58,7 @@
       "password": "Wachtwoord",
       "alreadyHaveAccount": "Heb je al een account?",
       "dontHaveAccount": "Geen account?",
+      "accountType": "Wat zoek je?",
       "lookingForJob": "Op zoek naar een baan",
       "lookingForEmployee": "Op zoek naar een werknemer",
       "success": "Je account is succesvol aangemaakt!",

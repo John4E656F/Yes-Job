@@ -13,6 +13,7 @@ export async function signup({ data }: { data: SignupFormInputs }) {
     if (signedUpUserError?.message === 'User already registered') {
       return { type: 'error', message: 'User already registered' };
     }
+
     return { type: 'error', message: 'Error signing up user' };
   }
 
@@ -28,6 +29,8 @@ export async function signup({ data }: { data: SignupFormInputs }) {
     .select('*');
 
   if (createdUserError || !createdUser) {
+    console.log(createdUserError);
+
     return { type: 'error', message: 'Error creating user, please try again later!' };
   }
 
