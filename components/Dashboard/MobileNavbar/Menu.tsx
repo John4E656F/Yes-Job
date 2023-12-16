@@ -12,7 +12,7 @@ interface MobileMenuProps extends TranslationProps {
   toggleMenu: () => void;
   menuRef: RefObject<HTMLDivElement>;
   userData?: UsersTypes;
-  companyData: CompanyTypes;
+  companyData?: CompanyTypes;
   currentLocale: string;
 }
 
@@ -56,7 +56,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, menuRe
       </div>
       <SidebarList t={t} firstname={userData?.firstname} lastname={userData?.lastname} />
       <div className='flex gap-2 p-2 mt-auto'>
-        {companyData.logo ? (
+        {companyData && companyData.logo ? (
           <Button
             text={<Image src={companyData.logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
             btnType='button'
