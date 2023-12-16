@@ -27,7 +27,8 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
     owner_id: '',
     teamMembers: [''],
   });
-  const [isFirstPost, setIsFirstPost] = useState<boolean>(true);
+  const [isFirstPost, setIsFirstPost] = useState<boolean>(false);
+  const [needUpgrade, setNeedUpgrade] = useState<boolean>(false);
   const [usedListingCount, setUsedListingCount] = useState<number>(0);
   const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
   const { menuRef: profileMenuRef, isMenuOpen: isProfileMenuOpen, toggleMenu: toggleProfileMenu } = useToggleMenu();
@@ -61,10 +62,15 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               const fetchedUserListing = await getCurrentUserJobListing({ company_Id: companyId, path: pathname });
               // console.log('fetchedUserListing', fetchedUserListing);
 
-              if (fetchedUserListing.length > 0) {
+              if (fetchedUserListing) {
                 const publishedListingCount = fetchedUserListing.filter((listing: ListingData) => listing.published === true).length;
-                setUsedListingCount(publishedListingCount);
-                setIsFirstPost(false);
+
+                if (publishedListingCount === fetchedCompanyData.availableJobListing) {
+                  setNeedUpgrade(true);
+                  setUsedListingCount(publishedListingCount);
+                }
+              } else {
+                setIsFirstPost(true);
               }
             }
 
@@ -92,7 +98,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
       setTimeout(() => {
         // router.push(`/upgrade`);
         toggleToast(false);
-      }, 3000);
+      }, 10000);
     } else {
       router.push(`/publier`);
     }
