@@ -97,10 +97,10 @@ const PublishPage: React.FC = () => {
               usedListing = fetchedJobPostData.filter((listing: ListingData) => listing.published === true);
             }
 
-            if (fetchedCompanyData.available_jobListing === usedListing.length) {
+            if (fetchedCompanyData.availableJobListing === usedListing.length) {
               setToastErrorMessage('You have reached your maximum job listing limit.');
+              toggleToast(true);
               setTimeout(() => {
-                toggleToast(false);
                 router.push('/dashboard/job-listing');
               }, 2000);
             }
@@ -108,8 +108,8 @@ const PublishPage: React.FC = () => {
 
             if (fetchedCompanyError) {
               setToastErrorMessage('Please setup your company profile first.');
+              toggleToast(true);
               setTimeout(() => {
-                toggleToast(false);
                 redirect('/dashboard/company');
               }, 2000);
               console.error('Failed to fetch user data:', fetchedCompanyError);
