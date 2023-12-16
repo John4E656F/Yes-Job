@@ -29,8 +29,6 @@ export async function signup({ data }: { data: SignupFormInputs }) {
     .select('*');
 
   if (createdUserError || !createdUser) {
-    console.log(createdUserError);
-
     return { type: 'error', message: 'Error creating user, please try again later!' };
   }
 
