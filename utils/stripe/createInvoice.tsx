@@ -16,7 +16,7 @@ export const createInvoice = async ({ companyData, name, invoice_url, invoice_pd
     .select();
 
   if (createInvoiceError) {
-    console.log('Error adding one post:', createInvoiceError.message);
+    // console.log('Error adding one post:', createInvoiceError.message);
   } else {
     return { invoiceId: data[0].id as string };
   }

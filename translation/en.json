@@ -59,6 +59,7 @@
       "password": "Password",
       "alreadyHaveAccount": "Already have an account?",
       "dontHaveAccount": "Don't have an account?",
+      "accountType": "What are you looking for?",
       "lookingForJob": "Looking for a job",
       "lookingForEmployee": "Looking for an employee",
       "success": "Your account has been created successfully!",

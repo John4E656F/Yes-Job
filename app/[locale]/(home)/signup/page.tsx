@@ -72,7 +72,7 @@ export default function Signup() {
   };
 
   return (
-    <div className='flex-1 flex flex-col w-full px-8 py-16 sm:max-w-md justify-center gap-2'>
+    <div className='flex-1 flex flex-col w-full px-2 py-16 sm:max-w-md justify-center gap-2'>
       <Toast
         isOpen={isToastOpen}
         onClose={handleCloseToast}
@@ -118,15 +118,15 @@ export default function Signup() {
           placeholder='********'
         />
         <div className='py-2 mb-6'>
-          <p>What are you looking for?</p>
+          <p>{t('auth.accountType')}</p>
           <div className='flex justify-evenly pt-2'>
             <div className='flex gap-2 py-2'>
               <input type='radio' {...register('isCompany')} value='false' />
-              <label className='text-md'>I'm looking for a job</label>
+              <label className='text-md'>{t('auth.lookingForJob')}</label>
             </div>
             <div className='flex gap-2 py-2'>
               <input type='radio' {...register('isCompany')} value='true' />
-              <label className='text-md'>I'm looking for a candidate</label>
+              <label className='text-md'>{t('auth.lookingForEmployee')}</label>
             </div>
           </div>
           {errors.isCompany && <InputError error={{ message: t('error.errorOption') }} />}
