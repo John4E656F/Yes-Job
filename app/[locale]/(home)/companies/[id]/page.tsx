@@ -16,7 +16,7 @@ export default async function CompanyPage({ params }: { params: { id: string } }
     .eq('id', companyId)
     .single();
 
-  console.log(fetchedCompanyData);
+  //   console.log(fetchedCompanyData);
 
   if (fetchedCompanyError) {
     //   return { fetchedCompanyError: 'Failed to fetch user data: ' + fetchedCompanyError.message });
