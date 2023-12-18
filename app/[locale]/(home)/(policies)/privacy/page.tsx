@@ -3,9 +3,9 @@ import React from 'react';
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <section className='w-full flex flex-col items-center px-10 justify-center py-4 bg-brand-lightbg'>
+      <section className='w-full flex flex-col items-center px-10 justify-center py-10 bg-brand-lightbg'>
         <div className=' w-full flex flex-col justify-center text-center items-center '>
-          <p>Current as of 17/12/2023</p>
+          <p className='text-sm'>Current as of 17/12/2023</p>
           <h1>Privacy Policy</h1>
           <p>We respect your privacy regarding any information we may collect from you across our website and strive to be 100% transparent.</p>
         </div>
