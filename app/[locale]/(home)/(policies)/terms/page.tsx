@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TermsPage() {
+export default function TermsAndGeneralServicePage() {
   return (
     <>
       <section className='w-full flex flex-col items-center px-10 justify-center py-10 bg-brand-lightbg'>
