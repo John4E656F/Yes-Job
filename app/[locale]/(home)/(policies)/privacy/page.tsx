@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 
 export default function PrivacyPolicyPage() {
-  const t = useTranslations('privacy');
+  const t = useTranslations('policies.privacy');
 
   return (
     <>
@@ -16,112 +16,113 @@ export default function PrivacyPolicyPage() {
       <section className='w-full flex flex-col items-center justify-center py-4 bg-white'>
         <div className='w-1/2 flex flex-col justify-center gap-5 mt-10'>
           <div className='flex flex-col gap-2'>
-            <h2 className='text-left'>{t('section1.title')}</h2>
-            <p>{t('section1.paragraph1')}</p>
-            <p>{t('section1.paragraph2')}</p>
+            <h2 className='text-left'>{t('intro.title')}</h2>
+            <p>{t('intro.paragraph1')}</p>
+            <p>{t('intro.paragraph2')}</p>
           </div>
           <div className='flex flex-col gap-2'>
-            <h3>{t('section2.title')}</h3>
-            <p>{t('section2.paragraph1')}</p>
+            <h3>1. {t('how.title')}</h3>
+            <p>{t('how.paragraph1')}</p>
             <ul>
-              <li>{t('section2.list1.item1')}</li>
-              <li>{t('section2.list1.item2')}</li>
-              <li>{t('section2.list1.item3')}</li>
-              <li>{t('section2.list1.item4')}</li>
-              <li>{t('section2.list1.item5')}</li>
-              <li>{t('section2.list1.item6')}</li>
+              <li>{t('how.list1Item1')}</li>
+              <li>{t('how.list1Item2')}</li>
+              <li>{t('how.list1Item3')}</li>
+              <li>{t('how.list1Item4')}</li>
+              <li>{t('how.list1Item5')}</li>
+              <li>{t('how.list1Item6')}</li>
             </ul>
-            <p>{t('section2.paragraph2')}</p>
+            <p>{t('how.paragraph2')}</p>
           </div>
           <div className='flex flex-col gap-2'>
-            <h3>{t('section3.title')}</h3>
-            <p>{t('section3.paragraph1')}</p>
-            <p>{t('section3.forCompanies')}</p>
+            <h3>2. {t('type.title')}</h3>
+            <p>{t('type.paragraph1')}</p>
+            <p>{t('type.forCompanies')}</p>
             <ul>
               <li>
-                <b>Company Information:</b> Your company name, contact details, and relevant information about your business.
+                <b>{t('type.companyList1Bold')}</b> {t('type.companyList1')}
               </li>
               <li>
-                <b>Job Offer Details:</b> Information related to job offers posted, including job descriptions, requirements, and contact information
-                for applicants.
+                <b>{t('type.companyList2Bold')}</b> {t('type.companyList2')}
               </li>
               <li>
-                <b>Account Information:</b> Account creation for companies requires a company name, email address, and a password.
+                <b>{t('type.companyList3Bold')}</b> {t('type.companyList3')}
               </li>
               <li>
-                <b>Professional Qualifications:</b> Information about the qualifications or skills you are seeking in candidates.
+                <b>{t('type.companyList4Bold')}</b> {t('type.companyList4')}
               </li>
             </ul>
-            <p>{t('section3.forCandidates')}</p>
+            <p>{t('type.forCandidates')}</p>
             <ul>
               <li>
-                <b>Personal Information:</b> Your name, email address, professional qualifications, work experience, photographs, and country of
-                residence.
+                <b>{t('type.candidateList1Bold')}</b> {t('type.candidateList1')}
               </li>
               <li>
-                <b>Job Preferences:</b> Information about the types of jobs you are interested in, preferred work locations, and other job-related
-                preferences.
+                <b>{t('type.candidateList2Bold')}</b> {t('type.candidateList2')}
               </li>
               <li>
-                <b>CV and Professional Details:</b> Your curriculum vitae, education, skills, and any other information relevant to job applications.
+                <b>{t('type.candidateList3Bold')}</b> {t('type.candidateList3')}
               </li>
               <li>
-                <b>Account Information:</b> Account creation for candidates will require your name, email address, and a password.
+                <b>{t('type.candidateList4Bold')}</b> {t('type.candidateList4')}
               </li>
             </ul>
-            <p>{t('section3.profileAdvice')}</p>
-            <p>{t('section3.interactionData')}</p>
+            <p>{t('type.profileAdvice')}</p>
+            <p>{t('type.interactionData')}</p>
           </div>
           <div className='flex flex-col gap-2'>
-            <h3>{t('section4.title')}</h3>
-            <p>{t('section4.paragraph1')}</p>
+            <h3>3. {t('purpose.title')}</h3>
+            <p>{t('purpose.paragraph1')}</p>
             <ul>
-              <li>Offer and provide our Services.</li>
-              <li>Manage and administer those Services, including account management.</li>
-              <li>Communicate with you about our Services.</li>
-              <li>Verify and manage your specified membership with a company.</li>
-              <li>Display your public personal profile as provided in your profile forms.</li>
-              <li>Comply with our legal and regulatory obligations.</li>
-              <li>Manage our business effectively.</li>
+              <li>{t('purpose.list2Item1')}</li>
+              <li>{t('purpose.list2Item2')}</li>
+              <li>{t('purpose.list2Item3')}</li>
+              <li>{t('purpose.list2Item4')}</li>
+              <li>{t('purpose.list2Item5')}</li>
+              <li>{t('purpose.list2Item6')}</li>
+              <li>{t('purpose.list2Item7')}</li>
             </ul>
           </div>
           <div className='flex flex-col gap-2'>
-            <h3>{t('section5.title')}</h3>
-            <p>{t('section5.paragraph1')}</p>
+            <h3>4. {t('disclosure.title')}</h3>
+            <p>{t('disclosure.paragraph1')}</p>
             <ul>
-              <li>Cloud service providers.</li>
-              <li>Email providers.</li>
-              <li>Analytics services.</li>
-              <li>Payment system operators.</li>
+              <li>{t('disclosure.list3Item1')}</li>
+              <li>{t('disclosure.list3Item2')}</li>
+              <li>{t('disclosure.list3Item3')}</li>
+              <li>{t('disclosure.list3Item4')}</li>
             </ul>
           </div>
           <div className='flex flex-col gap-2'>
-            <h3>{t('section6.title')}</h3>
-            <p>{t('section6.paragraph1')}</p>
+            <h3>5. {t('protection.title')}</h3>
+            <p>{t('protection.paragraph1')}</p>
           </div>
           <div className='flex flex-col gap-2'>
-            <h3>{t('section7.title')}</h3>
-            <p>{t('section7.paragraph1')}</p>
+            <h3>6. {t('marketing.title')}</h3>
+            <p>{t('marketing.paragraph1')}</p>
           </div>
           <div className='flex flex-col gap-2'>
-            <h3>{t('section8.title')}</h3>
-            <p>{t('section8.paragraph1')}</p>
+            <h3>7. {t('cookies.title')}</h3>
+            <p>{t('cookies.paragraph1')}</p>
           </div>
           <div className='flex flex-col gap-2'>
-            <h3>{t('section9.title')}</h3>
-            <p>{t('section9.paragraph1')}</p>
+            <h3>8. {t('links.title')}</h3>
+            <p>{t('links.paragraph1')}</p>
           </div>
           <div className='flex flex-col gap-2'>
-            <h3>{t('section10.title')}</h3>
-            <p>{t('section10.paragraph1')}</p>
+            <h3>9. {t('access.title')}</h3>
+            <p>{t('access.paragraph1')}</p>
           </div>
           <div className='flex flex-col gap-2'>
-            <h3>{t('section11.title')}</h3>
-            <p>{t('section11.paragraph1')}</p>
+            <h3>10. {t('overseas.title')}</h3>
+            <p>{t('overseas.paragraph1')}</p>
           </div>
           <div className='flex flex-col gap-2'>
-            <h3>{t('section12.title')}</h3>
-            <p>{t('section12.paragraph1')}</p>
+            <h3>11. {t('resolve.title')}</h3>
+            <p>{t('resolve.paragraph1')}</p>
+          </div>
+          <div className='flex flex-col gap-2'>
+            <h3>12. {t('changes.title')}</h3>
+            <p>{t('changes.paragraph1')}</p>
           </div>
         </div>
       </section>
