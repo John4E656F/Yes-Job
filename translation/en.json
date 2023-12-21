@@ -230,5 +230,29 @@
       "experience": "Experience required",
       "noExperience": "No experience required"
     }
+  },
+  "policies": {
+    "TOS": {
+      "date": "Current as of ",
+      "title": "Terms and Conditions",
+      "subTitle": "By using the Yes Job website, you agree to be bound by these terms.",
+      "introTitle": "Terms of use for all users",
+      "introText": "By accessing Yes Job, you agree to comply with these terms of service, all applicable laws and regulations, and acknowledge that you are responsible for compliance with any applicable local laws.",
+      "detailsTitle": "Terms",
+      "details1Bold": "Usage of License ",
+      "details1Text": "If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.",
+      "details2Title": "Use of License",
+      "details2Bold": "Scope of License: ",
+      "details2Text": "Permission is granted to temporarily download one copy of the materials (information or software) on Yes Job's website for personal, non-commercial transitory viewing only. Under this license you may not:",
+      "details2Li": "Modify of copy materials.",
+      "details2Li1": "Use the materials for any commercial purpose, or for any public display.",
+      "details2Li3": "Attempt to decompile or reverse engineer any software contained on Yes Job's website.",
+      "details2Li4": "Transfer the materials to another person or 'mirror' the materials on any other server.",
+      "details2Title1": "License Termination: ",
+      "details2Text1": "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Yes Job at any time. Upon terminating your viewing of these materials, you must destroy any downloaded materials in your possession whether in electronic or printed format.",
+      "details3Title": "Disclaimer",
+      "details3Bold": "As is Basis: ",
+      "details3Text": "The materials on Yes Job's website are provided on an 'as is' basis. Yes Job makes no warranties, expressed or implied, and disclaims all other warranties including, without limitation, implied warranties of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights."
+    }
   }
 }

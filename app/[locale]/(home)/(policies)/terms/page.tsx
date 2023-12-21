@@ -13,7 +13,7 @@ export default function TermsAndConditionsGeneralServicesPage() {
       <section className='w-full flex flex-col items-center justify-center py-4 bg-white'>
         <div className='w-1/2 flex flex-col justify-center gap-5 mt-10 '>
           <div className='flex flex-col gap-2'>
-            <h2 className='text-left'>Terms and Conditions</h2>
+            <h2 className='text-left'>Terms of use for all users</h2>
             <p>
               By accessing Yes Job, you agree to comply with these terms of service, all applicable laws and regulations, and acknowledge that you are
               responsible for compliance with any applicable local laws.
