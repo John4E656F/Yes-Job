@@ -238,163 +238,179 @@
       "subTitle": "By using the Yes Job website, you agree to be bound by these terms.",
       "introTitle": "Terms of use for all users",
       "introText": "By accessing Yes Job, you agree to comply with these terms of service, all applicable laws and regulations, and acknowledge that you are responsible for compliance with any applicable local laws.",
-      "detailsTitle": "Terms",
-      "detailsBold": "Usage Restrictions: ",
-      "detailsText": "If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.",
-      "detailsBold1": "Usage of License ",
-      "detailsText1": "If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.",
-      "details1Title": "Use of License",
-      "details1Bold": "Scope of License: ",
-      "details1Text": "Permission is granted to temporarily download one copy of the materials (information or software) on Yes Job's website for personal, non-commercial transitory viewing only. Under this license you may not:",
-      "details1Li": "Modify of copy materials.",
-      "details1Li1": "Use the materials for any commercial purpose, or for any public display.",
-      "details1Li2": "Attempt to decompile or reverse engineer any software contained on Yes Job's website.",
-      "details1Li3": "Remove any copyright or other proprietary notations from the materials.",
-      "details1Li4": "Transfer the materials to another person or 'mirror' the materials on any other server.",
-      "details1Title1": "License Termination: ",
-      "details1Text1": "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Yes Job at any time. Upon terminating your viewing of these materials, you must destroy any downloaded materials in your possession whether in electronic or printed format.",
-      "details2Title": "Disclaimer",
-      "details2Bold": "As is Basis: ",
-      "details2Text": "The materials on Yes Job's website are provided on an 'as is' basis. Yes Job makes no warranties, expressed or implied, and disclaims all other warranties including, without limitation, implied warranties of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.",
-      "details3Title": "Limitations",
-      "details3Bold": "Liability Limitations: ",
-      "details3Text": "In no event shall Yes Job or its suppliers be liable for any damages arising out of the use or inability to use the materials on Yes Job's website, even if Yes Job or an authorized representative has been notified orally or in writing of the possibility of such damage.",
-      "details4Title": "Accuracy of Meterials",
-      "details4Bold": "Content Accuracy: ",
-      "details4Text": "The materials appearing on Yes Job's website could include technical, typographical, or photographic errors. Yes Job does not warrant that any of the materials on its website are accurate, complete, or current.",
-      "details5Title": "Links",
-      "details5Bold": "External Links: ",
-      "details5Text": "Yes Job has not reviewed all sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Yes Job. Use of any such linked website is at the user's own risk.",
-      "details6Title": "Modifications",
-      "details6Bold": "Terms Revision: ",
-      "details6Text": "Yes Job may revise these terms of service for its website at any time without notice. By using this website, you agree to be bound by the current version of these terms of service.",
-      "details7Title": "Governing Law",
-      "details7Bold": "Jurisdiction: ",
-      "details7Text": "These Terms are governed by the laws of Belgium, without regard to its conflict of law provisions. By using Yes Job, you agree to submit to the exclusive jurisdiction of the courts located in Belgium for the resolution of any disputes arising from or related to these Terms or your use of the Service.",
-      "details8Title": "Services",
-      "details8Bold": "Scope of Services: ",
-      "details8Text": "These terms and conditions apply to the Yes Job website, communications, and services. Registered users are “Members,” and unregistered users are “Visitors.” Members who have signed up for employer accounts are “Employers,” while job seekers are “Job Seekers.” Visitors or Members who apply for a job using the Site are “Candidates.”",
-      "details8Bold1": "Site Ownership: ",
-      "details8Text1": "The Site is owned and operated by Yes Job (defined as “Yes Job”, “we”, “us” and “our”). Your continued use of this Site signifies your acceptance of these Terms.",
-      "details9Title": "Variation of Terms",
-      "details9Bold": "Terms update: ",
-      "details9Text": "We may update these Terms at any time, with notice published on the Site.",
-      "details9Bold1": "Notification of Changes: ",
-      "details9Text1": "Changes to the Terms will be communicated with reasonable notice, especially for changes materially detrimental to you.",
-      "details10Title": "Intellectual Property Rights",
-      "details10Bold": "Ownership: ",
-      "details10Text": "Yes Job retains all intellectual property rights in the services provided to you.",
-      "details11Title": "Limitation of Liability and Disclaimer",
-      "details11Bold": "Service Warranty: ",
-      "details11Text": "Yes Job provides no warranty that services available through the Site will be uninterrupted or error-free. Our liability is limited to the maximum extent permitted by law.",
-      "details11Bold1": "Liability Cap: ",
-      "details11Text1": "Liability for breach of any implied warranty, which cannot be excluded, is limited to the supply of the services again or the cost of having the services supplied again.",
-      "details11Bold2": "Disclaimer Extent: ",
-      "details11Text2": "Our liability disclaimer applies to direct, indirect, and consequential damages.",
-      "details11Bold3": "Content Responsibility: ",
-      "details11Text3": "Yes Job accepts no responsibility for errors in your advertisements on our Site.",
-      "details11Bold4": "Service Effort: ",
-      "details11Text4": "Yes Job will make reasonable efforts to publish advertisements promptly.",
-      "details11Bold5": "Data Security: ",
-      "details11Text5": "Yes Job does not guarantee files available for download through the Site will be free of harmful elements.",
-      "details11Bold6": "Role as a medium: ",
-      "details11Text6": "Yes Job acts as a medium for employment opportunities and does not vet Candidates or their representations."
-    }
-  },
-  "privacy": {
-    "currentDate": "Current as of 17/12/2023",
-    "title": "Privacy Policy",
-    "introText": "We respect your privacy regarding any information we may collect from you across our website and strive to be 100% transparent.",
-    "intro": {
-      "title": "Privacy",
-      "paragraph1": "Welcome to Yes Job (“the Site”). Your privacy is of utmost importance to us, and we are dedicated to protecting the information you entrust to us. Yes Job (referred to as \"we\", \"us\", or \"our\") is a premier horeca job board in Belgium, connecting companies with potential candidates. This privacy policy applies to our website, communications, and all services offered through Yes Job (“the Services”).",
-      "paragraph2": "Yes Job is committed to complying with the European Union’s General Data Protection Regulation (GDPR) and other relevant European data protection laws. This Privacy Policy explains our approach to managing your personal information, including our obligations and your rights in respect of our dealings with your personal information. We encourage you to read this Privacy Policy to understand how your personal information is handled when collected via our website or as a result of using our Services."
+      "terms": {
+        "title": "Terms",
+        "paragraphBold": "Usage Restrictions: ",
+        "paragraph": "If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law."
+      },
+      "use": {
+        "title": "Use of License",
+        "paragraphBold": "Scope of License: ",
+        "paragraph": "Permission is granted to temporarily download one copy of the materials (information or software) on Yes Job's website for personal, non-commercial transitory viewing only. Under this license you may not:",
+        "listItem1": "Modify of copy materials.",
+        "listItem2": "Use the materials for any commercial purpose, or for any public display.",
+        "listItem3": "Attempt to decompile or reverse engineer any software contained on Yes Job's website.",
+        "listItem4": "Remove any copyright or other proprietary notations from the materials.",
+        "listItem5": "Transfer the materials to another person or 'mirror' the materials on any other server.",
+        "paragraph1Bold": "License Termination: ",
+        "paragraph1": "This license shall automatically terminate if you violate any of these restrictions and may be terminated by Yes Job at any time. Upon terminating your viewing of these materials, you must destroy any downloaded materials in your possession whether in electronic or printed format."
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "paragraphBold": "As is Basis: ",
+        "paragraph": "The materials on Yes Job's website are provided on an 'as is' basis. Yes Job makes no warranties, expressed or implied, and disclaims all other warranties including, without limitation, implied warranties of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.",
+        "title1": "Limitations",
+        "paragraph1Bold": "Liability Limitations: ",
+        "paragraph1": "In no event shall Yes Job or its suppliers be liable for any damages arising out of the use or inability to use the materials on Yes Job's website, even if Yes Job or an authorized representative has been notified orally or in writing of the possibility of such damage.",
+        "title2": "Accuracy of Meterials",
+        "paragraph2Bold": "Content Accuracy: ",
+        "paragraph2": "The materials appearing on Yes Job's website could include technical, typographical, or photographic errors. Yes Job does not warrant that any of the materials on its website are accurate, complete, or current."
+      },
+      "links": {
+        "title": "Links",
+        "paragraphBold": "External Links: ",
+        "paragraph": "Yes Job has not reviewed all sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Yes Job. Use of any such linked website is at the user's own risk.",
+        "title1": "Modifications",
+        "paragraph1Bold": "Terms Revision: ",
+        "paragraph1": "Yes Job may revise these terms of service for its website at any time without notice. By using this website, you agree to be bound by the current version of these terms of service."
+      },
+      "law": {
+        "title": "Governing Law",
+        "paragraphBold": "Jurisdiction: ",
+        "paragraph": "These Terms are governed by the laws of Belgium, without regard to its conflict of law provisions. By using Yes Job, you agree to submit to the exclusive jurisdiction of the courts located in Belgium for the resolution of any disputes arising from or related to these Terms or your use of the Service."
+      },
+      "services": {
+        "title": "Services",
+        "paragraphBold": "Scope of Services: ",
+        "paragraph": "These terms and conditions apply to the Yes Job website, communications, and services. Registered users are “Members,” and unregistered users are “Visitors.” Members who have signed up for employer accounts are “Employers,” while job seekers are “Candidates.”",
+        "paragraph1Bold": "Site Ownership: ",
+        "paragraph1": "The Site is owned and operated by Yes Job (defined as “Yes Job”, “we”, “us” and “our”). Your continued use of this Site signifies your acceptance of these Terms."
+      },
+      "variations": {
+        "title": "Variation of Terms",
+        "paragraphBold": "Terms update: ",
+        "paragraph": "We may update these Terms at any time, with notice published on the Site.",
+        "paragraph1Bold": "Notification of Changes: ",
+        "paragraph1": "Changes to the Terms will be communicated with reasonable notice, especially for changes materially detrimental to you."
+      },
+      "ownership": {
+        "title": "Intellectual Property Rights",
+        "paragraphBold": "Ownership: ",
+        "paragraph": "Yes Job retains all intellectual property rights in the services provided to you."
+      },
+      "limit": {
+        "title": "Limitation of Liability and Disclaimer",
+        "paragraphBold": "Service Warranty: ",
+        "paragraph": "Yes Job provides no warranty that services available through the Site will be uninterrupted or error-free. Our liability is limited to the maximum extent permitted by law.",
+        "paragraph1Bold": "Liability Cap: ",
+        "paragraph1": "Liability for breach of any implied warranty, which cannot be excluded, is limited to the supply of the services again or the cost of having the services supplied again.",
+        "paragraph2Bold": "Disclaimer Extent: ",
+        "paragraph2": "Our liability disclaimer applies to direct, indirect, and consequential damages.",
+        "paragraph3Bold": "Content Responsibility: ",
+        "paragraph3": "Yes Job accepts no responsibility for errors in your advertisements on our Site.",
+        "paragraph4Bold": "Service Effort: ",
+        "paragraph4": "Yes Job will make reasonable efforts to publish advertisements promptly.",
+        "paragraph5Bold": "Data Security: ",
+        "paragraph5": "Yes Job does not guarantee files available for download through the Site will be free of harmful elements.",
+        "paragraph6Bold": "Role as a medium: ",
+        "paragraph6": "Yes Job acts as a medium for employment opportunities and does not vet Candidates or their representations."
+      }
     },
-    "how": {
-      "title": "How we collect your personal information",
-      "paragraph1": "We collect and hold your personal information in a manner that is fair, lawful, and non-intrusive. Wherever practical, we collect your personal information directly from you through means such as:",
-      "list1Item1": "Making an inquiry, subscribing, or signing up for our service through our website.",
-      "list1Item2": "Contacting us via telephone or email.",
-      "list1Item3": "Completing our online forms, using the chat feature on our website, or corresponding with us.",
-      "list1Item4": "Participating in customer satisfaction and market research surveys.",
-      "list1Item5": "Administering our Services.",
-      "list1Item6": "Managing our business operations.",
-      "paragraph2": "Additionally, we may collect personal information from publicly available sources and third parties, including suppliers, recruitment agencies, contractors, clients, and business partners."
-    },
-    "type": {
-      "title": "Types of personal information we collect",
-      "paragraph1": "The personal information we collect varies based on whether you are using Yes Job as a company or as a candidate. This information includes, but is not limited to:",
-      "forCompanies": "For Companies:",
-      "companyList1Bold": "Company Information: ",
-      "companyList1": "Your company name, contact details, and relevant information about your business.",
-      "companyList2Bold": "Job Offer Details: ",
-      "companyList2": "Information related to job offers posted, including job descriptions, requirements, and contact information for applicants.",
-      "companyList3Bold": "Account Information: ",
-      "companyList3": "Account creation for companies requires a company name, email address, and a password.",
-      "companyList4Bold": "Professional Qualifications: ",
-      "companyList4": "Information about the qualifications or skills you are seeking in candidates.",
-      "forCandidates": "For Candidates (Upcoming Feature):",
-      "candidateList1Bold": "Personal Information: ",
-      "candidateList1": "Your name, email address, professional qualifications, work experience, photographs, and country of residence.",
-      "candidateList2Bold": "Job Preferences: ",
-      "candidateList2": "Information about the types of jobs you are interested in, preferred work locations, and other job-related preferences.",
-      "candidateList3Bold": "CV and Professional Details: ",
-      "candidateList3": "Your curriculum vitae, education, skills, and any other information relevant to job applications.",
-      "candidateList4Bold": "Account Information: ",
-      "candidateList4": "Account creation for candidates will require your name, email address, and a password.",
-      "profileAdvice": "For both types of users, you may choose the information to include in your profile to enhance the effectiveness of our Services. We advise against posting sensitive personal data that you would not want publicly available.",
-      "interactionData": "Additionally, we collect personal data when you interact with our Services, such as filling out forms, responding to surveys, or submitting job applications. We also log usage data, employ cookies, and collect device and network information when you use our Services."
-    },
-    "purpose": {
-      "title": "Our purposes for handling your personal information",
-      "paragraph1": "We collect, hold, use, and disclose personal information to:",
-      "list2Item1": "Offer and provide our Services.",
-      "list2Item2": "Manage and administer those Services, including account management.",
-      "list2Item3": "Communicate with you about our Services.",
-      "list2Item4": "Verify and manage your specified membership with a company.",
-      "list2Item5": "Display your public personal profile as provided in your profile forms.",
-      "list2Item6": "Comply with our legal and regulatory obligations.",
-      "list2Item7": "Manage our business effectively."
-    },
-    "disclosure": {
-      "title": "Disclosure of Personal Information",
-      "paragraph1": "We may disclose personal information between our organizations or to third parties such as our suppliers, technical and support service providers, or professional advisors, where permitted by GDPR. If we disclose information to a third party, we ensure that the third party protects your information to the same extent that we do. Specifically, we may disclose personal information for purposes outlined in this Privacy Policy to:",
-      "list3Item1": "Cloud service providers.",
-      "list3Item2": "Email providers.",
-      "list3Item3": "Analytics services.",
-      "list3Item4": "Payment system operators."
-    },
-    "protection": {
-      "title": "Protection of Personal Information",
-      "paragraph1": "We hold personal information in secure physical records, electronically on our intranet system, in cloud storage, and in some cases, on third-party servers, potentially located overseas. We maintain appropriate physical, procedural, and technical security to prevent loss, misuse, unauthorized access, disclosure, or modification of personal information. Access to personal information is restricted to those who need it to perform their job. We will destroy or de-identify personal information once it is no longer needed."
-    },
-    "marketing": {
-      "title": "Direct Marketing",
-      "paragraph1": "We believe in the value of our Services and, as such, we may send you information about new products, services, and promotions. We will not disclose your personal information to third parties for marketing purposes without your consent. You may opt out at any time if you do not wish to receive commercial messages from us."
-    },
-    "cookies": {
-      "title": "Cookies",
-      "paragraph1": "Cookies are small text files stored on your computer for a predefined period. We use cookies to identify specific machines and collect aggregate information on site usage. This helps us adapt the Site to better suit user needs. For information on cookie settings, please refer to your browser's manual."
-    },
-    "links": {
-      "title": "Links to Other Websites",
-      "paragraph1": "Our website, Yes Job, may contain links to other websites for your convenience. This includes links to recruiters' websites and other third-party sites relevant to job seeking and employment. Please note that we are not responsible for the privacy practices or the content of these other websites. When you access third-party websites, such as recruiters' sites, through our platform, their own terms and privacy policies will apply. We encourage our users to be aware when they leave our site and to read the privacy statements of each and every website that collects personally identifiable information."
-    },
-    "access": {
-      "title": "Accessing and Correcting Your Personal Information",
-      "paragraph1": "You may contact our Privacy Officer to access or correct your personal information. We will respond to requests within a reasonable time frame."
-    },
-    "overseas": {
-      "title": "Overseas Transfers of Personal Information",
-      "paragraph1": "From time to time, we may engage overseas recipients for services such as cloud-based storage solutions. By providing us with your personal information, you consent to the storage of such information on overseas servers."
-    },
-    "resolve": {
-      "title": "Resolving Personal Information Concerns",
-      "paragraph1": "If you have any questions or complaints about this Privacy Policy or how we handle your personal information, please contact our Privacy Officer. We take all complaints seriously and will respond within a reasonable period."
-    },
-    "changes": {
-      "title": "Changes to This Privacy Policy",
-      "paragraph1": "We reserve the right to change this Privacy Policy from time to time. The most current version of our Privacy Policy is available on our website."
+    "privacy": {
+      "currentDate": "Current as of 17/12/2023",
+      "title": "Privacy Policy",
+      "introText": "We respect your privacy regarding any information we may collect from you across our website and strive to be 100% transparent.",
+      "intro": {
+        "title": "Privacy",
+        "paragraph1": "Welcome to Yes Job (“the Site”). Your privacy is of utmost importance to us, and we are dedicated to protecting the information you entrust to us. Yes Job (referred to as \"we\", \"us\", or \"our\") is a premier horeca job board in Belgium, connecting companies with potential candidates. This privacy policy applies to our website, communications, and all services offered through Yes Job (“the Services”).",
+        "paragraph2": "Yes Job is committed to complying with the European Union’s General Data Protection Regulation (GDPR) and other relevant European data protection laws. This Privacy Policy explains our approach to managing your personal information, including our obligations and your rights in respect of our dealings with your personal information. We encourage you to read this Privacy Policy to understand how your personal information is handled when collected via our website or as a result of using our Services."
+      },
+      "how": {
+        "title": "How we collect your personal information",
+        "paragraph1": "We collect and hold your personal information in a manner that is fair, lawful, and non-intrusive. Wherever practical, we collect your personal information directly from you through means such as:",
+        "list1Item1": "Making an inquiry, subscribing, or signing up for our service through our website.",
+        "list1Item2": "Contacting us via telephone or email.",
+        "list1Item3": "Completing our online forms, using the chat feature on our website, or corresponding with us.",
+        "list1Item4": "Participating in customer satisfaction and market research surveys.",
+        "list1Item5": "Administering our Services.",
+        "list1Item6": "Managing our business operations.",
+        "paragraph2": "Additionally, we may collect personal information from publicly available sources and third parties, including suppliers, recruitment agencies, contractors, clients, and business partners."
+      },
+      "type": {
+        "title": "Types of personal information we collect",
+        "paragraph1": "The personal information we collect varies based on whether you are using Yes Job as a company or as a candidate. This information includes, but is not limited to:",
+        "forCompanies": "For Companies:",
+        "companyList1Bold": "Company Information: ",
+        "companyList1": "Your company name, contact details, and relevant information about your business.",
+        "companyList2Bold": "Job Offer Details: ",
+        "companyList2": "Information related to job offers posted, including job descriptions, requirements, and contact information for applicants.",
+        "companyList3Bold": "Account Information: ",
+        "companyList3": "Account creation for companies requires a company name, email address, and a password.",
+        "companyList4Bold": "Professional Qualifications: ",
+        "companyList4": "Information about the qualifications or skills you are seeking in candidates.",
+        "forCandidates": "For Candidates (Upcoming Feature):",
+        "candidateList1Bold": "Personal Information: ",
+        "candidateList1": "Your name, email address, professional qualifications, work experience, photographs, and country of residence.",
+        "candidateList2Bold": "Job Preferences: ",
+        "candidateList2": "Information about the types of jobs you are interested in, preferred work locations, and other job-related preferences.",
+        "candidateList3Bold": "CV and Professional Details: ",
+        "candidateList3": "Your curriculum vitae, education, skills, and any other information relevant to job applications.",
+        "candidateList4Bold": "Account Information: ",
+        "candidateList4": "Account creation for candidates will require your name, email address, and a password.",
+        "profileAdvice": "For both types of users, you may choose the information to include in your profile to enhance the effectiveness of our Services. We advise against posting sensitive personal data that you would not want publicly available.",
+        "interactionData": "Additionally, we collect personal data when you interact with our Services, such as filling out forms, responding to surveys, or submitting job applications. We also log usage data, employ cookies, and collect device and network information when you use our Services."
+      },
+      "purpose": {
+        "title": "Our purposes for handling your personal information",
+        "paragraph1": "We collect, hold, use, and disclose personal information to:",
+        "list2Item1": "Offer and provide our Services.",
+        "list2Item2": "Manage and administer those Services, including account management.",
+        "list2Item3": "Communicate with you about our Services.",
+        "list2Item4": "Verify and manage your specified membership with a company.",
+        "list2Item5": "Display your public personal profile as provided in your profile forms.",
+        "list2Item6": "Comply with our legal and regulatory obligations.",
+        "list2Item7": "Manage our business effectively."
+      },
+      "disclosure": {
+        "title": "Disclosure of Personal Information",
+        "paragraph1": "We may disclose personal information between our organizations or to third parties such as our suppliers, technical and support service providers, or professional advisors, where permitted by GDPR. If we disclose information to a third party, we ensure that the third party protects your information to the same extent that we do. Specifically, we may disclose personal information for purposes outlined in this Privacy Policy to:",
+        "list3Item1": "Cloud service providers.",
+        "list3Item2": "Email providers.",
+        "list3Item3": "Analytics services.",
+        "list3Item4": "Payment system operators."
+      },
+      "protection": {
+        "title": "Protection of Personal Information",
+        "paragraph1": "We hold personal information in secure physical records, electronically on our intranet system, in cloud storage, and in some cases, on third-party servers, potentially located overseas. We maintain appropriate physical, procedural, and technical security to prevent loss, misuse, unauthorized access, disclosure, or modification of personal information. Access to personal information is restricted to those who need it to perform their job. We will destroy or de-identify personal information once it is no longer needed."
+      },
+      "marketing": {
+        "title": "Direct Marketing",
+        "paragraph1": "We believe in the value of our Services and, as such, we may send you information about new products, services, and promotions. We will not disclose your personal information to third parties for marketing purposes without your consent. You may opt out at any time if you do not wish to receive commercial messages from us."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "paragraph1": "Cookies are small text files stored on your computer for a predefined period. We use cookies to identify specific machines and collect aggregate information on site usage. This helps us adapt the Site to better suit user needs. For information on cookie settings, please refer to your browser's manual."
+      },
+      "links": {
+        "title": "Links to Other Websites",
+        "paragraph1": "Our website, Yes Job, may contain links to other websites for your convenience. This includes links to recruiters' websites and other third-party sites relevant to job seeking and employment. Please note that we are not responsible for the privacy practices or the content of these other websites. When you access third-party websites, such as recruiters' sites, through our platform, their own terms and privacy policies will apply. We encourage our users to be aware when they leave our site and to read the privacy statements of each and every website that collects personally identifiable information."
+      },
+      "access": {
+        "title": "Accessing and Correcting Your Personal Information",
+        "paragraph1": "You may contact our Privacy Officer to access or correct your personal information. We will respond to requests within a reasonable time frame."
+      },
+      "overseas": {
+        "title": "Overseas Transfers of Personal Information",
+        "paragraph1": "From time to time, we may engage overseas recipients for services such as cloud-based storage solutions. By providing us with your personal information, you consent to the storage of such information on overseas servers."
+      },
+      "resolve": {
+        "title": "Resolving Personal Information Concerns",
+        "paragraph1": "If you have any questions or complaints about this Privacy Policy or how we handle your personal information, please contact our Privacy Officer. We take all complaints seriously and will respond within a reasonable period."
+      },
+      "changes": {
+        "title": "Changes to This Privacy Policy",
+        "paragraph1": "We reserve the right to change this Privacy Policy from time to time. The most current version of our Privacy Policy is available on our website."
+      }
     }
   }
 }

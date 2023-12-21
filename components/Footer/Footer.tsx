@@ -49,9 +49,9 @@ export const Footer = () => {
           <Link href='/privacy' className='text-xs font-light'>
             {t('footer.policy')}
           </Link>
-          <Link href='/cookies' className='text-xs font-light'>
+          {/* <Link href='/cookies' className='text-xs font-light'>
             Cookies
-          </Link>
+          </Link> */}
         </div>
         <div>
           <p>
