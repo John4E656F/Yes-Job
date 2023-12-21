@@ -72,7 +72,7 @@ export default function TermsAndConditionsGeneralServicesPage() {
             <h3>Links</h3>
             <p>
               7. <b> External Links: </b> Yes Job has not reviewed all sites linked to its website and is not responsible for the contents of any such
-              linked site. The inclusion of any link does not imply endorsement by Yes Job. Use of any such linked website is at the user's own risk.{' '}
+              linked site. The inclusion of any link does not imply endorsement by Yes Job. Use of any such linked website is at the user's own risk.
             </p>
           </div>
           <div className='flex flex-col gap-2'>
@@ -95,7 +95,7 @@ export default function TermsAndConditionsGeneralServicesPage() {
             <p>
               10. <b> Scope of Services: </b> These terms and conditions apply to the Yes Job website, communications, and services. Registered users
               are “Members,” and unregistered users are “Visitors.” Members who have signed up for employer accounts are “Employers,” while job
-              seekers are “Job Seekers.” Visitors or Members who apply for a job using the Site are “Candidates.”{' '}
+              seekers are “Job Seekers.” Visitors or Members who apply for a job using the Site are “Candidates.”
             </p>
             <p>
               11. <b> Site Ownership: </b> The Site is owned and operated by Yes Job (defined as “Yes Job”, “we”, “us” and “our”). Your continued use
