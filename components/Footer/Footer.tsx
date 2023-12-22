@@ -43,15 +43,15 @@ export const Footer = () => {
       </div>
       <div className='flex flex-col w-full text-center justify-center py-10 gap-3.5 '>
         <div className='flex gap-4 justify-center'>
-          <Link href='/terms-and-conditions' className='text-xs font-light '>
+          <Link href='/terms' className='text-xs font-light '>
             {t('footer.terms')}
           </Link>
           <Link href='/privacy' className='text-xs font-light'>
             {t('footer.policy')}
           </Link>
-          <Link href='/cookies' className='text-xs font-light'>
+          {/* <Link href='/cookies' className='text-xs font-light'>
             Cookies
-          </Link>
+          </Link> */}
         </div>
         <div>
           <p>
