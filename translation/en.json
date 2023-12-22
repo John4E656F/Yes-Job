@@ -6,7 +6,8 @@
   "app": {
     "nav": {
       "home": "Home",
-      "contact": "Contact"
+      "contact": "Contact",
+      "pricing": "Pricing"
     },
     "sidebar": {
       "back": "Back to the main site",
