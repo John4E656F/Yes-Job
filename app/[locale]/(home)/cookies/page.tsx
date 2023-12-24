@@ -3,7 +3,7 @@ import React from 'react';
 const page = () => {
   return (
     <section>
-      <div>Hello World</div>
+      <div>Hello Worlds</div>
     </section>
   );
 };
