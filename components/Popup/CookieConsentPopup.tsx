@@ -33,7 +33,7 @@ export const CookieConsentPopup = () => {
           <button className='bg-blue-500 text-white px-3 py-2 rounded mt-2' onClick={handleAccept}>
             {t('cookies.accept')}
           </button>
-          <Link href='/privacy-policy' className='text-blue-500 whitespace-nowrap'>
+          <Link href='/privacy' className='text-blue-500 whitespace-nowrap'>
             {t('cookies.privacy')}
           </Link>
         </div>
