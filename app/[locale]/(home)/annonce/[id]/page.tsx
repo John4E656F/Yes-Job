@@ -1,5 +1,5 @@
 import { formatDate } from '@/utils';
-import { Image, Label, Button, Toast, Tiptap } from '@/components';
+import { Image, Label, Button, Toast, Tiptap, Link } from '@/components';
 import { ContactForm } from './form';
 import type { ListingData, viewCounterDataType, viewCounterResponseType } from '@/types';
 import { getTranslations } from 'next-intl/server';
@@ -43,6 +43,9 @@ export default async function annoncePage({ params }: { params: { id: string } }
           <div className=''>
             <h6 className='text-base font-semibold md:text-lg'>{jobPost.title}</h6>
             <p className='text-base md:text-lg'>{jobPost.company?.name}</p>
+            <Link href={`/companies/${jobPost.company.id}`} className='flex justify-center'>
+              View Company
+            </Link>
           </div>
         </div>
         <div className='flex flex-wrap gap-2.5 py-4 md:py-1 justify-center md:justify-start'>

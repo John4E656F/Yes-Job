@@ -283,5 +283,193 @@
       "experience": "Ervaring vereist",
       "noExperience": "Geen ervaring vereist"
     }
+  },
+  "policies": {
+    "TOS": {
+      "date": "Actueel per ",
+      "title": "Algemene Voorwaarden",
+      "subTitle": "Door gebruik te maken van de Yes Job-website, gaat u akkoord met deze voorwaarden.",
+      "introTitle": "Gebruiksvoorwaarden voor alle gebruikers",
+      "introText": "Door toegang te krijgen tot Yes Job, gaat u akkoord met het naleven van deze servicevoorwaarden, alle toepasselijke wetten en regelgeving, en erkent u verantwoordelijk te zijn voor naleving van eventuele lokale wetten.",
+      "terms": {
+        "title": "Voorwaarden",
+        "paragraphBold": "Gebruiksbeperkingen: ",
+        "paragraph": "Als u niet akkoord gaat met een van deze voorwaarden, is het u verboden deze site te gebruiken of te bezoeken. De materialen op deze website zijn beschermd door toepasselijke auteursrecht- en merkenwetten.",
+        "paragraph1Bold": "Gebruik van Licentie ",
+        "paragraph1": "Toestemming wordt verleend om tijdelijk één kopie van de materialen (informatie of software) op de website van Yes Job te downloaden voor persoonlijk, niet-commercieel tijdelijk bekijken alleen. Onder deze licentie mag u niet:"
+      },
+      "use": {
+        "title": "Gebruik van Licentie",
+        "paragraphBold": "Omvang van de Licentie: ",
+        "paragraph": "Dit is een licentie, geen overdracht van eigendom, en onder deze licentie mag u niet:",
+        "listItem1": "Materialen wijzigen of kopiëren.",
+        "listItem2": "De materialen gebruiken voor enig commercieel doel, of voor enige openbare vertoning (commercieel of niet-commercieel).",
+        "listItem3": "Proberen om software op de website van Yes Job te decompileren of reverse-engineeren.",
+        "listItem4": "Auteursrecht of andere eigendomsrechten van de materialen verwijderen.",
+        "listItem5": "De materialen overdragen aan een andere persoon of 'spiegelen' op een andere server.",
+        "paragraph1Bold": "Beëindiging van de Licentie: ",
+        "paragraph1": "Deze licentie wordt automatisch beëindigd als u een van deze beperkingen overtreedt en kan op elk moment door Yes Job worden beëindigd."
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "paragraphBold": "Basis 'Zoals het is': ",
+        "paragraph": "De materialen op de website van Yes Job worden aangeboden op een 'zoals het is'-basis. Yes Job geeft geen garanties, uitdrukkelijk of impliciet, en wijst hierbij alle andere garanties af.",
+        "title1": "Beperkingen",
+        "paragraph1Bold": "Beperkingen van Aansprakelijkheid: ",
+        "paragraph1": "In geen geval zullen Yes Job of zijn leveranciers aansprakelijk zijn voor enige schade die voortvloeit uit het gebruik of de onmogelijkheid tot gebruik van de materialen op de website van Yes Job.",
+        "title2": "Nauwkeurigheid van Materialen",
+        "paragraph2Bold": "Nauwkeurigheid van Inhoud: ",
+        "paragraph2": "De materialen die op de website van Yes Job verschijnen, kunnen technische, typografische of fotografische fouten bevatten. Yes Job garandeert niet dat een van de materialen op zijn website nauwkeurig, volledig of actueel is."
+      },
+      "links": {
+        "title": "Links",
+        "paragraphBold": "Externe Links: ",
+        "paragraph": "Yes Job heeft niet alle sites die aan zijn website zijn gekoppeld beoordeeld en is niet verantwoordelijk voor de inhoud van dergelijke gekoppelde sites.",
+        "title1": "Wijzigingen",
+        "paragraph1Bold": "Herziening van Voorwaarden: ",
+        "paragraph1": "Yes Job kan deze servicevoorwaarden voor zijn website op elk moment zonder kennisgeving herzien."
+      },
+      "law": {
+        "title": "Toepasselijk Recht",
+        "paragraphBold": "Rechtsgebied: ",
+        "paragraph": "Deze Voorwaarden worden beheerst door de wetten van België en door gebruik te maken van Yes Job, stemt u ermee in u te onderwerpen aan de exclusieve jurisdictie van de rechtbanken in België."
+      },
+      "services": {
+        "title": "Diensten",
+        "paragraphBold": "Omvang van de Diensten: ",
+        "paragraph": "Deze algemene voorwaarden zijn van toepassing op de Yes Job website, communicatie en diensten. Geregistreerde gebruikers zijn ‘Leden’, en niet-geregistreerde gebruikers zijn ‘Bezoekers’. Leden die zich hebben aangemeld voor werkgeversaccounts zijn ‘Werkgevers’, terwijl werkzoekenden‘Kandidaten’ zijn.",
+        "paragraph1Bold": "Eigendom van de Site: ",
+        "paragraph1": "De Site is eigendom van en wordt beheerd door Yes Job (gedefinieerd als ‘Yes Job’, ‘wij’, ‘ons’ en ‘onze’). Uw voortgezet gebruik van deze Site betekent uw aanvaarding van deze Voorwaarden."
+      },
+      "variations": {
+        "title": "Variatie van Voorwaarden",
+        "paragraphBold": "Update van Voorwaarden: ",
+        "paragraph": "We kunnen deze Voorwaarden op elk moment bijwerken, met kennisgeving gepubliceerd op de Site."
+      },
+      "ownership": {
+        "title": "Intellectuele Eigendomsrechten",
+        "paragraphBold": "Eigendom: ",
+        "paragraph": "Yes Job behoudt alle intellectuele eigendomsrechten op de diensten die aan u worden verstrekt."
+      },
+      "limit": {
+        "title": "Beperking van Aansprakelijkheid en Disclaimer",
+        "paragraphBold": "Garantie op de Dienst: ",
+        "paragraph": "Yes Job biedt geen garantie dat de diensten die via de Site beschikbaar zijn ononderbroken of foutloos zullen zijn. Onze aansprakelijkheid is beperkt tot de maximaal toegestane mate volgens de wet.",
+        "paragraph1Bold": "Beperking van Aansprakelijkheid: ",
+        "paragraph1": "Aansprakelijkheid voor schending van enige impliciete garantie, die niet kan worden uitgesloten, is beperkt tot het opnieuw leveren van de diensten of de kosten van het opnieuw leveren van de diensten.",
+        "paragraph2Bold": "Omvang van Disclaimer: ",
+        "paragraph2": "Onze aansprakelijkheidsbeperking is van toepassing op directe, indirecte en gevolgschade.",
+        "paragraph3Bold": "Verantwoordelijkheid voor Inhoud: ",
+        "paragraph3": "Yes Job aanvaardt geen verantwoordelijkheid voor fouten in uw advertenties op onze Site.",
+        "paragraph4Bold": "Inspanning voor de Dienst: ",
+        "paragraph4": "Yes Job zal redelijke inspanningen doen om advertenties tijdig te publiceren.",
+        "paragraph5Bold": "Gegevensbeveiliging: ",
+        "paragraph5": "Yes Job garandeert niet dat bestanden die beschikbaar zijn voor download via de Site vrij zijn van schadelijke elementen.",
+        "paragraph6Bold": "Rol als Medium: ",
+        "paragraph6": "Yes Job fungeert als een medium voor werkgelegenheidskansen en controleert de Kandidaten of hun voorstellingen niet."
+      }
+    },
+    "privacy": {
+      "currentDate": "Actueel per 17/12/2023",
+      "title": "Privacybeleid",
+      "introText": "We respecteren uw privacy met betrekking tot alle informatie die we van u kunnen verzamelen via onze website en streven naar 100% transparantie.",
+      "intro": {
+        "title": "Privacy",
+        "paragraph1": "Welkom bij Yes Job (“de Site”). Uw privacy is van het grootste belang voor ons, en we zijn toegewijd aan het beschermen van de informatie die u aan ons toevertrouwt. Yes Job (aangeduid als \"wij\", \"ons\", of \"onze\") is een vooraanstaand horeca-jobbord in België, dat bedrijven verbindt met potentiële kandidaten. Dit privacybeleid is van toepassing op onze website, communicatie en alle diensten aangeboden door Yes Job (“de Diensten”).",
+        "paragraph2": "Yes Job is toegewijd aan het naleven van de Algemene Verordening Gegevensbescherming (AVG) van de Europese Unie en andere relevante Europese wetten inzake gegevensbescherming. Dit Privacybeleid legt onze aanpak uit voor het beheren van uw persoonlijke informatie, inclusief onze verplichtingen en uw rechten met betrekking tot onze omgang met uw persoonlijke informatie. We moedigen u aan dit Privacybeleid te lezen om te begrijpen hoe uw persoonlijke informatie wordt behandeld wanneer deze via onze website wordt verzameld of als gevolg van het gebruik van onze Diensten."
+      },
+      "how": {
+        "title": "Hoe wij uw persoonlijke informatie verzamelen",
+        "paragraph1": "Wij verzamelen en bewaren uw persoonlijke informatie op een eerlijke, wettelijke en niet-opdringerige manier. Waar mogelijk verzamelen wij uw persoonlijke informatie rechtstreeks van u via middelen zoals:",
+        "list1Item1": "Een aanvraag doen, abonneren of aanmelden voor onze service via onze website.",
+        "list1Item2": "Contact met ons opnemen via telefoon of e-mail.",
+        "list1Item3": "Onze online formulieren invullen, gebruikmaken van de chatfunctie op onze website of met ons corresponderen.",
+        "list1Item4": "Deelnemen aan klanttevredenheid en marktonderzoeksenquêtes.",
+        "list1Item5": "Onze Diensten beheren.",
+        "list1Item6": "Onze bedrijfsactiviteiten beheren.",
+        "paragraph2": "Daarnaast kunnen wij persoonlijke informatie verzamelen van openbaar beschikbare bronnen en derden, inclusief leveranciers, wervingsbureaus, aannemers, klanten en zakelijke partners."
+      },
+      "type": {
+        "title": "Typen persoonlijke informatie die wij verzamelen",
+        "paragraph1": "De persoonlijke informatie die we verzamelen, varieert afhankelijk van of u Yes Job gebruikt als bedrijf of als kandidaat. Deze informatie omvat, maar is niet beperkt tot:",
+        "forCompanies": "Voor Bedrijven:",
+        "companyList1Bold": "Bedrijfsinformatie: ",
+        "companyList1": "Uw bedrijfsnaam, contactgegevens en relevante informatie over uw bedrijf.",
+        "companyList2Bold": "Details van de Jobaanbieding: ",
+        "companyList2": "Informatie gerelateerd aan geplaatste jobaanbiedingen, inclusief functiebeschrijvingen, vereisten en contactinformatie voor sollicitanten.",
+        "companyList3Bold": "Accountinformatie: ",
+        "companyList3": "Het aanmaken van een account voor bedrijven vereist een bedrijfsnaam, e-mailadres en een wachtwoord.",
+        "companyList4Bold": "Professionele Kwalificaties: ",
+        "companyList4": "Informatie over de kwalificaties of vaardigheden die u zoekt in kandidaten.",
+        "forCandidates": "Voor Kandidaten (Toekomstige Functie):",
+        "candidateList1Bold": "Persoonlijke Informatie: ",
+        "candidateList1": "Uw naam, e-mailadres, professionele kwalificaties, werkervaring, foto's en land van verblijf.",
+        "candidateList2Bold": "Voorkeuren voor Werk: ",
+        "candidateList2": "Informatie over de soorten banen waarin u geïnteresseerd bent, voorkeurswerklocaties en andere werkgerelateerde voorkeuren.",
+        "candidateList3Bold": "CV en Professionele Gegevens: ",
+        "candidateList3": "Uw curriculum vitae, opleiding, vaardigheden en alle andere informatie relevant voor sollicitaties.",
+        "candidateList4Bold": "Accountinformatie: ",
+        "candidateList4": "Het aanmaken van een account voor kandidaten vereist uw naam, e-mailadres en een wachtwoord.",
+        "profileAdvice": "Voor beide typen gebruikers kunt u kiezen welke informatie u in uw profiel opneemt om de effectiviteit van onze Diensten te vergroten. Wij adviseren tegen het plaatsen van gevoelige persoonlijke gegevens die u niet openbaar beschikbaar wilt hebben.",
+        "interactionData": "Daarnaast verzamelen we persoonlijke gegevens wanneer u interactie heeft met onze Diensten, zoals het invullen van formulieren, reageren op enquêtes of het indienen van sollicitaties. We loggen ook gebruiksgegevens, gebruiken cookies en verzamelen apparaat- en netwerkinformatie wanneer u onze Diensten gebruikt."
+      },
+      "purpose": {
+        "title": "Onze doeleinden voor het verwerken van uw persoonlijke informatie",
+        "paragraph1": "Wij verzamelen, bewaren, gebruiken en verstrekken persoonlijke informatie om:",
+        "list2Item1": "Onze Diensten aan te bieden en te leveren.",
+        "list2Item2": "Die Diensten te beheren en te administreren, inclusief accountbeheer.",
+        "list2Item3": "Met u te communiceren over onze Diensten.",
+        "list2Item4": "Uw gespecificeerde lidmaatschap bij een bedrijf te verifiëren en te beheren.",
+        "list2Item5": "Uw openbare persoonlijke profiel weer te geven zoals verstrekt in uw profielformulieren.",
+        "list2Item6": "Te voldoen aan onze wettelijke en regelgevende verplichtingen.",
+        "list2Item7": "Onze bedrijfsactiviteiten effectief te beheren."
+      },
+      "disclosure": {
+        "title": "Openbaarmaking van Persoonlijke Informatie",
+        "paragraph1": "Wij kunnen persoonlijke informatie uitwisselen tussen onze organisaties of aan derden zoals onze leveranciers, technische en ondersteunende dienstverleners of professionele adviseurs, waar dit is toegestaan door de AVG. Als we informatie aan een derde partij verstrekken, zorgen we ervoor dat deze derde partij uw informatie op dezelfde manier beschermt als wij. Specifiek kunnen we persoonlijke informatie openbaar maken voor doeleinden zoals uiteengezet in dit Privacybeleid aan:",
+        "list3Item1": "Cloudserviceproviders.",
+        "list3Item2": "E-mailproviders.",
+        "list3Item3": "Analytische diensten.",
+        "list3Item4": "Operators van betalingssystemen."
+      },
+      "protection": {
+        "title": "Bescherming van Persoonlijke Informatie",
+        "paragraph1": "Wij bewaren persoonlijke informatie in beveiligde fysieke dossiers, elektronisch op ons intranetsysteem, in cloudopslag en in sommige gevallen op servers van derden, mogelijk gelegen in het buitenland. We handhaven passende fysieke, procedurele en technische beveiliging om verlies, misbruik, ongeautoriseerde toegang, openbaarmaking of wijziging van persoonlijke informatie te voorkomen. De toegang tot persoonlijke informatie is beperkt tot degenen die het nodig hebben om hun werk uit te voeren. We zullen persoonlijke informatie vernietigen of anonimiseren zodra deze niet meer nodig is."
+      },
+      "marketing": {
+        "title": "Directe Marketing",
+        "paragraph1": "Wij geloven in de waarde van onze Diensten en kunnen u daarom informatie sturen over nieuwe producten, diensten en promoties. Wij zullen uw persoonlijke informatie niet aan derden verstrekken voor marketingdoeleinden zonder uw toestemming. U kunt zich op elk moment afmelden als u geen commerciële berichten van ons wilt ontvangen."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "paragraph1": "Cookies zijn kleine tekstbestanden die voor een vooraf bepaalde periode op uw computer worden opgeslagen. Wij gebruiken cookies om specifieke machines te identificeren en geaggregeerde informatie over het gebruik van de site te verzamelen. Dit helpt ons de Site beter aan te passen aan de behoeften van de gebruiker. Voor informatie over cookie-instellingen, raadpleeg de handleiding van uw browser."
+      },
+      "links": {
+        "title": "Links naar Andere Websites",
+        "paragraph1": "Onze website, Yes Job, kan links bevatten naar andere websites voor uw gemak. Dit omvat links naar websites van recruiters en andere sites van derden die relevant zijn voor het zoeken naar werk en werkgelegenheid. Let op dat wij niet verantwoordelijk zijn voor de privacypraktijken of de inhoud van deze andere websites. Wanneer u toegang krijgt tot websites van derden, zoals die van recruiters, via ons platform, gelden hun eigen voorwaarden en privacybeleid. We moedigen onze gebruikers aan zich bewust te zijn wanneer ze onze site verlaten en de privacyverklaringen van elke website die persoonlijk identificeerbare informatie verzamelt, te lezen."
+      },
+      "access": {
+        "title": "Toegang tot en Correctie van Uw Persoonlijke Informatie",
+        "paragraph1": "U kunt contact opnemen met onze Privacy Officer om toegang te krijgen tot of om uw persoonlijke informatie te corrigeren. Wij zullen binnen een redelijke termijn op verzoeken reageren."
+      },
+      "overseas": {
+        "title": "Overdracht van Persoonlijke Informatie naar het Buitenland",
+        "paragraph1": "Af en toe kunnen we buitenlandse ontvangers inschakelen voor diensten zoals cloudgebaseerde opslagoplossingen. Door ons uw persoonlijke informatie te verstrekken, stemt u in met de opslag van dergelijke informatie op servers in het buitenland."
+      },
+      "resolve": {
+        "title": "Oplossen van Zorgen over Persoonlijke Informatie",
+        "paragraph1": "Als u vragen of klachten heeft over dit Privacybeleid of over hoe wij uw persoonlijke informatie behandelen, neem dan contact op met onze Privacy Officer. Wij nemen alle klachten serieus en zullen binnen een redelijke termijn reageren."
+      },
+      "changes": {
+        "title": "Wijzigingen in dit Privacybeleid",
+        "paragraph1": "Wij behouden ons het recht voor om dit Privacybeleid van tijd tot tijd te wijzigen. De meest actuele versie van ons Privacybeleid is beschikbaar op onze website."
+      }
+    },
+    "cookies": {
+      "what": "We gebruiken cookies alleen voor verificatie en om uw taalvoorkeuren te onthouden.",
+      "agree": "Door deze site te blijven bezoeken, gaat u akkoord met ons gebruik van cookies.",
+      "accept": "Accepteer",
+      "privacy": "Voir nos politiques de confidentialité"
+    }
   }
 }

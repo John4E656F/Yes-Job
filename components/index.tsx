@@ -34,3 +34,4 @@ export { Sidebar, SidebarList, MobileNavbar, DashboardFormInput, DashboardImageU
 export { Modal } from './Modal/Modal';
 export { PricingCard } from './Card/PricingCard';
 export { BasicPlanCard } from './Card/BasicPlanCard';
+export { CookieConsentPopup } from './Popup/CookieConsentPopup';
