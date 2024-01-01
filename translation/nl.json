@@ -464,6 +464,12 @@
         "title": "Wijzigingen in dit Privacybeleid",
         "paragraph1": "Wij behouden ons het recht voor om dit Privacybeleid van tijd tot tijd te wijzigen. De meest actuele versie van ons Privacybeleid is beschikbaar op onze website."
       }
+    },
+    "cookies": {
+      "what": "We gebruiken cookies alleen voor verificatie en om uw taalvoorkeuren te onthouden.",
+      "agree": "Door deze site te blijven bezoeken, gaat u akkoord met ons gebruik van cookies.",
+      "accept": "Accepteer",
+      "privacy": "Voir nos politiques de confidentialité"
     }
   }
 }

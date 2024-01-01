@@ -468,6 +468,12 @@
         "title": "Changes to This Privacy Policy",
         "paragraph1": "We reserve the right to change this Privacy Policy from time to time. The most current version of our Privacy Policy is available on our website."
       }
+    },
+    "cookies": {
+      "what": "We use cookies only for authentication and to remember your language preferences.",
+      "agree": "By continuing to visit this site, you agree to our use of cookies.",
+      "accept": "Accept",
+      "privacy": "View our privacy policies"
     }
   }
 }

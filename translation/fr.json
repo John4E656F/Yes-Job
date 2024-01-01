@@ -466,6 +466,12 @@
         "title": "Modifications de cette politique de confidentialité",
         "paragraph1": "Nous nous réservons le droit de modifier cette politique de confidentialité de temps à autre. La version la plus récente de notre politique de confidentialité est disponible sur notre site web."
       }
+    },
+    "cookies": {
+      "what": "Nous utilisons des cookies uniquement à des fins d'authentification et pour mémoriser vos préférences linguistiques.",
+      "agree": "En continuant à visiter ce site, vous acceptez notre utilisation des cookies.",
+      "accept": "Accepter",
+      "privacy": "Voir nos politiques de confidentialité"
     }
   }
 }
