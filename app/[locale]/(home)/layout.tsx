@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { Navbar, Footer } from '@/components';
+import { Navbar, Footer, CookieConsentPopup } from '@/components';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { locales } from '@/navigation';
@@ -52,6 +52,7 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
             </main>
           </section>
           <Footer />
+          <CookieConsentPopup />
         </NextIntlClientProvider>
       </body>
     </html>
