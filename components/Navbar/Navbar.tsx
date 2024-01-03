@@ -145,7 +145,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
                 )}
               </li>
             </ul>
-            {isFirstPost ? (
+            {isFirstPost || !userData ? (
               <Button
                 text={t('cta.publish')}
                 btnType='button'

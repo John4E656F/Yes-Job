@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
 import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useTranslations } from 'next-intl';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { publishFormResolver, type PublishFormInputs } from './publishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToggle } from '@/hooks';
@@ -77,7 +77,7 @@ const PublishPage: React.FC = () => {
       let sessionId;
 
       if (!session) {
-        redirect('/login');
+        router.push('/login');
       } else {
         sessionId = session.user.id;
       }
@@ -110,7 +110,7 @@ const PublishPage: React.FC = () => {
               setToastErrorMessage('Please setup your company profile first.');
               toggleToast(true);
               setTimeout(() => {
-                redirect('/dashboard/company');
+                router.push('/dashboard/company');
               }, 2000);
               console.error('Failed to fetch user data:', fetchedCompanyError);
             }
