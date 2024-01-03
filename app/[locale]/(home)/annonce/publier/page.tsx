@@ -573,7 +573,7 @@ const PublishPage: React.FC = () => {
                   register={register('contactPassword')}
                   error={errors.contactPassword}
                   isRequiredMessage={t('publishAds.contactDetailsPasswordValidationMin')}
-                  placeholder='recrument@mcdonalds.be'
+                  placeholder='*********'
                 />
               </div>
             </>
