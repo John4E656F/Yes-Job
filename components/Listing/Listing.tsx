@@ -78,7 +78,7 @@ export function Listing() {
             </h3>
             <h4 className='text-4xl font-semibold'>{t('listing.title')}</h4>
           </div>
-          {/* <SearchBar /> */}
+          {/* <SearchBar /> test this first*/}
         </div>
         <div className='flex flex-col gap-4'>
           {jobPosts.map((jobPost) => (
