@@ -166,7 +166,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               (companyData.logo ? (
                 <Button
                   className='rounded-full p-1 ring-2 ring-gray-300 max-h-10 max-w-10 overflow-hidden'
-                  text={<Image src={companyData.logo} alt='user avatar' width={40} height={40} className='max-h-10 rounded-full ' />}
+                  text={<Image src={companyData.logo} alt='user avatar' width={40} height={40} className='rounded-full ' />}
                   btnType='button'
                   onClick={toggleProfileMenu}
                 />
