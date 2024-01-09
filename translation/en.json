@@ -197,6 +197,12 @@
       "notEnoughListing": "You don't have any available listing, ",
       "pleaseUpgrade": "please upgrade your account."
     },
+    "toast": {
+      "publishSuccess": "Your job offer has been published successfully.",
+      "draftSaveSuccess": "Your job offer has been saved as draft.",
+      "unexpectedError": "An unexpected error has occurred, please try again later.",
+      "errorUserExist": "User already registered, please signin."
+    },
     "pricing": {
       "headerTitle": "Pricing",
       "headerSubTitle": "Flexible Plans and Pricing",

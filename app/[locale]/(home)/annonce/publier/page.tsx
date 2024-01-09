@@ -228,7 +228,7 @@ const PublishPage: React.FC = () => {
           router.push('/');
         }, 2000);
       } else if (result.type == 'error' && result.message === 'User already exists, please login first') {
-        setToastErrorMessage('User already exists, please login first');
+        setToastErrorMessage(t('toast.errorUserExist'));
         setTimeout(() => {
           toggleToast(false);
           router.push('/login');
@@ -239,7 +239,7 @@ const PublishPage: React.FC = () => {
           toggleToast(false);
         }, 10000);
       } else {
-        setToastErrorMessage('Unexpected error, please try again later.');
+        setToastErrorMessage(t('toast.unexpectedError'));
         setTimeout(() => {
           toggleToast(false);
         }, 10000);
@@ -289,7 +289,7 @@ const PublishPage: React.FC = () => {
         isOpen={isToastOpen}
         onClose={handleCloseToast}
         title={isSubmitSuccessful ? ToastTitle.Success : ToastTitle.Error}
-        message={isSubmitSuccessful ? 'Ad submitted successfully' : toastErrorMessage}
+        message={isSubmitSuccessful ? t('toast.publishSuccess') : toastErrorMessage}
       />
       <form className='flex flex-col container w-full lg:max-w-5xl  py-4 md:py-16 gap-5' onSubmit={handleSubmit(onSubmit)}>
         <h2 className='text-4xl font-semibold'>{t('publishAds.title')}</h2>

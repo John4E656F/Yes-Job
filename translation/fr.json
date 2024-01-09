@@ -197,6 +197,12 @@
       "notEnoughListing": "Vous n'avez pas d'annonce disponible, ",
       "pleaseUpgrade": "veuillez mettre à jour votre compte."
     },
+    "toast": {
+      "publishSuccess": "Votre offre d'emploi a été publiée avec succès.",
+      "draftSaveSuccess": "Votre offre d'emploi a été enregistrée comme brouillon.",
+      "unexpectedError": "Une erreur inattendue s'est produite, veuillez réessayer plus tard.",
+      "errorUserExist": "L'utilisateur est déjà enregistré, veuillez vous connecter."
+    },
     "pricing": {
       "headerTitle": "Nos tarifs",
       "headerSubTitle": "Plans et tarifs flexibles",

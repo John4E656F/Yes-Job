@@ -135,8 +135,6 @@ export async function registerJobPost({ data, resCompanyId }: RegisterJobPost) {
         salaryMax: data.salaryMax,
         applicationMethod: data.applicationMethod,
         externalFormURL: data.externalFormURL,
-        pinned: true,
-        pinned_at: new Date().toISOString(),
         published: true,
         published_at: new Date().toISOString(),
       })
@@ -203,25 +201,29 @@ export async function publishListing(data: PublishFormInputs) {
   try {
     let companyId = data.company_Id;
 
-    const { data: jobPostData, error: insertError } = await supabase.from('jobPosting').insert({
-      company_id: companyId,
-      title: data.title,
-      jobFunction: data.jobFunction,
-      cdd: data.cdd,
-      cdi: data.cdi,
-      fullTime: data.fullTime,
-      partTime: data.partTime,
-      description: data.description,
-      experience: data.experience === 'experience' ? true : false,
-      student: data.student,
-      flexi: data.flexi,
-      location: data.location,
-      salaryMin: data.salaryMin,
-      salaryMax: data.salaryMax,
-      applicationMethod: data.applicationMethod,
-      externalFormURL: data.externalFormURL,
-      published: true,
-    });
+    const { data: jobPostData, error: insertError } = await supabase
+      .from('jobPosting')
+      .insert({
+        company_id: companyId,
+        title: data.title,
+        jobFunction: data.jobFunction,
+        cdd: data.cdd,
+        cdi: data.cdi,
+        fullTime: data.fullTime,
+        partTime: data.partTime,
+        description: data.description,
+        experience: data.experience === 'experience' ? true : false,
+        student: data.student,
+        flexi: data.flexi,
+        location: data.location,
+        salaryMin: data.salaryMin,
+        salaryMax: data.salaryMax,
+        applicationMethod: data.applicationMethod,
+        externalFormURL: data.externalFormURL,
+        published_at: new Date().toISOString(),
+        published: true,
+      })
+      .select();
 
     if (insertError || !jobPostData) {
       return {
@@ -230,10 +232,14 @@ export async function publishListing(data: PublishFormInputs) {
       };
     }
 
-    const { error: languageError } = await supabase
-      .from('language')
-      .insert({ english: data.english, french: data.french, dutch: data.dutch, jobPost_id: (jobPostData[0] as jobPost).id });
-    if (languageError) {
+    const { data: languageData, error: languageError } = await supabase
+      .from('languages')
+      .insert({ english: data.english, french: data.french, dutch: data.dutch, jobPost_id: jobPostData[0].id })
+      .select();
+    // const { data: languageData, error: languageError } = await supabase
+    //   .from('languages')
+    //   .insert({ english: data.english, french: data.french, dutch: data.dutch, jobPost_id: (jobPostData[0] as jobPost).id });
+    if (languageError || !languageData) {
       // console.log('language', languageError.message);
 
       return {
@@ -241,6 +247,7 @@ export async function publishListing(data: PublishFormInputs) {
         message: 'Unexpected error, please try again later.',
       };
     }
+
     const { error: companyError } = await supabase
       .from('company')
       .update({ jobListings: [(jobPostData[0] as jobPost).id] })
@@ -248,15 +255,25 @@ export async function publishListing(data: PublishFormInputs) {
       .single();
 
     if (companyError) {
-      // console.log('companyerror', companyError.message);
+      console.log('companyerror', companyError.message);
       return { type: 'error' as const, message: companyError.message };
+    }
+    const { error: newJobPostError } = await supabase.from('jobPosting').update({ languages: languageData[0].id }).eq('id', jobPostData[0].id);
+
+    if (newJobPostError) {
+      // console.log('add lang:', newJobPostError.message);
+
+      return {
+        type: 'error' as const,
+        message: 'Unexpected error, please try again later.',
+      };
     }
     return {
       type: 'success' as const,
       message: 'Your job offer has been published successfully.',
     };
   } catch (error: any) {
-    // console.error('An error occurred:', error.message);
+    console.error('An error occurred:', error.message);
     return {
       type: 'error' as const,
       message: 'Unexpected error, please try again later.',
