@@ -195,7 +195,8 @@
       "invalidEmail": "Invalid email address",
       "errorOption": "Please select an option.",
       "userExist": "User already registered, please signin.",
-      "notEnoughListing": "You don't have any available listing, please upgrade your account."
+      "notEnoughListing": "You don't have any available listing, ",
+      "pleaseUpgrade": "please upgrade your account."
     },
     "pricing": {
       "headerTitle": "Pricing",

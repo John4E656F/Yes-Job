@@ -95,10 +95,10 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   const onClickPost = () => {
     if (usedListingCount === companyData.availableJobListing) {
       toggleToast(true);
-      setTimeout(() => {
-        // router.push(`/upgrade`);
-        toggleToast(false);
-      }, 10000);
+      // setTimeout(() => {
+      //   // router.push(`/upgrade`);
+      //   toggleToast(false);
+      // }, 10000);
     } else {
       router.push(`/publier`);
     }
@@ -108,7 +108,13 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   };
   return (
     <nav className='w-full flex justify-center h-auto relative'>
-      <Toast isOpen={isToastOpen} onClose={handleCloseToast} title={ToastTitle.Error} message={t('error.notEnoughListing')} />
+      <Toast
+        isOpen={isToastOpen}
+        onClose={handleCloseToast}
+        title={ToastTitle.Error}
+        message={t('error.notEnoughListing')}
+        link={{ href: '/pricing', text: t('error.pleaseUpgrade') }}
+      />
       <div className='container flex justify-between items-center py-3 text-sm relative'>
         <Link href='/' className='flex items-center' aria-label='YesJob Navbar Logo'>
           <Logo width={80} height={80} />

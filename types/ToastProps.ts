@@ -15,4 +15,5 @@ export interface ToastProps {
     href: string;
     text: string;
   };
+  linkMessage?: string;
 }

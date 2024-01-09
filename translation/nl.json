@@ -194,7 +194,8 @@
       "invalidEmail": "Ongeldig e-mailadres",
       "errorOption": "Selecteer een optie.",
       "userExist": "Gebruiker al geregistreerd, inloggen a.u.b.",
-      "notEnoughListing": "Je hebt geen beschikbare listing, upgrade alsjeblieft je account."
+      "notEnoughListing": "Je hebt geen beschikbare listing, ",
+      "pleaseUpgrade": "upgrade alsjeblieft je account."
     },
     "pricing": {
       "headerTitle": "Prijzen",
