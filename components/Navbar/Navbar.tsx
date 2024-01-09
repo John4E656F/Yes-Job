@@ -165,7 +165,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
             {session &&
               (companyData.logo ? (
                 <Button
-                  className='rounded-full p-1 ring-2 ring-gray-300 max-h-10 max-w-10 overflow-hidden'
+                  className='rounded-full p-1 ring-2 ring-gray-300 max-h-10 max-w-10 w-10 h-10 overflow-hidden'
                   text={<Image src={companyData.logo} alt='user avatar' width={40} height={40} className='rounded' />}
                   btnType='button'
                   onClick={toggleProfileMenu}
@@ -180,7 +180,6 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               ))}
             <Button text={<HiMiniLanguage className='text-xl text-gray-400 hover:text-gray-200' />} btnType='button' onClick={toggleLocaleModal} />
           </div>
-          <Image src={companyData.logo} alt='user avatar' width={40} height={30} className='rounded-full object-cover' />
           <MobileMenu isMenuOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} menuRef={mobileMenuRef} session={session} t={t} />
           <ProfileMenu isMenuOpen={isProfileMenuOpen} toggleMenu={toggleProfileMenu} menuRef={profileMenuRef} t={t} userData={userData!} />
         </div>
