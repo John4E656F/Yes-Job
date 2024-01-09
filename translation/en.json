@@ -96,11 +96,10 @@
     "ads": {
       "title": "We're glad you'd like to advertise with us!",
       "subTitle": "YES Job is the best place to find and advertise jobs in the hospitality industry",
-      "li": "30-day home page promotion",
-      "li1": "Offer optimization",
-      "li2": "Facebook campaign",
-      "li3": "Google campaign",
-      "li4": "Distribution in the Google for Jobs recruitment network"
+      "li": "Offer optimization",
+      "li1": "Facebook campaign",
+      "li2": "Google campaign",
+      "li3": "Distribution in the Google for Jobs recruitment network"
     },
     "publishAds": {
       "title": "Create an ad",
