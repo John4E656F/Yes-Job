@@ -95,10 +95,10 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   const onClickPost = () => {
     if (usedListingCount === companyData.availableJobListing) {
       toggleToast(true);
-      setTimeout(() => {
-        // router.push(`/upgrade`);
-        toggleToast(false);
-      }, 10000);
+      // setTimeout(() => {
+      //   // router.push(`/upgrade`);
+      //   toggleToast(false);
+      // }, 10000);
     } else {
       router.push(`/publier`);
     }
@@ -108,7 +108,13 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
   };
   return (
     <nav className='w-full flex justify-center h-auto relative'>
-      <Toast isOpen={isToastOpen} onClose={handleCloseToast} title={ToastTitle.Error} message={t('error.notEnoughListing')} />
+      <Toast
+        isOpen={isToastOpen}
+        onClose={handleCloseToast}
+        title={ToastTitle.Error}
+        message={t('error.notEnoughListing')}
+        link={{ href: '/pricing', text: t('error.pleaseUpgrade') }}
+      />
       <div className='container flex justify-between items-center py-3 text-sm relative'>
         <Link href='/' className='flex items-center' aria-label='YesJob Navbar Logo'>
           <Logo width={80} height={80} />
@@ -145,7 +151,7 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
                 )}
               </li>
             </ul>
-            {isFirstPost ? (
+            {isFirstPost || !userData ? (
               <Button
                 text={t('cta.publish')}
                 btnType='button'
@@ -165,7 +171,8 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
             {session &&
               (companyData.logo ? (
                 <Button
-                  text={<Image src={companyData.logo} alt='user avatar' width={40} height={40} className='rounded-full p-1 ring-2 ring-gray-300' />}
+                  className='rounded-full p-1 ring-2 ring-gray-300 max-h-10 max-w-10 w-10 h-10 overflow-hidden'
+                  text={<Image src={companyData.logo} alt='user avatar' width={40} height={40} className='rounded' />}
                   btnType='button'
                   onClick={toggleProfileMenu}
                 />

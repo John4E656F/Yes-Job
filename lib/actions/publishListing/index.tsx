@@ -220,8 +220,6 @@ export async function publishListing(data: PublishFormInputs) {
       salaryMax: data.salaryMax,
       applicationMethod: data.applicationMethod,
       externalFormURL: data.externalFormURL,
-      pinned: true,
-      pinned_at: new Date().toISOString(),
       published: true,
     });
 

@@ -106,6 +106,8 @@
       "infoCompany": "Informations sur l'entreprise",
       "companyName": "Nom de l'entreprise",
       "companyLogo": "Logo de l'entreprise",
+      "companyWebsite": "Site web de l'entreprise",
+      "companyPhone": "Numéro de téléphone de l'entreprise",
       "upload": "Cliquez pour télécharger",
       "dnd": "ou glisser-déposer",
       "uploadDetails": "SVG, PNG, JPG ou GIF",
@@ -139,6 +141,7 @@
       "contactDetailsSub": "Ces données sont uniquement à vous contacter en cas d'annonce de questions. Ils ne seront affichés nulle part.",
       "contactDetailsFirstname": "Prénom",
       "contactDetailsLastname": "Nom",
+      "contactPhone": "Numéro de téléphone",
       "contactDetailsEmail": "Adresse e-mail",
       "contactDetailsEmailValidation": "Veuillez entrer une adresse e-mail valide.",
       "contactDetailsPassword": "Mot de passe",
@@ -191,7 +194,8 @@
       "invalidEmail": "Adresse e-mail invalide",
       "errorOption": "Veuillez sélectionner une option.",
       "userExist": "L'utilisateur déjà inscrit, veuillez vous connecter.",
-      "notEnoughListing": "Vous n'avez pas d'annonce disponible, veuillez mettre à jour votre compte."
+      "notEnoughListing": "Vous n'avez pas d'annonce disponible, ",
+      "pleaseUpgrade": "veuillez mettre à jour votre compte."
     },
     "pricing": {
       "headerTitle": "Nos tarifs",

@@ -21,9 +21,9 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
     >
       <p className='flex gap-5 items-center justify-between px-5 py-2 text-base font-medium whitespace-nowrap'>
         {userData.firstname} {userData.lastname}
-        <Link href={`/profile/${userData.id}`} className=' block text-brand-primary rounded ' onClick={toggleMenu}>
+        {/* <Link href={`/profile/${userData.id}`} className=' block text-brand-primary rounded ' onClick={toggleMenu}>
           {t('sidebar.viewProfile')}
-        </Link>
+        </Link> */}
       </p>
       <Divider />
       <ul className='text-base font-medium flex flex-col gap-2 rounded-lg list-none'>

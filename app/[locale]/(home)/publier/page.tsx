@@ -1,9 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
+import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap, LoadingSpinner } from '@/components';
 import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useTranslations } from 'next-intl';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { publishFormResolver, type PublishFormInputs } from './publishFormResolver';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useToggle } from '@/hooks';
@@ -17,6 +17,7 @@ const PublishPage: React.FC = () => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const [isPublished, setIsPublished] = useState<boolean>();
+  const [submiting, setSubmiting] = useState<boolean>(false);
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
   const [toastSucessMessage, setToastSuccessMessage] = useState<string>('');
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
@@ -77,7 +78,7 @@ const PublishPage: React.FC = () => {
       let sessionId;
 
       if (!session) {
-        redirect('/login');
+        router.push('/login');
       } else {
         sessionId = session.user.id;
       }
@@ -110,7 +111,7 @@ const PublishPage: React.FC = () => {
               setToastErrorMessage('Please setup your company profile first.');
               toggleToast(true);
               setTimeout(() => {
-                redirect('/dashboard/company');
+                router.push('/dashboard/company');
               }, 2000);
               console.error('Failed to fetch user data:', fetchedCompanyError);
             }
@@ -149,6 +150,7 @@ const PublishPage: React.FC = () => {
   ];
 
   const onSubmit = async (data: PublishFormInputs) => {
+    setSubmiting(true);
     const result = await publishListing(data);
 
     if (result.type == 'success') {
@@ -157,7 +159,7 @@ const PublishPage: React.FC = () => {
       setTimeout(() => {
         toggleToast(false);
         router.push('/');
-      }, 2000);
+      }, 5000);
     } else {
       setToastErrorMessage('Unexpected error, please try again later.');
       setTimeout(() => {
@@ -375,17 +377,27 @@ const PublishPage: React.FC = () => {
           </div>
         </div>
         <div className='flex justify-center gap-5'>
-          <Button
-            btnType='submit'
-            text={'Publish'}
-            className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
-          />
+          {submiting ? (
+            <div className=' flex w-auto gap-2 items-center px-4 h-11 justify-center text-sm bg-slate-300 text-blue-600 rounded-lg'>
+              <LoadingSpinner />
+              <p>Submiting...</p>
+            </div>
+          ) : (
+            <Button
+              btnType='submit'
+              text={'Publish'}
+              className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+            />
+          )}
           {!isPublished && (
             <Button
               onClick={() => saveAsDraft(watch())}
               btnType='button'
               text={'Save as draft'}
-              className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-secondary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+              disabled={submiting}
+              className={`w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-secondary text-white rounded-lg  ${
+                submiting ? 'hover:none bg-slate-200' : 'hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+              }`}
             />
           )}
         </div>

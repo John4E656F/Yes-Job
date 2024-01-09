@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { SearchBar, ListingCard } from '../';
+import { SearchBar, ListingCard, Pagination } from '../';
 import type { ListingData } from '@/types';
 import { createClient } from '@/utils/supabase/client';
 import { useTranslations } from 'next-intl';
@@ -9,7 +9,8 @@ export function Listing() {
   const t = useTranslations('app');
   const [jobPosts, setJobPosts] = useState<ListingData[]>([]);
   const [totalJobOffers, setTotalJobOffers] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   const postsPerPage = 10;
 
@@ -28,9 +29,9 @@ export function Listing() {
           .eq('published', true)
           .eq('expired', false)
           .order('pinned', { ascending: false }) // Order pinned posts first
-          .order('published_at', { ascending: false }) // Then order by most recent
+          .order('published_at', { ascending: true }) // Then order by most recent
           .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
-        // console.log(data);
+        // console.log(data); log data from supabase
 
         if (error) {
           console.error('Error fetching job posts:', error.message);
@@ -59,14 +60,12 @@ export function Listing() {
     fetchTotalJobOffers();
   }, [currentPage]);
 
-  const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
-  };
+  useEffect(() => {
+    setTotalPages(Math.ceil(totalJobOffers / postsPerPage));
+  }, [totalJobOffers, postsPerPage]);
 
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -79,29 +78,14 @@ export function Listing() {
             </h3>
             <h4 className='text-4xl font-semibold'>{t('listing.title')}</h4>
           </div>
-          {/* <SearchBar /> */}
+          {/* <SearchBar /> test this first*/}
         </div>
         <div className='flex flex-col gap-4'>
           {jobPosts.map((jobPost) => (
             <ListingCard key={jobPost.id} jobPost={jobPost} />
           ))}
         </div>
-        <div className='flex justify-between'>
-          <button
-            onClick={handlePreviousPage}
-            disabled={currentPage === 1}
-            className={`bg-blue-500 text-white px-4 py-2 rounded ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            Previous
-          </button>
-          <button
-            onClick={handleNextPage}
-            disabled={jobPosts.length < postsPerPage}
-            className={`bg-blue-500 text-white px-4 py-2 rounded ${jobPosts.length < postsPerPage ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            Next
-          </button>
-        </div>
+        <Pagination total={totalPages} current={currentPage} onChange={handlePageChange} />
       </div>
     </section>
   );
