@@ -154,6 +154,7 @@ const PublishPage: React.FC = () => {
     const result = await publishListing(data);
 
     if (result.type == 'success') {
+      setToastSuccessMessage(t('toast.publishSuccess'));
       setIsSubmitSuccessful(true);
       toggleToast(!isToastOpen);
       setTimeout(() => {
@@ -161,7 +162,7 @@ const PublishPage: React.FC = () => {
         router.push('/');
       }, 5000);
     } else {
-      setToastErrorMessage('Unexpected error, please try again later.');
+      setToastErrorMessage(t('toast.unexpectedError'));
       setTimeout(() => {
         toggleToast(false);
       }, 10000);
@@ -188,7 +189,7 @@ const PublishPage: React.FC = () => {
     const result = await saveNewListingAsDraft({ data: data, path: `/dashboard/job-listing` });
 
     if (result.type == 'success') {
-      setToastSuccessMessage('Your job offer has been saved as draft.');
+      setToastSuccessMessage(t('toast.draftSaveSuccess'));
       setIsSubmitSuccessful(true);
       toggleToast(!isToastOpen);
       setTimeout(() => {
@@ -196,7 +197,7 @@ const PublishPage: React.FC = () => {
         router.push('/dashboard/job-listing');
       }, 2000);
     } else {
-      setToastErrorMessage('Unexpected error, please try again later.');
+      setToastErrorMessage(t('toast.unexpectedError'));
       setTimeout(() => {
         toggleToast(false);
       }, 10000);

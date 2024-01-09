@@ -197,6 +197,12 @@
       "notEnoughListing": "Je hebt geen beschikbare listing, ",
       "pleaseUpgrade": "upgrade alsjeblieft je account."
     },
+    "toast": {
+      "publishSuccess": "Je vacature is succesvol gepubliceerd.",
+      "draftSaveSuccess": "Je vacature is opgeslagen als concept.",
+      "unexpectedError": "Er is een onverwachte fout opgetreden, probeer het later nog eens.",
+      "errorUserExist": "Gebruiker is al geregistreerd, meld je aan."
+    },
     "pricing": {
       "headerTitle": "Prijzen",
       "headerSubTitle": "Flexibele plannen en prijzen",
