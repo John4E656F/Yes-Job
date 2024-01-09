@@ -18,7 +18,7 @@ export function DashboardListingCard({ jobPost, setIsPromotionSuccessful, usedPr
   const t = useTranslations('dashboard');
 
   return (
-    <Card className='flex flex-col items-center md:flex-row ' pinned={false}>
+    <Card className='flex flex-col items-center md:flex-row '>
       <div className='w-full block md:hidden pt-2 pr-2'>
         {!jobPost.expired && jobPost.published ? (
           <div className='flex flex-col gap-2 justify-end'>
