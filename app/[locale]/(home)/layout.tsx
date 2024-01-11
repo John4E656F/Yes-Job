@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { Navbar, Footer, CookieConsentPopup } from '@/components';
+import { Navbar, Footer, CookieConsentPopup, AnnouncementBar } from '@/components';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { locales } from '@/navigation';
@@ -44,6 +44,7 @@ export default async function HomeLayout({ children, params: { locale } }: HomeL
     <html lang={locale}>
       <body className='flex flex-col'>
         <NextIntlClientProvider locale={locale} messages={translation}>
+          {!session && <AnnouncementBar />}
           <Navbar currentLocale={locale} session={session} />
           <section>
             <main className='flex flex-col items-center'>
