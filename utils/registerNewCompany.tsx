@@ -87,6 +87,7 @@ export const registerNewCompany = async (
         logo: companyLogo,
         website: companyWebsite,
         phone: companyPhone,
+        availableJobListing: 5,
       })
       .select('*');
 
