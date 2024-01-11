@@ -28,8 +28,6 @@ export interface FormData {
   requestCount?: number;
   pageViewCount?: number;
   cvFile?: File | null;
-  pinned?: boolean;
   promoted?: boolean;
-  pinned_at?: string | null;
   promoted_at?: string | null;
 }
