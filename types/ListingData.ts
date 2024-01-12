@@ -18,8 +18,6 @@ export interface PublishData {
   externalFormURL: string;
   contactName: string;
   contactEmail: string;
-  pinned?: boolean;
-  pinned_at?: string | null;
 }
 
 export interface ListingData extends PublishData {

@@ -255,6 +255,12 @@
       "buttonSubscribe": "Inschrijven",
       "buttonOrderNow": "Nu bestellen",
       "buttonComingSoon": "Binnenkort beschikbaar"
+    },
+    "announcement": {
+      "release": "Registreer nu en ontvang 5 gratis vacatures! Een warm welkom en geweldige kansen wachten op je.",
+      "releaseLinkRegister": "Registreer hier",
+      "releaseLinkJobPost": "Plaats een vacature",
+      "or": "of"
     }
   },
   "dashboard": {

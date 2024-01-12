@@ -255,6 +255,12 @@
       "buttonSubscribe": "S'abonner",
       "buttonOrderNow": "Commander",
       "buttonComingSoon": "Prochainement"
+    },
+    "announcement": {
+      "release": "Inscrivez-vous maintenant et recevez 5 offres d'emploi gratuites ! Un accueil chaleureux et de grandes opportunités vous attendent.",
+      "releaseLinkRegister": "S'inscrire ici",
+      "releaseLinkJobPost": "Publier un emploi",
+      "or": "ou"
     }
   },
   "dashboard": {

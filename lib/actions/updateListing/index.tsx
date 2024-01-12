@@ -78,8 +78,6 @@ export async function publishDraftListing({ data, path }: EditListingProps) {
         salaryMax: data.salaryMax,
         applicationMethod: data.applicationMethod,
         externalFormURL: data.externalFormURL,
-        pinned: true,
-        pinned_at: new Date().toISOString(),
         published: true,
         published_at: new Date().toISOString(),
       })
@@ -211,8 +209,6 @@ export async function republishListing({ data, path }: EditListingProps) {
         salaryMax: data.salaryMax,
         applicationMethod: data.applicationMethod,
         externalFormURL: data.externalFormURL,
-        pinned: true,
-        pinned_at: new Date().toISOString(),
         published: true,
         published_at: new Date().toISOString(),
         updated_at: null,

@@ -37,3 +37,4 @@ export { BasicPlanCard } from './Card/BasicPlanCard';
 export { CookieConsentPopup } from './Popup/CookieConsentPopup';
 export { Pagination } from './Pagination/Pagination';
 export { LoadingSpinner } from './LoadingSpinner/LoadingSpinner';
+export { AnnouncementBar } from './Announcement/AnnouncementBar';

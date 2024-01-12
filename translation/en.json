@@ -255,6 +255,12 @@
       "buttonSubscribe": "Subscribe",
       "buttonOrderNow": "Order now",
       "buttonComingSoon": "Coming soon"
+    },
+    "announcement": {
+      "release": "Register now and get 5 free job postings! A warm welcome and great opportunities await.",
+      "releaseLinkRegister": "Register here",
+      "releaseLinkJobPost": "Post a job",
+      "or": "or"
     }
   },
   "dashboard": {
