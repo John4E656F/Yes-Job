@@ -28,8 +28,7 @@ export function Listing() {
           )
           .eq('published', true)
           .eq('expired', false)
-          .order('pinned', { ascending: false }) // Order pinned posts first
-          .order('published_at', { ascending: true }) // Then order by most recent
+          .order('published_at', { ascending: false }) // Then order by most recent
           .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
         // console.log(data); log data from supabase
 
