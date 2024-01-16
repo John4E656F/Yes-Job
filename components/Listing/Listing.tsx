@@ -30,7 +30,7 @@ export function Listing() {
           .eq('expired', false)
           .order('published_at', { ascending: false }) // Then order by most recent if false
           .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
-        // console.log(data); log data from supabase
+        // console.log(data); log data from supabases
 
         if (error) {
           console.error('Error fetching job posts:', error.message);
