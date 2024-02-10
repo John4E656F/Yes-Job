@@ -91,7 +91,7 @@
       "dayAgo": "1 day ago",
       "daysAgo": "{days} days ago",
       "monthAgo": "1 month ago",
-      "monthsAgo": "{montsh} months ago"
+      "monthsAgo": "{months} months ago"
     },
     "ads": {
       "title": "We're glad you'd like to advertise with us!",
