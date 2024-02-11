@@ -165,6 +165,7 @@ const PublishPage: React.FC = () => {
       setToastErrorMessage(t('toast.unexpectedError'));
       setTimeout(() => {
         toggleToast(false);
+        setSubmiting(false);
       }, 10000);
     }
 
