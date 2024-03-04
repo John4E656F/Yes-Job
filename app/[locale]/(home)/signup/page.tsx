@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FormInput, InputError, Toast } from '@/components';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl';
 import { signupFormResolver, type SignupFormInputs } from './signupFormResolver';
 import { useForm } from 'react-hook-form';
@@ -12,6 +12,7 @@ import { ToastTitle } from '@/types';
 
 export default function Signup() {
   const t = useTranslations('app');
+  const router = useRouter()
 
   const {
     register,
@@ -49,7 +50,7 @@ export default function Signup() {
       toggleToast(!isToastOpen);
       setTimeout(() => {
         toggleToast(false);
-        redirect('/');
+        router.push('/')
       }, 2000);
       reset();
     } else if (result.type === 'error' && result.message === 'User already registered') {
