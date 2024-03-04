@@ -72,7 +72,7 @@ export default function Signup() {
   };
 
   return (
-    <div className='flex-1 flex flex-col w-full px-2 py-16 sm:max-w-md justify-center gap-2'>
+    <div className='flex-1 flex flex-col w-full px-8 py-16 sm:max-w-md justify-center gap-2'>
       <Toast
         isOpen={isToastOpen}
         onClose={handleCloseToast}

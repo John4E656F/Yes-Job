@@ -183,7 +183,14 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
                   btnType='button'
                   onClick={toggleProfileMenu}
                 />
-              ) : (
+              ) : userData?.profile_picture ? (              
+              <Button
+                className='rounded-full p-1 ring-2 ring-gray-300 max-h-10 max-w-10 w-10 h-10 overflow-hidden'
+                text={<Image src={userData.profile_picture} alt='user avatar' width={40} height={40} className='rounded' />}
+                btnType='button'
+                onClick={toggleProfileMenu}
+              />
+              ): (
                 <HiUser
                   size={40}
                   className='rounded-full p-1 ring-2 ring-gray-300 text-gray-400'
