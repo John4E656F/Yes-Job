@@ -6,7 +6,9 @@
     "nav": {
       "home": "Accueil",
       "contact": "Contact",
-      "pricing": "Nos tarifs"
+      "pricing": "Nos tarifs",
+      "login": "S'identifier",
+      "signup": "S'inscrire"
     },
     "sidebar": {
       "back": "Retour au site principal",

@@ -146,7 +146,14 @@ export function Navbar({ currentLocale, session }: NavbarProps) {
               <li>
                 {!session && (
                   <Link href='/login' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-gray-400'>
-                    Login
+                    {t('nav.login')}
+                  </Link>
+                )}
+              </li>
+              <li>
+                {!session && (
+                  <Link href='/signup' className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:text-gray-400'>
+                    {t('nav.signup')}
                   </Link>
                 )}
               </li>

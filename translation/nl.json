@@ -6,7 +6,9 @@
     "nav": {
       "home": "Thuis",
       "contact": "Contact",
-      "pricing": "Prijsstelling"
+      "pricing": "Prijsstelling",
+      "login": "Inloggen",
+      "signup": "Aanmelden"
     },
     "sidebar": {
       "back": "Terug naar de hoofdpagina",
