@@ -26,6 +26,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
         </Link> */}
       </p>
       <Divider />
+      {userData.isCompany ?
       <ul className='text-base font-medium flex flex-col gap-2 rounded-lg list-none'>
         <li className=''>
           <Link href={`/dashboard/job-listing`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
@@ -46,6 +47,16 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({ isMenuOpen, toggleMenu, menu
           </Link>
         </li> */}
       </ul>
+      :
+      <ul className='text-base font-medium flex flex-col gap-2 rounded-lg list-none'>
+        <li className=''>
+          <Link href={`/dashboard/job-listing`} className='px-5 py-2 flex items-center gap-2 text-gray-900 hover:bg-blue-200' onClick={toggleMenu}>
+            <RiFileList3Line size={24} />
+            View Profile
+          </Link>
+        </li>
+      </ul>
+          }
       <Divider />
       <ul className='text-base font-medium flex flex-col gap-2 rounded-lg list-none'>
         {/* <li className=''>

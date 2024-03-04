@@ -4,6 +4,7 @@ export interface UsersTypes {
   firstname: string;
   lastname: string;
   company_id?: string;
+  isCompany: boolean
   created_at: string;
   id: string;
   user_id: string | null;
