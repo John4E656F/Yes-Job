@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap } from '@/components';
+import { FormInput, ImageUpload, FormSelect, FormCheckbox, FormRadio, FormTextarea, Toast, Button, Tiptap, LoadingSpinner } from '@/components';
 import { getClientUserSession } from '@/lib/actions/getClientUserSession';
 import { useTranslations } from 'next-intl';
 import { redirect, useRouter } from 'next/navigation';
@@ -28,6 +28,7 @@ const PublishPage: React.FC = () => {
     owner_id: '',
     teamMembers: [''],
   });
+  const [submiting, setSubmiting] = useState<boolean>(false);
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
   const [toastErrorMessage, setToastErrorMessage] = useState<string>('');
   const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
@@ -182,6 +183,7 @@ const PublishPage: React.FC = () => {
   ];
 
   const onSubmit = async (data: FirstPublishFormInputs) => {
+    setSubmiting(true);
     // console.log(data);
     let logoUrl = '';
     if (typeof data.logo === 'string') {
@@ -237,11 +239,13 @@ const PublishPage: React.FC = () => {
         setToastErrorMessage(result.message);
         setTimeout(() => {
           toggleToast(false);
+          setSubmiting(false);
         }, 10000);
       } else {
         setToastErrorMessage(t('toast.unexpectedError'));
         setTimeout(() => {
           toggleToast(false);
+          setSubmiting(false);
         }, 10000);
       }
     }
@@ -267,7 +271,7 @@ const PublishPage: React.FC = () => {
       salaryMax: null,
       applicationMethod: 'yesJob',
       externalFormURL: '',
-      companyWebsite: '',
+      companyWebsite: undefined,
       companyPhone: null,
       firstname: '',
       lastname: '',
@@ -579,12 +583,18 @@ const PublishPage: React.FC = () => {
             </>
           )}
         </div>
-
-        <Button
-          btnType='submit'
-          text={t('cta.publishFree')}
-          className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
-        />
+        {submiting ? (
+          <div className=' flex w-auto gap-2 items-center px-4 h-11 justify-center text-sm bg-slate-300 text-blue-600 rounded-lg'>
+            <LoadingSpinner />
+            <p>Submiting...</p>
+          </div>
+        ) : (
+          <Button
+            btnType='submit'
+            text={t('cta.publishFree')}
+            className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+          />
+        )}
       </form>
     </header>
   );

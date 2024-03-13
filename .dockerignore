@@ -1,0 +1,6 @@
+node_modules
+.next
+.git
+.npmrc
+# .env.local
+# .env.*.local

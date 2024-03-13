@@ -28,9 +28,9 @@ export function Listing() {
           )
           .eq('published', true)
           .eq('expired', false)
-          .order('published_at', { ascending: false }) // Then order by most recent
+          .order('published_at', { ascending: false }) // Then order bys most recent if false
           .range((currentPage - 1) * postsPerPage, currentPage * postsPerPage - 1);
-        // console.log(data); log data from supabase
+        // console.log(data); log data from s
 
         if (error) {
           console.error('Error fetching job posts:', error.message);
@@ -77,7 +77,7 @@ export function Listing() {
             </h3>
             <h4 className='text-4xl font-semibold'>{t('listing.title')}</h4>
           </div>
-          {/* <SearchBar /> test this first*/}
+          {/* <SearchBar /> test this firts*/}
         </div>
         <div className='flex flex-col gap-4'>
           {jobPosts.map((jobPost) => (
