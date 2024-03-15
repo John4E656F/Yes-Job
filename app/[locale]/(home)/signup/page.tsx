@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { FormInput, InputError, Toast } from '@/components';
-import { redirect } from 'next/navigation';
+import { FormInput, InputError, Toast, Button, LoadingSpinner } from '@/components';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { signupFormResolver, type SignupFormInputs } from './signupFormResolver';
 import { useForm } from 'react-hook-form';
@@ -12,6 +12,7 @@ import { ToastTitle } from '@/types';
 
 export default function Signup() {
   const t = useTranslations('app');
+  const router = useRouter();
 
   const {
     register,
@@ -34,6 +35,7 @@ export default function Signup() {
   });
 
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean | null>(null);
+  const [submiting, setSubmiting] = useState(false);
   const [toastMessage, setToastMessage] = useState<string>('');
   const { currentState: isToastOpen, toggleState: toggleToast } = useToggle(false);
 
@@ -41,6 +43,7 @@ export default function Signup() {
   // console.log(errors);
   const signUp = async (data: SignupFormInputs) => {
     const result = await signup({ data });
+    setSubmiting(true);
     // console.log(result);
 
     if (result.type === 'success') {
@@ -48,20 +51,23 @@ export default function Signup() {
       setIsSubmitSuccessful(true);
       toggleToast(!isToastOpen);
       setTimeout(() => {
+        setSubmiting(false);
         toggleToast(false);
-        redirect('/');
+        router.push('/en');
       }, 2000);
       reset();
     } else if (result.type === 'error' && result.message === 'User already registered') {
       setToastMessage(t('error.userExist'));
       toggleToast(true);
       setTimeout(() => {
+        setSubmiting(false);
         toggleToast(false);
       }, 10000);
     } else {
       setToastMessage(t('auth.error'));
       toggleToast(true);
       setTimeout(() => {
+        setSubmiting(false);
         toggleToast(false);
       }, 10000);
     }
@@ -131,7 +137,18 @@ export default function Signup() {
           </div>
           {errors.isCompany && <InputError error={{ message: t('error.errorOption') }} />}
         </div>
-        <button className='bg-brand-primary text-white rounded-md px-4 py-2 text-foreground mb-2'>{t('auth.signUp')}</button>
+        {submiting ? (
+          <div className=' flex w-auto gap-2 items-center px-4 h-11 justify-center text-sm bg-slate-300 text-blue-600 rounded-lg'>
+            <LoadingSpinner />
+            <p>Submiting...</p>
+          </div>
+        ) : (
+          <Button
+            btnType='submit'
+            text={t('auth.signUp')}
+            className='w-full md:block md:w-auto items-center px-4 h-11 justify-center text-sm bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200'
+          />
+        )}
         <div className='flex justify-center gap-2'>
           <label className='text-md' htmlFor='signup'>
             {t('auth.alreadyHaveAccount')}
