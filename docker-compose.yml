@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    ports:
+      - '3000:3000'
+    command: npx next dev
+    env_file:
+      - .env.docker
+volumes:
+  node_modules:
